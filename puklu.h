@@ -170,6 +170,7 @@ return -1;
 
 [LanguageToInformese l;
 	#Ifdef HUONO_SUOMI;
+	if (parser_trace > 0)
         print "[HUONO_SUOMI on asetettu vakioksi.]";
  	#Endif; ! HUONO_SUOMI
 
