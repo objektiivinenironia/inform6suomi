@@ -5,7 +5,7 @@ Most of the good parts were taken from the Russian Library by Denis Gayev, the S
 More info (in finnish) at
 http://code.google.com/p/inform6suomi
 
-The version 6/11 of the Inform Library is copyright Graham Nelson 1993-2004. Full release notes and instructions for it are available at
+The version 6/11 of the Inform Library is copyright Graham Nelson 1993-2004. Full release notes and instructions are available at
 http://www.inform-fiction.org
 
 
