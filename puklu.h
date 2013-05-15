@@ -375,7 +375,7 @@ print
 			 	break;	 
 			  	} 	
 			   } 
-		        }; !!+ uusi puolipiste (turhaan?)
+		        }        !; !!+ uusi puolipiste (turhaan?)
 		! "lname" loppu
 
 
