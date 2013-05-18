@@ -1,5 +1,3 @@
-!! tätäkin on suomennettu...
-
 ! ==============================================================================
 !   VERBLIBM:  Core of standard verbs library.
 !
@@ -35,8 +33,7 @@ Include "linklv";
     }
     if (Headline ~= 0) print (string) Headline;
     #Ifdef TARGET_ZCODE;
-    !!!#print "Release ", (HDR_GAMERELEASE-->0) & $03ff, " / Serial number ";
-    print "Jakeluversio ", (HDR_GAMERELEASE-->0) & $03ff, " / Sarjanumero ";
+    print "Release ", (HDR_GAMERELEASE-->0) & $03ff, " / Serial number ";
     for (i=0 : i<6 : i++) print (char) HDR_GAMESERIAL->i;
     #Ifnot; ! TARGET_GLULX;
     print "Release ";
@@ -46,7 +43,7 @@ Include "linklv";
     for (i=0 : i<6 : i++) print (char) ROM_GAMESERIAL->i;
     #Endif; ! TARGET_
     print " / Inform v"; inversion;
-    print " Kirjasto ", (string) LibRelease, " ";
+    print " Library ", (string) LibRelease, " ";
     #Ifdef STRICT_MODE;
     print "S";
     #Endif; ! STRICT_MODE
@@ -59,8 +56,6 @@ Include "linklv";
     #Endif; ! INFIX
     new_line;
 ];
-
-!! ...tänne asti
 
 [ VersionSub ix;
     Banner();
@@ -306,7 +301,7 @@ Constant NOARTICLE_BIT  4096;       ! Print no articles, definite or not
 
     if (c_style & ISARE_BIT ~= 0) {
         if (j == 1 && o hasnt pluralname) print (string) IS__TX;
-        else                              print (string) IS__TX; !¤ was: ARE__TX;
+        else                              print (string) ARE__TX;
         if (c_style & NEWLINE_BIT ~= 0)   print ":^";
         else                              print (char) ' ';
         c_style = c_style - ISARE_BIT;
@@ -1617,7 +1612,6 @@ Constant NOARTICLE_BIT  4096;       ! Print no articles, definite or not
     L__M(##PutOn, 8, noun);
 ];
 
-
 [ InsertSub ancestor;
     receive_action = ##Insert;
     if (second == d_obj || player in second) <<Drop noun>>;
@@ -1657,7 +1651,6 @@ Constant NOARTICLE_BIT  4096;       ! Print no articles, definite or not
     if (multiflag == 1) return L__M(##Insert, 8, noun);
     L__M(##Insert, 9, noun);
 ];
-
 
 ! ----------------------------------------------------------------------------
 !   Empties and transfers are routed through the actions above
@@ -2233,7 +2226,6 @@ Constant NOARTICLE_BIT  4096;       ! Print no articles, definite or not
     L__M(##Answer, 1, noun);
 ];
 
-
 [ AskSub;
     if (RunLife(noun,##Ask) ~= 0) rfalse;
     L__M(##Ask, 1, noun);
@@ -2361,7 +2353,6 @@ Constant NOARTICLE_BIT  4096;       ! Print no articles, definite or not
     if (RunLife(second,##ThrowAt) ~= 0) rfalse;
     L__M(##ThrowAt, 2, noun);
 ];
-
 
 [ TieSub; L__M(##Tie,1,noun); ];
 
