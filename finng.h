@@ -37,7 +37,7 @@ Verb meta 'recording' 'nauhoitus'
     * 'off'                                -> CommandsOff;
 Verb meta 'replay'
     *                                      -> CommandsRead;
-Verb meta 'aloita' 'restart' 'alusta' 'uusi'
+Verb meta 'aloita' 'restart' 'alusta' 'uusi' 'alkuun'
     *                                      -> Restart
     * 'alusta'                             -> Restart;
 Verb meta 'lataa' 'restore'
