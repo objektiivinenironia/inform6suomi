@@ -8,6 +8,6 @@ http://code.google.com/p/inform6suomi
 The version 6/11 of the Inform Library is copyright Graham Nelson 1993-2004. Full release notes and instructions are available at
 http://www.inform-fiction.org
 
+OHJE
 
-
-
+Lataa Inform 6/11 kirjasto ja 

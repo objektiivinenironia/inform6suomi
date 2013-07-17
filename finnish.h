@@ -1,5 +1,5 @@
 ! ==============================================================================
-!   FINNISH:  Language Definition File (ks. versio)
+!   FINNISH:  Language Definition File
 !					
 !   Supplied for use with Inform 6 -- Release 6/11 -- Serial number 040227
 !
@@ -31,7 +31,7 @@ Replace Adjudicate;
 Replace PrintCommand; 
 Replace CantSee; 
 
-Constant LanguageVersion = "Suomi - versio ~alfapuklu~ 0.341";
+Constant LanguageVersion = "Suomi (Finnish) 1. Beta";
 
 Constant LanguageCases = 11;	
 

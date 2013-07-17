@@ -1,5 +1,9 @@
-! parserm_fi.h
-! ============
+! parsermfi.h
+! ===========
+! Replaces routines (edited for use with Finnish language definitions) 
+! in parserm.h from the Inform Library 6/11, this isn't really a part of it.
+! Somewhat temporary!
+!
 ! Korvaa Parserm.h rutiineja, mutta monet muutokset on olleet v‰liaikaisia,
 ! esim. virheiden etsimist‰ v‰liaikaisilla tulostuksilla - toiminnallisia 
 ! muutoksia ei ole v‰ltt‰m‰tt‰ en‰‰ kaikissa ao rutiineissa...

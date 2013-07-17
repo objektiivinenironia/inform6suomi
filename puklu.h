@@ -1,12 +1,9 @@
 ! puklu.h 
 ! =======
-! Routines for finnish. See README.
-!
-! Jaettu kahteen osaan: Parsimista (I) ja Tulostamista (II).  
-!
+! Rutiineja parsimiseen ja tulostamiseen.  
 
-! I: Parsimista
-! -------------
+! Parsimista
+! ----------
 
 System_file;
 
@@ -439,8 +436,8 @@ print
 
 
 
-! II: Tulostusta
-! --------------
+! Tulostusta
+! ----------
 
 
 ! (RusMCE) - tätä ei ole vielä käytetty...

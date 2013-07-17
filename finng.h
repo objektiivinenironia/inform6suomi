@@ -1,3 +1,6 @@
+!   finng.h
+!   =======
+!   Suomenkieliset verbit. 
 ! ==============================================================================
 !   GRAMMAR:  Grammar table entries for the standard verbs library.
 !	
@@ -8,7 +11,7 @@
 !   In your game file, Include three library files in this order:
 !       Include "Parser";
 !       Include "VerbLib";
-!       Include "Grammar";
+!       Include "Grammar"; (Suomeksi: Include "finng";)
 ! ==============================================================================
 
 System_file;
