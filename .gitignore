@@ -1,0 +1,10 @@
+# j‰tt‰‰ pois standardikirjaston (ja INFIXin ja READMEn)
+English.h
+INFIX.h
+linklpa.h
+linklv.h
+parser.h
+parserm.h
+README.txt
+verblib.h
+verblibm.h
