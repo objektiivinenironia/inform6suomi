@@ -1,14 +1,9 @@
 ! parsermfi.h
 ! ===========
-! Replaces routines (edited for use with Finnish language definitions) 
-! in parserm.h from the Inform Library 6/11, this isn't really a part of it.
-! Somewhat temporary!
-!
-! Korvaa Parserm.h rutiineja, mutta monet muutokset on olleet väliaikaisia,
-! esim. virheiden etsimistä väliaikaisilla tulostuksilla - toiminnallisia 
-! muutoksia ei ole välttämättä enää kaikissa ao rutiineissa...
-! ...Pitäisi katsoa mihin ao. rutiineista on jäänyt oleellisia muutoksia
-! (verrattuna parserm-tiedostoon) ja jättää vain muokatut.
+! Tässä tiedostossa on korvattuja pätkiä tiedostosta Parserm.h, 
+! osa väliaikaisesti...
+!...Pitäisi katsoa mihin on jäänyt oleellisia muutoksia
+! ja jättää vain ne.
 
 
 !!!# Parser__Parse
@@ -612,12 +607,7 @@
                 }
                 #Endif; ! DEBUG
   
-    !#Ifdef HUONO_SUOMI;
-    !#Ifdef DEBUG;
-    !if (parser_trace >= 1) print "   [HUONO_SUOMI (Parser__Parse) re-parse request pois!]^";
-    !#Endif; ! DEBUG
-    !if (l == REPARSE_CODE) l = 0;
-    !#Endif; ! HUONO_SUOMI
+
   
                 if (l == REPARSE_CODE) jump ReParse;
                 if (l == false) break;

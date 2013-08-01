@@ -1,6 +1,6 @@
 ! puklu.h 
 ! =======
-! Rutiineja parsimiseen ja tulostamiseen.  
+! Rutiinit suomen parsimiseen ja tulostamiseen.  
 
 ! Parsimista
 ! ----------
