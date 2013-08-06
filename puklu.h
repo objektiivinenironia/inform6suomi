@@ -324,6 +324,8 @@ print
 ! tosin lname pitää antaa tavallisen name propertyn _lisäksi_.
 ! esim.: tuubi with name 'hammastahna', lname "hammastahnatuubi"...
 ! tahna with name 'hammastahna', lname "hammastahna"
+!
+! [Huom! lname pitkille nimille (>9) ei toimi! (poista?)]
 
 [ LanguageRefers  obj wnum adr len end w csID a n f limit; 
 

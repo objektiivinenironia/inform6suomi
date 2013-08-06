@@ -31,7 +31,7 @@ Replace Adjudicate;
 Replace PrintCommand; 
 Replace CantSee; 
 
-Constant LanguageVersion = "Suomi (Finnish) 1. Beta";
+Constant LanguageVersion = "Suomi (Finnish)";
 
 Constant LanguageCases = 11;	
 
@@ -475,7 +475,7 @@ Constant IS2__TX        = "on ";
 Constant ARE2__TX       = "on ";                     
 Constant AND__TX        = " ja "; 
 Constant WHOM__TX       = "joka ";     
-Constant WHICH__TX      = "jossa "; !! "jossa"/"jolla" vai "joka sis‰lt‰‰"/"jolla on"   
+Constant WHICH__TX      = " "; ! ks. ListMiscellany 19 ja 21 ("jossa" vai "jolla")   
 Constant COMMA__TX      = ", ";
 
 !! huono: ao. pit‰isi olla "tai" eik‰ "ja" - esim. "SitataiNiita"
@@ -846,9 +846,9 @@ if (obj == player)      { print "Itseesi"; return; }
 	16: print " ja "; if (x1 has pluralname) print "tyhji‰"; else print "tyhj‰";
 	17: print " (", (jokajajotka) x1, " ", (onjaovat) x1; if (x1 has pluralname) print " tyhji‰)"; else print " tyhj‰)";
 	18: print " sis‰lt‰‰ ";         ! sis‰lt‰‰/sis‰lt‰v‰t?
-	19: print " (";                 ! jolla?
+	19: print " (jolla";                 ! taso
 	20: print ", jonka p‰‰ll‰ ";
-	21: print " (";                 ! jossa?
+	21: print " (jossa";                 ! s‰iliˆ
 	22: print ", sis‰ll‰ ";
     }
   LMode1:   " is now in its normal ~brief~ printing mode, which gives long descriptions
