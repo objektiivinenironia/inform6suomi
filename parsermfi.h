@@ -940,12 +940,6 @@
     x = lookahead; lookahead = NOUN_TOKEN;
     y = ParseToken__(given_ttype,given_tdata,token_n);
  
- !#Ifdef HUONO_SUOMI;
- !#Ifdef DEBUG;
- ! if (parser_trace >= 1 && y == GPR_REPARSE) print "   [HUONO_SUOMI (ParseToken) hyppää ReParse!]^";
- !#Endif; ! DEBUG
- !if (y == GPR_REPARSE) return GPR_FAIL;
- !#Endif; ! HUONO_SUOMI
       
  if (y == GPR_REPARSE) {Tokenise__(buffer,parse);}; !!!## temporary2 poistettu
  
@@ -1467,12 +1461,7 @@
     if (parser_trace >= 4) print "   [ND made ", number_matched, " matches]^";
     #Endif; ! DEBUG
   
-  !  #Ifdef HUONO_SUOMI;
-  !  #Ifdef DEBUG;
-  !  if (parser_trace >= 1) print "   [HUONO_SUOMI (NounDomain)]^";
-  !  #Endif; ! DEBUG
-  !  if (number_matched > 1) return 0;
-  !  #Endif; ! HUONO_SUOMI
+
     
     wn = match_from+match_length;
 
@@ -2037,24 +2026,6 @@
 
         if (flag) {
   
-#Ifdef HUONO_SUOMI;
-#Ifdef DEBUG;
-	if (parser_trace >= 1) 
-print "   [HUONO_SUOMI (Parsermfi: Adjudicate) Unable to choose best... mutta älä kysy pelaajalta.]^";
-#Endif; ! DEBUG
-! antaa ao. virheilmoituksen (puklu: parsererror tulostaa sen), ei uudelleenparsimispyyntöä.
-etype = "En osaa valita..."; 
-!!  print sija; 
-return GPR_FAIL; ! oli: "Liikaa vaihtohtoja..."
-#Ifnot;
-               
-              #Ifdef DEBUG;
-                        if (parser_trace >= 4) print "   Unable to choose best group, so ask player.]^";
-  	    
-              #Endif; ! DEBUG
-              return 0; 
-              
-#Endif; ! HUONO_SUOMI
           }
          #Ifdef DEBUG;
          if (parser_trace >= 4) print "   Best choices are all from the same group.^";

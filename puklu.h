@@ -165,17 +165,11 @@ return -1;
 !        tasoa -> taso a -> taso -> tasoLLE
 !
 
-[LanguageToInformese l;
-	#Ifdef HUONO_SUOMI;
-	if (parser_trace > 0)
-        print "[HUONO_SUOMI on asetettu vakioksi.]";
- 	#Endif; ! HUONO_SUOMI
-
- 	#Ifdef DEBUG;
- !!-	if (parser_trace >= 0 && l == 10000) print "* Uudelleenparsiminen * ^";
- 	#Endif; ! DEBUG
-
- ];
+! [LanguageToInformese l;
+! 	#Ifdef DEBUG;
+! 	#Endif; ! DEBUG
+!
+! ];
 
 
 ! allaoleva tulostaa virheilmoituksia - esim. toimimattoman sijap‰‰tteen
