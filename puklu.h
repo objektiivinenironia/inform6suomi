@@ -313,15 +313,9 @@ print
 !
 ! Parseri kysyy languagerefersiltä kelpaako syöte sanakirjasanaksi
 ! languagerefers vastaa sen perusteella mitä endinglookup
-! kertoo sijapäätteestä. Jos objektille antaa lname propertyn,
-! voi kirjoittaa objektille 9 merkkiä (v5 ja v8) pidempiä nimiä (yhdyssanat), 
-! tosin lname pitää antaa tavallisen name propertyn _lisäksi_.
-! esim.: tuubi with name 'hammastahna', lname "hammastahnatuubi"...
-! tahna with name 'hammastahna', lname "hammastahna"
-!
-! [Huom! lname pitkille nimille (>9) ei toimi! (poista?)]
+! kertoo sijapäätteestä. 
 
-[ LanguageRefers  obj wnum adr len end w csID a n f limit; 
+[ LanguageRefers  obj wnum adr len end w csID; 
 
 	adr = WordAddress(wnum); len = WordLength(wnum);
 	
@@ -337,41 +331,6 @@ print
 	for (end = len: end ~= 0 : --end) 
 	{
 		w = DL (adr, end); 
-
-		! "lname" - käyttää "istring":iä (LStrLen)
-		if (len >= 9 && w ~= 0 && WordInProperty (w, obj, name) && obj provides lname) 
-		 	{
-		 		 	
-		 	n = (obj.#lname/2);  
-			for (f=0:f<n:f++) 
-			   { 						
-			LongArr-->0 = LongLen-1;
-			@output_stream 3 LongArr;
-			print (string) obj.&lname-->f;
-			@output_stream -3;
-
-			limit = (LongArr-->0) +2;
-
-			for (a = 0 : a ~= limit : a++) 
-				{ 
-				if ((a == LStrLen(obj.&lname-->f)) && EndingLookup (adr+end, len-end, csID))
-					{ 
-					  #Ifdef DEBUG;	
-					  if (parser_trace > 0)
-					    { print "^Debug -- pitkä nimi! (lname) pit: ", f , " --^   "; 
-					      debugsijat(wnum, len, end, w, csID);
-					    };
-					  #Endif;
-					rtrue; 
-					};  
-			 	if ((LongArr->(a+2) ~= adr->a) && (a <= LStrLen(obj.&lname-->f))) 
-			 	break;	 
-			  	} 	
-			   } 
-		        }        !; !!+ uusi puolipiste (turhaan?)
-		! "lname" loppu
-
-
 
 		if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID) )
 		

@@ -261,7 +261,6 @@ Array LanguageNumbers table
 !   Part III.   translation... 
 ! --------------------------------------------------------------------
 
-Include "istring";	! L.Ross Raszewskin merkkijonofunktioita 
 Include "puklu";	! parsimista ja tulostamista
 Include "parsermfi";    ! "Parserm"-tiedoston muokatut rutiinit
 
