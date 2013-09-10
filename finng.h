@@ -253,6 +253,7 @@ Verb 'tyhjää' 'tyhjennä'
     * nom_noun ill_noun                    -> EmptyT
     * nom_noun all_noun                    -> EmptyT;
 Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
+    *                                      -> Inv
     * par_noun                             -> Examine
     * noun                                 -> Examine;
 Verb 'exit' 'ulos'
@@ -270,7 +271,7 @@ Verb 'lahjo' 'ruoki'
     * creature ade_held                    -> Give reverse;
 Verb 'tunge'
     * multiexcept ill_noun                 -> Insert;
-Verb 'inv' 'inventoi' 'inventaario' 'tarvikkeet' 'lista' 'm//'
+Verb 'inv' 'tavarat' 'inventoi' 'inventaario' 'tarvikkeet' 'lista' 'm//'
     *                                      -> Inv
     * 'pitkä'/'p'                          -> InvTall
     * 'leveä'/'l'                          -> InvWide;
