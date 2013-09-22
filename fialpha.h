@@ -1,9 +1,9 @@
 ! fialpha.h
 ! =========
-! From Swedish lib by Fredrik Ramsberg, except the banner translation
-! (from verblibm.h)
+! From Swedish Library by Fredrik Ramsberg, except the banner translation
+! which is from verblibm (Library 611):
 !
-! Contains a Z-machine alphabet optimised for Swedish [and Finnish]. 
+! Contains a Z-machine alphabet optimised for Swedish. 
 ! Must be included before any text in encoded, even before declaring 
 ! the constants Story and Headline.
 !
@@ -24,7 +24,7 @@ Zcharacter "abcdefghijklmnoprstuvxyåäö"
               "012345.,!?'/-:()wqzWQZé";
 #endif;
 
-!! Banneri suomeksi (from verblibm). 
+! The Inform banner in Finnish 
 
 Replace Banner;
 

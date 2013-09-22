@@ -21,17 +21,18 @@ System_file;
 ! ------------------------------------------------------------------------------
 
 !! Allaolevat <Replace ...> on muokattuja ja korvattuja rutiineja tiedostosta "parserm.h". 
-!! Muokatut on tiedostossa "parsermfi.h".
+!! Muokatut on tiedostossa "parsermfi.h". 
+!! Osa on kommentoitu pois (turhaan korvattu) 22.9.2013
 
-Replace Parser__Parse; 
-Replace ParseToken;
-Replace ParseToken__;
+!! Replace Parser__Parse; 
+!! Replace ParseToken;
+!! Replace ParseToken__;
 Replace NounDomain; 
 Replace Adjudicate; 
 Replace PrintCommand; 
-Replace CantSee; 
+!! Replace CantSee; 
 
-Constant LanguageVersion = "Suomi (Finnish)";
+Constant LanguageVersion = "Finnish";
 
 Constant LanguageCases = 11;	
 
@@ -155,8 +156,8 @@ Constant BUT2__WD       = 'paitsi';
 Constant BUT3__WD       = 'mutta';
 Constant ME1__WD        = 'minä';
 Constant ME2__WD        = 'minu';
-Constant ME3__WD        = 'itseä';	!!! miksei 'itseÄ' toimi
-!Constant ME4__WD	= 'itseä';	!!! esim.: 'tutki itseä', 'minua'
+Constant ME3__WD        = 'itse';	
+!Constant ME4__WD	= 'minut';	
 Constant OF1__WD        = 'of';
 Constant OF2__WD        = 'of';
 Constant OF3__WD        = 'of';

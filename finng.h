@@ -342,17 +342,23 @@ Verb 'työnnä' 'puske' 'liikuta'
     * par_noun ill_noun                    -> PushDir;
   
 Verb 'laita' 'pane' 'pistä' 'aseta'
-!    * nom_multiexcept ill_noun             -> Insert
+! "laita kori koneeseen" tai "laita kaikki paitsi kori koneeseen"
+!!! lisää: kaikkea... par_multiexcept
+!!! lisää: samat reversenä, ainakin kommentoituna!
+    * nom_multiexcept ill_noun             -> Insert 
+! "laita vettä ämpäriin"
     * par_noun ill_noun                    -> Insert
-!    * nom_multiexcept all_noun             -> PutOn
+! "laita ämpäri pöydälle" tai "laita kaikki paitsi ämpäri pöydälle"
+    * nom_multiexcept all_noun             -> PutOn
+! "laita astioita pöydälle"    
     * par_noun all_noun                    -> PutOn
-    * nom_noun ill_noun                    -> Insert !!++
-    * multiexcept all_noun                 -> PutOn
-    * ill_noun par_noun                    -> Insert reverse
-    * ill_noun multiexcept                 -> Insert reverse
+ !-   * nom_noun ill_noun                    -> Insert !!++
+ !-   * multiexcept all_noun                 -> PutOn !! >laita koneeseen ->(pyykkikorille)
+ !-   * ill_noun par_noun                    -> Insert reverse
+  !-  * ill_noun multiexcept                 -> Insert reverse
     * nom_noun gen_noun 'sisään'           -> Insert
     * nom_noun gen_noun 'päälle'           -> Puton 
-    * all_noun multiexcept                 -> PutOn reverse
+    * all_noun nom_multiexcept                 -> PutOn reverse
 !    * 'on' held                             -> Wear
     * 'pois' nom_multiheld                 -> Drop
     * multiheld 'pois'                     -> Drop;
