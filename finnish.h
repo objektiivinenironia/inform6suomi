@@ -28,7 +28,7 @@ System_file;
 !! Replace ParseToken;
 !! Replace ParseToken__;
 Replace NounDomain; 
-Replace Adjudicate; 
+!! Replace Adjudicate; 
 Replace PrintCommand; 
 !! Replace CantSee; 
 
@@ -944,7 +944,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 ! genetiivi
 	24: "Et voi puhua ", (genetiivi) x1, " kanssa.";
 	25: "Puhuaksesi jollekulle, kokeile ~joku, terve~ tms.";
-	26: "(ensin ottaen ", (monikko_vai_yks) not_holding, ")";
+	26: "(ottamalla ensin ", (monikko_vai_yks) not_holding, ")";
 	27: "En käsittänyt tuota lausetta.";
 	28: print "Ymmärsin vain: ";
 	29: "En käsittänyt tuota numeroa.";
