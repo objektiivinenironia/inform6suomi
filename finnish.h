@@ -60,15 +60,17 @@ Constant Alku =		20; !pu
 
 ! Verbit...
 
-Constant vbImp =	21; !pue
-Constant vbInf =	22; !pukea
-Constant vbYks1 =	23; !puen
-Constant vbYks2 =	24; !puet
-Constant vbYks3 =	25; !pukee
-Constant vbMon1 =	26; !puemme
-Constant vbMon2 =	27; !puette
-Constant vbMon3 =	28; !pukevat 
-			
+Constant vbImp = 21; !pue
+Constant vbInf = 22; !pukea
+Constant vbY1 =	23; !puen
+Constant vbY2 =	24; !puet
+Constant vbY3 =	25; !pukee
+Constant vbM1 =	26; !puemme
+Constant vbM2 =	27; !puette
+Constant vbM3 =	28; !pukevat 
+
+
+
 ! ei artikkeleita...
   
 [ LtoU ch;
@@ -112,10 +114,10 @@ CompassDirection -> w_obj "län/si"
 	gen "nen", par "ttä", ess"tenä", ill "teen";
 CompassDirection -> ne_obj "koillinen"
 		    with door_dir ne_to, name 'ko' 'koillis' 'koillise'; 
-CompassDirection -> sw_obj "lounas" 
-		    with door_dir sw_to, name 'lo' 'lounaa' 'lounaaseen' 'lounais';
 CompassDirection -> nw_obj "luode"
 		    with door_dir nw_to, name 'lu' 'luode' 'luoteeseen' 'luote' 'luoteis';
+CompassDirection -> sw_obj "lounas" 
+		    with door_dir sw_to, name 'lo' 'lounaa' 'lounaaseen' 'lounais';
 CompassDirection -> se_obj "kaakko"
 		    with door_dir se_to, name 'ka' 'kaakko' 'kaakkoon' 'kaakkois';
 CompassDirection -> u_obj "yläpuolella"
@@ -388,12 +390,18 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! VerbDepot (venäjänkielisestä käännöksestä) - tulostaa verbin (esim "vedä")
 ! verbdepotissa annetun verbin vaihtoehtoisen tapaluokan (esim. "vetää").
 
-[ LanguageVerb word
- obj;
-
+[ LanguageVerb word t obj;
+    
+! t on se missä muodossa verbi halutaan tulostaa
+    
  objectloop (obj in VerbDepot) {
-	if (WordInProperty (word, obj, name))
-		{ print (object) obj; rtrue; }
+	if (WordInProperty (word, obj, name))		
+	    switch (t) {
+		1: print (name) obj; rtrue;
+ 	        2: print (imperatiivi) obj; rtrue;
+	        3: print (infinitiivi) obj; rtrue;		
+		default: print (object) obj; rtrue;
+	    }
 	}
 
  rfalse;
@@ -416,7 +424,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 ! ----------------------------------------------------------------------------
 !  LanguageVerbLikesAdverb is called by PrintCommand when printing an UPTO_PE
-!  error or an inference message.  Words which are intranslatiiviitive verbs, i.e.,
+!  error or an inference message.  Words which are intransitive verbs, i.e.,
 !  which require a direction name as an adverb ('walk west'), not a noun
 !  ('I only understood you as far as wanting to touch /the/ ground'), should
 !  cause the routine to return true.
@@ -668,6 +676,10 @@ if (obj == player)      { print "Itseesi"; return; }
 [ k_translatiivi obj; 	CCase (obj, csTra, true); ];
 
 [ k_allatiivi obj;	CCase (obj, csAll, true); ];
+
+!! verbilöitä
+[ imperatiivi obj;	CCase (obj, vbImp, false); ];
+[ infinitiivi obj;	CCase (obj, vbInf, false); ];
 
 
 

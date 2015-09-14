@@ -408,7 +408,7 @@ print
 ];
 
 
-! ks. finng.h - etsii sijapäätteen (verbien tulostamisessa) 
+! ks. finng.h - etsii sijapäätteen 
 [ c_token  idtok csID
   retval;
 
@@ -442,7 +442,7 @@ return retval;
 
 
 
- [ LanguagePrintShortName obj
+[ LanguagePrintShortName obj
   sn;
 
    sn = short_name;
@@ -450,7 +450,7 @@ return retval;
 	! if (obj provides sn && PrintOrRun(obj, sn, 1) ~= 0) rtrue;
 
 if (sija ~= 0) rfalse; !!!# LPSN ei tee mitään jos globaali sija on muuta kuin nolla 
-if (sija == 0 && obj hasnt oletus_par) CCase (obj, csNom, false);	!!!# nominatiivi ) print "nolla^";
+if (sija == 0 && obj hasnt oletus_par) CCase (obj, csNom, false);	!!!# nominatiivi 
 if (sija == 0 && obj has oletus_par) CCase (obj, csPar, false); 
 rtrue;
 ];
@@ -462,7 +462,10 @@ Array Suttu --> SutLen;
 [ CCase obj csID ucase i dlm limit at vart; 
 	
 	sija = csID;
-	
+
+        !VERBI if (sija == 21) print "[imp]";
+    
+    
 	if (csID ~= 0) { 	!!!# jättää käsittelemättä sijamuodon oletuksen (0)   
 						
 	at = 0;
@@ -562,7 +565,7 @@ Juttu-->0 = JutLen-1;
 
 @output_stream 3 Juttu;
 
-	if (csID == csIll) 					!!!# tila
+ 	if (csID == csIll) 					!!!# tila
 		{ if (obj provides ill) print (string) obj.ill; !!!# päis
 		  else print (string) obj.ess; };		!!!# ratk
 
@@ -579,6 +582,10 @@ Juttu-->0 = JutLen-1;
 		csAbl: print (string) obj.gen;
 		csTra: print (string) obj.gen;
 		csAll: print (string) obj.gen;
+	    !!VERBI
+	 vbImp: print (string) obj.imp; 
+	    
+	    
 		};
 
 	!!!# Alla monikon astevaihtelu esim. "reikien"
@@ -706,8 +713,8 @@ if ((num == at-1) && (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä')
 					
 				csTra: print "KSI";
 				csAll: print "LLE"; }
-			
-	if (csID ~= csTra or csAll) {
+    !! VERBI temp: vbImp
+	if (csID ~= csTra or csAll or vbImp) {
 		ParArr-->0 = ParLen-1;
 		@output_stream 3 ParArr;
 		print (string) obj.par;
