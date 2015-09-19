@@ -62,6 +62,7 @@ Constant Alku =		20; !pu
 
 Constant vbImp = 21; !pue
 Constant vbInf = 22; !pukea
+Constant vbInd = 25; !!! samakuin vbY3
 Constant vbY1 =	23; !puen
 Constant vbY2 =	24; !puet
 Constant vbY3 =	25; !pukee
@@ -389,6 +390,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 ! VerbDepot (venäjänkielisestä käännöksestä) - tulostaa verbin (esim "vedä")
 ! verbdepotissa annetun verbin vaihtoehtoisen tapaluokan (esim. "vetää").
+   
+    
 
 [ LanguageVerb word t obj;
     
@@ -397,15 +400,48 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
  objectloop (obj in VerbDepot) {
 	if (WordInProperty (word, obj, name))		
 	    switch (t) {
-		1: print (name) obj; rtrue;
- 	        2: print (imperatiivi) obj; rtrue;
-	        3: print (infinitiivi) obj; rtrue;		
+		vbImp: print (impe) obj; rtrue;
+	        vbInf: print (inf) obj; rtrue;		
 		default: print (object) obj; rtrue;
 	    }
 	}
 
  rfalse;
 ];
+
+[ PrintVerb actor t word obj;   
+! t on se missä muodossa verbi halutaan tulostaa
+
+    word = Verb_Word;
+
+if (actor hasnt pluralname) {    
+    if (t == vbInd && actor == player) t = vbY2;
+    if (t == vbInd && actor ~= player) t = vbY3;
+}
+
+!! pelaajaakin voisi teititellä tulevaisuudessa?    
+if (actor has pluralname) {    
+      if (t == vbInd && actor ~= player) t = vbM3;
+}
+    
+    
+ objectloop (obj in VerbDepot) {
+	if (WordInProperty (word, obj, name))		
+	    switch (t) {
+		vbImp: print (imperatiivi) obj; rtrue;
+	        vbInd: print (indikatiivi) obj; rtrue;
+	     vbY2: print (Y2) obj; rtrue;		
+	     vbY3: print (Y3) obj; rtrue;		
+	     vbM3: print (M3) obj; rtrue;		
+		default: print (object) obj; rtrue;
+	    }
+	}
+
+ rfalse;
+
+    
+];
+
 
 
 ! ----------------------------------------------------------------------------
@@ -469,9 +505,9 @@ Constant SCORE__TX      = "Pisteet: ";
 Constant MOVES__TX      = "Vuorot: ";
 Constant TIME__TX       = "Aika: ";
 Constant CANTGO__TX     = "Et pääse siihen suuntaan.";
-Constant FORMER__TX     = "aiempi sinäsi";
-Constant YOURSELF__TX   = "sinä itse";
-Constant YOU__TX        = "Sinä";
+Constant FORMER__TX     = "aiempi itsesi";
+Constant YOURSELF__TX   = "sinä itse"; !! pitäisi taivuttaa
+Constant YOU__TX        = "Sinä"; !! kuin myös?
 Constant DARKNESS__TX   = "Pimeys";
 
 Constant THOSET__TX     = "niitä"; 
@@ -678,8 +714,24 @@ if (obj == player)      { print "Itseesi"; return; }
 [ k_allatiivi obj;	CCase (obj, csAll, true); ];
 
 !! verbilöitä
+
+!Constant vbImp = 21; !pue
+!Constant vbInf = 22; !pukea
+!Constant vbY1 =	23; !puen
+!Constant vbY2 =	24; !puet
+!Constant vbY3 =	25; !pukee
+!Constant vbM1 =	26; !puemme
+!Constant vbM2 =	27; !puette
+!Constant vbM3 =	28; !pukevat 
+
 [ imperatiivi obj;	CCase (obj, vbImp, false); ];
-[ infinitiivi obj;	CCase (obj, vbInf, false); ];
+[ indikatiivi obj;	CCase (obj, vbInd, false); ];
+[ Y1 obj;	CCase (obj, vbY1, false); ];
+[ Y2 obj;	CCase (obj, vbY2, false); ];
+[ Y3 obj;	CCase (obj, vbY3, false); ];
+[ M1 obj;	CCase (obj, vbM1, false); ];
+[ M2 obj;	CCase (obj, vbM2, false); ];
+[ M3 obj;	CCase (obj, vbM3, false); ];
 
 
 

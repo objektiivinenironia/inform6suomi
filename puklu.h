@@ -463,7 +463,6 @@ Array Suttu --> SutLen;
 	
 	sija = csID;
 
-        !VERBI if (sija == 21) print "[imp]";
     
     
 	if (csID ~= 0) { 	!!!# jättää käsittelemättä sijamuodon oletuksen (0)   
@@ -500,10 +499,11 @@ Array Suttu --> SutLen;
 
 	if (csID == csIne) vart = 1;
 
-        
+    
 !! '>/' tulostaa '/' olion nimessä ('>>' tulostaa '>').  
 !! tulostettu "/" tarkoittaa sanan vaihtumista kuten " ". 	    
 !! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
+	    
      	    
 	if (csID < 2) !!!# nominatiivi (1) tai csDflt (0)
 	for (i = 2: i ~= limit: ++ i) {
@@ -514,25 +514,29 @@ Array Suttu --> SutLen;
 
 
 	if (csID > 1) !!!# ei nominatiivi (1) eikä csDflt (0)
-	for (i = 2: i ~= limit: ++ i) 
+	for (i = 2: i ~= limit: ++ i)
 	{    if (Suttu->i == '/' && Suttu->(i-1) ~= '>') 
-    	{ if (dlm == 0) { dlm = Suttu+i; }
-	else {	at++; CaseEnd (obj, csID, at); 
-		dlm = 0; }
-	}
+    	     { if (dlm == 0) { dlm = Suttu+i; }
+	       else { at++; CaseEnd (obj, csID, at); 
+	             dlm = 0;
+	             }
+	     }
 	
-	
-    	else {	if (dlm ~= 0 && Suttu->i == ' ' or '/') { at++; CaseEnd (obj, csID, at); 
-    	   						dlm = 0; 
-    	   					 }
-		if (dlm == 0 && Suttu->i ~= '>') print (char) (Suttu->i);
-    	      }
-	}	
+     	     else { if (dlm ~= 0 && Suttu->i == ' ' or '/')
+	        { at++;   
+		 if (csID > 20) VerbEnd(obj, csID,at); !verbi
+	                        else CaseEnd(obj, csID, at);
+		        dlm = 0; 
+    	   			     }
+		    if (dlm == 0 && Suttu->i ~= '>') print (char) (Suttu->i);
+    	           }
+	} ! -> "for" (huhhuh!)	
 
-	if (dlm ~= 0) { at++; CaseEnd (obj, csID, at);  
-						}
-
-	}
+	    if (dlm ~= 0) { at++;  
+		if (csID > 20) VerbEnd(obj, csID,at); !verbi
+	                else CaseEnd(obj, csID, at);
+	                  }
+	} ! -> "if (csID ~= 0)"
 	else
 	print (object) obj;
 	
@@ -546,6 +550,23 @@ Array ParArr --> ParLen;
 
 Constant JutLen = 100; 
 Array Juttu --> JutLen;
+
+!! Verbin loppuosa
+[ VerbEnd obj csID at;
+
+Juttu-->0 = JutLen-1;
+
+    @output_stream 3 Juttu;
+
+    switch (csID) {	
+     vbImp: print (string) obj.imp;
+     vbInd: print (string) obj.ind;	
+
+    };   
+     @output_stream -3;
+	    
+];
+
 
 
 !! Vrt. CCaseF RusMCE:ssä 
@@ -582,10 +603,6 @@ Juttu-->0 = JutLen-1;
 		csAbl: print (string) obj.gen;
 		csTra: print (string) obj.gen;
 		csAll: print (string) obj.gen;
-	    !!VERBI
-	 vbImp: print (string) obj.imp; 
-	    
-	    
 		};
 
 	!!!# Alla monikon astevaihtelu esim. "reikien"
@@ -713,8 +730,7 @@ if ((num == at-1) && (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä')
 					
 				csTra: print "KSI";
 				csAll: print "LLE"; }
-    !! VERBI temp: vbImp
-	if (csID ~= csTra or csAll or vbImp) {
+	if (csID ~= csTra or csAll) {
 		ParArr-->0 = ParLen-1;
 		@output_stream 3 ParArr;
 		print (string) obj.par;
