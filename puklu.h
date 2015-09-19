@@ -554,17 +554,13 @@ Array Juttu --> JutLen;
 !! Verbin loppuosa
 [ VerbEnd obj csID at;
 
-Juttu-->0 = JutLen-1;
-
-    @output_stream 3 Juttu;
-
-    switch (csID) {	
+    at = at;
+    
+     switch (csID) {	
      vbImp: print (string) obj.imp;
      vbInd: print (string) obj.ind;	
-
-    };   
-     @output_stream -3;
-	    
+     }
+    
 ];
 
 
