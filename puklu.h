@@ -504,8 +504,8 @@ Array Suttu --> SutLen;
 !! tulostettu "/" tarkoittaa sanan vaihtumista kuten " ". 	    
 !! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
 	    
-     	    
-	if (csID < 2) !!!# nominatiivi (1) tai csDflt (0)
+     	    !!!# nominatiivi (1), csDflt
+	    if (csID < 2 || csID == vbInf) !! tai infinitiiviverbi
 	for (i = 2: i ~= limit: ++ i) {
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";
@@ -557,8 +557,12 @@ Array Juttu --> JutLen;
     at = at;
     
      switch (csID) {	
-     vbImp: print (string) obj.imp;
-     vbInd: print (string) obj.ind;	
+     vbImp: print (string) obj.imp_y;
+     vbInd: print (string) obj.ind_y;	
+     !vbInf ei loppuosaa
+     vbY2: print (string) obj.imp_y, "t";
+      vbY3: print (string) obj.ind_y;
+      vbM3: print (string) obj.ind_m;	 
      }
     
 ];

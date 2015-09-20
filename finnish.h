@@ -62,9 +62,9 @@ Constant Alku =		20; !pu
 
 Constant vbImp = 21; !pue
 Constant vbInf = 22; !pukea
-Constant vbInd = 25; !!! samakuin vbY3
 Constant vbY1 =	23; !puen
 Constant vbY2 =	24; !puet
+Constant vbInd = 25; !oletus 'pukee' (=vbY3)
 Constant vbY3 =	25; !pukee
 Constant vbM1 =	26; !puemme
 Constant vbM2 =	27; !puette
@@ -400,8 +400,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
  objectloop (obj in VerbDepot) {
 	if (WordInProperty (word, obj, name))		
 	    switch (t) {
-		vbImp: print (impe) obj; rtrue;
-	        vbInf: print (inf) obj; rtrue;		
+		vbImp: print (imp) obj; rtrue;
+	        vbInd: print (ind) obj; rtrue;		
 		default: print (object) obj; rtrue;
 	    }
 	}
@@ -415,21 +415,22 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     word = Verb_Word;
 
 if (actor hasnt pluralname) {    
-    if (t == vbInd && actor == player) t = vbY2;
-    if (t == vbInd && actor ~= player) t = vbY3;
+    if (t == vbInd && actor == player) t = vbY2; !laitat
+    if (t == vbInd && actor ~= player) t = vbY3; !laittaa
 }
 
 !! pelaajaakin voisi teititellä tulevaisuudessa?    
 if (actor has pluralname) {    
-      if (t == vbInd && actor ~= player) t = vbM3;
+    if (t == vbInd && actor ~= player) t = vbM3; !laittavat
 }
-    
+
     
  objectloop (obj in VerbDepot) {
 	if (WordInProperty (word, obj, name))		
 	    switch (t) {
-		vbImp: print (imperatiivi) obj; rtrue;
-	        vbInd: print (indikatiivi) obj; rtrue;
+	     vbImp: print (imp) obj; rtrue;
+	     vbInd: print (ind) obj; rtrue;
+	     vbInf: print (inf) obj; rtrue;				
 	     vbY2: print (Y2) obj; rtrue;		
 	     vbY3: print (Y3) obj; rtrue;		
 	     vbM3: print (M3) obj; rtrue;		
@@ -724,8 +725,9 @@ if (obj == player)      { print "Itseesi"; return; }
 !Constant vbM2 =	27; !puette
 !Constant vbM3 =	28; !pukevat 
 
-[ imperatiivi obj;	CCase (obj, vbImp, false); ];
-[ indikatiivi obj;	CCase (obj, vbInd, false); ];
+[ imp obj;	CCase (obj, vbImp, false); ];
+[ ind obj;	CCase (obj, vbInd, false); ];
+[ inf obj;	CCase (obj, vbInf, false); ];
 [ Y1 obj;	CCase (obj, vbY1, false); ];
 [ Y2 obj;	CCase (obj, vbY2, false); ];
 [ Y3 obj;	CCase (obj, vbY3, false); ];
