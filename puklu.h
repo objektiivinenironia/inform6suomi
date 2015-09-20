@@ -513,7 +513,7 @@ Array Suttu --> SutLen;
 
 
 
-	if (csID > 1) !!!# ei nominatiivi (1) eikä csDflt (0)
+	if (csID > 1 && csID ~= vbInf) !!!# ei nom eikä csDflt tai inf
 	for (i = 2: i ~= limit: ++ i)
 	{    if (Suttu->i == '/' && Suttu->(i-1) ~= '>') 
     	     { if (dlm == 0) { dlm = Suttu+i; }
@@ -533,7 +533,7 @@ Array Suttu --> SutLen;
 	} ! -> "for" (huhhuh!)	
 
 	    if (dlm ~= 0) { at++;  
-		if (csID > 20) VerbEnd(obj, csID,at); !verbi
+		if (csID > 20 && csID ~= csInf) VerbEnd(obj, csID,at); !verbi
 	                else CaseEnd(obj, csID, at);
 	                  }
 	} ! -> "if (csID ~= 0)"
@@ -552,15 +552,13 @@ Constant JutLen = 100;
 Array Juttu --> JutLen;
 
 !! Verbin loppuosa
-[ VerbEnd obj csID at;
+[ VerbEnd obj csID;
 
-    at = at;
-    
      switch (csID) {	
      vbImp: print (string) obj.imp_y;
      vbInd: print (string) obj.ind_y;	
      !vbInf ei loppuosaa
-     vbY2: print (string) obj.imp_y, "t";
+      vbY2: print (string) obj.imp_y, "t";
       vbY3: print (string) obj.ind_y;
       vbM3: print (string) obj.ind_m;	 
      }

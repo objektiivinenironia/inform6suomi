@@ -396,10 +396,12 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 [ LanguageVerb word t obj;
     
 ! t on se missä muodossa verbi halutaan tulostaa
-    
+! word = verb_word;
+        
  objectloop (obj in VerbDepot) {
 	if (WordInProperty (word, obj, name))		
 	    switch (t) {
+	        0: print (ind) obj; rtrue;		
 		vbImp: print (imp) obj; rtrue;
 	        vbInd: print (ind) obj; rtrue;		
 		default: print (object) obj; rtrue;
@@ -409,17 +411,16 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
  rfalse;
 ];
 
-[ PrintVerb actor t word obj;   
-! t on se missä muodossa verbi halutaan tulostaa
+! ao toteuttaa vain muutaman
+[ PrintVerb word actor t obj;   
 
-    word = Verb_Word;
+    word = verb_word;
 
 if (actor hasnt pluralname) {    
     if (t == vbInd && actor == player) t = vbY2; !laitat
     if (t == vbInd && actor ~= player) t = vbY3; !laittaa
 }
-
-!! pelaajaakin voisi teititellä tulevaisuudessa?    
+  
 if (actor has pluralname) {    
     if (t == vbInd && actor ~= player) t = vbM3; !laittavat
 }
