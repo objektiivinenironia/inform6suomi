@@ -401,7 +401,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
  objectloop (obj in VerbDepot) {
 	if (WordInProperty (word, obj, name))		
 	    switch (t) {
-	        0: print (ind) obj; rtrue;		
+	        0: print (ind) obj; rtrue; 		
 		vbImp: print (imp) obj; rtrue;
 	        vbInd: print (ind) obj; rtrue;		
 		default: print (object) obj; rtrue;
@@ -411,8 +411,18 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
  rfalse;
 ];
 
-! ao toteuttaa vain muutaman
-[ PrintVerb word actor t obj;   
+! verbin tapaluokka:
+! vbImp on imperatiivi.
+! vnInd (indikatiivi preesens) on joko
+! vbY2 (yksikön toinen),
+! vbY3 (yksikön kolmas) tai
+! vbM3 (monikon kolmas) riippuen onko
+! actor pelaaja vai eph (pluralname=monikko)  
+
+! hohhoijaa, printverb toimii näin
+! PrintVerb(toimija,tapaluokka,kapitalisointi?)
+
+[ PrintVerb actor t kap word obj;   
 
     word = verb_word;
 
@@ -427,7 +437,7 @@ if (actor has pluralname) {
 
     
  objectloop (obj in VerbDepot) {
-	if (WordInProperty (word, obj, name))		
+	if (kap == 0 && WordInProperty (word, obj, name))		
 	    switch (t) {
 	     vbImp: print (imp) obj; rtrue;
 	     vbInd: print (ind) obj; rtrue;
@@ -437,13 +447,22 @@ if (actor has pluralname) {
 	     vbM3: print (M3) obj; rtrue;		
 		default: print (object) obj; rtrue;
 	    }
+         if (kap > 0 && WordInProperty (word, obj, name))		
+	    switch (t) {
+	     vbImp: print (k_imp) obj; rtrue;
+	     vbInd: print (k_ind) obj; rtrue;
+	     vbInf: print (k_inf) obj; rtrue;				
+	     vbY2: print (k_Y2) obj; rtrue;		
+	     vbY3: print (k_Y3) obj; rtrue;		
+	     vbM3: print (k_M3) obj; rtrue;		
+		default: print (object) obj; rtrue;
+	    }
 	}
 
  rfalse;
 
     
 ];
-
 
 
 ! ----------------------------------------------------------------------------
@@ -735,6 +754,16 @@ if (obj == player)      { print "Itseesi"; return; }
 [ M1 obj;	CCase (obj, vbM1, false); ];
 [ M2 obj;	CCase (obj, vbM2, false); ];
 [ M3 obj;	CCase (obj, vbM3, false); ];
+
+[ k_imp obj;	CCase (obj, vbImp, true); ];
+[ k_ind obj;	CCase (obj, vbInd, true); ];
+[ k_inf obj;	CCase (obj, vbInf, true); ];
+[ k_Y1 obj;	CCase (obj, vbY1, true); ];
+[ k_Y2 obj;	CCase (obj, vbY2, true); ];
+[ k_Y3 obj;	CCase (obj, vbY3, true); ];
+[ k_M1 obj;	CCase (obj, vbM1, true); ];
+[ k_M2 obj;	CCase (obj, vbM2, true); ];
+[ k_M3 obj;	CCase (obj, vbM3, true); ];
 
 
 
