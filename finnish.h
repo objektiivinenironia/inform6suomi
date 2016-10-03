@@ -60,7 +60,6 @@ Constant Alku =		20; !pu
 
 ! Verbit...
 
-<<<<<<< HEAD
 Constant vbImp =	21; !pue
 Constant vbInf =	22; !pukea
 Constant vbYks1 =	23; !puen
@@ -70,20 +69,6 @@ Constant vbMon1 =	26; !puemme
 Constant vbMon2 =	27; !puette
 Constant vbMon3 =	28; !pukevat 
 			
-=======
-Constant vbImp = 21; !pue
-Constant vbInf = 22; !pukea
-Constant vbY1 =	23; !puen
-Constant vbY2 =	24; !puet
-Constant vbInd = 25; !oletus 'pukee' (=vbY3)
-Constant vbY3 =	25; !pukee
-Constant vbM1 =	26; !puemme
-Constant vbM2 =	27; !puette
-Constant vbM3 =	28; !pukevat 
-
-
-
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 ! ei artikkeleita...
   
 [ LtoU ch;
@@ -115,7 +100,6 @@ Object Compass "compass" has concealed;
 
 
 #Ifndef WITHOUT_DIRECTIONS;
-<<<<<<< HEAD
 CompassDirection -> n_obj "pohjoinen"
 		    with door_dir n_to, name 'p//' 'pohjoi' 'pohjoiseen' 'pohjois';
 CompassDirection -> s_obj "etel‰"
@@ -132,26 +116,6 @@ CompassDirection -> se_obj "kaakko"
 		    with door_dir se_to, name 'ka' 'kaakko' 'kaakkoon' 'kaakkois';
 CompassDirection -> sw_obj "lounas"
 		    with door_dir sw_to, name 'lo' 'lounaa' 'lounaaseen' 'lounais';
-=======
-CompassDirection -> n_obj "pohjoinen" 
-		    with door_dir n_to, name 'p//' 'pohjoi' 'pohjoiseen' 'pohjois';
-CompassDirection -> s_obj "etel‰"
-		    with door_dir s_to, name 'e//' 'etel‰' 'etel‰‰n' 'etel‰i';
-CompassDirection -> e_obj "it‰" 
-		    with door_dir e_to, name 'i//' 'it‰' 'it‰‰n' 'it‰i';
-CompassDirection -> w_obj "l‰n/si"
-		    with door_dir w_to, name 'l//' 'l‰nsi' 'l‰nt'
-	    'l‰nteen' 'l‰nti',
-	gen "nen", par "tt‰", ess"ten‰", ill "teen";
-CompassDirection -> ne_obj "koillinen"
-		    with door_dir ne_to, name 'ko' 'koillis' 'koillise'; 
-CompassDirection -> nw_obj "luode"
-		    with door_dir nw_to, name 'lu' 'luode' 'luoteeseen' 'luote' 'luoteis';
-CompassDirection -> sw_obj "lounas" 
-		    with door_dir sw_to, name 'lo' 'lounaa' 'lounaaseen' 'lounais';
-CompassDirection -> se_obj "kaakko"
-		    with door_dir se_to, name 'ka' 'kaakko' 'kaakkoon' 'kaakkois';
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 CompassDirection -> u_obj "yl‰puolella"
 		    with door_dir u_to, name 'y//' 'ylˆs' 'ylh‰‰' 'katto' 'kato' 'taivas';
 CompassDirection -> d_obj "maassa"
@@ -421,7 +385,6 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 ! VerbDepot (ven‰j‰nkielisest‰ k‰‰nnˆksest‰) - tulostaa verbin (esim "ved‰")
 ! verbdepotissa annetun verbin vaihtoehtoisen tapaluokan (esim. "vet‰‰").
-<<<<<<< HEAD
 
 [ LanguageVerb word
  obj;
@@ -432,62 +395,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	}
 
  rfalse;
-=======
-   
-    
-
-[ LanguageVerb word t obj;
-    
-! t on se miss‰ muodossa verbi halutaan tulostaa
-! word = verb_word;
-        
- objectloop (obj in VerbDepot) {
-	if (WordInProperty (word, obj, name))		
-	    switch (t) {
-	        0: print (ind) obj; rtrue;		
-		vbImp: print (imp) obj; rtrue;
-	        vbInd: print (ind) obj; rtrue;		
-		default: print (object) obj; rtrue;
-	    }
-	}
-
- rfalse;
 ];
-
-! ao toteuttaa vain muutaman
-[ PrintVerb word actor t obj;   
-
-    word = verb_word;
-
-if (actor hasnt pluralname) {    
-    if (t == vbInd && actor == player) t = vbY2; !laitat
-    if (t == vbInd && actor ~= player) t = vbY3; !laittaa
-}
-  
-if (actor has pluralname) {    
-    if (t == vbInd && actor ~= player) t = vbM3; !laittavat
-}
-
-    
- objectloop (obj in VerbDepot) {
-	if (WordInProperty (word, obj, name))		
-	    switch (t) {
-	     vbImp: print (imp) obj; rtrue;
-	     vbInd: print (ind) obj; rtrue;
-	     vbInf: print (inf) obj; rtrue;				
-	     vbY2: print (Y2) obj; rtrue;		
-	     vbY3: print (Y3) obj; rtrue;		
-	     vbM3: print (M3) obj; rtrue;		
-		default: print (object) obj; rtrue;
-	    }
-	}
-
- rfalse;
-
-    
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
-];
-
 
 
 ! ----------------------------------------------------------------------------
@@ -506,11 +414,7 @@ if (actor has pluralname) {
 
 ! ----------------------------------------------------------------------------
 !  LanguageVerbLikesAdverb is called by PrintCommand when printing an UPTO_PE
-<<<<<<< HEAD
 !  error or an inference message.  Words which are intranslatiiviitive verbs, i.e.,
-=======
-!  error or an inference message.  Words which are intransitive verbs, i.e.,
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 !  which require a direction name as an adverb ('walk west'), not a noun
 !  ('I only understood you as far as wanting to touch /the/ ground'), should
 !  cause the routine to return true.
@@ -555,15 +459,9 @@ Constant SCORE__TX      = "Pisteet: ";
 Constant MOVES__TX      = "Vuorot: ";
 Constant TIME__TX       = "Aika: ";
 Constant CANTGO__TX     = "Et p‰‰se siihen suuntaan.";
-<<<<<<< HEAD
 Constant FORMER__TX     = "aiempi sin‰si";
 Constant YOURSELF__TX   = "sin‰ itse";
 Constant YOU__TX        = "Sin‰";
-=======
-Constant FORMER__TX     = "aiempi itsesi";
-Constant YOURSELF__TX   = "sin‰ itse"; !! pit‰isi taivuttaa
-Constant YOU__TX        = "Sin‰"; !! kuin myˆs?
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 Constant DARKNESS__TX   = "Pimeys";
 
 Constant THOSET__TX     = "niit‰"; 
@@ -769,43 +667,6 @@ if (obj == player)      { print "Itseesi"; return; }
 
 [ k_allatiivi obj;	CCase (obj, csAll, true); ];
 
-<<<<<<< HEAD
-=======
-!! verbilˆit‰
-
-!Constant vbImp = 21; !pue
-!Constant vbInf = 22; !pukea
-!Constant vbY1 =	23; !puen
-!Constant vbY2 =	24; !puet
-!Constant vbY3 =	25; !pukee
-!Constant vbM1 =	26; !puemme
-!Constant vbM2 =	27; !puette
-!Constant vbM3 =	28; !pukevat 
-
-[ imp obj;	CCase (obj, vbImp, false); ];
-[ ind obj;	CCase (obj, vbInd, false); ];
-[ inf obj;	CCase (obj, vbInf, false); ];
-[ Y1 obj;	CCase (obj, vbY1, false); ];
-[ Y2 obj;	CCase (obj, vbY2, false); ];
-[ Y3 obj;	CCase (obj, vbY3, false); ];
-[ M1 obj;	CCase (obj, vbM1, false); ];
-[ M2 obj;	CCase (obj, vbM2, false); ];
-[ M3 obj;	CCase (obj, vbM3, false); ];
-
-<<<<<<< HEAD
-[ k_imp obj;	CCase (obj, vbImp, true); ];
-[ k_ind obj;	CCase (obj, vbInd, true); ];
-[ k_inf obj;	CCase (obj, vbInf, true); ];
-[ k_Y1 obj;	CCase (obj, vbY1, true); ];
-[ k_Y2 obj;	CCase (obj, vbY2, true); ];
-[ k_Y3 obj;	CCase (obj, vbY3, true); ];
-[ k_M1 obj;	CCase (obj, vbM1, true); ];
-[ k_M2 obj;	CCase (obj, vbM2, true); ];
-[ k_M3 obj;	CCase (obj, vbM3, true); ];
-
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
-=======
->>>>>>> parent of 6afbf80... jotain t√§√§ll√§ on tehty, mutta mit√§?
 
 
 !--------------------------------------------------------------
@@ -944,14 +805,9 @@ if (obj == player)      { print "Itseesi"; return; }
 	1:  "Sinun t‰ytyy pidell‰ ", (partitiivi) x1, " ennenkuin voit laittaa ", (sitajaniita) x1,
 	    " mihink‰‰n.";
 	2:  print_ret (Ksenjaniiden) x1, " sis‰‰n ei voi laittaa asioita.";
-<<<<<<< HEAD
 	3:  print (k_nominatiivi) x1; if (x1 has pluralname) print " ovat suljettuja.";
 
 		else print " on suljettu.";
-=======
-	3:  print (k_nominatiivi) x1; if (x1 has pluralname) print
-	    " ovat suljetut.^";	else print " on kiinni.^";
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 	4:  "Sinun t‰ytyy ensin ottaa ", (sejane) x1, " pois.";
 	5:  "Et voi laittaa sit‰ itsens‰ sis‰‰n.";
 	6:  "(ottamalla ", (sentaine) x1, " ensin)^";
@@ -990,11 +846,7 @@ if (obj == player)      { print "Itseesi"; return; }
 	16: print " ja "; if (x1 has pluralname) print "tyhji‰"; else print "tyhj‰";
 	17: print " (", (jokajajotka) x1, " ", (onjaovat) x1; if (x1 has pluralname) print " tyhji‰)"; else print " tyhj‰)";
 	18: print " sis‰lt‰‰ ";         ! sis‰lt‰‰/sis‰lt‰v‰t?
-<<<<<<< HEAD
 	19: print " (jolla";                 ! taso
-=======
-	19: print " (jonka p‰‰ll‰ ";                 ! taso
->>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 	20: print ", jonka p‰‰ll‰ ";
 	21: print " (jossa";                 ! s‰iliˆ
 	22: print ", sis‰ll‰ ";
