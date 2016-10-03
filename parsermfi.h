@@ -420,7 +420,11 @@
         else
             if (i in compass && LanguageVerbLikesAdverb(verb_word))
                 LanguageDirection (i.door_dir); ! the direction name as adverb
+<<<<<<< HEAD
 !!! muokattu
+=======
+!!! muokattu osa alkaa
+>>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
             else 
              	if (CaseIs ~= 0 && k >= 2) ! ensimmäinen sana tulostuu nom. seuraavat taipuu			
              		switch (CaseIs) {
@@ -437,7 +441,11 @@
  
  	else print (nominatiivi) i;		
     !   else print (the) i;				
+<<<<<<< HEAD
 !!! muokattu loppu
+=======
+!!! muokattu osa loppuu tähän
+>>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
  
       .TokenPrinted;
         spacing_flag = true;

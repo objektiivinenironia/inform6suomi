@@ -242,7 +242,11 @@ Verb 'heitä' 'viskaa'
     * par_noun ade_held                    -> ThrowAt reverse
     * ill_noun ade_held                    -> ThrowAt reverse
     * all_noun par_held                    -> ThrowAt reverse
+<<<<<<< HEAD
     * all_noun nom_held                    -> ThrowAt reverse
+=======
+    * all_noun nom_held			   -> ThrowAt reverse
+>>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
     * par_held all_noun                    -> ThrowAt
     * nom_held all_noun                    -> ThrowAt;
 Verb 'syö'
@@ -282,7 +286,12 @@ Verb 'hyppää' 'loikkaa'
     * gen_noun 'yli'                       -> JumpOver
     * 'yli' gen_noun                       -> JumpOver;
 Verb 'suutele' 'pussaa' 'halaa' 'syleile'
+<<<<<<< HEAD
     * par_creat                            -> Kiss;
+=======
+    * par_creat                            -> Kiss
+    * par_noun                             -> Kiss;
+>>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 Verb 'mene' 'juokse' 'kävele' 'käy'
     *                                      -> VagueGo
     * noun=ADirection                      -> Go
@@ -342,10 +351,19 @@ Verb 'työnnä' 'puske' 'liikuta'
     * par_noun ill_noun                    -> PushDir;
   
 Verb 'laita' 'pane' 'pistä' 'aseta'
+<<<<<<< HEAD
 ! "laita kori koneeseen" tai "laita kaikki paitsi kori koneeseen"
 !!! lisää: kaikkea... par_multiexcept
 !!! lisää: samat reversenä, ainakin kommentoituna!
     * nom_multiexcept ill_noun             -> Insert 
+=======
+! laita ovi kiinni
+    * nom_noun 'kiinni'                    -> Close
+! "laita kori koneeseen" tai "laita kaikki paitsi kori koneeseen"
+!!! lisää: kaikkea... par_multiexcept
+!!! lisää: samat reversenä, ainakin kommentoituna!
+    * nom_multiexcept ill_noun		   -> Insert 
+>>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 ! "laita vettä ämpäriin"
     * par_noun ill_noun                    -> Insert
 ! "laita ämpäri pöydälle" tai "laita kaikki paitsi ämpäri pöydälle"
@@ -362,10 +380,13 @@ Verb 'laita' 'pane' 'pistä' 'aseta'
 !    * 'on' held                             -> Wear
     * 'pois' nom_multiheld                 -> Drop
     * multiheld 'pois'                     -> Drop;
+<<<<<<< HEAD
    		    
   Object "laittaa" VerbDepot
     with name 'laita' 'pane' 'pistä' 'aseta';
 
+=======
+>>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 Verb 'siirrä'
     * nom_noun all_noun                    -> Transfer
     * nom_noun ill_noun                    -> Transfer;
