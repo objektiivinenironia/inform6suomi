@@ -444,7 +444,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
  objectloop (obj in VerbDepot) {
 	if (WordInProperty (word, obj, name))		
 	    switch (t) {
-	        0: print (ind) obj; rtrue; 		
+	        0: print (ind) obj; rtrue;		
 		vbImp: print (imp) obj; rtrue;
 	        vbInd: print (ind) obj; rtrue;		
 		default: print (object) obj; rtrue;
@@ -454,18 +454,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
  rfalse;
 ];
 
-! verbin tapaluokka:
-! vbImp on imperatiivi.
-! vnInd (indikatiivi preesens) on joko
-! vbY2 (yksikˆn toinen),
-! vbY3 (yksikˆn kolmas) tai
-! vbM3 (monikon kolmas) riippuen onko
-! actor pelaaja vai eph (pluralname=monikko)  
-
-! hohhoijaa, printverb toimii n‰in
-! PrintVerb(toimija,tapaluokka,kapitalisointi?)
-
-[ PrintVerb actor t kap word obj;   
+! ao toteuttaa vain muutaman
+[ PrintVerb word actor t obj;   
 
     word = verb_word;
 
@@ -480,7 +470,7 @@ if (actor has pluralname) {
 
     
  objectloop (obj in VerbDepot) {
-	if (kap == 0 && WordInProperty (word, obj, name))		
+	if (WordInProperty (word, obj, name))		
 	    switch (t) {
 	     vbImp: print (imp) obj; rtrue;
 	     vbInd: print (ind) obj; rtrue;
@@ -490,16 +480,6 @@ if (actor has pluralname) {
 	     vbM3: print (M3) obj; rtrue;		
 		default: print (object) obj; rtrue;
 	    }
-         if (kap > 0 && WordInProperty (word, obj, name))		
-	    switch (t) {
-	     vbImp: print (k_imp) obj; rtrue;
-	     vbInd: print (k_ind) obj; rtrue;
-	     vbInf: print (k_inf) obj; rtrue;				
-	     vbY2: print (k_Y2) obj; rtrue;		
-	     vbY3: print (k_Y3) obj; rtrue;		
-	     vbM3: print (k_M3) obj; rtrue;		
-		default: print (object) obj; rtrue;
-	    }
 	}
 
  rfalse;
@@ -507,6 +487,7 @@ if (actor has pluralname) {
     
 >>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
 ];
+
 
 
 ! ----------------------------------------------------------------------------
@@ -811,6 +792,7 @@ if (obj == player)      { print "Itseesi"; return; }
 [ M2 obj;	CCase (obj, vbM2, false); ];
 [ M3 obj;	CCase (obj, vbM3, false); ];
 
+<<<<<<< HEAD
 [ k_imp obj;	CCase (obj, vbImp, true); ];
 [ k_ind obj;	CCase (obj, vbInd, true); ];
 [ k_inf obj;	CCase (obj, vbInf, true); ];
@@ -822,6 +804,8 @@ if (obj == player)      { print "Itseesi"; return; }
 [ k_M3 obj;	CCase (obj, vbM3, true); ];
 
 >>>>>>> 6afbf8098f312cd3864a659cfb73231d2989614c
+=======
+>>>>>>> parent of 6afbf80... jotain t√§√§ll√§ on tehty, mutta mit√§?
 
 
 !--------------------------------------------------------------
