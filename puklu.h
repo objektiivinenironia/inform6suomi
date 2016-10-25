@@ -88,6 +88,7 @@ csAbl:	switch (nreq) {
 	}
 csAll:	switch (nreq) {
 	0:	return 'lle';
+        1:	return 'elle';
 	}
 }	
 return -1;
@@ -407,7 +408,7 @@ print
 ];
 
 
-! ks. finng.h - etsii sijapäätteen (verbien tulostamisessa) 
+! ks. finng.h - etsii sijapäätteen 
 [ c_token  idtok csID
   retval;
 
@@ -441,7 +442,7 @@ return retval;
 
 
 
- [ LanguagePrintShortName obj
+[ LanguagePrintShortName obj
   sn;
 
    sn = short_name;
@@ -449,7 +450,7 @@ return retval;
 	! if (obj provides sn && PrintOrRun(obj, sn, 1) ~= 0) rtrue;
 
 if (sija ~= 0) rfalse; !!!# LPSN ei tee mitään jos globaali sija on muuta kuin nolla 
-if (sija == 0 && obj hasnt oletus_par) CCase (obj, csNom, false);	!!!# nominatiivi ) print "nolla^";
+if (sija == 0 && obj hasnt oletus_par) CCase (obj, csNom, false);	!!!# nominatiivi 
 if (sija == 0 && obj has oletus_par) CCase (obj, csPar, false); 
 rtrue;
 ];
@@ -461,7 +462,9 @@ Array Suttu --> SutLen;
 [ CCase obj csID ucase i dlm limit at vart; 
 	
 	sija = csID;
-	
+
+    
+    
 	if (csID ~= 0) { 	!!!# jättää käsittelemättä sijamuodon oletuksen (0)   
 						
 	at = 0;
@@ -496,12 +499,13 @@ Array Suttu --> SutLen;
 
 	if (csID == csIne) vart = 1;
 
-        
+    
 !! '>/' tulostaa '/' olion nimessä ('>>' tulostaa '>').  
 !! tulostettu "/" tarkoittaa sanan vaihtumista kuten " ". 	    
 !! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
-     	    
-	if (csID < 2) !!!# nominatiivi (1) tai csDflt (0)
+	    
+     	    !!!# nominatiivi (1), csDflt
+	    if (csID < 2 || csID == vbInf) !! tai infinitiiviverbi
 	for (i = 2: i ~= limit: ++ i) {
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";
@@ -510,25 +514,29 @@ Array Suttu --> SutLen;
 
 
 	if (csID > 1) !!!# ei nominatiivi (1) eikä csDflt (0)
-	for (i = 2: i ~= limit: ++ i) 
+	for (i = 2: i ~= limit: ++ i)
 	{    if (Suttu->i == '/' && Suttu->(i-1) ~= '>') 
-    	{ if (dlm == 0) { dlm = Suttu+i; }
-	else {	at++; CaseEnd (obj, csID, at); 
-		dlm = 0; }
-	}
+    	     { if (dlm == 0) { dlm = Suttu+i; }
+	       else { at++; CaseEnd (obj, csID, at); 
+	             dlm = 0;
+	             }
+	     }
 	
-	
-    	else {	if (dlm ~= 0 && Suttu->i == ' ' or '/') { at++; CaseEnd (obj, csID, at); 
-    	   						dlm = 0; 
-    	   					 }
-		if (dlm == 0 && Suttu->i ~= '>') print (char) (Suttu->i);
-    	      }
-	}	
+     	     else { if (dlm ~= 0 && Suttu->i == ' ' or '/')
+	        { at++;   
+		 if (csID > 20) VerbEnd(obj, csID,at); !verbi
+	                        else CaseEnd(obj, csID, at);
+		        dlm = 0; 
+    	   			     }
+		    if (dlm == 0 && Suttu->i ~= '>') print (char) (Suttu->i);
+    	           }
+	} ! -> "for" (huhhuh!)	
 
-	if (dlm ~= 0) { at++; CaseEnd (obj, csID, at);  
-						}
-
-	}
+	    if (dlm ~= 0) { at++;  
+		if (csID > 20) VerbEnd(obj, csID,at); !verbi
+	                else CaseEnd(obj, csID, at);
+	                  }
+	} ! -> "if (csID ~= 0)"
 	else
 	print (object) obj;
 	
@@ -542,6 +550,23 @@ Array ParArr --> ParLen;
 
 Constant JutLen = 100; 
 Array Juttu --> JutLen;
+
+!! Verbin loppuosa
+[ VerbEnd obj csID at;
+
+    at = at;
+    
+     switch (csID) {	
+     vbImp: print (string) obj.imp_y;
+     vbInd: print (string) obj.ind_y;	
+     !vbInf ei loppuosaa
+     vbY2: print (string) obj.imp_y, "t";
+      vbY3: print (string) obj.ind_y;
+      vbM3: print (string) obj.ind_m;	 
+     }
+    
+];
+
 
 
 !! Vrt. CCaseF RusMCE:ssä 
@@ -561,7 +586,7 @@ Juttu-->0 = JutLen-1;
 
 @output_stream 3 Juttu;
 
-	if (csID == csIll) 					!!!# tila
+ 	if (csID == csIll) 					!!!# tila
 		{ if (obj provides ill) print (string) obj.ill; !!!# päis
 		  else print (string) obj.ess; };		!!!# ratk
 
@@ -705,7 +730,6 @@ if ((num == at-1) && (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä')
 					
 				csTra: print "KSI";
 				csAll: print "LLE"; }
-			
 	if (csID ~= csTra or csAll) {
 		ParArr-->0 = ParLen-1;
 		@output_stream 3 ParArr;
