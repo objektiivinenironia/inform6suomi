@@ -2,5 +2,5 @@
 
 Inform 6 on ohjelmointikieli ja kääntäjä tekstiseikkailupelien tai "IF"-pelien tekemistä varten, tämä on sen kirjaston suomennos.
 
-Kehittelyssä on ollut apuna muunmuassa Denis Gayevin venäjänkieliset ja Frederik Ramsbergin ruotsinkieliset vastaavat.
+Muunmuassa Denis Gayevin venäjänkielinen ja Frederik Ramsbergin ruotsinkielinen kirjasto ovat olleet kehittelyssä apuna.
 
