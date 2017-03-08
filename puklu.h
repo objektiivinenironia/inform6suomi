@@ -47,6 +47,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
      }
      csGen:	switch (nreq) {
       0: 	return 'n//';
+      1:        return 'en';   ! pitkä 'ee' 
      }
      csPar:	switch (nreq) {
       0:	return 'a//';
@@ -59,10 +60,14 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
      csIne:	switch (nreq) {
       0:	return 'ssa';
       1:	return 'ssä';
+      2:        return 'essä'; ! pitkä 'ee' 
+	 
      }
      csEla:	switch (nreq) {
       0:	return 'sta';
       1:	return 'stä';
+      2:        return 'estä'; ! pitkä 'ee' 
+	 
      }
      csIll:	switch (nreq) {
       0:	return 'an';
@@ -75,20 +80,23 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
       7:	return 'yn';
       8:	return 'än';
       9:	return 'ön';
-      10:	return 'hun'; ! "puuhun"
-      11:	return 'eseen'; ! "pesukone...eseen" ???
+      10:	return 'hun'; 
+      11:	return 'eseen'; ! pitkä 'ee' 
      }
      csAde:	switch (nreq) {
       0:	return 'lla';
-      1:        return 'llä';    
+      1:        return 'llä';
+      2:        return 'ellä'; ! pitkä 'ee'     
      }
      csAbl:	switch (nreq) {
       0:	return 'lta';
       1:	return 'ltä';
+      2:        return 'eltä'; ! pitkä 'ee' 
+	 
      }
      csAll:	switch (nreq) {
       0:	return 'lle';
-      1:	return 'elle';
+      1:	return 'elle'; ! pitkä 'ee' 
      }
     }	
     return -1;
@@ -340,8 +348,7 @@ Array Sanak_array --> Sanak_pituus;
 		debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    rtrue; 
-	};
-	
+	}; 
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   
 	
