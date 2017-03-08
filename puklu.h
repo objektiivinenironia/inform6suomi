@@ -110,7 +110,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     switch (csID) {
 	
      csNom: 	switch (nreq) {
-      0:	return 0; !!!# lisätty 29.8.2012	
+      0:	return 0; 	
       1: 	return 't//';
      }
      csGen:	switch (nreq) {
@@ -146,44 +146,17 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
      csAbl:	switch (nreq) {
       0:	return 'lta';
       1:	return 'ltä';
-      2:	return 'ilta'; !!+
-      3:	return 'iltä'; !!+
+      2:	return 'ilta';
+      3:	return 'iltä'; 
      }
      csAll:	switch (nreq) {
       0:	return 'lle';
-      1:	return 'ille'; !!+
+      1:	return 'ille';
      }
     }	
     return -1;
 ];	
 
-
-! LTI:lla voisi ehkä ratkaista uudelleenparsimispulman (laita pallo-mitä tarkoitat?-laatikkoa-LTI:laatikkOON)
-! tai ...
-!
-! ... Siis kun 10000 eli reparse, ja syötetään uusi sana, ks. onko uusi sana oikeassa sijamuodossa 
-! (siis samassa sijassa kuin seuraava sana uudelleenmuodostetussa syötteessä) ja jos ei ole,
-! poista uuden sanan huono sija ja laita tilalle oikea... eli seuraavan sanan sijapääte.
-!
-!    >laita maukasta ruokaa esimerkille
-!    Tarkoitatko esimerkkipöytää vai esimerkkitasoa?
-!    >tasoa
-!
-!        (seuraava sana: "esimerkille" == allatiivi (csID 9))
-!     
-!        tasoa -> taso a -> taso -> tasoLLE
-!
-
-! [LanguageToInformese l;
-! 	#Ifdef DEBUG;
-! 	#Endif; ! DEBUG
-!
-! ];
-
-
-! allaoleva tulostaa virheilmoituksia - esim. toimimattoman sijapäätteen
-! tapauksessa "En ihan käsittänyt." (eikä "Et näe mitään sellaista.")
-! (ks. DM4...)
 
 [ ParserError error_code;
     
@@ -192,40 +165,14 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     
 ];
 
-
-![ ChooseObjects obj code;
-!	obj = obj; ! käännettäessä inform ei valita käyttämättömästä määreestä
-!	#Ifdef DEBUG;	
-!	if (parser_trace > 0) print "[ChooseObjects -1 !]^"; 
-!	#Endif;
-!  	if (code == 2)  return -1; ! -1 on kauheaa (käytännössä)
-!];
-
 ! ao. etsii sijamuodon päätteen
 
 [EndingLookup   addr len csID 
     v u ocFN i;
     
-    !-	#Ifdef DEBUG;				
-    !-		if (parser_trace > 0)
-    !-		{ print "^EndingLookup^   ", "addr: ", addr, "/ len: ", len, " / csID: ", csID, "^   ";
-    !-		};
-    !-	#Endif;
-    
     if (csID == 0) rtrue; ! sana perusmuodossa?
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
-	! jos sijamuodon pääte löytyy,  v = DL
- 	
- 	
-	!- 	#Ifdef DEBUG;				
-	!- 		if (parser_trace > 0)
-	!- 		{ print "pääte (pit ", len, ") ";
-	!- 		  if (v == 0) print "on huono (v == 0) rfalse^";
-	!- 		  
-	!- 		};
-	!-	#Endif;
-	
 	
 	if (v == 0) rfalse;
 	if (v ~= 0) etype = "En ihan käsittänyt."; 
@@ -273,8 +220,6 @@ Global sija; ! tulostusta varten
 Constant LongLen = 63; 
 Array LongArr --> LongLen;
 
-! ao. sanakirjaräpellys taitaa olla turha - poistettava?
-! (vain palauttaa sanakirjasanan merkkien määrän... ei tarvita?)
 
 Constant Sanak_pituus = 39;
 Array Sanak_array --> Sanak_pituus;
@@ -483,7 +428,8 @@ Array Suttu --> SutLen;
  	if (obj provides short_name) 
 	    printshortname(obj); !!!# jos vain tämä, ERROR: "Nesting stream #3 too deep!"
 	else
-	    print (object) obj; 	!!!# jos vain tämä, short_name määritellyt obj ei tulostu oikein 
+	    print (object) obj;
+	!!!# jos vain tämä, short_name määritellyt obj ei tulostu oikein 
 	!!!# "Oletus ("the"): avoi/n ov/i/ jonka takana on käytävä"
 	!!!# Nominatiivi: ovi
 	!!!# Partitiivi: ovnta
@@ -629,7 +575,7 @@ Array Juttu --> JutLen;
     num = 0;
     limit = (Juttu-->0) + 2;
     
-    if ((csID == csIll) && (obj provides Ill))	!!!# ööh... tilapäis.
+    if ((csID == csIll) && (obj provides Ill))	
     {
 	for (i = 2: i ~= limit: ++ i) 	{
 	    if ((num == at-1) && (Juttu->i ~= '/')) print (char) (Juttu->i); 
@@ -647,7 +593,7 @@ Array Juttu --> JutLen;
     	
     }    
     
-    if (csID ~= csIll or csGen or csPar or csEss)	!!!# ööh... tilapäis.
+    if (csID ~= csIll or csGen or csPar or csEss)	
     {
   	
   	
@@ -667,8 +613,7 @@ Array Juttu --> JutLen;
 		if (Juttu->i == 'S' or 'A' or 'Ä' ) paate_isolla = 1; !!!#! tulosta myös sijapääte isolla
 		if (Juttu->i == '/') num++;
 		
-		!!!# tilapäis (etsi '/' tai loppu)
-		
+				
 	    }; 
  	
    	if (ps == 1) ! monikko
@@ -679,25 +624,13 @@ Array Juttu --> JutLen;
 		if (Juttu->i == 'N' or 'A' or 'Ä') paate_isolla = 1; !!!#! tulosta myös sijapääte isolla 
 		if (Juttu->i == '/') num++;
 		
-		!!!# tilapäis (etsi '/' tai loppu)
- 		
+		 		
  	    }; 
  	
  	
 	
     	if (obj hasnt pluralname) ! yksikkö				       
 	    for (i = 2: i ~= limit: ++ i) { 
-		
-		
-		!- if juttu->i == '/' pr Juttu->i=='n' or 'N' &&
-		!-	juttu->(i+1) ~= '/'
-		!-	or i+1 ~= limit
-		!-   print (char) (Juttu->i);
-		
-		!% if  ((num == at-1) && (Juttu->i ~= '/') || (num == at-1) && (Juttu->i == 'n' or 'N')
-		!%	&& (Juttu->(i+1) ~= '/') || ((i+1) ~= limit)) print (char) (Juttu->i);
-		
-		
 		
 		!! (gen-päätteestä) jos kirjain on 'n' tai 'N', eikä sitä seuraa '/' tai jonon loppu, se tulostetaan.
 		!! Esim.: "ont/to kan/to"  gen "on/non" - genetiivin "non" ensimmäinen "n" tulostetaan.
@@ -715,7 +648,7 @@ Array Juttu --> JutLen;
 	    	if (Juttu->i == '/') num++; 
 	    	
 	    }; 		
-	if (paate_isolla == 0) !!!# siis pienet kirjaimet 
+	if (paate_isolla == 0) 
 	    switch (csID) {
 	     csIne: print "ss"; 
 		
