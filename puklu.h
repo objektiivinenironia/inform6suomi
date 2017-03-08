@@ -426,18 +426,10 @@ Array Suttu --> SutLen;
 	@output_stream 3 Suttu; 
 	
  	if (obj provides short_name) 
-	    printshortname(obj); !!!# jos vain tämä, ERROR: "Nesting stream #3 too deep!"
+	    printshortname(obj); 
 	else
 	    print (object) obj;
-	!!!# jos vain tämä, short_name määritellyt obj ei tulostu oikein 
-	!!!# "Oletus ("the"): avoi/n ov/i/ jonka takana on käytävä"
-	!!!# Nominatiivi: ovi
-	!!!# Partitiivi: ovnta
-	!!!# Genetiivi: ovmen
-	!!!# Essiivi: ovmena
-	!!!# jne...
-        
-	
+	! jos vain tämä, olion nimi ei tulostu oikein 
 	
 	@output_stream -3;
 	
@@ -489,12 +481,11 @@ Array Suttu --> SutLen;
 	    if (csID > 20 && csID ~= csInf) VerbEnd(obj, csID,at); !verbi
 	    else CaseEnd(obj, csID, at);
 	}
-    } ! -> "if (csID ~= 0)"
+    }
     else
 	print (object) obj;
     
-    !!!#? else printshortname (obj);
-    !!!#? else if obj provides oletus print oletus print (name) obj; ????
+ 
 ];
 
 
@@ -537,9 +528,9 @@ Array Juttu --> JutLen;
     
     @output_stream 3 Juttu;
     
-    if (csID == csIll) 					!!!# tila
-    { if (obj provides ill) print (string) obj.ill; !!!# päis
-    else print (string) obj.ess; };		!!!# ratk
+    if (csID == csIll)
+    { if (obj provides ill) print (string) obj.ill;
+    else print (string) obj.ess; };
     
     if (obj hasnt pluralname) 
 	switch (csID) {				
@@ -603,12 +594,8 @@ Array Juttu --> JutLen;
   	
   	if (ps == 2) ! monikko ja ine-ohje
 	    for (i = 2: i ~= limit: ++ i) { 
-	  	
 		
-		!!!# yritä etsiä sanan tulostettavan sanan loppu toisin?
-		!!!# Poistin listasta 'n' ja 'N' kirjaimet -* jostain syystä!!! *-
-		
-		if ((num == at-1) && (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä')) !!!# 'n' or 'N' pois
+		if ((num == at-1) && (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä')) 
 		    print (char) (Juttu->i); 
 		if (Juttu->i == 'S' or 'A' or 'Ä' ) paate_isolla = 1; !!!#! tulosta myös sijapääte isolla
 		if (Juttu->i == '/') num++;
