@@ -1268,8 +1268,8 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 	    "olevan osa ", (partitiivi) x1, ".";
 	8:  print_ret (Ksitajaniita) x1, " ei ole saatavilla.";
 	9:  print_ret (k_nominatiivi) x1, " ", (eijaeivat) x1, " ole auki.";
-	10: if (x1 has pluralname) print "Ne eivät taida olla siirrettävissä."; 
-		else print "Se ei taida olla siirrettävissä.";                     !?! Kannettava?
+	10: if (x1 has pluralname) print_ret "Ne eivät taida olla siirrettävissä."; 
+		else print_ret "Se ei taida olla siirrettävissä.";                     !?! Kannettava?
 	11: if (x1 has pluralname) print "Ne eivät "; else print "Se ei ";
 	    "irtoa."; ! "theyre / that's fixed in place."
  	12: "Sinulla on jo liikaa kantamuksia.";

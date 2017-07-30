@@ -167,7 +167,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 ! ao. etsii sijamuodon päätteen
 
-[EndingLookup   addr len csID 
+[ EndingLookup   addr len csID 
     v u ocFN i;
     
     if (csID == 0) rtrue; ! sana perusmuodossa?
@@ -239,11 +239,12 @@ Array Sanak_array --> Sanak_pituus;
  ];
 
 !! debug parsimiseen									 
-[ debugsijat wnum  len end w csID;
+[ debugsijat adr wnum len end w csID;
     
     print
 	"^-- Debug (parsiminen, LR) --^
-	wnum: ", wnum, " / len-end (pääte): ", (len-end),")^   ",
+	wnum: ", wnum, " / len-end (pääte): ", (len-end),")^",
+	"(adr: ", adr, ")^",
 	"(end: ", end, ")^",
 	"(len: ", len, ")^   ",
 	"(sanakirjasana: ", (address) w, ", ", sanakirja(w), " merkkiä)^   ";
@@ -290,7 +291,7 @@ Array Sanak_array --> Sanak_pituus;
 	    
 	{ 	#Ifdef DEBUG;				
 	    if (parser_trace > 0)
-		debugsijat(wnum, len, end, w, csID);
+		debugsijat(adr, wnum, len, end, w, csID);
 #Endif;
 	    rtrue; 
 	}; 
