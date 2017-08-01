@@ -451,7 +451,7 @@ Array Suttu --> SutLen;
 	!! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
 	
 	!!!# nominatiivi (1), csDflt
-	if (csID < 2 || csID == vbImp) !! tai inperatiiviverbi
+	if (csID < 2 || csID == vbImp) !! tai imperatiiviverbi
 	    for (i = 2: i ~= limit: ++ i) {
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";

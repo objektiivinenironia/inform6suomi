@@ -398,12 +398,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! word = verb_word;
         
     objectloop (obj in VerbDepot) {
-	if (t == 0) rfalse;	
 	if (WordInProperty (word, obj, name))		
-	    switch (t) {
-	  	vbImp: print (imp) obj; rtrue;
-	        vbInd: print (ind) obj; rtrue;		
-		default: print (object) obj; rtrue;
+	  {	print (The) obj; rtrue;
 	    }
 	}
 
@@ -748,7 +744,7 @@ if (obj == player)      { print "Itseesi"; return; }
 !Constant vbM2 =	27; !puette
 !Constant vbM3 =	28; !pukevat 
 
-[ imp obj;	CCase (obj, vbImp, false); ];
+[ imp obj;	CCase (obj, name, false); ];
 [ ind obj;	CCase (obj, vbInd, false); ];
 [ inf obj;	CCase (obj, vbInf, false); ];
 [ Y1 obj;	CCase (obj, vbY1, false); ];
@@ -758,7 +754,7 @@ if (obj == player)      { print "Itseesi"; return; }
 [ M2 obj;	CCase (obj, vbM2, false); ];
 [ M3 obj;	CCase (obj, vbM3, false); ];
 
-[ k_imp obj;	CCase (obj, vbImp, true); ];
+[ k_imp obj;	CCase (obj, name, true); ];
 [ k_ind obj;	CCase (obj, vbInd, true); ];
 [ k_inf obj;	CCase (obj, vbInf, true); ];
 [ k_Y1 obj;	CCase (obj, vbY1, true); ];

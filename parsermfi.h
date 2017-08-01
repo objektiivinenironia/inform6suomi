@@ -418,8 +418,8 @@
         else
             if (i in compass && LanguageVerbLikesAdverb(verb_word))
                 LanguageDirection (i.door_dir); ! the direction name as adverb
-!!! muokattu
             else
+!!! muokattu		
              	if (CaseIs ~= 0 && k >= 2) ! ensimmäinen sana tulostuu nom. seuraavat taipuu			
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
@@ -433,7 +433,7 @@
 			csEss: print (essiivi) i;
 			csTra: print (translatiivi) i;}
                        
- 	else print (nominatiivi) i;		
+ 	else print (the) i;		
     !   else print (the) i;				
 !!! muokattu loppu
  
