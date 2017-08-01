@@ -61,14 +61,14 @@ Constant Alku =		20; !pu
 ! Verbit...
 
 Constant vbImp = 21; !pue
-Constant vbInf = 22; !pukea
-Constant vbY1 =	23; !puen
-Constant vbY2 =	24; !puet
-Constant vbInd = 25; !oletus 'pukee' (=vbY3)
-Constant vbY3 =	25; !pukee
-Constant vbM1 =	26; !puemme
-Constant vbM2 =	27; !puette
-Constant vbM3 =	28; !pukevat 
+!Constant vbInf = 22; !pukea
+!Constant vbY1 =	23; !puen
+!Constant vbY2 =	24; !puet
+!Constant vbInd = 25; !oletus 'pukee' (=vbY3)
+!Constant vbY3 =	25; !pukee
+!Constant vbM1 =	26; !puemme
+!Constant vbM2 =	27; !puette
+!Constant vbM3 =	28; !pukevat 
 
 
 
@@ -399,8 +399,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
         
     objectloop (obj in VerbDepot) {
 	if (WordInProperty (word, obj, name))		
-	  {	print (The) obj; rtrue;
-	    }
+	  {print (the) obj; rtrue;}
 	}
 
  rfalse;
@@ -420,26 +419,26 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 [ PrintVerb actor t kap word obj;   
 
     word = verb_word;
-
-if (actor hasnt pluralname) {    
-    if (t == vbInd && actor == player) t = vbY2; !laitat
-    if (t == vbInd && actor ~= player) t = vbY3; !laittaa
-}
-  
-if (actor has pluralname) {    
-    if (t == vbInd && actor ~= player) t = vbM3; !laittavat
-}
+    
+!if (actor hasnt pluralname) {    
+!    if (t == vbInd && actor == player) t = vbY2; !laitat
+!    if (t == vbInd && actor ~= player) t = vbY3; !laittaa
+!}
+!  
+!if (actor has pluralname) {    
+!    if (t == vbInd && actor ~= player) t = vbM3; !laittavat
+!}
 
     
  objectloop (obj in VerbDepot) {
 	if (kap == 0 && WordInProperty (word, obj, name))		
 	    switch (t) {
 	     vbImp: print (imp) obj; rtrue;
-	     vbInd: print (ind) obj; rtrue;
-	     vbInf: print (inf) obj; rtrue;				
-	     vbY2: print (Y2) obj; rtrue;		
-	     vbY3: print (Y3) obj; rtrue;		
-	     vbM3: print (M3) obj; rtrue;
+!	     vbInd: print (ind) obj; rtrue;
+!	     vbInf: print (inf) obj; rtrue;				
+!	     vbY2: print (Y2) obj; rtrue;		
+!	     vbY3: print (Y3) obj; rtrue;		
+!	     vbM3: print (M3) obj; rtrue;
 	     default: rfalse;
 		
 	!	default: print (object) obj; rtrue;
@@ -447,11 +446,11 @@ if (actor has pluralname) {
          if (kap > 0 && WordInProperty (word, obj, name))		
 	    switch (t) {
 	     vbImp: print (k_imp) obj; rtrue;
-	     vbInd: print (k_ind) obj; rtrue;
-	     vbInf: print (k_inf) obj; rtrue;				
-	     vbY2: print (k_Y2) obj; rtrue;		
-	     vbY3: print (k_Y3) obj; rtrue;		
-	     vbM3: print (k_M3) obj; rtrue;
+!	     vbInd: print (k_ind) obj; rtrue;
+!	     vbInf: print (k_inf) obj; rtrue;				
+!	     vbY2: print (k_Y2) obj; rtrue;		
+!	     vbY3: print (k_Y3) obj; rtrue;		
+!	     vbM3: print (k_M3) obj; rtrue;
 	     default: rfalse;
 		
 	!	default: print (object) obj; rtrue;
@@ -745,24 +744,24 @@ if (obj == player)      { print "Itseesi"; return; }
 !Constant vbM3 =	28; !pukevat 
 
 [ imp obj;	CCase (obj, name, false); ];
-[ ind obj;	CCase (obj, vbInd, false); ];
-[ inf obj;	CCase (obj, vbInf, false); ];
-[ Y1 obj;	CCase (obj, vbY1, false); ];
-[ Y2 obj;	CCase (obj, vbY2, false); ];
-[ Y3 obj;	CCase (obj, vbY3, false); ];
-[ M1 obj;	CCase (obj, vbM1, false); ];
-[ M2 obj;	CCase (obj, vbM2, false); ];
-[ M3 obj;	CCase (obj, vbM3, false); ];
+![ ind obj;	CCase (obj, vbInd, false); ];
+![ inf obj;	CCase (obj, vbInf, false); ];
+![ Y1 obj;	CCase (obj, vbY1, false); ];
+![ Y2 obj;	CCase (obj, vbY2, false); ];
+![ Y3 obj;	CCase (obj, vbY3, false); ];
+![ M1 obj;	CCase (obj, vbM1, false); ];
+![ M2 obj;	CCase (obj, vbM2, false); ];
+![ M3 obj;	CCase (obj, vbM3, false); ];
 
 [ k_imp obj;	CCase (obj, name, true); ];
-[ k_ind obj;	CCase (obj, vbInd, true); ];
-[ k_inf obj;	CCase (obj, vbInf, true); ];
-[ k_Y1 obj;	CCase (obj, vbY1, true); ];
-[ k_Y2 obj;	CCase (obj, vbY2, true); ];
-[ k_Y3 obj;	CCase (obj, vbY3, true); ];
-[ k_M1 obj;	CCase (obj, vbM1, true); ];
-[ k_M2 obj;	CCase (obj, vbM2, true); ];
-[ k_M3 obj;	CCase (obj, vbM3, true); ];
+![ k_ind obj;	CCase (obj, vbInd, true); ];
+![ k_inf obj;	CCase (obj, vbInf, true); ];
+![ k_Y1 obj;	CCase (obj, vbY1, true); ];
+![ k_Y2 obj;	CCase (obj, vbY2, true); ];
+![ k_Y3 obj;	CCase (obj, vbY3, true); ];
+![ k_M1 obj;	CCase (obj, vbM1, true); ];
+![ k_M2 obj;	CCase (obj, vbM2, true); ];
+![ k_M3 obj;	CCase (obj, vbM3, true); ];
 
 
 

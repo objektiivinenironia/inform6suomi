@@ -501,11 +501,11 @@ Array Juttu --> JutLen;
     
     switch (csID) {	
      vbInf: print (string) obj.inf_;
-     vbInd: print (string) obj.ind_y;	
+!     vbInd: print (string) obj.ind_y;	
      	!vbInf ei loppuosaa
-     vbY2: print "t";
-     vbY3: print (string) obj.ind_y;
-     vbM3: print (string) obj.ind_m;	 
+!     vbY2: print "t";
+!     vbY3: print (string) obj.ind_y;
+!     vbM3: print (string) obj.ind_m;	 
     }
     
 ];

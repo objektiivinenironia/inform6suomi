@@ -254,9 +254,11 @@ Verb 'tyhjää' 'tyhjennä'
     * nom_noun ill_noun                    -> EmptyT
     * nom_noun all_noun                    -> EmptyT;
 Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
-    *                                      -> Inv
-    * par_noun                             -> Examine
-    * noun                                 -> Examine;
+    * 'mitä' nom_noun                                -> Examine
+    * 'mitä' par_noun			-> Examine
+    * nom_noun                          -> Examine
+    * par_noun				-> Examine;
+    
 Verb 'exit' 'ulos'
     *                                      -> Exit
     * ela_noun                             -> Exit;
