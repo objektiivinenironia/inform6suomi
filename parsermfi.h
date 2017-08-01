@@ -423,7 +423,7 @@
 	! as adverb
             else
 !!! muokattu		
-             	if (CaseIs ~= 0 && k >= 2) ! ensimmäinen sana tulostuu nom. seuraavat taipuu			
+             	if (CaseIs ~= 0 && k >= 2) ! 1. sana nom. 2. sana taipuu			
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
              		csGen: print (genetiivi) i;

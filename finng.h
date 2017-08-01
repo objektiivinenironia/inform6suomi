@@ -331,7 +331,9 @@ Verb 'ei' 'en' 'älä'
     *                                      -> No;
 Verb 'avaa'
     * nom_noun                             -> Open
-    * nom_noun ade_held                    -> Unlock;
+    * gen_noun 'lukitus' ade_held          -> Unlock
+    * gen_noun 'lukko' ade_held          -> Unlock;
+
 Verb 'poimi' 'kerää'
     * nom_noun                             -> Take;
 Verb 'rukoile'
