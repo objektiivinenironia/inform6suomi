@@ -347,8 +347,8 @@ Verb 'laita' 'pane' 'pistä' 'aseta'
 ! "laita kori koneeseen" tai "laita kaikki paitsi kori koneeseen"
 !!! lisää: kaikkea... par_multiexcept
 !!! lisää: samat reversenä, ainakin kommentoituna!
-   * nom_multiexcept 'mihin' nom_noun                -> PutOn
-   !* nom_multiexcept 'mihin'              -> PutOn
+   * nom_multiexcept 'mihin' ill_noun                -> Insert
+   * nom_multiexcept 'mihin'              -> PutOn
     * nom_multiexcept ill_noun             -> Insert 
 ! "laita vettä ämpäriin"
     * par_noun ill_noun                    -> Insert
