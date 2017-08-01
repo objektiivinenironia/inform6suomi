@@ -254,13 +254,12 @@ Verb 'tyhjää' 'tyhjennä'
     * nom_noun ill_noun                    -> EmptyT
     * nom_noun all_noun                    -> EmptyT;
 Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
-    * 'mitä' nom_noun                                -> Examine
-    * 'mitä' par_noun			-> Examine
     * nom_noun                          -> Examine
     * par_noun				-> Examine;
 
 Object 	"tutki" VerbDepot
-	with name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile';
+ with 	name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile',
+	adverbi "mitä";
 
 Verb 'exit' 'ulos'
     *                                      -> Exit
@@ -349,29 +348,26 @@ Verb 'työnnä' 'puske' 'liikuta'
     * par_noun ill_noun                    -> PushDir;
   
 Verb 'laita' 'pane' 'pistä' 'aseta'
-! "laita kori koneeseen" tai "laita kaikki paitsi kori koneeseen"
-!!! lisää: kaikkea... par_multiexcept
-!!! lisää: samat reversenä, ainakin kommentoituna!
-   * nom_multiexcept 'mihin' ill_noun                -> Insert
-   * nom_multiexcept 'mihin'              -> PutOn
-    * nom_multiexcept ill_noun             -> Insert 
-! "laita vettä ämpäriin"
-    * par_noun ill_noun                    -> Insert
-! "laita ämpäri pöydälle" tai "laita kaikki paitsi ämpäri pöydälle"
-    * nom_multiexcept all_noun             -> PutOn
-! "laita astioita pöydälle"    
-    * par_noun all_noun                    -> PutOn
- !-   * nom_noun ill_noun                    -> Insert !!++
- !-   * multiexcept all_noun                 -> PutOn !! >laita koneeseen ->(pyykkikorille)
- !-   * ill_noun par_noun                    -> Insert reverse
-  !-  * ill_noun multiexcept                 -> Insert reverse
-    * nom_noun gen_noun 'sisään'           -> Insert
-    * nom_noun gen_noun 'päälle'           -> Puton 
-    * all_noun nom_multiexcept                 -> PutOn reverse
-!    * 'on' held                             -> Wear
-    * 'pois' nom_multiheld                 -> Drop
-    * multiheld 'pois'                     -> Drop;
-   		    
+  !  * nom_multiexcept 'mihin' ill_noun	-> Insert
+  !  * nom_multiexcept 'mihin'		-> PutOn
+    * nom_multiexcept ill_noun		-> Insert 
+    * par_noun ill_noun			-> Insert
+    * nom_multiexcept all_noun		-> PutOn
+    * par_noun all_noun			-> PutOn
+    * nom_noun gen_noun 'sisään'	-> Insert
+    * nom_noun gen_noun 'päälle'	-> Puton 
+    * all_noun nom_multiexcept		-> PutOn reverse
+    * 'pois' nom_multiheld		-> Drop
+    * multiheld 'pois'			-> Drop;
+
+Object 	"lait/a" VerbDepot
+ with	
+	!inf_ "taa", ind_y "taa", ind_m "tavat",
+	name 'laita' 'pane' 'pistä' 'aseta',
+	adverbi "mihin";
+
+
+
  
 Verb 'siirrä'
     * nom_noun all_noun                    -> Transfer

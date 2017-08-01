@@ -401,7 +401,7 @@
 [ PrintCommand from i k spacing_flag; 
 
    if (from == 0) {
-        i = verb_word;
+       i = verb_word;  
         if (LanguageVerb(i) == 0)
             if (PrintVerb(i) == 0) print (address) i;
         from++; spacing_flag = true;
@@ -416,8 +416,11 @@
         if (i >= REPARSE_CODE) 
                     print (address) No__Dword(i-REPARSE_CODE);
         else
+	
+	
             if (i in compass && LanguageVerbLikesAdverb(verb_word))
-                LanguageDirection (i.door_dir); ! the direction name as adverb
+                LanguageDirection (i.door_dir); ! the direction name
+	! as adverb
             else
 !!! muokattu		
              	if (CaseIs ~= 0 && k >= 2) ! ensimmäinen sana tulostuu nom. seuraavat taipuu			
@@ -433,11 +436,13 @@
 			csEss: print (essiivi) i;
 			csTra: print (translatiivi) i;}
                        
- 	else print (the) i;		
-    !   else print (the) i;				
-!!! muokattu loppu
- 
-      .TokenPrinted;
+ 		else print (the) i;
+	!!! muokattu loppu
+	    
+      	.TokenPrinted;
+	
         spacing_flag = true;
+	
+	PrintAdverbi(verb_word);
     }
 ];

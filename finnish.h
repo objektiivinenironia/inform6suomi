@@ -60,7 +60,9 @@ Constant Alku =		20; !pu
 
 ! Verbit...
 
-Constant vbImp = 21; !pue
+Constant vbImp = 0; ! oletus
+
+!Constant vbImp = 21; !pue
 !Constant vbInf = 22; !pukea
 !Constant vbY1 =	23; !puen
 !Constant vbY2 =	24; !puet
@@ -388,77 +390,60 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 !    rtrue;
 !];
 
-! VerbDepot (venäjänkielisestä käännöksestä) - tulostaa verbin (esim "vedä")
-! verbdepotissa annetun verbin vaihtoehtoisen tapaluokan (esim. "vetää").
-   
+! (ks. VerbDepot finng.h) 
     
-[ LanguageVerb word t obj;
-    
-! t on se missä muodossa verbi halutaan tulostaa
-! word = verb_word;
-        
+[ LanguageVerb verbi obj;
+
     objectloop (obj in VerbDepot) {
-	if (WordInProperty (word, obj, name))		
-	  {print (the) obj; rtrue;}
+	if (WordInProperty (verbi, obj, name))		
+	{PrintCapitalised(obj);
+    	    !if (obj provides adverbi) print " ", (string)
+	    !obj.adverbi;
+	    rtrue;
+	    
 	}
+    }
 
  rfalse;
 ];
 
-! verbin tapaluokka:
-! vbImp on imperatiivi.
-! vnInd (indikatiivi preesens) on joko
-! vbY2 (yksikön toinen),
-! vbY3 (yksikön kolmas) tai
-! vbM3 (monikon kolmas) riippuen onko
-! actor pelaaja vai eph (pluralname=monikko)  
-
-! hohhoijaa, printverb toimii näin
-! PrintVerb(toimija,tapaluokka,kapitalisointi?)
-
-[ PrintVerb actor t kap word obj;   
-
-    word = verb_word;
+[ PrintAdverbi verbi obj;
+    objectloop (obj in VerbDepot) 
+    { if (WordInProperty (verbi, obj, name))
+    {
+	if (obj provides adverbi) print " ", (string) obj.adverbi;
+	rtrue;
+    }
+	
+    }
     
-!if (actor hasnt pluralname) {    
-!    if (t == vbInd && actor == player) t = vbY2; !laitat
-!    if (t == vbInd && actor ~= player) t = vbY3; !laittaa
-!}
-!  
-!if (actor has pluralname) {    
-!    if (t == vbInd && actor ~= player) t = vbM3; !laittavat
-!}   
+    rfalse;
+];
+
+
+[ PrintVerb verbi kap obj;   
+
+    verbi = verb_word;
     
  objectloop (obj in VerbDepot) {
-	if (kap == 0 && WordInProperty (word, obj, name))		
-	    switch (t) {
-	     vbImp: print (imp) obj; rtrue;
-!	     vbInd: print (ind) obj; rtrue;
-!	     vbInf: print (inf) obj; rtrue;				
-!	     vbY2: print (Y2) obj; rtrue;		
-!	     vbY3: print (Y3) obj; rtrue;		
-!	     vbM3: print (M3) obj; rtrue;
+	if (kap == 0 && WordInProperty (verbi, obj, name))		
+	    switch (verbi) {
+
+	     !vbImp: print (imp) obj; rtrue;
 	     default: rfalse;
 		
-	!	default: print (object) obj; rtrue;
 	    }
-         if (kap > 0 && WordInProperty (word, obj, name))		
+         if (kap > 0 && WordInProperty (verbi, obj, name))		
 	    switch (t) {
 	     vbImp: print (k_imp) obj; rtrue;
-!	     vbInd: print (k_ind) obj; rtrue;
-!	     vbInf: print (k_inf) obj; rtrue;				
-!	     vbY2: print (k_Y2) obj; rtrue;		
-!	     vbY3: print (k_Y3) obj; rtrue;		
-!	     vbM3: print (k_M3) obj; rtrue;
+
 	     default: rfalse;
 		
-	!	default: print (object) obj; rtrue;
 	    }
 	}
 
  rfalse;
-
-    
+   
 ];
 
 
@@ -1077,7 +1062,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 !           if (actor ~= player) print " ", (the) actor;
         48: print "Ketä haluat ";
            if (actor ~= player) print " ", (the) actor;
-           print " "; PrintCommand(0,0,1); print "?^";
+           print " "; PrintCommand(); print "?^";
 !       49: print "What do you want";
 !            if (actor ~= player) print " ", (the) actor;
 !            print " to "; PrintCommand(); print "?^";
