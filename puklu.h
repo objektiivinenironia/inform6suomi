@@ -451,7 +451,7 @@ Array Suttu --> SutLen;
 	!! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
 	
 	!!!# nominatiivi (1), csDflt
-	if (csID < 2 || csID == vbInf) !! tai infinitiiviverbi
+	if (csID < 2 || csID == vbImp) !! tai inperatiiviverbi
 	    for (i = 2: i ~= limit: ++ i) {
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";
@@ -459,7 +459,7 @@ Array Suttu --> SutLen;
 	
 	
 	
-	if (csID > 1 && csID ~= vbInf) !!!# ei nom eikä csDflt tai inf
+	if (csID > 1 && csID ~= vbImp) !!!# ei nom eikä csDflt tai imp
 	    for (i = 2: i ~= limit: ++ i)
 	    {    if (Suttu->i == '/' && Suttu->(i-1) ~= '>') 
 	    { if (dlm == 0) { dlm = Suttu+i; }
@@ -500,10 +500,10 @@ Array Juttu --> JutLen;
 [ VerbEnd obj csID;
     
     switch (csID) {	
-     vbImp: print (string) obj.imp_y;
+     vbInf: print (string) obj.inf_;
      vbInd: print (string) obj.ind_y;	
      	!vbInf ei loppuosaa
-     vbY2: print (string) obj.imp_y, "t";
+     vbY2: print "t";
      vbY3: print (string) obj.ind_y;
      vbM3: print (string) obj.ind_m;	 
     }

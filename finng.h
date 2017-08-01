@@ -134,6 +134,7 @@ Verb meta 'glklist'
 ! ------------------------------------------------------------------------------
 
 !! VerbDepot voi auttaa verbien tulostamisessa
+!! ks. verbit.h
 Object VerbDepot;
 
 [nom_noun; return c_token (NOUN_TOKEN, csNom); ];
@@ -364,9 +365,7 @@ Verb 'laita' 'pane' 'pistä' 'aseta'
     * 'pois' nom_multiheld                 -> Drop
     * multiheld 'pois'                     -> Drop;
    		    
-  Object "laittaa" VerbDepot
-    with name 'laita' 'pane' 'pistä' 'aseta';
-
+ 
 Verb 'siirrä'
     * nom_noun all_noun                    -> Transfer
     * nom_noun ill_noun                    -> Transfer;

@@ -392,17 +392,16 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! verbdepotissa annetun verbin vaihtoehtoisen tapaluokan (esim. "vetää").
    
     
-
 [ LanguageVerb word t obj;
     
 ! t on se missä muodossa verbi halutaan tulostaa
 ! word = verb_word;
         
- objectloop (obj in VerbDepot) {
+    objectloop (obj in VerbDepot) {
+	if (t == 0) rfalse;	
 	if (WordInProperty (word, obj, name))		
 	    switch (t) {
-	        0: print (ind) obj; rtrue; 		
-		vbImp: print (imp) obj; rtrue;
+	  	vbImp: print (imp) obj; rtrue;
 	        vbInd: print (ind) obj; rtrue;		
 		default: print (object) obj; rtrue;
 	    }
@@ -444,8 +443,10 @@ if (actor has pluralname) {
 	     vbInf: print (inf) obj; rtrue;				
 	     vbY2: print (Y2) obj; rtrue;		
 	     vbY3: print (Y3) obj; rtrue;		
-	     vbM3: print (M3) obj; rtrue;		
-		default: print (object) obj; rtrue;
+	     vbM3: print (M3) obj; rtrue;
+	     default: rfalse;
+		
+	!	default: print (object) obj; rtrue;
 	    }
          if (kap > 0 && WordInProperty (word, obj, name))		
 	    switch (t) {
@@ -454,8 +455,10 @@ if (actor has pluralname) {
 	     vbInf: print (k_inf) obj; rtrue;				
 	     vbY2: print (k_Y2) obj; rtrue;		
 	     vbY3: print (k_Y3) obj; rtrue;		
-	     vbM3: print (k_M3) obj; rtrue;		
-		default: print (object) obj; rtrue;
+	     vbM3: print (k_M3) obj; rtrue;
+	     default: rfalse;
+		
+	!	default: print (object) obj; rtrue;
 	    }
 	}
 
@@ -1080,15 +1083,14 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 !           if (actor ~= player) print " ", (the) actor;
         48: print "Ketä haluat ";
            if (actor ~= player) print " ", (the) actor;
-           print " "; PrintCommand(); print "?^";
+           print " "; PrintCommand(0,0,1); print "?^";
 !       49: print "What do you want";
 !            if (actor ~= player) print " ", (the) actor;
 !            print " to "; PrintCommand(); print "?^";
 
-        49: print "Mitä haluat"; ! mitä, millä, mihin, mille jne...
-            if (actor ~= player) print " ", (the) actor;
-            print " "; PrintCommand(); print "?^";
-
+   49: if (actor ~= player) print (The) actor, ", ";
+      PrintCommand(); print "?^";
+      
 	50: !print "Pisteesi ovat juuri ";
 	    print ""; if (x1 > 0) print "Sait juuri "; else { x1 = -x1; print "Menetit juuri "; }
 	     if (x1 == 1) print "pisteen"; else print (number) x1, " pistettä";           

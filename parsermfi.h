@@ -5,9 +5,7 @@
 !
 !     * NounDomain 
 !     * PrintCommand
-!
 
-!!!# NounDomain
 
 ! ----------------------------------------------------------------------------
 !  NounDomain does the most substantial part of parsing an object name.
@@ -421,7 +419,7 @@
             if (i in compass && LanguageVerbLikesAdverb(verb_word))
                 LanguageDirection (i.door_dir); ! the direction name as adverb
 !!! muokattu
-            else 
+            else
              	if (CaseIs ~= 0 && k >= 2) ! ensimmäinen sana tulostuu nom. seuraavat taipuu			
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
@@ -434,7 +432,7 @@
 			csAll: print (allatiivi) i; 
 			csEss: print (essiivi) i;
 			csTra: print (translatiivi) i;}
- 
+                       
  	else print (nominatiivi) i;		
     !   else print (the) i;				
 !!! muokattu loppu
@@ -443,5 +441,3 @@
         spacing_flag = true;
     }
 ];
-
-
