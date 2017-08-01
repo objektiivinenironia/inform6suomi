@@ -427,8 +427,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 !  
 !if (actor has pluralname) {    
 !    if (t == vbInd && actor ~= player) t = vbM3; !laittavat
-!}
-
+!}   
     
  objectloop (obj in VerbDepot) {
 	if (kap == 0 && WordInProperty (word, obj, name))		

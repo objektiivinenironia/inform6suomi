@@ -258,7 +258,10 @@ Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
     * 'mitä' par_noun			-> Examine
     * nom_noun                          -> Examine
     * par_noun				-> Examine;
-    
+
+Object 	"tutki" VerbDepot
+	with name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile';
+
 Verb 'exit' 'ulos'
     *                                      -> Exit
     * ela_noun                             -> Exit;
