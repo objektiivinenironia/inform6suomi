@@ -408,11 +408,15 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ];
 
 
-[ PrintKysymys verbi obj;
+! tulee PrintCommandista... k on sen laskuri
+[ PrintKysymys verbi from k obj;
     objectloop (obj in VerbDepot) 
     { if (WordInProperty (verbi, obj, name))
-    {
-	if (obj provides kysymys) print (string) obj.kysymys;
+	! esim. "Laita kuutio mihin?"
+    {	
+        if (k == 1) {print " mitä"; rtrue;}	 
+	if (obj provides kysymys && from <= 1) print " ", (string)
+    	    obj.kysymys;
 	rtrue;
     }
 	
@@ -1045,7 +1049,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 !            print " to "; PrintCommand(); print "?^";
 
    49: if (actor ~= player) print (The) actor, ", ";
-      PrintCommand(); print " "; PrintKysymys(verb_word); print "?^";
+      PrintCommand(); print "?^";
       
 	50: !print "Pisteesi ovat juuri ";
 	    print ""; if (x1 > 0) print "Sait juuri "; else { x1 = -x1; print "Menetit juuri "; }

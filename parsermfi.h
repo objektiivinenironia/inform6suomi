@@ -399,24 +399,24 @@
 ! ----------------------------------------------------------------------------
 
 [ PrintCommand from i k spacing_flag; 
-
-   if (from == 0) {
-       i = verb_word;  
+    
+    if (from == 0) {
+       	i = verb_word;  
         if (LanguageVerb(i) == 0)
             if (PrintVerb(i) == 0) print (address) i;
         from++; spacing_flag = true;
+	
     }
 
-    for (k=from : k<pcount : k++) {
+    for (k=from : k<pcount : k++) { 	
         i = pattern-->k;
         if (i == PATTERN_NULL) continue;
         if (spacing_flag) print (char) ' ';
         if (i ==0 ) { print (string) THOSET__TX; jump TokenPrinted; }
         if (i == 1) { print (string) THAT__TX;   jump TokenPrinted; }
-        if (i >= REPARSE_CODE) 
+        if (i >= REPARSE_CODE)     
                     print (address) No__Dword(i-REPARSE_CODE);
         else
-	
 	
             if (i in compass && LanguageVerbLikesAdverb(verb_word))
                 LanguageDirection (i.door_dir); ! the direction name
@@ -439,12 +439,15 @@
                        
  		else print (the) i;
 	
- 	
+    	
+    .TokenPrinted;
+	spacing_flag = true;
+
+	
+    }
+
+    ! esim. "laita kuutio mihin?"
+    PrintKysymys(verb_word, from, k); 	
     !!! muokattu loppu
 
-    .TokenPrinted;
-	
-        spacing_flag = true;
-
-    }
 ];
