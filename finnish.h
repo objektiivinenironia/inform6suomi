@@ -391,21 +391,22 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 !];
 
 ! (ks. VerbDepot finng.h) 
-    
-[ LanguageVerb verbi obj;
-
+[ LanguageVerb verbi obj; 
     objectloop (obj in VerbDepot) {
-	if (WordInProperty (verbi, obj, name))		
-	{PrintCapitalised(obj);
-    	    !if (obj provides adverbi) print " ", (string)
-	    !obj.adverbi;
-	    rtrue;
-	    
+	if (WordInProperty (verbi, obj, name))
+	    ! pelaajan ilmo alkaa verbillä (isolla)
+    	    ! jos joku muu, alkaa sen nimellä (isolla)
+	{ if (actor == player) PrintCapitalised(obj);
+	else print (name) obj; rtrue;	    
 	}
-    }
-
- rfalse;
+	   ! jos ei VerbDepotissa, tulostetaan osoite
+        else {print (address) verbi; rtrue;}
+ 
+ }    
+    
+    rfalse;
 ];
+
 
 [ PrintAdverbi verbi obj;
     objectloop (obj in VerbDepot) 
@@ -420,31 +421,6 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     rfalse;
 ];
 
-
-[ PrintVerb verbi kap obj;   
-
-    verbi = verb_word;
-    
- objectloop (obj in VerbDepot) {
-	if (kap == 0 && WordInProperty (verbi, obj, name))		
-	    switch (verbi) {
-
-	     !vbImp: print (imp) obj; rtrue;
-	     default: rfalse;
-		
-	    }
-         if (kap > 0 && WordInProperty (verbi, obj, name))		
-	    switch (t) {
-	     vbImp: print (k_imp) obj; rtrue;
-
-	     default: rfalse;
-		
-	    }
-	}
-
- rfalse;
-   
-];
 
 
 ! ----------------------------------------------------------------------------
@@ -939,7 +915,8 @@ if (obj == player)      { print "Itseesi"; return; }
   Lock: switch (n) {
 	1:  if (x1 has pluralname) print "Ne eivät "; else print "Se ei ";
 	    "tunnu olevan lukittavissa.";
-	2:  print_ret (ksejane) x1, " ", (eijaeivat) x1, " ole lukossa tällä hetkellä.";
+	2:  print_ret (ksejane) x1, " ", (onjaovat) x1, " lukossa
+	    tällä hetkellä.";
 	3:  "Sinun täytyy ensin sulkea ", (nominatiivi) x1, ".";
 	4:  if (x1 has pluralname) print "Ne eivät "; else print "Se ei ";
 	    "tunnu sopivan lukkoon.";

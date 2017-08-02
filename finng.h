@@ -226,7 +226,7 @@ Verb 'juo' 'hörppää' 'niele'
     * nom_noun                             -> Drink
     * ela_noun                             -> Drink
     * par_noun                             -> Drink;
-Verb 'pudota' 'laske'
+Verb 'pudota' 'laske' 'tiputa' 'poista'
     * multiheld                            -> Drop
     * multiheld 'maahan'                   -> Drop;
 Verb 'jätä'
@@ -320,6 +320,12 @@ Verb 'kuuntele'
     * ela_noun                             -> Listen;
 Verb 'lukitse'
     * nom_noun ade_held                    -> Lock;
+
+Object 	"lukitse" VerbDepot
+ with 	name 'lukitse',
+ 	adverbi "millä";
+
+
 Verb 'katso' 'ks' 'k//'
     *                                      -> Look
     * par_noun                             -> Examine
@@ -330,9 +336,15 @@ Verb 'katso' 'ks' 'k//'
 Verb 'ei' 'en' 'älä' 
     *                                      -> No;
 Verb 'avaa'
-    * nom_noun                             -> Open
-    * gen_noun 'lukitus' ade_held          -> Unlock
-    * gen_noun 'lukko' ade_held          -> Unlock;
+    * gen_noun 'lukitus' ade_held	-> Unlock
+    * gen_noun 'lukko' ade_held		-> Unlock
+    * nom_noun ade_held                 -> Unlock
+    * nom_noun				-> Open;
+    
+    
+ Object 	"avaa" VerbDepot
+ with 	name 'avaa',
+ 	adverbi "millä";
 
 Verb 'poimi' 'kerää'
     * nom_noun                             -> Take;
@@ -350,8 +362,6 @@ Verb 'työnnä' 'puske' 'liikuta'
     * par_noun ill_noun                    -> PushDir;
   
 Verb 'laita' 'pane' 'pistä' 'aseta'
-  !  * nom_multiexcept 'mihin' ill_noun	-> Insert
-  !  * nom_multiexcept 'mihin'		-> PutOn
     * nom_multiexcept ill_noun		-> Insert 
     * par_noun ill_noun			-> Insert
     * nom_multiexcept all_noun		-> PutOn

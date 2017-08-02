@@ -422,8 +422,9 @@
                 LanguageDirection (i.door_dir); ! the direction name
 	! as adverb
             else
-!!! muokattu		
-             	if (CaseIs ~= 0 && k >= 2) ! 1. sana nom. 2. sana taipuu			
+		!!! muokattu
+		! (CaseIs ~= 0 && k >= 2) ! 1. sana nom. 2. sana taipuu			
+             	if (CaseIs ~= 0) 
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
              		csGen: print (genetiivi) i;
@@ -437,12 +438,23 @@
 			csTra: print (translatiivi) i;}
                        
  		else print (the) i;
-	!!! muokattu loppu
+	
 	    
-      	.TokenPrinted;
+      	
+
+	! "from <= 1" ettei tulosta adverbia esim
+	!    >lukitse kaappi
+	!    (kapsäkilläsi millä)
+       
+	if (from <= 1)
+	    ! { print "[", from, "]";
+	    PrintAdverbi(verb_word);
+	
+    !!! muokattu loppu
+
+    .TokenPrinted;
 	
         spacing_flag = true;
-	
-	PrintAdverbi(verb_word);
+
     }
 ];
