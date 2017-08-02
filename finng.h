@@ -259,7 +259,7 @@ Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
 
 Object 	"tutki" VerbDepot
  with 	name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile',
-	adverbi "mitä";
+	kysymys "mitä";
 
 Verb 'exit' 'ulos'
     *                                      -> Exit
@@ -323,7 +323,7 @@ Verb 'lukitse'
 
 Object 	"lukitse" VerbDepot
  with 	name 'lukitse',
- 	adverbi "millä";
+ 	kysymys "millä";
 
 
 Verb 'katso' 'ks' 'k//'
@@ -344,7 +344,7 @@ Verb 'avaa'
     
  Object "avaa" VerbDepot
  with 	name 'avaa',
- 	adverbi "millä";
+ 	kysymys "millä";
 
 Verb 'poimi' 'kerää'
     * nom_noun                             -> Take;
@@ -376,7 +376,7 @@ Object 	"lait/a" VerbDepot
  with	
 	!inf_ "taa", ind_y "taa", ind_m "tavat",
 	name 'laita' 'pane' 'pistä' 'aseta',
-	adverbi "mihin";
+	kysymys "mihin";
 
 
 

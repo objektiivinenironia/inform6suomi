@@ -408,11 +408,11 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ];
 
 
-[ PrintAdverbi verbi obj;
+[ PrintKysymys verbi obj;
     objectloop (obj in VerbDepot) 
     { if (WordInProperty (verbi, obj, name))
     {
-	if (obj provides adverbi) print " ", (string) obj.adverbi;
+	if (obj provides kysymys) print (string) obj.kysymys;
 	rtrue;
     }
 	
@@ -1045,7 +1045,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 !            print " to "; PrintCommand(); print "?^";
 
    49: if (actor ~= player) print (The) actor, ", ";
-      PrintCommand(); print "?^";
+      PrintCommand(); print " "; PrintKysymys(verb_word); print "?^";
       
 	50: !print "Pisteesi ovat juuri ";
 	    print ""; if (x1 > 0) print "Sait juuri "; else { x1 = -x1; print "Menetit juuri "; }

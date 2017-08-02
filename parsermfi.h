@@ -423,7 +423,7 @@
 	! as adverb
             else
 		!!! muokattu
-		! (CaseIs ~= 0 && k >= 2) ! 1. sana nom. 2. sana taipuu			
+		! (CaseIs ~= 0 && k >= 2) ! jos tämä, 1. sana nom. 2. sana taipuu			
              	if (CaseIs ~= 0) 
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
@@ -439,17 +439,7 @@
                        
  		else print (the) i;
 	
-	    
-      	
-
-	! "from <= 1" ettei tulosta adverbia esim
-	!    >lukitse kaappi
-	!    (kapsäkilläsi millä)
-       
-	if (from <= 1)
-	    ! { print "[", from, "]";
-	    PrintAdverbi(verb_word);
-	
+ 	
     !!! muokattu loppu
 
     .TokenPrinted;
