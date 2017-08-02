@@ -342,7 +342,7 @@ Verb 'avaa'
     * nom_noun				-> Open;
     
     
- Object 	"avaa" VerbDepot
+ Object "avaa" VerbDepot
  with 	name 'avaa',
  	adverbi "millä";
 

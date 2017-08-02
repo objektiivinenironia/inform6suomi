@@ -175,7 +175,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
 	
 	if (v == 0) rfalse;
-	if (v ~= 0) etype = "En ihan käsittänyt."; 
+	! if (v ~= 0) etype = "En ihan käsittänyt."; 
 	
 	
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse
