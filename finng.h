@@ -226,7 +226,7 @@ Verb 'juo' 'hörppää' 'niele'
     * nom_noun                             -> Drink
     * ela_noun                             -> Drink
     * par_noun                             -> Drink;
-Verb 'pudota' 'laske' 'tiputa' 'poista'
+Verb 'pudota' 'laske' 'tiputa' 'poista' 'hylkää'
     * multiheld                            -> Drop
     * multiheld 'maahan'                   -> Drop;
 Verb 'jätä'

@@ -170,7 +170,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 [ EndingLookup   addr len csID 
     v u ocFN i;
     
-    if (csID == 0) rtrue; ! sana perusmuodossa?
+    if (csID == 0) { etype = "En ihan k‰sitt‰nyt."; rtrue;} ! sana perusmuodossa?
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon p‰‰tteen pituus
 	
