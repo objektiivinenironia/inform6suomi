@@ -391,34 +391,43 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 !];
 
 ! (ks. VerbDepot finng.h) 
-[ LanguageVerb verbi obj; 
+[ LanguageVerb verbi obj;
+    
     objectloop (obj in VerbDepot) {
 	if (WordInProperty (verbi, obj, name))
-	    ! pelaajan ilmo alkaa verbillä miel. isolla
-    	    ! jos joku muu, alkaa sen nimellä (isolla)
-	{  
 	    
-	   PrintCapitalised(obj);
-	!else print (name) obj; rtrue;	    
+	{
+	    ! "Risto, laita (jotain?)"
+	    if (actor ~= player) {print (name) obj;
+	    	rtrue;
+	    }
+	    ! "Laita (jotain?)"
+	    else
+	    PrintCapitalised(obj); rtrue;	    	    
 	}
-	   ! jos ei VerbDepotissa, tulostetaan osoite
-        else {verbikap(verbi); rtrue;}
- 
- }    
-    
-    rfalse;
+    	! jos ei VerbDepotissa, tulostetaan verbin osoite
+	! pienellä alkukirjaimella...
+ 	else if (actor ~= player) { print (address) verbi; rtrue;
+	}
+        ! isolla...
+      	else {verbikap(verbi); rtrue;
+	}	    	
+    	rfalse;
+  	
+    }  
 ];
 
 
 ! tulee PrintCommandista... k on sen laskuri
 [ PrintKysymys verbi from k obj;
- print from, "*", k;
+ ! print from, "*", k;
+
+    if (k == 1) {print " mitä"; rtrue;}
     
     objectloop (obj in VerbDepot) 
     { if (WordInProperty (verbi, obj, name))
 	! esim. "Laita kuutio mihin?"
-    {	
-        if (k == 1) {print " mitä"; rtrue;}	 
+    {	        	 
 	if (obj provides kysymys && from <= 1) print " ", (string)
     	    obj.kysymys;
 	rtrue;
