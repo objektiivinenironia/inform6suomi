@@ -366,7 +366,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	8:  print "kahdeksankymmentä";
 	9:  print "yhdeksänkymmentä";
 	}
-	if (n%10 ~= 0) print "-", (LanguageNumber) n%10;
+	!if (n%10 ~= 0) print "-", (LanguageNumber) n%10;
     }
 ];
 
@@ -394,13 +394,15 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 [ LanguageVerb verbi obj; 
     objectloop (obj in VerbDepot) {
 	if (WordInProperty (verbi, obj, name))
-	    ! pelaajan ilmo alkaa verbillä (isolla)
+	    ! pelaajan ilmo alkaa verbillä miel. isolla
     	    ! jos joku muu, alkaa sen nimellä (isolla)
-	{ if (actor == player) PrintCapitalised(obj);
-	else print (name) obj; rtrue;	    
+	{  
+	    
+	   PrintCapitalised(obj);
+	!else print (name) obj; rtrue;	    
 	}
 	   ! jos ei VerbDepotissa, tulostetaan osoite
-        else {print (address) verbi; rtrue;}
+        else {verbikap(verbi); rtrue;}
  
  }    
     
@@ -410,6 +412,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 ! tulee PrintCommandista... k on sen laskuri
 [ PrintKysymys verbi from k obj;
+ print from, "*", k;
+    
     objectloop (obj in VerbDepot) 
     { if (WordInProperty (verbi, obj, name))
 	! esim. "Laita kuutio mihin?"

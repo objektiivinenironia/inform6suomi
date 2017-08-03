@@ -214,29 +214,35 @@ Global CaseIs; ! kertoo PrintCommandille mikä on syötteen sijamuoto
 
 Global sija; ! tulostusta varten
 
+! Tulosta (address) verbi isolla alkukirjaimella
+! (ks. sanakirja.h)
+Constant verbi_pituus = 39;
+Array verbi_array --> verbi_pituus;
 
-
-
-Constant LongLen = 63; 
-Array LongArr --> LongLen;
-
-
-Constant Sanak_pituus = 39;
-Array Sanak_array --> Sanak_pituus;
-
-[ sanakirja w i;
-    @output_stream 3 Sanak_array;
-    print (address) w;		
+[ VerbiKap w i k iso;
+    @output_stream 3 verbi_array;
+    print (address) w;
     @output_stream -3;
+
+    k = verbi_array->2;
+
+    ! å,ä ja ö on sijoitettu toisin kuin a-z
+    switch (k)
+ { 155, 158: iso = 158; ! ä, Ä -> Ä
+   156, 159: iso = 159; ! ö. Ö -> Ö 	
+   201, 202: iso = 202; ! å, Å -> Å	
+   default: iso = k-32;   
+    }    
+    print (char) iso;
     
-    !print "(sanakirja: ";
-    for (i=1:i<=Sanak_array-->0:i++) 
-   	
-  	!print (char) Sanak_array->(i+1);
-  	!print ", ", Sanak_array-->0, " merkkiä)^"; 
-  	
-  	return Sanak_array-->0;
+    for (i=2:i<=verbi_array-->0:i++) 
+  { print (char) verbi_array->(i+1);
+    }
+    ! ao. ei tarvita?
+    return verbi_array-->0;
  ];
+
+
 
 !! debug parsimiseen									 
 [ debugsijat adr wnum len end w csID;
