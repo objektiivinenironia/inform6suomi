@@ -391,21 +391,14 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 !];
 
 ! (ks. VerbDepot finng.h) 
-
-    ! "Ymm‰rsin vain..." (miscellany 28) ei tulosta
-    ! mit‰‰n j‰rkev‰‰ (sen voisi korvata jollain muulla
-    ! ilmoituksella) Mutta koska sill‰ on eri etype (2) kuin 
-    ! ilmoituksella "En ihan k‰sitt‰nyt" (1), kokeillaan
-    ! jotain...
-
 [ LanguageVerb verbi obj;
     
     objectloop (obj in VerbDepot) {
 	if (WordInProperty (verbi, obj, name))
 	    
 	{
-	    ! "Risto, laita (jotain?)" [etype -- lm misc 28]
-	    if (actor ~= player || etype > 1) {print (name) obj;
+	    ! "Risto, laita (jotain?)"
+	    if (actor ~= player) {print (name) obj;
 	    	rtrue;
 	    }
 	    ! "Laita (jotain?)"
@@ -413,8 +406,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	    PrintCapitalised(obj); rtrue;	    	    
 	}
     	! jos ei VerbDepotissa, tulostetaan verbin osoite
-	! pienell‰ alkukirjaimella... [etype -- lm misc 28]
- 	else if (actor ~= player || etype > 1) { print (address) verbi; rtrue;
+	! pienell‰ alkukirjaimella... 
+ 	else if (actor ~= player) { print (address) verbi; rtrue;
 	}
         ! isolla...
       	else {verbikap(verbi); rtrue;
@@ -429,11 +422,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 [ PrintKysymys verbi from k obj;
     !!!  print from, "*", k, "/", from, "e:", etype, "^";
     
-    ! [lm misc 28]
-    if (etype > 1) print "~";   
-
     ! [lm misc 49]
-    else if (k == 1) {print " mit‰"; rtrue;}
+    if (k == 1) {print " mit‰"; rtrue;}
     
     objectloop (obj in VerbDepot) 
     { if (WordInProperty (verbi, obj, name))
@@ -1030,7 +1020,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 	25: "Puhuaksesi jollekulle, kokeile ~joku, terve~ tms.";
 	26: "(ottamalla ensin ", (monikko_vai_yks) not_holding, ")";
 	27: "En k‰sitt‰nyt tuota lausetta.";
-	28: print "Ymm‰rsin vain ~";
+	28: print "Ymm‰rsin vain: ";
 	29: "En k‰sitt‰nyt tuota numeroa.";
 	30: "Et n‰e mit‰‰n sellaista.";
 	31: "Kenties et sanonut tarpeeksi!";

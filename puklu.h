@@ -159,6 +159,9 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 
 [ ParserError error_code;
+
+    ! vähennetään UPTO_PE -> STUCK_PE:ksi
+    if (error_code == 2) etype = 1; 
     
     if (error_code ofclass String) print_ret (string) error_code;
     rfalse; ! Print standard parser error message
