@@ -336,11 +336,11 @@ Verb 'katso' 'ks' 'k//'
 Verb 'ei' 'en' 'älä' 
     *                                      -> No;
 Verb 'avaa'
+    * nom_noun				-> Open
     * gen_noun 'lukitus' ade_held	-> Unlock
     * gen_noun 'lukko' ade_held		-> Unlock
-    * nom_noun ade_held                 -> Unlock
-    * nom_noun				-> Open;
-    
+    * nom_noun ade_held                 -> Unlock;
+
     
  Object "avaa" VerbDepot
  with 	name 'avaa',
@@ -370,7 +370,8 @@ Verb 'laita' 'pane' 'pistä' 'aseta'
     * nom_noun gen_noun 'päälle'	-> Puton 
     * all_noun nom_multiexcept		-> PutOn reverse
     * 'pois' nom_multiheld		-> Drop
-    * multiheld 'pois'			-> Drop;
+    * multiheld 'pois'			-> Drop
+    * multiheld noun                    -> Insert;
 
 Object 	"lait/a" VerbDepot
  with	

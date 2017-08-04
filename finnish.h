@@ -756,7 +756,7 @@ if (obj == player)      { print "Itseesi"; return; }
   Climb:    "Luulen ettet saavuttaisi mit‰‰n.";
   Close: switch (n) {
 	1:  print_ret (ksitajaniita) x1, " ei voi sulkea.";
-	2:  print_ret (ksejane) x1, (onjaovat) x1, " jo kiinni.";
+	2:  print_ret (ksejane) x1, " ", (onjaovat) x1, " jo kiinni.";
 	3:  "Suljet ", (genetiivi) x1, ".";
     }
   CommandsOff: switch (n) {
