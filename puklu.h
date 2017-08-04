@@ -176,13 +176,13 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 [ EndingLookup   addr len csID 
     v u ocFN i;
     
-    if (csID == 0) rtrue; !{print "csID 0, rtrue^"; rtrue;}; 
+    if (csID == 0) {print "csID 0, rtrue^"; rtrue;}; 
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
 	
-	if (v == 0) rfalse; !{print "v 0, rfalse^"; rfalse;}	
+	if (v == 0) {print "v 0, rfalse^"; rfalse;}	
 
-	!if (v ~= 0) {print "v ~= 0^";}  
+	if (v ~= 0) {print "v ~= 0^"; etype = "En ihan käsittänyt";}  
 	
 	
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse

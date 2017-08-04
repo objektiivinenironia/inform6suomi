@@ -370,8 +370,8 @@ Verb 'laita' 'pane' 'pistä' 'aseta'
     * nom_noun gen_noun 'päälle'	-> Puton 
     * all_noun nom_multiexcept		-> PutOn reverse
     * 'pois' nom_multiheld		-> Drop
-    * multiheld 'pois'			-> Drop
-    * multiheld noun                    -> Insert;
+    * multiheld 'pois'			-> Drop;
+    !* multiheld noun                    -> Insert;
 
 Object 	"lait/a" VerbDepot
  with	
