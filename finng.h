@@ -16,6 +16,49 @@
 
 System_file;
 
+
+!! VerbDepot voi auttaa verbien tulostamisessa
+!! ks. verbit.h
+Object VerbDepot;
+
+[nom_noun; return c_token (NOUN_TOKEN, csNom); ];
+[gen_noun; return c_token (NOUN_TOKEN, csGen); ];
+[par_noun; return c_token (NOUN_TOKEN, csPar); ];
+[ine_noun; return c_token (NOUN_TOKEN, csIne); ];
+[ela_noun; return c_token (NOUN_TOKEN, csEla); ];
+[ill_noun; return c_token (NOUN_TOKEN, csIll); ];
+[ade_noun; return c_token (NOUN_TOKEN, csAde); ];
+[abl_noun; return c_token (NOUN_TOKEN, csAbl); ];
+[all_noun; return c_token (NOUN_TOKEN, csAll); ];
+
+!held 
+[nom_held; return c_token (HELD_TOKEN, csNom); ];
+[par_held; return c_token (HELD_TOKEN, csPar); ];
+[ill_held; return c_token (HELD_TOKEN, csIll); ];
+[ade_held; return c_token (HELD_TOKEN, csAde); ];
+
+!worn (worn-tokenia ei ole)
+[nom_worn; return c_token (HELD_TOKEN, csNom); ]; 
+
+!creature
+[nom_creat; return c_token (CREATURE_TOKEN, csNom); ];
+[par_creat; return c_token (CREATURE_TOKEN, csPar); ];
+[abl_creat; return c_token (CREATURE_TOKEN, csAbl); ];
+[all_creat; return c_token (CREATURE_TOKEN, csAll); ];
+
+!multi
+[nom_multi; return c_token (MULTI_TOKEN, csNom); ];
+[par_multi; return c_token (MULTI_TOKEN, csPar); ];
+
+!multiheld
+[nom_multiheld;	return c_token (MULTIHELD_TOKEN, csNom); ];
+
+!multiexcept (nom, par?)
+[nom_multiexcept; return c_token (MULTI_TOKEN, csNom);	];
+
+!multiinside?
+
+
 ! ------------------------------------------------------------------------------
 !  The "meta-verbs", commands to the game rather than in the game, come first:
 ! ------------------------------------------------------------------------------
@@ -77,7 +120,7 @@ Verb meta 'paikat'
 
 #Ifdef DEBUG;
 Verb meta 'sijat'
-    * multi                                -> PrintSijat;
+    * nom_multi                             -> PrintSijat;
 Verb meta 'actions'
     *                                      -> ActionsOn
     * 'on'                                 -> ActionsOn
@@ -133,46 +176,6 @@ Verb meta 'glklist'
 !  And now the game verbs.
 ! ------------------------------------------------------------------------------
 
-!! VerbDepot voi auttaa verbien tulostamisessa
-!! ks. verbit.h
-Object VerbDepot;
-
-[nom_noun; return c_token (NOUN_TOKEN, csNom); ];
-[gen_noun; return c_token (NOUN_TOKEN, csGen); ];
-[par_noun; return c_token (NOUN_TOKEN, csPar); ];
-[ine_noun; return c_token (NOUN_TOKEN, csIne); ];
-[ela_noun; return c_token (NOUN_TOKEN, csEla); ];
-[ill_noun; return c_token (NOUN_TOKEN, csIll); ];
-[ade_noun; return c_token (NOUN_TOKEN, csAde); ];
-[abl_noun; return c_token (NOUN_TOKEN, csAbl); ];
-[all_noun; return c_token (NOUN_TOKEN, csAll); ];
-
-!held 
-[nom_held; return c_token (HELD_TOKEN, csNom); ];
-[par_held; return c_token (HELD_TOKEN, csPar); ];
-[ill_held; return c_token (HELD_TOKEN, csIll); ];
-[ade_held; return c_token (HELD_TOKEN, csAde); ];
-
-!worn (worn-tokenia ei ole)
-[nom_worn; return c_token (HELD_TOKEN, csNom); ]; 
-
-!creature
-[nom_creat; return c_token (CREATURE_TOKEN, csNom); ];
-[par_creat; return c_token (CREATURE_TOKEN, csPar); ];
-[abl_creat; return c_token (CREATURE_TOKEN, csAbl); ];
-[all_creat; return c_token (CREATURE_TOKEN, csAll); ];
-
-!multi
-[nom_multi; return c_token (MULTI_TOKEN, csNom); ];
-[par_multi; return c_token (MULTI_TOKEN, csPar); ];
-
-!multiheld
-[nom_multiheld;	return c_token (MULTIHELD_TOKEN, csNom); ];
-
-!multiexcept (nom, par?)
-[nom_multiexcept; return c_token (MULTI_TOKEN, csNom);	];
-
-!multiinside?
 
 [ ADirection; if (noun in compass) rtrue; rfalse; ];
 
@@ -359,8 +362,18 @@ Verb 'vedä' 'kisko'
 Verb 'työnnä' 'puske' 'liikuta'
     * par_noun                             -> Push
     * nom_noun ill_noun                    -> PushDir
-    * par_noun ill_noun                    -> PushDir;
-  
+    * par_noun ill_noun  		   -> PushDir;
+! huom. noun=ADirection ei toiminut (jäi silmukkaan
+! kuten pelkkä noun) ill_noun tuntui toimivan
+! ilmansuunnan kanssa ok. "p", "pohjoiseen"
+! "Työnnä talo pohjoinen" ei toiminut --
+! "Et näe mitään sellaista."
+
+Object 	"työnnä" VerbDepot
+ with 	name 'työnnä' 'puske' 'liikuta',
+    	kysymys "minne";
+
+
 Verb 'laita' 'pane' 'pistä' 'aseta'
     * nom_multiexcept ill_noun		-> Insert 
     * par_noun ill_noun			-> Insert
