@@ -157,6 +157,39 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     return -1;
 ];	
 
+! from SweRout.h bug fix by F.Ramsberg
+
+[ CantSee  i w e;
+    saved_oops=oops_from;
+
+    if (scope_token ~= 0) {
+        scope_error = scope_token;
+        return ASKSCOPE_PE;
+    }
+
+    wn--; w = NextWord();
+    e = CANTSEE_PE;
+! ¤#¤ One line changed
+!    if (w==pronoun_word)
+    if (w==pronoun_word && ~~ TestScope(pronoun_obj))  ! TestScope condition added
+    {
+        pronoun__word = pronoun_word; pronoun__obj = pronoun_obj;
+        e = ITGONE_PE;
+    }
+    i = actor; while (parent(i) ~= 0) i = parent(i);
+
+    wn--;
+    if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
+    else {
+        Descriptors();  ! skip past THE etc
+        if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
+    }
+    wn++;
+    if (etype > e) return etype;
+    return e;
+];
+
+
 
 [ ParserError error_code;
 
@@ -176,14 +209,14 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 [ EndingLookup   addr len csID 
     v u ocFN i;
     
-    if (csID == 0 && len == 0) {etype = "En ihan käsittänyt."; rtrue;} 
+!    if (csID == 0 && len == 0) {etype = "En ihan käsittänyt."; rtrue;} 
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
 	
 	if (v == 0) rfalse;	
 
-	if (v ~= 0) etype = "En ihan käsittänyt";  
+!	if (v ~= 0) etype = "En ihan käsittänyt";  
 	
 	
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse
