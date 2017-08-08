@@ -5,6 +5,60 @@
 !
 !     * NounDomain 
 !     * PrintCommand
+!     * CantSee
+!
+! from Swedish lib (SweRout.h) with bug fix by F.Ramsberg
+! ==============================================================================================================
+! General bug fix, which became necessary with the swedish grammar
+! ==============================================================================================================
+
+! ----------------------------------------------------------------------------
+!  The CantSee routine returns a good error number for the situation where
+!  the last word looked at didn't seem to refer to any object in context.
+!
+!  The idea is that: if the actor is in a location (but not inside something
+!  like, for instance, a tank which is in that location) then an attempt to
+!  refer to one of the words listed as meaningful-but-irrelevant there
+!  will cause "you don't need to refer to that in this game" rather than
+!  "no such thing" or "what's 'it'?".
+!  (The advantage of not having looked at "irrelevant" local nouns until now
+!  is that it stops them from clogging up the ambiguity-resolving process.
+!  Thus game objects always triumph over scenery.)
+! ----------------------------------------------------------------------------
+
+[ CantSee  i w e;
+    
+    saved_oops=oops_from;
+
+    if (scope_token ~= 0) {
+        scope_error = scope_token;
+        return ASKSCOPE_PE;
+    }
+
+    wn--; w = NextWord();
+    e = CANTSEE_PE;
+! ¤#¤ One line changed
+!    if (w==pronoun_word)
+    if (w==pronoun_word && ~~ TestScope(pronoun_obj))  ! TestScope condition added
+    {
+        pronoun__word = pronoun_word; pronoun__obj = pronoun_obj;
+        e = ITGONE_PE;
+    }
+    i = actor; while (parent(i) ~= 0) i = parent(i);
+
+    wn--;
+    if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
+    else {
+        Descriptors();  ! skip past THE etc
+        if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
+    }
+    wn++;
+    if (etype > e) return etype;
+    return e;
+];
+
+
+
 
 
 ! ----------------------------------------------------------------------------
@@ -26,6 +80,8 @@
 !   In the case k=1, the multiple objects are added to multiple_object by
 !   hand (not by MultiAdd, because we want to allow duplicates).
 ! ----------------------------------------------------------------------------
+
+
 
 [ NounDomain domain1 domain2 context    first_word i j k l
                                         answer_words marker;
