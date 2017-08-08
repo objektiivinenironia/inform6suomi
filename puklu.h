@@ -183,7 +183,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 	
 	if (v == 0) rfalse;	
 
-!	if (v ~= 0) etype = "En ihan käsittänyt";  
+	if (v ~= 0) etype = "En ihan käsittänyt";  
 	
 	
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse
@@ -307,6 +307,8 @@ Array verbi_array --> verbi_pituus;
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
 #Endif;
+	    if (TestScope(obj) == true) etype = "En ihan käsittänyt.";
+	    
 	    rtrue; 
 	}; 
 	
