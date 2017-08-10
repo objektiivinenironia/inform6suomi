@@ -348,7 +348,7 @@ Array verbi_array --> verbi_pituus;
 	"(adr: ", adr, ")^",
 	"(end: ", end, ")^",
 	"(len: ", len, ")^   ",
-	"(sanakirjasana: ", (address) w, ", ", sanakirja(w), " merkki‰)^   ";
+	"(address w: ", (address) w, ", ", (the)w, ")^   ";
     switch (csID) {
      0: "- csID 0 -";
      1: "Nominatiivi";
@@ -468,15 +468,17 @@ Array Suttu --> SutLen;
 	!! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
 	
 	!!!# nominatiivi (1), csDflt
-	if (csID < 2 || csID == vbImp) !! tai imperatiiviverbi
+	! myˆs verbien tulostusta, imperatiivi
+	if (csID < 2 || csID == vbImp) 
 	    for (i = 2: i ~= limit: ++ i) {
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";
 	        if (Suttu->i == '>' && Suttu->(i+1) == '>') print ">";}                
 	
 	
-	
-	if (csID > 1 && csID ~= vbImp) !!!# ei nom eik‰ csDflt tai imp
+	! nomini ei nominatiivi tai 0 (csDflt)
+	! verbi ei myˆsk‰‰n imperatiivi
+	if (csID > 1 && csID ~= vbImp) 
 	    for (i = 2: i ~= limit: ++ i)
 	    {    if (Suttu->i == '/' && Suttu->(i-1) ~= '>') 
 	    { if (dlm == 0) { dlm = Suttu+i; }
@@ -486,20 +488,27 @@ Array Suttu --> SutLen;
 	    }
 		
 	    else { if (dlm ~= 0 && Suttu->i == ' ' or '/')
-	    { at++;   
-		if (csID > 20) VerbEnd(obj, csID,at); !verbi
+	    { at++;
+		! verbien tulostus (?) VerbEnd
+		if (csID > 20) VerbEnd(obj, csID,at); 
 		else CaseEnd(obj, csID, at);
 		dlm = 0; 
 	    }
 		if (dlm == 0 && Suttu->i ~= '>') print (char) (Suttu->i);
 	    }
-	    } ! -> "for" (huhhuh!)	
+	    } !! for	
 	
-	if (dlm ~= 0) { at++;  
-	    if (csID > 20 && csID ~= csInf) VerbEnd(obj, csID,at); !verbi
+	if (dlm ~= 0) { at++;
+	    ! verbi ei ole infinitiivi (?)
+	    if (csID > 20 && csID ~= csInf) VerbEnd(obj, csID,at);
 	    else CaseEnd(obj, csID, at);
 	}
-    }
+	
+    } !! (csID ~= 0)
+    
+    
+    
+    
     else
 	print (object) obj;
     
@@ -513,16 +522,16 @@ Array ParArr --> ParLen;
 Constant JutLen = 100; 
 Array Juttu --> JutLen;
 
-!! Verbin loppuosa
+!! Verbin loppuosa?
 [ VerbEnd obj csID;
-    
+
     switch (csID) {	
-     vbInf: print (string) obj.inf_;
+    vbInf: print (string) obj.inf_;
 !     vbInd: print (string) obj.ind_y;	
-     	!vbInf ei loppuosaa
 !     vbY2: print "t";
 !     vbY3: print (string) obj.ind_y;
-!     vbM3: print (string) obj.ind_m;	 
+	!     vbM3: print (string) obj.ind_m;
+     default: print "^^**** Verbin Tulostush‰iriˆ ***^^";	
     }
     
 ];
@@ -566,7 +575,7 @@ Array Juttu --> JutLen;
 	};
     
     !!!# Alla monikon astevaihtelu esim. "reikien"
-    !!!# (Objektille on m‰‰ritelty INE "jiss‰")
+    !!!# (Objektille on m‰‰ritelty ** ine "jiss‰" ** )
     
     if ((obj provides ine) && (obj has pluralname) &&  
 	(csID ~= csNom or csPar or csGen or csEss or csIll))
