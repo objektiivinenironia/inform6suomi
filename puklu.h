@@ -31,8 +31,8 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 [objID  obj;
     
-    if (obj has pluralname) 	return ocP;
-    else				return ocS;
+    if (obj has pluralname) return ocP;
+    else return ocS;
 ];
 
 ! yksikkö
@@ -175,18 +175,20 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 [ EndingLookup   addr len csID 
     v u ocFN i;
-        
+
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
+
+    	best_etype = "En ihan käsittänyt.";
+
+	if (v == 0) rfalse;
 	
-	if (v == 0) rfalse;	
-	if (v ~= 0) etype = "En ihan käsittänyt.";  
+	!if (v ~= 0) best_etype = "En ihan käsittänyt.";  
 		
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse
     
     else v = 0; ! ei sijamuodon päätettä, v = 0
-    
     
     ocFN = S_Req; ! etsii yksikön päätteitä
     
@@ -194,8 +196,9 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     for (::) {
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
-
-	    if (u == v) rtrue; 		! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
+	    
+	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
+	    if (u == v) rtrue; 		
 	    
 	    else if (u == -1) break;	! jos lista (csID nreq) valmis, break
 	    
