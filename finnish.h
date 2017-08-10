@@ -32,6 +32,7 @@ Replace NounDomain;
 Replace PrintCommand; 
 !! Replace CantSee; 
 Replace CantSee;
+Replace Refers;
 
 
 Constant LanguageVersion = "Finnish";

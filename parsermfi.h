@@ -8,6 +8,42 @@
 !     * CantSee
 !
 ! from Swedish lib (SweRout.h) with bug fix by F.Ramsberg
+
+! ----------------------------------------------------------------------------
+!  Refers works out whether the word at number wnum can refer to the object
+!  obj, returning true or false.  The standard method is to see if the
+!  word is listed under "name" for the object, but this is more complex
+!  in languages other than English.
+! ----------------------------------------------------------------------------
+
+[ Refers obj wnum   wd k l m;
+
+    
+    if (obj == 0) rfalse;
+
+    #Ifdef LanguageRefers;
+    k = LanguageRefers(obj,wnum);    
+    if (k >= 0) return k;
+    #Endif; ! LanguageRefers
+
+    k = wn; wn = wnum; wd = NextWordStopped(); wn = k;
+
+    if (parser_inflection >= 256) {
+        k = indirect(parser_inflection, obj, wd);
+        if (k >= 0) return k;
+        m = -k;
+    }
+    else
+        m = parser_inflection;
+    k = obj.&m; l = (obj.#m)/WORDSIZE-1;
+    for (m=0 : m<=l : m++)
+        if (wd == k-->m) rtrue;
+    rfalse;
+];
+
+
+
+
 ! ==============================================================================================================
 ! General bug fix, which became necessary with the swedish grammar
 ! ==============================================================================================================

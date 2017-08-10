@@ -175,17 +175,14 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 [ EndingLookup   addr len csID 
     v u ocFN i;
-    
-!    if (csID == 0 && len == 0) {etype = "En ihan käsittänyt."; rtrue;} 
+        
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
 	
 	if (v == 0) rfalse;	
-
-	if (v ~= 0) etype = "En ihan käsittänyt";  
-	
-	
+	if (v ~= 0) etype = "En ihan käsittänyt.";  
+		
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse
     
     else v = 0; ! ei sijamuodon päätettä, v = 0
@@ -197,7 +194,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     for (::) {
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
-	    
+
 	    if (u == v) rtrue; 		! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
 	    
 	    else if (u == -1) break;	! jos lista (csID nreq) valmis, break
@@ -205,78 +202,18 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 	}
 	
 	switch (ocFN) {
-	 S_Req: ocFN = P_Req; ! jos yksikkölista on käyty läpi, siirry monikkolistaan
-	    
-	 P_Req: 
-	    rfalse;		! rfalse jos monikkolista on käyty läpi (ilman osumaa)
+	 S_Req: ocFN = P_Req; ! jos yksikkölista on käyty läpi, siirry monikkolistaan	    
+	 P_Req: rfalse;		! rfalse jos monikkolista on käyty läpi (ilman osumaa)
 	}	
     }
     
     rfalse;
 ];
 
-
 Global csLR = 0;
-
 Global CaseIs; ! kertoo PrintCommandille mikä on syötteen sijamuoto
-
 Global sija; ! tulostusta varten
 
-! Tulosta (address) verbi isolla alkukirjaimella
-! (ks. sanakirja.h)
-Constant verbi_pituus = 39;
-Array verbi_array --> verbi_pituus;
-
-[ VerbiKap w i k iso;
-    @output_stream 3 verbi_array;
-    print (address) w;
-    @output_stream -3;
-
-    k = verbi_array->2;
-
-    ! å,ä ja ö on sijoitettu toisin kuin a-z
-    switch (k)
- { 155, 158: iso = 158; ! ä, Ä -> Ä
-   156, 159: iso = 159; ! ö. Ö -> Ö 	
-   201, 202: iso = 202; ! å, Å -> Å	
-   default: iso = k-32;   
-    }    
-    print (char) iso;
-    
-    for (i=2:i<=verbi_array-->0:i++) 
-  { print (char) verbi_array->(i+1);
-    }
-    ! ao. ei tarvita?
-    return verbi_array-->0;
- ];
-
-
-
-!! debug parsimiseen									 
-[ debugsijat adr wnum len end w csID;
-    
-    print
-	"^-- Debug (parsiminen, LR) --^
-	wnum: ", wnum, " / len-end (pääte): ", (len-end),")^",
-	"(adr: ", adr, ")^",
-	"(end: ", end, ")^",
-	"(len: ", len, ")^   ",
-	"(sanakirjasana: ", (address) w, ", ", sanakirja(w), " merkkiä)^   ";
-    switch (csID) {
-     0: "- csID 0 -";
-     1: "Nominatiivi";
-     2: "Genetiivi";
-     3: "Partitiivi";
-     4: "Inessiivi";
-     5: "Elatiivi";
-     6: "Illatiivi";
-     7: "Adessiivi";
-     8: "Ablatiivi";
-     9: "Allatiivi";
-     10: "Essiivi";
-     11: "Translatiivi";
-    };  print "^";  
-];
 
 ! LanguageRefers
 !
@@ -300,16 +237,27 @@ Array verbi_array --> verbi_pituus;
     for (end = len: end ~= 0 : --end) 
     {
 	w = DL (adr, end); 
+
+	! nimi löytyy mutta pääte on väärä:
+        if ( w ~=0 && WordInProperty (w, obj, name)
+	    &&~~ EndingLookup (adr+end, len-end, csID) && TestScope(adr))
+	etype = "En käsittänyt.";
+	else etype = CANTSEE_PE;
+	    
+       
 	
-	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID) )
+	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
 	    
 	{ 	#Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
-#Endif;
-	    if (TestScope(obj) == true) etype = "En ihan käsittänyt.";
+              #Endif;
+	    
+	    !  if (TestScope(obj) == true) etype = "En ihan käsittänyt.";
 	    
 	    rtrue; 
+
+
 	}; 
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   
@@ -350,9 +298,8 @@ Array verbi_array --> verbi_pituus;
 	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj hasnt pluralname && csID == 0 or 1 or 3 ) ! nom tai par 
-		rtrue; 
+	       rtrue; 
 	};
-	
 	
     }
     
@@ -360,9 +307,63 @@ Array verbi_array --> verbi_pituus;
 ];
 
 
+! Tulosta (address) verbi isolla alkukirjaimella
+! (ks. sanakirja.h)
+Constant verbi_pituus = 39;
+Array verbi_array --> verbi_pituus;
+
+[ VerbiKap w i k iso;
+    @output_stream 3 verbi_array;
+    print (address) w;
+    @output_stream -3;
+
+    k = verbi_array->2;
+
+    ! å,ä ja ö on sijoitettu toisin kuin a-z
+    switch (k)
+ { 155, 158: iso = 158; ! ä, Ä -> Ä
+   156, 159: iso = 159; ! ö. Ö -> Ö 	
+   201, 202: iso = 202; ! å, Å -> Å	
+   default: iso = k-32;   
+    }    
+    print (char) iso;
+    
+    for (i=2:i<=verbi_array-->0:i++) 
+  { print (char) verbi_array->(i+1);
+    }
+    ! ao. ei tarvita?
+    return verbi_array-->0;
+ ];
+
+
 ! Tulostusta
 ! ----------
 
+!! debug parsimiseen									 
+[ debugsijat adr wnum len end w csID;
+    
+    print
+	"^-- Debug (parsiminen, LR) --^
+	wnum: ", wnum, " / len-end (pääte): ", (len-end),")^",
+	"(adr: ", adr, ")^",
+	"(end: ", end, ")^",
+	"(len: ", len, ")^   ",
+	"(sanakirjasana: ", (address) w, ", ", sanakirja(w), " merkkiä)^   ";
+    switch (csID) {
+     0: "- csID 0 -";
+     1: "Nominatiivi";
+     2: "Genetiivi";
+     3: "Partitiivi";
+     4: "Inessiivi";
+     5: "Elatiivi";
+     6: "Illatiivi";
+     7: "Adessiivi";
+     8: "Ablatiivi";
+     9: "Allatiivi";
+     10: "Essiivi";
+     11: "Translatiivi";
+    };  print "^";  
+];
 
 ! (RusMCE) - tätä ei ole vielä käytetty...
 [ WriteListFromCase obj flag csID
@@ -387,13 +388,13 @@ Array verbi_array --> verbi_pituus;
     
     if (retval == 10000) sija = 10000; else sija = 0; !!+
     
-#Ifdef DEBUG;				!!!¤¤¤
+#Ifdef DEBUG;			     
     if (parser_trace > 1) 
 	print 	"^<C_TOKEN: Return-arvo:", retval, 
 	    " Token-tyyppi:", found_ttype, 
 	    " Data:", found_tdata,">",
 	    
-	    "^^CaseIs: ", CaseIs,
+	    !"^^CaseIs: ", CaseIs,
 	    "^csLR: ", csLR,
 	    "^csID: ", csID,
 	    "^sija: ", sija, "^";
@@ -401,7 +402,7 @@ Array verbi_array --> verbi_pituus;
 #Endif;	
     
     
-    CaseIs = csID; !?  
+    CaseIs = csID; !? komennon verbin tulostamiseen  
     
     csLR = 0;
     

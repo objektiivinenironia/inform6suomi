@@ -21,6 +21,11 @@ System_file;
 !! ks. verbit.h
 Object VerbDepot;
 
+
+[off_noun; return c_token (0, csOff); ];
+
+    
+
 [nom_noun; return c_token (NOUN_TOKEN, csNom); ];
 [gen_noun; return c_token (NOUN_TOKEN, csGen); ];
 [par_noun; return c_token (NOUN_TOKEN, csPar); ];
@@ -375,15 +380,18 @@ Object 	"työnnä" VerbDepot
 
 
 Verb 'laita' 'pane' 'pistä' 'aseta'
-    * nom_multiexcept ill_noun		-> Insert 
-    * par_noun ill_noun			-> Insert
-    * nom_multiexcept all_noun		-> PutOn
-    * par_noun all_noun			-> PutOn
-    * nom_noun gen_noun 'sisään'	-> Insert
+    * nom_multiexcept ill_noun		-> Insert ! 1 6
+    * par_noun ill_noun			-> Insert! 3 6
+    * nom_multiexcept all_noun		-> PutOn! 1 9
+    * par_noun all_noun			-> PutOn ! 3 9
+    * nom_noun gen_noun 'sisään'	-> Insert 
     * nom_noun gen_noun 'päälle'	-> Puton 
-    * all_noun nom_multiexcept		-> PutOn reverse
+    * all_noun nom_multiexcept		-> PutOn reverse ! 9 1
     * 'pois' nom_multiheld		-> Drop
-    * multiheld 'pois'			-> Drop;
+    * multiheld 'pois'			-> Drop; 
+
+
+    !* nom_multiexcept off_noun          -> Insert;
     !* multiheld noun                    -> Insert;
 
 Object 	"lait/a" VerbDepot
