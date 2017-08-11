@@ -241,14 +241,7 @@ Global sija; ! tulostusta varten
     {
 	w = DL (adr, end); 
 
-	! nimi löytyy mutta pääte on väärä:
-        if ( w ~=0 && WordInProperty (w, obj, name)
-	    &&~~ EndingLookup (adr+end, len-end, csID) && TestScope(adr))
-	etype = "En käsittänyt.";
-	else etype = CANTSEE_PE;
-	    
-       
-	
+
 	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
 	    
 	{ 	#Ifdef DEBUG;				
@@ -256,9 +249,7 @@ Global sija; ! tulostusta varten
 		debugsijat(adr, wnum, len, end, w, csID);
               #Endif;
 	    
-	    !  if (TestScope(obj) == true) etype = "En ihan käsittänyt.";
-	    
-	    rtrue; 
+		    rtrue; 
 
 
 	}; 
