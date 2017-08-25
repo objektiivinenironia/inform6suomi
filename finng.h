@@ -284,7 +284,8 @@ Verb 'lahjo' 'ruoki'
     * creature ade_held                    -> Give reverse;
 Verb 'tunge'
     * multiexcept ill_noun                 -> Insert;
-Verb 'inv' 'tavarat' 'inventoi' 'inventaario' 'tarvikkeet' 'lista' 'm//'
+Verb 'inv' 'tavarat' 'inventoi' 'inventaario' 'tarvikkeet' 'lista'
+    'm//' 'v//'
     *                                      -> Inv
     * 'pitkä'/'p'                          -> InvTall
     * 'leveä'/'l'                          -> InvWide;
