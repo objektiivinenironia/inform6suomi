@@ -159,22 +159,23 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 global muu_sija = 0;
 
-[ ParserError error_code;
+[ ParserError error_code eik;
 
-    !! v‰hennet‰‰n UPTO_PE -> STUCK_PE:ksi
-    ! if (error_code == 2) etype = 1;
-    !! tai annetaan merkkijono 
-    if (error_code == 2) etype = 1;
+    eik = 0;    
     
+    if (muu_sija == 1) eik = 1;
+    muu_sija = 0;    
+    
+    !! v‰hennet‰‰n UPTO_PE -> STUCK_PE:ksi
+    ! if (error_code == 2) etype = 1;    
+    if (error_code == 2) etype = 1;
 
     ! jos sija on olemassa, mutta v‰‰r‰ konteksti,
     ! ei sanota "Et n‰e mit‰‰n sellaista" (4), vaan...
-    if (muu_sija == true && error_code == 4) {muu_sija = 0;
-    	print_ret "En ihan k‰sitt‰nyt.";
-    }
-    
-    muu_sija = 0;
-    
+
+    if (eik == true && error_code == 4) print_ret "En ihan k‰sitt‰nyt.";
+	
+    !! (vai annetaanko merkkijono?) 
     if (error_code ofclass String) print_ret (string) error_code;
 
     rfalse; ! Print standard parser error message
@@ -185,15 +186,14 @@ global muu_sija = 0;
 
 [ EndingLookup   addr len csID 
     v u ocFN i;
-
+    
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon p‰‰tteen pituus
 	    
     	if (v == 0) rfalse;
 		
-	! if (v ~= 0) best_etype = "En ihan k‰sitt‰nyt.";  
-		
+
     } ! jos sijamuodon p‰‰tett‰ ei lˆydy sanakirjasta, rfalse
     
     else v = 0; ! ei sijamuodon p‰‰tett‰, v = 0
@@ -212,7 +212,9 @@ global muu_sija = 0;
 	    
 	}
 	
-        ! v‰‰r‰/eri sija, esim "tutki uomasta" mutta ei "tutki uomarrro" 
+        ! sijap‰‰te on eri kontekstissa, esim "tutki uomasta"
+	! (mutta ei "tutki uomarrro") ks. ParserError yll‰
+ 	
 	muu_sija = true;
 	
 	    ! jos yksikkˆlista on k‰yty l‰pi, siirry monikkolistaan
