@@ -180,11 +180,11 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
 
-    	best_etype = "En ihan käsittänyt.";
+    	! best_etype = "En ihan käsittänyt.";
 
 	if (v == 0) rfalse;
 	
-	!if (v ~= 0) best_etype = "En ihan käsittänyt.";  
+	! if (v ~= 0) best_etype = "En ihan käsittänyt.";  
 		
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse
     
