@@ -157,14 +157,24 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     return -1;
 ];	
 
+global muu_sija = 0;
 
 [ ParserError error_code;
 
     !! vähennetään UPTO_PE -> STUCK_PE:ksi
     ! if (error_code == 2) etype = 1;
     !! tai annetaan merkkijono 
-    if (error_code == 2) etype = 1;    
-	
+    if (error_code == 2) etype = 1;
+    
+
+    ! jos sija on olemassa, mutta väärä konteksti,
+    ! ei sanota "Et näe mitään sellaista" (4), vaan...
+    if (muu_sija == true && error_code == 4) {muu_sija = 0;
+    	print_ret "En ihan käsittänyt.";
+    }
+    
+    muu_sija = 0;
+    
     if (error_code ofclass String) print_ret (string) error_code;
 
     rfalse; ! Print standard parser error message
@@ -179,11 +189,9 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
-
-    	! best_etype = "En ihan käsittänyt.";
-
-	if (v == 0) rfalse;
-	
+	    
+    	if (v == 0) rfalse;
+		
 	! if (v ~= 0) best_etype = "En ihan käsittänyt.";  
 		
     } ! jos sijamuodon päätettä ei löydy sanakirjasta, rfalse
@@ -204,9 +212,14 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 	    
 	}
 	
+        ! väärä/eri sija, esim "tutki uomasta" mutta ei "tutki uomarrro" 
+	muu_sija = true;
+	
+	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
+	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)	
 	switch (ocFN) {
-	 S_Req: ocFN = P_Req; ! jos yksikkölista on käyty läpi, siirry monikkolistaan	    
-	 P_Req: rfalse;		! rfalse jos monikkolista on käyty läpi (ilman osumaa)
+	 S_Req: ocFN = P_Req; 
+	 P_Req: rfalse;		
 	}	
     }
     
