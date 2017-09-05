@@ -306,7 +306,7 @@ Verb 'mene' 'juokse' 'kävele' 'käy'
     * ela_noun                             -> Enter
     * all_noun                             -> Enter
     * 'sisälle'/'sisään' ill_noun          -> Enter
-    * nom_noun 'sisälle'/'sisään'/'päälle' -> Enter
+    * gen_noun 'sisälle'/'sisään'/'päälle' -> Enter
     * 'pois'                               -> Exit;
 Verb 'poistu' 'tule' 'lähde'
     *                                      -> Exit
@@ -427,7 +427,7 @@ Verb 'riisu' 'riisuudu'
     * held                                 -> Disrobe;
 Verb 'näytä' 'esitä'
     * all_creat nom_held                   -> Show reverse
-    * all_creat par_Held                   -> Show reverse
+    * all_creat par_held                   -> Show reverse
     * nom_held all_creat                   -> Show
     * par_Held all_creat                   -> Show;
 Verb  'saatana' 'helvetti' 'jumalauta' 'vittu' 'perkele'
