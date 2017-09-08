@@ -262,8 +262,9 @@ Verb 'tyhjää' 'tyhjennä'
     * nom_noun ill_noun                    -> EmptyT
     * nom_noun all_noun                    -> EmptyT;
 Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
-    * nom_noun                          -> Examine
-    * par_noun				-> Examine;
+    * par_noun                          -> Examine
+    * nom_noun                          -> Examine;
+
 
 Object 	"tutki" VerbDepot
  with 	name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile',
@@ -275,8 +276,8 @@ Verb 'exit' 'ulos'
 Verb 'täytä'
     * nom_noun                             -> Fill;
 Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
-    * nom_held creature                    -> Give
-    * par_held creature                    -> Give
+    * nom_held all_creat                   -> Give
+    * par_held all_creat                   -> Give
     * creature nom_held                    -> Give reverse
     * creature par_Held                    -> Give reverse;
 Verb 'lahjo' 'ruoki'
@@ -386,7 +387,7 @@ Verb 'laita' 'pane' 'pistä' 'aseta'
     * nom_multiexcept all_noun		-> PutOn! 1 9
     * par_noun all_noun			-> PutOn ! 3 9
     * nom_noun gen_noun 'sisään'	-> Insert 
-    * nom_noun gen_noun 'päälle'	-> Puton 
+    * nom_noun gen_noun 'päälle'	-> PutOn 
     * all_noun nom_multiexcept		-> PutOn reverse ! 9 1
     * 'pois' nom_multiheld		-> Drop
     * multiheld 'pois'			-> Drop; 

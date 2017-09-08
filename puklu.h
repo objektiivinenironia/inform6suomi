@@ -12,6 +12,7 @@ Array  Tbuffer -> 3+Tlimit;
 Array  Tparse  -> 6;
 
 
+
 ! RusMCE:n Dictinary Lookup
 
 [DL buf len 
@@ -29,15 +30,16 @@ Array  Tparse  -> 6;
 ! Attribute isot_kirjaimet; 
 Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa 
 
-[objID  obj;
+! ao. taitaa olla ven. tulostussääntö
+! (se ei taida tehdä mitään täällä)
+[ objID  obj;
     
     if (obj has pluralname) return ocP;
     else return ocS;
 ];
 
 ! yksikkö
-
-[ S_Req  csID nreq;
+[ S_Req csID nreq;
     
     switch (csID) {
 	
@@ -47,7 +49,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
      }
      csGen:	switch (nreq) {
       0: 	return 'n//';
-      1:        return 'en';   ! pitkä 'ee' 
+     ! 1:        return 'en';   ! sekoittuu illatiiviin 
      }
      csPar:	switch (nreq) {
       0:	return 'a//';
@@ -65,23 +67,25 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
      }
      csEla:	switch (nreq) {
       0:	return 'sta';
-      1:	return 'stä';
-      2:        return 'estä'; ! pitkä 'ee' 
+      1:	return 'stä';	 
+      3:        return 'estä'; ! pitkä 'ee' 
 	 
      }
      csIll:	switch (nreq) {
       0:	return 'an';
-      1:	return 'han';
-      2:	return 'seen';
-      3:	return 'en';
-      4:	return 'in';
-      5:	return 'on';
-      6:	return 'un';
-      7:	return 'yn';
-      8:	return 'än';
-      9:	return 'ön';
-      10:	return 'hun'; 
-      11:	return 'eseen'; ! pitkä 'ee' 
+      1:	return 'en';
+      2:	return 'in';
+      3:	return 'on';
+      4:	return 'un';
+      5:	return 'yn';
+      6:	return 'än';
+      7:	return 'ön';	 
+      8:	return 'han';
+      9:	return 'hun';	 
+      10:	return 'seen';
+      11:       return 'teen';      	 
+      12:	return 'eseen'; ! pitkä 'ee'
+	 
      }
      csAde:	switch (nreq) {
       0:	return 'lla';
@@ -98,14 +102,15 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
       0:	return 'lle';
       1:	return 'elle'; ! pitkä 'ee' 
      }
-    }	
+    }
     return -1;
+    
 ];	
 
 
 ! monikko
 
-[ P_Req  csID nreq;
+[ P_Req csID nreq;    
     
     switch (csID) {
 	
@@ -159,21 +164,23 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 global muu_sija = 0;
 
-[ ParserError error_code eik;
+[ ParserError * error_code en_k;
 
-    eik = 0;    
+    print " *? ParserError: etype ", etype, "^";
     
-    if (muu_sija == 1) eik = 1;
+    
+    en_k = 0;    
+    
+    if (muu_sija == 1) en_k = 1;
     muu_sija = 0;    
     
     !! vähennetään UPTO_PE -> STUCK_PE:ksi
-    ! if (error_code == 2) etype = 1;    
     if (error_code == 2) etype = 1;
-
+    
     ! jos sija on olemassa, mutta väärä konteksti,
     ! ei sanota "Et näe mitään sellaista" (4), vaan...
 
-    if (eik == true && error_code == 4) print_ret "En ihan käsittänyt.";
+    if (en_k == true && error_code == 4) print_ret "En ihan käsittänyt.";
 	
     !! (vai annetaanko merkkijono?) 
     if (error_code ofclass String) print_ret (string) error_code;
@@ -182,10 +189,12 @@ global muu_sija = 0;
     
 ];
 
+global luku = 0;
+
 ! ao. etsii sijamuodon päätteen
 
-[ EndingLookup   addr len csID 
-    v u ocFN i;
+[ EndingLookup addr len csID 
+    v u ocFN i;  
     
     if (csID == 0) rtrue;    
     
@@ -204,8 +213,12 @@ global muu_sija = 0;
     for (::) {
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
-	    
+
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
+
+	    if (u == v && ocFN == P_Req) luku = 2;	    
+            if (u == v && ocFN == S_Req) luku = 1;
+
 	    if (u == v) rtrue; 		
 	    
 	    else if (u == -1) break;	! jos lista (csID nreq) valmis, break
@@ -218,12 +231,17 @@ global muu_sija = 0;
 	muu_sija = true;
 	
 	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
-	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)	
-	switch (ocFN) {
+	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)
+		
+	switch (ocFN) {           
+   	    
 	 S_Req: ocFN = P_Req; 
 	 P_Req: rfalse;		
-	}	
+	}
+	
+	
     }
+    
     
     rfalse;
 ];
@@ -239,10 +257,10 @@ Global sija; ! tulostusta varten
 ! languagerefers vastaa sen perusteella mitä endinglookup
 ! kertoo sijapäätteestä. 
 
-[ LanguageRefers  obj wnum adr len end w csID; 
+[ LanguageRefers obj wnum adr len end w csID; 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
-    
+       
     if (parent (obj) == Compass) 
     {
 	w = DL (adr, len);
@@ -252,33 +270,56 @@ Global sija; ! tulostusta varten
     
     csID = csLR; 
     
+    
     for (end = len: end ~= 0 : --end) 
     {
 	w = DL (adr, end); 
 
 
-	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
-	    
-	{ 	#Ifdef DEBUG;				
-	    if (parser_trace > 0)
-		debugsijat(adr, wnum, len, end, w, csID);
-              #Endif;
-	    
-		    rtrue; 
 
-
+	!! (property) taipumaton
+	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	   
+	
+	if ( end == len && w ~= 0 && WordInProperty (w, obj, taipumaton)) 
+	    !! && EndingLookup (adr+end, len-end, -1))
+	    
+	{
+           #Ifdef DEBUG;				
+	    if (parser_trace >= 5)
+	    {print "^        [* Taipumaton * ]^";
+		 debugsijat(adr, wnum, len, end, w, csID);
+	    }
+            #Endif;
+	    rtrue; 
 	}; 
 	
-	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   
+ 	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
+	    (adr+end, len-end, csID)) ! Endinglookup true eli yksikkö
+	    
+	{ 	#Ifdef DEBUG;
+	    if (parser_trace >= 4)
+		print "    [* LanguageRefers *]^";
+	   !  switch (luku) 
+	   !  {
+	   !   0: print "    [* LanguageRefers: luku ? (0)]^";
+	   !   1: print "    [* LanguageRefers: luku yksikkö (1)]^";
+	   !   2: print "    [* LanguageRefers: luku monikko (0)]^";		 
+	   ! }
+	    
+	    if (parser_trace >= 5)
+		debugsijat(adr, wnum, len, end, w, csID);
+              #Endif;
+	    rtrue;
+	};
 	
+	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
 	!! esim. 'mato', 'madot' / 'matto', 'matot'; 'pato', 'padot' / 'patto', 'patot',  jne... 
 	
 	!! esim. vahva_a 'Maukka' / mon.: 'maukko' 
 	!! (Monikkovartalon perään kelpaa genetiivi-, partitiivi-, illatiivi-, ja essiivipääte.
 	!! Yksikön nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivipääte) 
 	if (w ~=0 && WordInProperty (w, obj, vahva_a) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
-#Endif;
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);#Endif;
 	    if (obj provides pluralname && csID == 2 or 3 or 6 or 10 ) rtrue; !  monikko ja gen, par, ill tai ess 
 	    else if (csID == 0 or 1 or 3 or 6 or 10)  !yksikkö ja nom, par, ess tai ill
 		rtrue; 
@@ -287,7 +328,7 @@ Global sija; ! tulostusta varten
 	!! esim. 'Mauka' (mon. 'Maukat', 'Mauko')
 	!! (kelpaa muut sijapäätteet kuin edellisessä)
 	if (w ~=0 && WordInProperty (w, obj, heikko_a) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj provides pluralname && csID ~= 0 or 2 or 3 or 6 or 10 ) rtrue; !  monikko ja ei 0, gen, par, ill tai ess 
 	    else if (csID ~= 0 or 1 or 3 or 6 or 10)  !yksikkö ja ei nom, par, ess tai ill
@@ -296,7 +337,7 @@ Global sija; ! tulostusta varten
 	!! esim. vahva_b 'maukka' 'maukkaa' 
 	!! (kaikki paitsi yksikön nominatiivi 'maukka' + partitiivipääte 'ta' kelpaa)
 	if (w ~=0 && WordInProperty (w, obj, vahva_b) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj hasnt pluralname && csID ~= 0 or 1 or 3 ) ! ei 0 tai nom tai par 
 		rtrue; 
@@ -304,7 +345,7 @@ Global sija; ! tulostusta varten
 	!! esim. heikko_b 'maukas'  
 	!! (kelpaa muut kuin edellisessä, ts. vain yksikön nominatiivi ja partitiivi kelpaa)
 	if (w ~=0 && WordInProperty (w, obj, heikko_b) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj hasnt pluralname && csID == 0 or 1 or 3 ) ! nom tai par 
 	       rtrue; 
@@ -353,6 +394,7 @@ Array verbi_array --> verbi_pituus;
     
     print
 	"^-- Debug (parsiminen, LR) --^
+	etype == ", etype, "^
 	wnum: ", wnum, " / len-end (pääte): ", (len-end),")^",
 	"(adr: ", adr, ")^",
 	"(end: ", end, ")^",
@@ -390,28 +432,28 @@ Array verbi_array --> verbi_pituus;
 ! ks. finng.h - etsii sijapäätteen 
 [ c_token  idtok csID
     retval;
+
+#Ifdef DEBUG;			     
+    if (parser_trace >= 4) 
+	print 	"^[!* c_token --", 
+	    " found_ttype: ", found_ttype, 
+	    " found_tdata: ", found_tdata,	    
+	    " CaseIs: ", CaseIs,
+	    " csLR: ", csLR,
+	    " csID: ", csID,
+	    " sija: ", sija, "]^";
+    
+#Endif;	
+
     
     csLR = csID;
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     
-    if (retval == 10000) sija = 10000; else sija = 0; !!+
+    if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
+
     
-#Ifdef DEBUG;			     
-    if (parser_trace > 1) 
-	print 	"^<C_TOKEN: Return-arvo:", retval, 
-	    " Token-tyyppi:", found_ttype, 
-	    " Data:", found_tdata,">",
-	    
-	    !"^^CaseIs: ", CaseIs,
-	    "^csLR: ", csLR,
-	    "^csID: ", csID,
-	    "^sija: ", sija, "^";
-    
-#Endif;	
-    
-    
-    CaseIs = csID; !? komennon verbin tulostamiseen  
+    CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
     
     csLR = 0;
     

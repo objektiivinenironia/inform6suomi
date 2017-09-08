@@ -27,12 +27,19 @@ System_file;
 !! Replace Parser__Parse; 
 !! Replace ParseToken;
 !! Replace ParseToken__;
+
 Replace NounDomain; 
-!! Replace Adjudicate; 
+Replace Adjudicate; 
 Replace PrintCommand; 
-!! Replace CantSee; 
 Replace CantSee;
 Replace Refers;
+Replace ScoreMatchL;
+Replace TryGivenObject;
+Replace ParseToken;
+Replace ParseToken__;
+Replace ResetDescriptors;
+Replace Descriptors;
+
 
 
 Constant LanguageVersion = "Finnish";
@@ -198,9 +205,9 @@ Array LanguagePronouns table
 
   ! word        possible GNAs              connected
   !             to follow:                 to:
-  !             a     i
-  !             s  p  s  p
-  !             mfnmfnmfnmfn
+  !                 a     i
+  !                 s  p  s  p
+  !                 mfnmfnmfnmfn
 
   !     'it'      $$001000111000                NULL
   !     'him'     $$100000000000                NULL
@@ -223,6 +230,7 @@ Array LanguageDescriptors table
   !                a     i
   !                s  p  s  p
   !                mfnmfnmfnmfn
+
    'minun'       $$111111111111    POSSESS_PK           0
    'oma'         $$111000111000    POSSESS_PK           0
    'omat'        $$000111000111    POSSESS_PK           0
@@ -275,6 +283,11 @@ Array LanguageNumbers table
 Include "puklu";	! parsimista ja tulostamista
 Include "parsermfi";    ! "Parserm"-tiedoston muokatut rutiinit
 
+! "arse parse"
+[ LanguageToInformese;
+]; 
+
+
 ! ------------------------------------------------------------------------------
 !   Part IV.   Printing
 ! ------------------------------------------------------------------------------
@@ -296,6 +309,7 @@ Constant LanguageContractionForms = 1;     ! English has two:
 
 Array LanguageArticles -->
 
+
  !   Contraction form 0:     Contraction form 1:
  !   Cdef   Def    Indef     Cdef   Def    Indef
 
@@ -307,7 +321,7 @@ Array LanguageArticles -->
 
 Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
-[ LanguageDirection d;          !!!¤¤¤¤ TEMP partitiiviiivi niin yleinen
+[ LanguageDirection d;    
     switch (d) {
       n_to:    print "pohjoiseen";  
       s_to:    print "etelään";
@@ -490,7 +504,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 Constant NKEY__TX       = "S) seuraava aihe";
 Constant PKEY__TX       = "E) edellinen";
-Constant QKEY1__TX      = " P) palaa peliin ";
+Constant QKEY1__TX      = "P) palaa peliin";
 Constant QKEY2__TX      = "P) palaa aiempaan";
 Constant RKEY__TX       = "RETURN = lue aiheesta";
 
@@ -1197,7 +1211,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 	4:  "Et löydä mitään.";
 ! Yksikkö JA monikko?
 	5:  "Et näe sisälle, koska ", (nominatiivi) x1, " on suljettu.";
-	6:  print (k_nominatiivi) x1; if (x1 has pluralname) print " ovat tyhjiä."; else print " on tyhjä.";
+	6:  print (k_nominatiivi) x1; if (x1 has pluralname) print_ret " ovat tyhjiä."; else print_ret " on tyhjä.";
 	7:  print (k_inessiivi) x1, " on ";     !? tulostuuko oikein?			
 	    WriteListFrom(child(x1), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT);   !+ISARE_BIT); pois
 	    ".";
