@@ -12,6 +12,7 @@ Array  Tbuffer -> 3+Tlimit;
 Array  Tparse  -> 6;
 
 
+
 ! RusMCE:n Dictinary Lookup
 
 [DL buf len 
@@ -36,7 +37,6 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 ];
 
 ! yksikkö
-
 [ S_Req  csID nreq;
     
     switch (csID) {
@@ -47,7 +47,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
      }
      csGen:	switch (nreq) {
       0: 	return 'n//';
-      1:        return 'en';   ! pitkä 'ee' 
+     ! 1:        return 'en';   ! sekoittuu illatiiviin 
      }
      csPar:	switch (nreq) {
       0:	return 'a//';
@@ -65,23 +65,25 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
      }
      csEla:	switch (nreq) {
       0:	return 'sta';
-      1:	return 'stä';
-      2:        return 'estä'; ! pitkä 'ee' 
+      1:	return 'stä';	 
+      3:        return 'estä'; ! pitkä 'ee' 
 	 
      }
      csIll:	switch (nreq) {
       0:	return 'an';
-      1:	return 'han';
-      2:	return 'seen';
-      3:	return 'en';
-      4:	return 'in';
-      5:	return 'on';
-      6:	return 'un';
-      7:	return 'yn';
-      8:	return 'än';
-      9:	return 'ön';
-      10:	return 'hun'; 
-      11:	return 'eseen'; ! pitkä 'ee' 
+      1:	return 'en';
+      2:	return 'in';
+      3:	return 'on';
+      4:	return 'un';
+      5:	return 'yn';
+      6:	return 'än';
+      7:	return 'ön';	 
+      8:	return 'han';
+      9:	return 'hun';	 
+      10:	return 'seen';
+      11:       return 'teen';      	 
+      12:	return 'eseen'; ! pitkä 'ee'
+	 
      }
      csAde:	switch (nreq) {
       0:	return 'lla';
@@ -390,28 +392,29 @@ Array verbi_array --> verbi_pituus;
 ! ks. finng.h - etsii sijapäätteen 
 [ c_token  idtok csID
     retval;
+
+#Ifdef DEBUG;			     
+    if (parser_trace > 1) 
+	print 	"^[ c_token -- ", 
+	    " found_ttype: ", found_ttype, 
+	    " found_tdata: ", found_tdata,"^",
+	    
+	    "  CaseIs: ", CaseIs,
+	    " csLR: ", csLR,
+	    " csID: ", csID,
+	    " sija: ", sija, "]^^";
+    
+#Endif;	
+
     
     csLR = csID;
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     
-    if (retval == 10000) sija = 10000; else sija = 0; !!+
+    if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
+
     
-#Ifdef DEBUG;			     
-    if (parser_trace > 1) 
-	print 	"^<C_TOKEN: Return-arvo:", retval, 
-	    " Token-tyyppi:", found_ttype, 
-	    " Data:", found_tdata,">",
-	    
-	    !"^^CaseIs: ", CaseIs,
-	    "^csLR: ", csLR,
-	    "^csID: ", csID,
-	    "^sija: ", sija, "^";
-    
-#Endif;	
-    
-    
-    CaseIs = csID; !? komennon verbin tulostamiseen  
+    CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
     
     csLR = 0;
     

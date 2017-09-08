@@ -27,6 +27,7 @@ System_file;
 !! Replace Parser__Parse; 
 !! Replace ParseToken;
 !! Replace ParseToken__;
+
 Replace NounDomain; 
 !! Replace Adjudicate; 
 Replace PrintCommand; 
@@ -198,9 +199,9 @@ Array LanguagePronouns table
 
   ! word        possible GNAs              connected
   !             to follow:                 to:
-  !             a     i
-  !             s  p  s  p
-  !             mfnmfnmfnmfn
+  !                 a     i
+  !                 s  p  s  p
+  !                 mfnmfnmfnmfn
 
   !     'it'      $$001000111000                NULL
   !     'him'     $$100000000000                NULL
@@ -273,6 +274,7 @@ Array LanguageNumbers table
 ! --------------------------------------------------------------------
 
 Include "puklu";	! parsimista ja tulostamista
+Include "LTI";
 Include "parsermfi";    ! "Parserm"-tiedoston muokatut rutiinit
 
 ! ------------------------------------------------------------------------------
@@ -296,6 +298,7 @@ Constant LanguageContractionForms = 1;     ! English has two:
 
 Array LanguageArticles -->
 
+
  !   Contraction form 0:     Contraction form 1:
  !   Cdef   Def    Indef     Cdef   Def    Indef
 
@@ -307,7 +310,7 @@ Array LanguageArticles -->
 
 Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
-[ LanguageDirection d;          !!!¤¤¤¤ TEMP partitiiviiivi niin yleinen
+[ LanguageDirection d;    
     switch (d) {
       n_to:    print "pohjoiseen";  
       s_to:    print "etelään";
@@ -490,7 +493,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 Constant NKEY__TX       = "S) seuraava aihe";
 Constant PKEY__TX       = "E) edellinen";
-Constant QKEY1__TX      = " P) palaa peliin ";
+Constant QKEY1__TX      = "P) palaa peliin";
 Constant QKEY2__TX      = "P) palaa aiempaan";
 Constant RKEY__TX       = "RETURN = lue aiheesta";
 

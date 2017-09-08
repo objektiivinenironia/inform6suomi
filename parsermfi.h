@@ -16,6 +16,8 @@
 !  in languages other than English.
 ! ----------------------------------------------------------------------------
 
+
+
 [ Refers obj wnum   wd k l m;
 
     
@@ -514,9 +516,10 @@
                 LanguageDirection (i.door_dir); ! the direction name
 	! as adverb
             else
+	
 		!!! muokattu
-		! (CaseIs ~= 0 && k >= 2) ! jos tämä, 1. sana nom. 2. sana taipuu			
-             	if (CaseIs ~= 0) 
+		! jos tämä, 1. sana nom. 2. sana taipuu			
+		if (CaseIs ~= 0 && k >= 2) 
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
              		csGen: print (genetiivi) i;
@@ -530,6 +533,7 @@
 			csTra: print (translatiivi) i;}
                        
  		else print (the) i;
+	print from;!x!
 	
     	
     .TokenPrinted;
@@ -538,7 +542,8 @@
 	
     }
 
-    ! esim. "laita kuutio mihin?"
+    ! 1: (lasille siniselle pöydälle)
+    ! 2: laita kuutio mihin?"
     PrintKysymys(verb_word, from, k); 	
     !!! muokattu loppu
 
