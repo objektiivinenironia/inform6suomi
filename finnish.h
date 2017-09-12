@@ -29,11 +29,11 @@ System_file;
 !! Replace ParseToken__;
 
 Replace NounDomain; 
-!! Replace Adjudicate; 
+Replace Adjudicate; 
 Replace PrintCommand; 
-!! Replace CantSee; 
 Replace CantSee;
 Replace Refers;
+Replace ScoreMatchL;
 
 
 Constant LanguageVersion = "Finnish";
@@ -224,6 +224,7 @@ Array LanguageDescriptors table
   !                a     i
   !                s  p  s  p
   !                mfnmfnmfnmfn
+
    'minun'       $$111111111111    POSSESS_PK           0
    'oma'         $$111000111000    POSSESS_PK           0
    'omat'        $$000111000111    POSSESS_PK           0

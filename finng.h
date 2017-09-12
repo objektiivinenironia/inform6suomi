@@ -262,8 +262,9 @@ Verb 'tyhjää' 'tyhjennä'
     * nom_noun ill_noun                    -> EmptyT
     * nom_noun all_noun                    -> EmptyT;
 Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
-    * nom_noun                          -> Examine
-    * par_noun				-> Examine;
+    * par_noun                          -> Examine
+    * nom_noun                          -> Examine;
+
 
 Object 	"tutki" VerbDepot
  with 	name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile',

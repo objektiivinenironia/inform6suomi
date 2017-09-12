@@ -7,7 +7,321 @@
 !     * PrintCommand
 !     * CantSee
 !
-! from Swedish lib (SweRout.h) with bug fix by F.Ramsberg
+
+
+! ----------------------------------------------------------------------------
+!  ScoreMatchL  scores the match list for quality in terms of what the
+!  player has vaguely asked for.  Points are awarded for conforming with
+!  requirements like "my", and so on.  Remove from the match list any
+!  entries which fail the basic requirements of the descriptors.
+! ----------------------------------------------------------------------------
+
+! VÄLIAIKAINEN RATKAISU
+! parseri luulee muuten partitiivia monikoksi  
+
+[ ScoreMatchL context its_owner its_score obj i j threshold met a_s l_s;
+
+    !   if (indef_type & OTHER_BIT ~= 0) threshold++;
+    if (indef_type & MY_BIT ~= 0)    threshold++;
+    if (indef_type & THAT_BIT ~= 0)  threshold++;
+    if (indef_type & LIT_BIT ~= 0)   threshold++;
+    if (indef_type & UNLIT_BIT ~= 0) threshold++;
+    if (indef_owner ~= nothing)      threshold++;
+
+    #Ifdef DEBUG;
+    if (parser_trace >= 4) print "   Scoring match list: indef mode ", indef_mode, " type ",
+      indef_type, ", satisfying ", threshold, " requirements:^";
+#Endif; ! DEBUG
+
+    !!!!!!¤¤¤¤¤¤¤ TEMP
+    ! >t lasi -----> indef_mode 0 indef_type 0
+    ! >t lasia ----> indef_mode 1 indef_type 8
+    indef_mode = 0; ! temp
+    !!!!!!¤¤¤¤¤¤¤ TEMP
+
+
+    a_s = SCORE__NEXTBESTLOC; l_s = SCORE__BESTLOC;
+    if (context == HELD_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN) {
+        a_s = SCORE__BESTLOC; l_s = SCORE__NEXTBESTLOC;
+    }
+
+    for (i=0 : i<number_matched : i++) {
+        obj = match_list-->i; its_owner = parent(obj); its_score=0; met=0;
+
+        !      if (indef_type & OTHER_BIT ~= 0
+        !          &&  obj ~= itobj or himobj or herobj) met++;
+        if (indef_type & MY_BIT ~= 0 && its_owner == actor) met++;
+        if (indef_type & THAT_BIT ~= 0 && its_owner == actors_location) met++;
+        if (indef_type & LIT_BIT ~= 0 && obj has light) met++;
+        if (indef_type & UNLIT_BIT ~= 0 && obj hasnt light) met++;
+        if (indef_owner ~= 0 && its_owner == indef_owner) met++;
+
+        if (met < threshold) {
+            #Ifdef DEBUG;
+            if (parser_trace >= 4) print "   ", (The) match_list-->i, " (", match_list-->i, ") in ",
+              (the) its_owner, " is rejected (doesn't match descriptors)^";
+            #Endif; ! DEBUG
+            match_list-->i = -1;
+        }
+        else {
+            its_score = 0;
+            if (obj hasnt concealed) its_score = SCORE__UNCONCEALED;
+
+            if (its_owner == actor) its_score = its_score + a_s;
+            else
+                if (its_owner == actors_location) its_score = its_score + l_s;
+                else
+                    if (its_owner ~= compass) its_score = its_score + SCORE__NOTCOMPASS;
+
+            its_score = its_score + SCORE__CHOOSEOBJ * ChooseObjects(obj, 2);
+
+            if (obj hasnt scenery) its_score = its_score + SCORE__NOTSCENERY;
+            if (obj ~= actor) its_score = its_score + SCORE__NOTACTOR;
+
+            !   A small bonus for having the correct GNA,
+            !   for sorting out ambiguous articles and the like.
+
+            if (indef_cases & (PowersOfTwo_TB-->(GetGNAOfObject(obj))))
+                its_score = its_score + SCORE__GNA;
+
+            match_scores-->i = match_scores-->i + its_score;
+            #Ifdef DEBUG;
+            if (parser_trace >= 4) print "     ", (The) match_list-->i, " (", match_list-->i,
+              ") in ", (the) its_owner, " : ", match_scores-->i, " points^";
+            #Endif; ! DEBUG
+        }
+     }
+
+    for (i=0 : i<number_matched : i++) {
+        while (match_list-->i == -1) {
+            if (i == number_matched-1) { number_matched--; break; }
+            for (j=i : j<number_matched : j++) {
+                match_list-->j = match_list-->(j+1);
+                match_scores-->j = match_scores-->(j+1);
+            }
+            number_matched--;
+        }
+    }
+];
+
+
+
+! adjudicate kutsuu rutiinia ChooseObjects jos sellainen löytyy
+! ks DM4 A5 EntryPointRoutines
+!
+[ ChooseObjects obj code;
+ 	obj = obj; 
+ 	#Ifdef DEBUG;	
+    if (parser_trace > 0) print "[ChooseObjects ", code,"]^";
+#Endif;
+    
+    return 0; ! 0 hyväxyy parserin ratkaisun
+    
+ ];
+
+
+
+[ Adjudicate context i j k good_flag good_ones last n flag offset
+    sovert;
+
+    #Ifdef DEBUG;
+    if (parser_trace >= 4) {
+        print "   [Adjudicating match list of size ", number_matched, " in context ", context, "^";
+        print "   ";
+
+        if (indef_mode) {
+            print "indefinite type: ";
+            if (indef_type & OTHER_BIT)  print "other ";
+            if (indef_type & MY_BIT)     print "my ";
+            if (indef_type & THAT_BIT)   print "that ";
+            if (indef_type & PLURAL_BIT) print "plural ";
+            if (indef_type & LIT_BIT)    print "lit ";
+            if (indef_type & UNLIT_BIT)  print "unlit ";
+            if (indef_owner ~= 0) print "owner:", (name) indef_owner;
+            new_line;
+            print "   number wanted: ";
+            if (indef_wanted == 100) print "all"; else print indef_wanted;
+            new_line;
+            print "   most likely GNAs of names: ", indef_cases, "^";
+        }
+        else print "definite object^";
+    }
+    #Endif; ! DEBUG
+
+    j = number_matched-1; good_ones = 0; last = match_list-->0;
+    for (i=0 : i<=j : i++) {
+        n = match_list-->i;
+        match_scores-->i = 0;
+
+        good_flag = false;
+
+        switch (context) {
+          HELD_TOKEN, MULTIHELD_TOKEN:
+            if (parent(n) == actor) good_flag = true;
+          MULTIEXCEPT_TOKEN:
+            if (advance_warning == -1) {
+                good_flag = true;
+            }
+            else {
+                if (n ~= advance_warning) good_flag = true;
+            }
+          MULTIINSIDE_TOKEN:
+            if (advance_warning == -1) {
+                if (parent(n) ~= actor) good_flag = true;
+            }
+            else {
+                if (n in advance_warning) good_flag = true;
+            }
+          CREATURE_TOKEN:
+            if (CreatureTest(n) == 1) good_flag = true;
+          default:
+            good_flag = true;
+        }
+
+        if (good_flag) {
+            match_scores-->i = SCORE__IFGOOD;
+            good_ones++; last = n;
+        }
+    }
+    if (good_ones == 1) return last;
+
+    ! If there is ambiguity about what was typed, but it definitely wasn't
+    ! animate as required, then return anything; higher up in the parser
+    ! a suitable error will be given.  (This prevents a question being asked.)
+
+    if (context == CREATURE_TOKEN && good_ones == 0) return match_list-->0;
+
+    if (indef_mode == 0) indef_type=0;
+
+    ScoreMatchL(context);
+    if (number_matched == 0) return -1;
+
+    if (indef_mode == 0) {
+        !  Is there now a single highest-scoring object?
+        i = SingleBestGuess();
+        if (i >= 0) {
+
+            #Ifdef DEBUG;
+            if (parser_trace >= 4) print "   Single best-scoring object returned.]^";
+            #Endif; ! DEBUG
+            return i;
+        }
+    }
+
+    if (indef_mode == 1 && indef_type & PLURAL_BIT ~= 0) {
+        if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN
+                     or MULTIINSIDE_TOKEN) {
+            etype = MULTI_PE;
+            return -1;
+        }
+        i = 0; offset = multiple_object-->0; sovert = -1;
+        for (j=BestGuess() : j~=-1 && i<indef_wanted && i+offset<63 : j=BestGuess()) {
+            flag = 0;
+            if (j hasnt concealed && j hasnt worn) flag = 1;
+            if (sovert == -1) sovert = bestguess_score/SCORE__DIVISOR;
+            else {
+                if (indef_wanted == 100 && bestguess_score/SCORE__DIVISOR < sovert)
+                    flag = 0;
+            }
+            if (context == MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN && parent(j) ~= actor)
+                flag = 0;
+            if (action_to_be == ##Take or ##Remove && parent(j) == actor)
+                flag = 0;
+            k = ChooseObjects(j, flag);
+            if (k == 1)
+                flag = 1;
+            else {
+                if (k == 2) flag = 0;
+            }
+            if (flag == 1) {
+                i++; multiple_object-->(i+offset) = j;
+                #Ifdef DEBUG;
+                if (parser_trace >= 4) print "   Accepting it^";
+                #Endif; ! DEBUG
+            }
+            else {
+                i = i;
+                #Ifdef DEBUG;
+                if (parser_trace >= 4) print "   Rejecting it^";
+                #Endif; ! DEBUG
+            }
+        }
+        if (i < indef_wanted && indef_wanted < 100) {
+            etype = TOOFEW_PE; multi_wanted = indef_wanted;
+            multi_had=i;
+            return -1;
+        }
+        multiple_object-->0 = i+offset;
+        multi_context = context;
+        #Ifdef DEBUG;
+        if (parser_trace >= 4)
+            print "   Made multiple object of size ", i, "]^";
+        #Endif; ! DEBUG
+        return 1;
+    }
+
+    for (i=0 : i<number_matched : i++) match_classes-->i = 0;
+
+    n = 1;
+    for (i=0 : i<number_matched : i++)
+        if (match_classes-->i == 0) {
+            match_classes-->i = n++; flag = 0;
+            for (j=i+1 : j<number_matched : j++)
+                if (match_classes-->j == 0 && Identical(match_list-->i, match_list-->j) == 1) {
+                    flag=1;
+                    match_classes-->j = match_classes-->i;
+                }
+            if (flag == 1) match_classes-->i = 1-n;
+        }
+     n--; number_of_classes = n;
+
+    #Ifdef DEBUG;
+    if (parser_trace >= 4) {
+        print "   Grouped into ", n, " possibilities by name:^";
+        for (i=0 : i<number_matched : i++)
+            if (match_classes-->i > 0)
+                print "   ", (The) match_list-->i, " (", match_list-->i, ")  ---  group ",
+                  match_classes-->i, "^";
+    }
+    #Endif; ! DEBUG
+
+    if (indef_mode == 0) {
+        if (n > 1) {
+            k = -1;
+            for (i=0 : i<number_matched : i++) {
+                if (match_scores-->i > k) {
+                    k = match_scores-->i;
+                    j = match_classes-->i; j = j*j;
+                    flag = 0;
+                }
+                else
+                    if (match_scores-->i == k) {
+                        if ((match_classes-->i) * (match_classes-->i) ~= j)
+                            flag = 1;
+                    }
+            }
+
+        if (flag) {
+            #Ifdef DEBUG;
+            if (parser_trace >= 4) print "   Unable to choose best group, so ask player.]^";
+            #Endif; ! DEBUG
+            return 0;
+        }
+        #Ifdef DEBUG;
+        if (parser_trace >= 4) print "   Best choices are all from the same group.^";
+        #Endif; ! DEBUG
+        }
+    }
+
+    !  When the player is really vague, or there's a single collection of
+    !  indistinguishable objects to choose from, choose the one the player
+    !  most recently acquired, or if the player has none of them, then
+    !  the one most recently put where it is.
+
+    if (n == 1) dont_infer = true;
+    return BestGuess();
+
+]; ! Adjudicate
 
 ! ----------------------------------------------------------------------------
 !  Refers works out whether the word at number wnum can refer to the object
@@ -145,7 +459,7 @@
         else print "seeking definite object^";
     }
     #Endif; ! DEBUG
-
+    
     match_length = 0; number_matched = 0; match_from = wn; placed_in_flag = 0;
 
     SearchScope(domain1, domain2, context);
@@ -154,7 +468,6 @@
     if (parser_trace >= 4) print "   [ND made ", number_matched, " matches]^";
     #Endif; ! DEBUG
   
-
     
     wn = match_from+match_length;
 
@@ -190,12 +503,15 @@
 
     ! Now look for a good choice, if there's more than one choice...
 
+     
+    
     number_of_classes = 0;
 
     if (number_matched == 1) i = match_list-->0;
     if (number_matched > 1) {
         i = Adjudicate(context);
-        if (i == -1) rfalse;
+	
+        if (i == -1) rfalse;	
         if (i == 1) rtrue;       !  Adjudicate has made a multiple
                              !  object, and we pass it on
     }

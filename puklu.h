@@ -30,7 +30,9 @@ Array  Tparse  -> 6;
 ! Attribute isot_kirjaimet; 
 Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa 
 
-[objID  obj;
+! ao. taitaa olla ven. tulostuss‰‰ntˆ
+! (se ei taida tehd‰ mit‰‰n t‰‰ll‰)
+[ objID  obj;
     
     if (obj has pluralname) return ocP;
     else return ocS;
@@ -100,8 +102,9 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
       0:	return 'lle';
       1:	return 'elle'; ! pitk‰ 'ee' 
      }
-    }	
+    }
     return -1;
+    
 ];	
 
 
