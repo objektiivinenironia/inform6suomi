@@ -260,22 +260,32 @@ Global sija; ! tulostusta varten
     for (end = len: end ~= 0 : --end) 
     {
 	w = DL (adr, end); 
-
-
+	
+	!! (property) taipumaton
+	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"
+   	
+	if ( w ~=0 && WordInProperty (w, obj, taipumaton))
+	{
+           #Ifdef DEBUG;				
+	    if (parser_trace > 0)
+	    { print "^[ * Taipumaton * sana, mikä tahansa pääte käy.]"; 
+		debugsijat(adr, wnum, len, end, w, csID);
+	    }
+            #Endif;
+	    rtrue; 
+	}; 
+	
+	
 	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
 	    
 	{ 	#Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
               #Endif;
-	    
 		    rtrue; 
-
-
 	}; 
 	
-	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   
-	
+	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
 	!! esim. 'mato', 'madot' / 'matto', 'matot'; 'pato', 'padot' / 'patto', 'patot',  jne... 
 	
 	!! esim. vahva_a 'Maukka' / mon.: 'maukko' 

@@ -36,7 +36,11 @@
     !!!!!!¤¤¤¤¤¤¤ TEMP
     ! >t lasi -----> indef_mode 0 indef_type 0
     ! >t lasia ----> indef_mode 1 indef_type 8
-    indef_mode = 0; ! temp
+    #Ifdef DEBUG;
+       	if (parser_trace >= 1)
+	    print "[ VÄLIAIK. RATK.: indef_mode = 0]^";
+    #Endif;     
+    indef_mode = 0;
     !!!!!!¤¤¤¤¤¤¤ TEMP
 
 
