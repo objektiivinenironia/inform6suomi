@@ -275,8 +275,12 @@ Array LanguageNumbers table
 ! --------------------------------------------------------------------
 
 Include "puklu";	! parsimista ja tulostamista
-Include "LTI";
 Include "parsermfi";    ! "Parserm"-tiedoston muokatut rutiinit
+
+! "arse parse"
+[ LanguageToInformese;
+]; 
+
 
 ! ------------------------------------------------------------------------------
 !   Part IV.   Printing
