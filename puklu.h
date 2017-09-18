@@ -164,11 +164,11 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 global muu_sija = 0;
 
-[ ParserError error_code eik;
+[ ParserError error_code en_k;
 
-    eik = 0;    
+    en_k = 0;    
     
-    if (muu_sija == 1) eik = 1;
+    if (muu_sija == 1) en_k = 1;
     muu_sija = 0;    
     
     !! v‰hennet‰‰n UPTO_PE -> STUCK_PE:ksi
@@ -178,7 +178,7 @@ global muu_sija = 0;
     ! jos sija on olemassa, mutta v‰‰r‰ konteksti,
     ! ei sanota "Et n‰e mit‰‰n sellaista" (4), vaan...
 
-    if (eik == true && error_code == 4) print_ret "En ihan k‰sitt‰nyt.";
+    if (en_k == true && error_code == 4) print_ret "En ihan k‰sitt‰nyt.";
 	
     !! (vai annetaanko merkkijono?) 
     if (error_code ofclass String) print_ret (string) error_code;
@@ -263,12 +263,17 @@ Global sija; ! tulostusta varten
 	
 	!! (property) taipumaton
 	!! esimerkiksi genetiiviattribuutti "pˆyd‰n" -> "pˆyd‰n antimet"
-   	
-	if ( w ~=0 && WordInProperty (w, obj, taipumaton))
+
+	csID = 0; ! anything goes? ts. listan 1. p‰‰te kelpuutetaan
+	
+	if ( end == len && w ~= 0 && WordInProperty (w, obj, taipumaton)
+ 	     && EndingLookup (adr+end, len-end, csID))
 	{
            #Ifdef DEBUG;				
 	    if (parser_trace > 0)
-	    {†print "^[ * Taipumaton * sana, mik‰ tahansa p‰‰te k‰y.]";†
+	    {†print "^[ * ", end, " Taipumaton * ]^";†
+		print NextWord();
+		! print NextWordStopped();
 		debugsijat(adr, wnum, len, end, w, csID);
 	    }
             #Endif;
