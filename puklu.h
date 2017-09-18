@@ -244,10 +244,11 @@ Global sija; ! tulostusta varten
 ! languagerefers vastaa sen perusteella mitä endinglookup
 ! kertoo sijapäätteestä. 
 
-[ LanguageRefers  obj wnum adr len end w csID obj_x; 
+[ LanguageRefers  obj wnum adr len end w csID; 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
-    
+
+       
     if (parent (obj) == Compass) 
     {
 	w = DL (adr, len);
@@ -262,34 +263,18 @@ Global sija; ! tulostusta varten
     {
 	w = DL (adr, end); 
 
-       ! taipumatonta varten etsitään syötteestä samaan obj viittaava
-	! taipuva sana obj_x? 
-       if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
-	    
-	{ 	#Ifdef DEBUG;				
-	    if (parser_trace > 0)
-	    { print "**** obj_x **** !"; debugsijat(adr, wnum, len, end, w, csID);
-	    }
-              #Endif;
-		    obj_x = obj; 
-	}; 
-	
-	
+   
 	!! (property) taipumaton
-	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	
+	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	   
 	
 	if ( end == len && w ~= 0 && WordInProperty (w, obj, taipumaton)) 
 	    !! && EndingLookup (adr+end, len-end, -1))
 	    
 	{
-	   
- 
            #Ifdef DEBUG;				
 	    if (parser_trace > 0)
-	    { print "^[ * ", wn, " Taipumaton * ]^"; 
-		if (obj == obj_x) print "obj_x on SAMA!";
-		! print NextWordStopped();
-		debugsijat(adr, wnum, len, end, w, csID);
+	    { print "^[ * Taipumaton * ]^"; 
+		 debugsijat(adr, wnum, len, end, w, csID);
 	    }
             #Endif;
 	    rtrue; 
