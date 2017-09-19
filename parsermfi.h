@@ -812,7 +812,10 @@
 !  preposition n)
 ! ----------------------------------------------------------------------------
 
-[ PrintCommand from i k spacing_flag; 
+!! kys, sijamuotoja yms
+[ PrintCommand from i k spacing_flag kys; 
+
+  kys = from;    
     
     if (from == 0) {
        	i = verb_word;  
@@ -853,18 +856,17 @@
 			csTra: print (translatiivi) i;}
                        
  		else print (the) i;
-	print from;!x!
 	
-    	
     .TokenPrinted;
 	spacing_flag = true;
 
 	
     }
 
+    ! kys
     ! 1: (lasille siniselle pöydälle)
-    ! 2: laita kuutio mihin?"
-    PrintKysymys(verb_word, from, k); 	
-    !!! muokattu loppu
+    ! 0: laita kuutio mihin?"
+    if (kys == 0) PrintKysymys(verb_word, from, k); 	
 
+    
 ];
