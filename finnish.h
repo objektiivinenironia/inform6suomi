@@ -1205,7 +1205,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 	4:  "Et löydä mitään.";
 ! Yksikkö JA monikko?
 	5:  "Et näe sisälle, koska ", (nominatiivi) x1, " on suljettu.";
-	6:  print (k_nominatiivi) x1; if (x1 has pluralname) print " ovat tyhjiä."; else print " on tyhjä.";
+	6:  print (k_nominatiivi) x1; if (x1 has pluralname) print_ret " ovat tyhjiä."; else print_ret " on tyhjä.";
 	7:  print (k_inessiivi) x1, " on ";     !? tulostuuko oikein?			
 	    WriteListFrom(child(x1), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT);   !+ISARE_BIT); pois
 	    ".";
