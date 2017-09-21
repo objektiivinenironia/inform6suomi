@@ -845,13 +845,6 @@
 		!!    " verb_word ", (address)
 		!!    verb_word;
 
-		! Taivutetaan parserin arvaus (tonttu) kenelle allatiiviin:
-		!
-		!  >anna antimet
-		!  (tontulle)  
-		    
-                     if (kys == 2 && action_to_be == ##give) CaseIs = csAll;
- 			 
 	! jos, 1. sana nom. 2. sana taipuu	
 		if (CaseIs ~= 0 && k >= 2) 
              		switch (CaseIs) {

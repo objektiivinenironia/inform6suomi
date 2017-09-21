@@ -276,8 +276,8 @@ Verb 'exit' 'ulos'
 Verb 'täytä'
     * nom_noun                             -> Fill;
 Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
-    * nom_held creature                    -> Give
-    * par_held creature                    -> Give
+    * nom_held all_creat                   -> Give
+    * par_held all_creat                   -> Give
     * creature nom_held                    -> Give reverse
     * creature par_Held                    -> Give reverse;
 Verb 'lahjo' 'ruoki'
