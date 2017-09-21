@@ -839,9 +839,20 @@
                 LanguageDirection (i.door_dir); ! the direction name
 	! as adverb
             else
-	
-		!!! muokattu
-		! jos tämä, 1. sana nom. 2. sana taipuu			
+	  
+		
+		!! print "** k ", k, ", kys ", kys, ", caseis ", CaseIs,
+		!!    " verb_word ", (address)
+		!!    verb_word;
+
+		! Taivutetaan parserin arvaus (tonttu) kenelle allatiiviin:
+		!
+		!  >anna antimet
+		!  (tontulle)  
+		    
+                     if (kys == 2 && action_to_be == ##give) CaseIs = csAll;
+ 			 
+	! jos, 1. sana nom. 2. sana taipuu	
 		if (CaseIs ~= 0 && k >= 2) 
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
@@ -866,6 +877,7 @@
     ! kys
     ! 1: (lasille siniselle pöydälle)
     ! 0: laita kuutio mihin?"
+       
     if (kys == 0) PrintKysymys(verb_word, from, k); 	
 
     
