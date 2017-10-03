@@ -38,9 +38,10 @@
     ! >t lasia ----> indef_mode 1 indef_type 8
     #Ifdef DEBUG;
        	if (parser_trace >= 1)
-	    print "[ VÄLIAIK. RATK.: indef_mode = 0]^";
+	    print "[ VÄLIAIK. RATK.: indef_mode = 0 *EI TOIMI* KOSKA
+		SILLOIN ESIM 'OTA KAIKKI' EI TOIMI!]^";
     #Endif;     
-    indef_mode = 0;
+    ! indef_mode = 0;
     !!!!!!¤¤¤¤¤¤¤ TEMP
 
 

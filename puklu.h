@@ -263,7 +263,8 @@ Global sija; ! tulostusta varten
     {
 	w = DL (adr, end); 
 
-   
+
+
 	!! (property) taipumaton
 	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	   
 	
