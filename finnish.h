@@ -34,7 +34,7 @@ Replace PrintCommand;
 Replace CantSee;
 Replace Refers;
 Replace ScoreMatchL;
-
+Replace TryGivenObject;
 
 Constant LanguageVersion = "Finnish";
 

@@ -164,8 +164,14 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 global muu_sija = 0;
 
-[ ParserError error_code en_k;
 
+! TODO: "Tuota verbiä ei voi käyttää useisiin kohteisiin
+    ! kerralla." on melko kökköä... LibraryMessages (tai parsererror?) voisi
+    ! sanoa jos esim actiontobe == examine
+    ! "Voit tutkia vain yhtä asiaa kerrallaan."
+
+[ ParserError error_code en_k;
+    
     en_k = 0;    
     
     if (muu_sija == 1) en_k = 1;
@@ -187,6 +193,8 @@ global muu_sija = 0;
     
 ];
 
+global monikko = 0;
+
 ! ao. etsii sijamuodon päätteen
 
 [ EndingLookup   addr len csID 
@@ -204,12 +212,19 @@ global muu_sija = 0;
     else v = 0; ! ei sijamuodon päätettä, v = 0
     
     ocFN = S_Req; ! etsii yksikön päätteitä
-    
+
+    monikko = 0;    
     
     for (::) {
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
+
+	        if (ocFN == P_Req) {print "%  EndingLookup: monikko =
+	        	1^"; monikko = 1;
+		}
 	    
+		    
+		    
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
 	    if (u == v) rtrue; 		
 	    
@@ -222,12 +237,11 @@ global muu_sija = 0;
  	
 	muu_sija = true;
 	
-	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
-	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)	
-	switch (ocFN) {
-	 S_Req: ocFN = P_Req; 
-	 P_Req: rfalse;		
-	}	
+	! jos yksikkölista on käyty läpi, siirry monikkolistaan
+	! rfalse jos monikkolista on käyty läpi (ilman osumaa)
+	
+	if (ocFN == S_Req) ocFN = P_Req; else rfalse;
+	
     }
     
     rfalse;
@@ -275,7 +289,9 @@ Global sija; ! tulostusta varten
            #Ifdef DEBUG;				
 	    if (parser_trace > 0)
 	    { print "^[ * Taipumaton * ]^"; 
-		 debugsijat(adr, wnum, len, end, w, csID);
+		debugsijat(adr, wnum, len, end, w, csID);
+       	
+	   
 	    }
             #Endif;
 	    rtrue; 
@@ -287,6 +303,9 @@ Global sija; ! tulostusta varten
 	{ 	#Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
+	    	if (monikko == 1) print "MONIKKO!^";
+		else print "YKSIKKÖ!^";
+	
               #Endif;
 		    rtrue; 
 	}; 
