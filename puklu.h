@@ -222,8 +222,6 @@ global monikko = 0;
 	        if (ocFN == P_Req) {print "%  EndingLookup: monikko =
 	        	1^"; monikko = 1;
 		}
-	    
-		    
 		    
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
 	    if (u == v) rtrue; 		

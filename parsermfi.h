@@ -50,20 +50,21 @@
                 else {
                     if (indef_mode == 0) {
 			! lisätty monikko-ehtoja
-			if (monikko == true)
-			{ print "%   monikko INDEF_MODE = 1^"; indef_mode = 1;
-			}
+			! if (monikko == true)
+		        !{ print "%   monikko INDEF_MODE = 1^";
+			indef_mode = 1;
+			!}
 			
 			else indef_mode = 0;			
 			indef_type = 0; indef_wanted = 0;
                     }
-		    if (monikko == true) print "%   monikko
-			INDEF_TYPE | PLURAL BIT, INDEF_WANTED 100^";
+		    ! if (monikko == true) print "%   monikko
+		    !	INDEF_TYPE | PLURAL BIT, INDEF_WANTED 100^";
 		    
-		    if (monikko == true)
+		    ! if (monikko == true)
                     indef_type = indef_type | PLURAL_BIT;
-                    if (indef_wanted == 0 && monikko == 1)
-                	indef_wanted = 100; 
+                    ! if (indef_wanted == 0 && monikko == 1)
+                     if (indef_wanted == 0) indef_wanted = 100; 
 		    ! muok. loppu
                 }
             }
