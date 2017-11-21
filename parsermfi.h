@@ -27,11 +27,15 @@
     indef_owner = nothing;
     indef_cases = $$111111111111;
     indef_nspec_at = 0;
+       
 ];
 
 [ Descriptors  o x flag cto type n;
     ResetDescriptors();
     if (wn > num_words) return 0;
+
+    print "%descriptors monikko == ", monikko, "^";
+    
 
     for (flag=true : flag :) {
         o = NextWordStopped(); flag = false;
@@ -39,7 +43,7 @@
        for (x=1 : x<=LanguageDescriptors-->0 : x=x+4)
             if (o == LanguageDescriptors-->x) {
                 flag = true;
-                type = LanguageDescriptors-->(x+2);
+                type = LanguageDescriptors-->(x+2);		
                 if (type ~= DEFART_PK) indef_mode = true;
                 indef_possambig = true;
                 indef_cases = indef_cases & (LanguageDescriptors-->(x+1));

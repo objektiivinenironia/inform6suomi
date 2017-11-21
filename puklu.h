@@ -200,8 +200,8 @@ global monikko = 0;
 [ EndingLookup   addr len csID 
     v u ocFN i;
 
-    
-        
+
+      
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon p‰‰tteen pituus
@@ -215,7 +215,7 @@ global monikko = 0;
     
     ocFN = S_Req; ! etsii yksikˆn p‰‰tteit‰
 
-    monikko = 0;    
+        monikko = 0;        
     
     for (::) {
 	for (i = 0: : ++i) { 
@@ -258,6 +258,7 @@ Global sija; ! tulostusta varten
 ! kertoo sijap‰‰tteest‰. 
 
 [ LanguageRefers  obj wnum adr len end w csID; 
+
     
     adr = WordAddress(wnum); len = WordLength(wnum);
 
