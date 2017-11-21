@@ -2,6 +2,88 @@
 ! ===========
 ! Muokattuja rutiineja parserm:stä (finnish korvaa alkuperäiset näillä).
 
+! ----------------------------------------------------------------------------
+!  Descriptors()
+!
+!  Handles descriptive words like "my", "his", "another" and so on.
+!  Skips "the", and leaves wn pointing to the first misunderstood word.
+!
+!  Allowed to set up for a plural only if allow_p is set
+!
+!  Returns error number, or 0 if no error occurred
+! ----------------------------------------------------------------------------
+
+! ao. löytyy parserm.h:sta
+!Constant OTHER_BIT  =   1;     !  These will be used in Adjudicate()
+!Constant MY_BIT     =   2;     !  to disambiguate choices
+!Constant THAT_BIT   =   4;
+!Constant PLURAL_BIT =   8;
+!Constant LIT_BIT    =  16;
+!Constant UNLIT_BIT  =  32;
+
+[ ResetDescriptors;
+    indef_mode = 0; indef_type = 0; indef_wanted = 0; indef_guess_p = 0;
+    indef_possambig = false;
+    indef_owner = nothing;
+    indef_cases = $$111111111111;
+    indef_nspec_at = 0;
+];
+
+[ Descriptors  o x flag cto type n;
+    ResetDescriptors();
+    if (wn > num_words) return 0;
+
+    for (flag=true : flag :) {
+        o = NextWordStopped(); flag = false;
+
+       for (x=1 : x<=LanguageDescriptors-->0 : x=x+4)
+            if (o == LanguageDescriptors-->x) {
+                flag = true;
+                type = LanguageDescriptors-->(x+2);
+                if (type ~= DEFART_PK) indef_mode = true;
+                indef_possambig = true;
+                indef_cases = indef_cases & (LanguageDescriptors-->(x+1));
+
+                if (type == POSSESS_PK) {
+                    cto = LanguageDescriptors-->(x+3);
+                    switch (cto) {
+                      0: indef_type = indef_type | MY_BIT;
+                      1: indef_type = indef_type | THAT_BIT;
+                      default:
+                        indef_owner = PronounValue(cto);
+                        if (indef_owner == NULL) indef_owner = InformParser;
+                    }
+                }
+
+                if (type == light)  indef_type = indef_type | LIT_BIT;
+                if (type == -light) indef_type = indef_type | UNLIT_BIT;
+            }
+
+        if (o == OTHER1__WD or OTHER2__WD or OTHER3__WD) {
+            indef_mode = 1; flag = 1;
+            indef_type = indef_type | OTHER_BIT;
+        }
+        if (o == ALL1__WD or ALL2__WD or ALL3__WD or ALL4__WD or ALL5__WD) {
+            indef_mode = 1; flag = 1; indef_wanted = 100;
+            if (take_all_rule == 1) take_all_rule = 2;
+            indef_type = indef_type | PLURAL_BIT;
+        }
+        if (allow_plurals) {
+            n = TryNumber(wn-1);
+            if (n == 1) { indef_mode = 1; flag = 1; }
+            if (n > 1) {
+                indef_guess_p = 1;
+                indef_mode = 1; flag = 1; indef_wanted = n;
+                indef_nspec_at = wn-1;
+                indef_type = indef_type | PLURAL_BIT;
+            }
+        }
+        if (flag == 1 && NextWordStopped() ~= OF1__WD or OF2__WD or OF3__WD or OF4__WD)
+            wn--;  ! Skip 'of' after these
+    }
+    wn--;
+    return 0;
+];
 
 
 ! ----------------------------------------------------------------------------

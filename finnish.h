@@ -35,6 +35,8 @@ Replace CantSee;
 Replace Refers;
 Replace ScoreMatchL;
 Replace TryGivenObject;
+Replace Descriptors;
+REplace ResetDescriptors;
 
 Constant LanguageVersion = "Finnish";
 
