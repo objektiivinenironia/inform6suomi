@@ -55,7 +55,7 @@
 			indef_mode = 1;
 			!}
 			
-			else indef_mode = 0;			
+			! else indef_mode = 0;			
 			indef_type = 0; indef_wanted = 0;
                     }
 		    ! if (monikko == true) print "%   monikko
