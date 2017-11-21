@@ -219,12 +219,11 @@ global monikko = 0;
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
 
-	        if (ocFN == P_Req) {print "%  EndingLookup: monikko =
-	        	1^"; monikko = 1;
-		}
+	        if (ocFN == P_Req) monikko = true;
 		    
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
-	    if (u == v) rtrue; 		
+	    ! if (u == v && monikko == true) return 2;
+	    if (u == v) rtrue;	    
 	    
 	    else if (u == -1) break;	! jos lista (csID nreq) valmis, break
 	    
@@ -296,14 +295,15 @@ Global sija; ! tulostusta varten
 	}; 
 	
 	
-	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
+
+	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
+	    (adr+end, len-end, csID))
 	    
 	{ 	#Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    	if (monikko == 1) print "MONIKKO!^";
-		else print "YKSIKKÖ!^";
-	
+	    	if (monikko == true) print "MONIKKO!^";
+		else print "YKSIKKÖ!^";	
               #Endif;
 		    rtrue; 
 	}; 

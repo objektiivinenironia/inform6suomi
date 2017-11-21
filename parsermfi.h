@@ -40,8 +40,9 @@
         if (k > 0) {
             wn=j+k;
 
-          .MMbyPN;
+            .MMbyPN;
 
+	    
             if (parser_action == ##PluralFound)
                 dict_flags_of_noun = dict_flags_of_noun | 4;
 
