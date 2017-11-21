@@ -15,7 +15,7 @@
     #Ifdef DEBUG;
     if (parser_trace >= 5) print "    Trying ", (the) obj, " (", obj, ") at word ", wn, "^";
     #Endif; ! DEBUG
-
+    
     dict_flags_of_noun = 0;
 
 !  If input has run out then always match, with only quality 0 (this saves
@@ -53,15 +53,21 @@
 			! lisätty monikko-ehtoja
 			! if (monikko == true)
 		        !{ print "%   monikko INDEF_MODE = 1^";
+			if (monikko==1) print "%trygivenobj MON^";
+                	else print "%trygivenobj YKS^";
+
 			indef_mode = 1;
+			
+		  			
 			!}
 			
 			! else indef_mode = 0;			
 			indef_type = 0; indef_wanted = 0;
+		       
                     }
 		    ! if (monikko == true) print "%   monikko
 		    !	INDEF_TYPE | PLURAL BIT, INDEF_WANTED 100^";
-		    
+                    		    
 		    ! if (monikko == true)
                     indef_type = indef_type | PLURAL_BIT;
                     ! if (indef_wanted == 0 && monikko == 1)
@@ -134,19 +140,22 @@
 ! parseri luulee muuten partitiivia monikoksi  
 
 [ ScoreMatchL context its_owner its_score obj i j threshold met a_s l_s;
-
+	
+    
     !   if (indef_type & OTHER_BIT ~= 0) threshold++;
     if (indef_type & MY_BIT ~= 0)    threshold++;
     if (indef_type & THAT_BIT ~= 0)  threshold++;
     if (indef_type & LIT_BIT ~= 0)   threshold++;
     if (indef_type & UNLIT_BIT ~= 0) threshold++;
     if (indef_owner ~= nothing)      threshold++;
-
+ 
+    
     #Ifdef DEBUG;
     if (parser_trace >= 4) print "   Scoring match list: indef mode ", indef_mode, " type ",
       indef_type, ", satisfying ", threshold, " requirements:^";
 #Endif; ! DEBUG
 
+    
     !!!!!!¤¤¤¤¤¤¤ TEMP
     ! >t lasi -----> indef_mode 0 indef_type 0
     ! >t lasia ----> indef_mode 1 indef_type 8
@@ -157,7 +166,7 @@
     #Endif;     
     ! indef_mode = 0;
     !!!!!!¤¤¤¤¤¤¤ TEMP
-
+      if (monikko == true) print "%scorematch MONIKKO!^"; else print "%scorematch YKSIKKÖ!^";
 
     a_s = SCORE__NEXTBESTLOC; l_s = SCORE__BESTLOC;
     if (context == HELD_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN) {
@@ -243,6 +252,7 @@
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
 
+    
     #Ifdef DEBUG;
     if (parser_trace >= 4) {
         print "   [Adjudicating match list of size ", number_matched, " in context ", context, "^";
@@ -327,11 +337,16 @@
         }
     }
 
+    
+    
     if (indef_mode == 1 && indef_type & PLURAL_BIT ~= 0) {
         if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN
-                     or MULTIINSIDE_TOKEN) {
-            etype = MULTI_PE;
-            return -1;
+	    or MULTIINSIDE_TOKEN) {
+	    etype = "<---TEMP!---> Voit tehdä niin vain YHDELLE asialle
+        	kerrallaan.";
+	    
+	    ! etype = MULTI_PE;
+             return -1;
         }
         i = 0; offset = multiple_object-->0; sovert = -1;
         for (j=BestGuess() : j~=-1 && i<indef_wanted && i+offset<63 : j=BestGuess()) {
@@ -404,6 +419,7 @@
     }
     #Endif; ! DEBUG
 
+    
     if (indef_mode == 0) {
         if (n > 1) {
             k = -1;
@@ -419,17 +435,19 @@
                             flag = 1;
                     }
             }
-
+	    
         if (flag) {
             #Ifdef DEBUG;
             if (parser_trace >= 4) print "   Unable to choose best group, so ask player.]^";
             #Endif; ! DEBUG
             return 0;
         }
+	    
         #Ifdef DEBUG;
         if (parser_trace >= 4) print "   Best choices are all from the same group.^";
         #Endif; ! DEBUG
         }
+	
     }
 
     !  When the player is really vague, or there's a single collection of
@@ -509,7 +527,8 @@
     wn--; w = NextWord();
     e = CANTSEE_PE;
 ! ¤#¤ One line changed
-!    if (w==pronoun_word)
+    !    if (w==pronoun_word)
+    
     if (w==pronoun_word && ~~ TestScope(pronoun_obj))  ! TestScope condition added
     {
         pronoun__word = pronoun_word; pronoun__obj = pronoun_obj;

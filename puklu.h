@@ -199,7 +199,9 @@ global monikko = 0;
 
 [ EndingLookup   addr len csID 
     v u ocFN i;
+
     
+        
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
@@ -298,15 +300,18 @@ Global sija; ! tulostusta varten
 
 	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
 	    (adr+end, len-end, csID))
-	    
-	{ 	#Ifdef DEBUG;				
+
+	    	
+	{ 
+            #Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    	if (monikko == true) print "MONIKKO!^";
-		else print "YKSIKKÖ!^";	
+	    	if (monikko == true) print "%ending MONIKKO!^";
+		else print "%ending YKSIKKÖ!^";	
               #Endif;
 		    rtrue; 
-	}; 
+	};
+	
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
 	!! esim. 'mato', 'madot' / 'matto', 'matot'; 'pato', 'padot' / 'patto', 'patot',  jne... 
