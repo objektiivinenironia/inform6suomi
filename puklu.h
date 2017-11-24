@@ -303,11 +303,12 @@ Global sija; ! tulostusta varten
 	    (adr+end, len-end, csID))
 
 	    	
-	{ 
+	{
+		
             #Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    	if (monikko == true) print "%ending MONIKKO!^";
+	    	print parser_action, " indef_type: ", indef_type, " "; if (monikko == true) print "%ending MONIKKO!^";
 		else print "%ending YKSIKKÖ!^";	
               #Endif;
 		    rtrue; 

@@ -22,10 +22,25 @@
 !Constant UNLIT_BIT  =  32;
 
 [ ResetDescriptors;
-    indef_mode = 0; indef_type = 0; indef_wanted = 0; indef_guess_p = 0;
-    indef_possambig = false;
+    indef_mode = 0; indef_type = 0;
+    !indef_wanted = 0;
+    indef_wanted = 0;
+    indef_guess_p = 0;
+    !indef_possambig = false;
+    indef_possambig = false;    
     indef_owner = nothing;
-    indef_cases = $$111111111111;
+    !indef_cases = $$111111111111;
+
+    ! word         possible GNAs   descriptor      connected
+    !              to follow:      type:           to:
+    !                a     i
+    !                s  p  s  p
+    !                mfnmfnmfnmfn
+
+     indef_cases = $$111111111111;
+    
+ 
+!    indef_cases = $$111111111111;
     indef_nspec_at = 0;
        
 ];
@@ -34,7 +49,7 @@
     ResetDescriptors();
     if (wn > num_words) return 0;
 
-    print "%descriptors monikko == ", monikko, "^";
+    print parser_action, " indef_type: ", indef_type, " %descriptors monikko == ", monikko, "^";
     
 
     for (flag=true : flag :) {
@@ -139,7 +154,8 @@
 			! lisätty monikko-ehtoja
 			! if (monikko == true)
 		        !{ print "%   monikko INDEF_MODE = 1^";
-			if (monikko==1) print "%trygivenobj MON^";
+			print parser_action, " indef_type: ",
+                indef_type, " "; if (monikko==1) print "%trygivenobj MON^";
                 	else print "%trygivenobj YKS^";
 
 			indef_mode = 1;
@@ -252,7 +268,9 @@
     #Endif;     
     ! indef_mode = 0;
     !!!!!!¤¤¤¤¤¤¤ TEMP
-      if (monikko == true) print "%scorematch MONIKKO!^"; else print "%scorematch YKSIKKÖ!^";
+     
+      print parser_action, " indef_type: ", indef_type, " "; if (monikko == true) print "%scorematch MONIKKO!^"; else print
+	  "%scorematch YKSIKKÖ!^";
 
     a_s = SCORE__NEXTBESTLOC; l_s = SCORE__BESTLOC;
     if (context == HELD_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN) {
@@ -281,6 +299,9 @@
             its_score = 0;
             if (obj hasnt concealed) its_score = SCORE__UNCONCEALED;
 
+	    !% print indef_cases, " ", its_score, " indef_type: ",
+	    !% indef_type, " %scorematch1^";
+	    
             if (its_owner == actor) its_score = its_score + a_s;
             else
                 if (its_owner == actors_location) its_score = its_score + l_s;
@@ -292,12 +313,18 @@
             if (obj hasnt scenery) its_score = its_score + SCORE__NOTSCENERY;
             if (obj ~= actor) its_score = its_score + SCORE__NOTACTOR;
 
+	    !% print indef_cases, " ", its_score, " indef_type: ",
+	    !% indef_type, " %scorematch2^";
+	    
             !   A small bonus for having the correct GNA,
             !   for sorting out ambiguous articles and the like.
 
             if (indef_cases & (PowersOfTwo_TB-->(GetGNAOfObject(obj))))
                 its_score = its_score + SCORE__GNA;
 
+	    !% print indef_cases, " ", its_score, " indef_type: ",
+	    !% indef_type, " %scorematch3^";
+	    
             match_scores-->i = match_scores-->i + its_score;
             #Ifdef DEBUG;
             if (parser_trace >= 4) print "     ", (The) match_list-->i, " (", match_list-->i,
@@ -313,6 +340,8 @@
                 match_list-->j = match_list-->(j+1);
                 match_scores-->j = match_scores-->(j+1);
             }
+	    !% print " indef_type: ", indef_type, " %scorematch4^";
+	    
             number_matched--;
         }
     }
@@ -428,7 +457,7 @@
     if (indef_mode == 1 && indef_type & PLURAL_BIT ~= 0) {
         if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN
 	    or MULTIINSIDE_TOKEN) {
-	    etype = "<---TEMP!---> Voit tehdä niin vain YHDELLE asialle
+	    etype = "%<---TEMP!---> Voit tehdä niin vain YHDELLE asialle
         	kerrallaan.";
 	    
 	    ! etype = MULTI_PE;
