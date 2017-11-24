@@ -654,6 +654,8 @@
     wn--;
     if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     else {
+	print "DESCRIPTORS!^";
+	
         Descriptors();  ! skip past THE etc
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     }
