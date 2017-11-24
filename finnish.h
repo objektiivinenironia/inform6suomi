@@ -227,6 +227,7 @@ Array LanguageDescriptors table
   !                s  p  s  p
   !                mfnmfnmfnmfn
 
+   'TEMP'        $$111000111000    DEFART_PK            1
    'minun'       $$111111111111    POSSESS_PK           0
    'oma'         $$111000111000    POSSESS_PK           0
    'omat'        $$000111000111    POSSESS_PK           0

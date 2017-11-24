@@ -49,14 +49,16 @@
     ResetDescriptors();
     if (wn > num_words) return 0;
 
-    print parser_action, " indef_type: ", indef_type, " %descriptors monikko == ", monikko, "^";
+    print parser_action, " indef_type: ", indef_type, " %descriptors A
+    monikko == ", monikko, "^";
     
 
     for (flag=true : flag :) {
         o = NextWordStopped(); flag = false;
 
        for (x=1 : x<=LanguageDescriptors-->0 : x=x+4)
-            if (o == LanguageDescriptors-->x) {
+	   if (o == LanguageDescriptors-->x) {
+	       
                 flag = true;
                 type = LanguageDescriptors-->(x+2);		
                 if (type ~= DEFART_PK) indef_mode = true;
@@ -89,12 +91,24 @@
         }
         if (allow_plurals) {
             n = TryNumber(wn-1);
-            if (n == 1) { indef_mode = 1; flag = 1; }
+            if (n == 1) {
+		print "% Descriptors B: allow_plurals, n == ", n, "
+            indef_mode ", indef_mode; 
+		indef_mode = 1; flag = 1;
+            	print " -> ", indef_mode, "^";
+		
+	    }
             if (n > 1) {
+		print "% Descriptors C: allow_plurals, n == ", n, "
+            indef_mode", indef_mode;		
                 indef_guess_p = 1;
                 indef_mode = 1; flag = 1; indef_wanted = n;
+		print " -> ", indef_mode, "^";
                 indef_nspec_at = wn-1;
                 indef_type = indef_type | PLURAL_BIT;
+		print "% Descriptors D: indef_type == ", indef_type,
+            	    "^";
+		
             }
         }
         if (flag == 1 && NextWordStopped() ~= OF1__WD or OF2__WD or OF3__WD or OF4__WD)
@@ -155,8 +169,8 @@
 			! if (monikko == true)
 		        !{ print "%   monikko INDEF_MODE = 1^";
 			print parser_action, " indef_type: ",
-                indef_type, " "; if (monikko==1) print "%trygivenobj MON^";
-                	else print "%trygivenobj YKS^";
+                indef_type, " "; if (monikko==1) print "% trygivenobj MONIKKO!^";
+                	else print "%trygivenobj YKSIKKÖ!^";
 
 			indef_mode = 1;
 			
@@ -654,7 +668,7 @@
     wn--;
     if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     else {
-	print "DESCRIPTORS!^";
+	print "% DESCRIPTORS!^";
 	
         Descriptors();  ! skip past THE etc
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
