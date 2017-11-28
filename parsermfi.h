@@ -118,6 +118,43 @@
     return 0;
 ];
 
+! ----------------------------------------------------------------------------
+!  MakeMatch looks at how good a match is.  If it's the best so far, then
+!  wipe out all the previous matches and start a new list with this one.
+!  If it's only as good as the best so far, add it to the list.
+!  If it's worse, ignore it altogether.
+!
+!  The idea is that "red panic button" is better than "red button" or "panic".
+!
+!  number_matched (the number of words matched) is set to the current level
+!  of quality.
+!
+!  We never match anything twice, and keep at most 64 equally good items.
+! ----------------------------------------------------------------------------
+
+[ MakeMatch obj quality i;
+    #Ifdef DEBUG;
+    if (parser_trace >= 6) print "    Match with quality ",quality,"^";
+    #Endif; ! DEBUG
+    if (token_filter ~= 0 && UserFilter(obj) == 0) {
+        #Ifdef DEBUG;
+        if (parser_trace >= 6) print "    Match filtered out: token filter ", token_filter, "^";
+        #Endif; ! DEBUG
+        rtrue;
+    }
+    if (quality < match_length) rtrue;
+    if (quality > match_length) { match_length = quality; number_matched = 0; }
+    else {
+        if (2*number_matched >= MATCH_LIST_SIZE) rtrue;
+        for (i=0 : i<number_matched : i++)
+            if (match_list-->i == obj) rtrue;
+    }
+    match_list-->number_matched++ = obj;
+    #Ifdef DEBUG;
+    if (parser_trace >= 6) print "    Match added to list^";
+    #Endif; ! DEBUG
+];
+
 
 ! ----------------------------------------------------------------------------
 !  TryGivenObject tries to match as many words as possible in what has been
@@ -136,7 +173,7 @@
 !  If input has run out then always match, with only quality 0 (this saves
 !  time).
 
-    if (wn > num_words) {
+    if (wn > num_words) {	
         if (indef_mode ~= 0)
             dict_flags_of_noun = $$01110000;  ! Reject "plural" bit
         MakeMatch(obj,0);
@@ -157,10 +194,11 @@
 
             .MMbyPN;
 
-	    
             if (parser_action == ##PluralFound)
-                dict_flags_of_noun = dict_flags_of_noun | 4;
+	
+		dict_flags_of_noun = dict_flags_of_noun | 4;
 
+	    
             if (dict_flags_of_noun & 4) {
                 if (~~allow_plurals) k = 0;
                 else {
