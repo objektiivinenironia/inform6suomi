@@ -228,7 +228,8 @@ Array LanguageDescriptors table
   !                s  p  s  p
   !                mfnmfnmfnmfn
 
-   'yhtä'        $$111000111000    DEFART_PK            NULL
+   'yhtä'        $$111000111000    DEFART_PK          0 !TEMP!
+ ! 'yhtä'        $$111000111000    INDEFART_PK          0 !TEMP!
    'minun'       $$111111111111    POSSESS_PK           0
    'oma'         $$111000111000    POSSESS_PK           0
    'omat'        $$000111000111    POSSESS_PK           0
@@ -311,7 +312,7 @@ Array LanguageArticles -->
  !   Contraction form 0:     Contraction form 1:
  !   Cdef   Def    Indef     Cdef   Def    Indef
 
-	"" "" "" ;      
+    "" "" "" ;      
 
 		       !         a     i
 		       !         s     p     s     p

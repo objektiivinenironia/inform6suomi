@@ -221,10 +221,13 @@ global monikko = 0;
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
 
-	        if (ocFN == P_Req) monikko = true;
+	    
 		    
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
-	    ! if (u == v && monikko == true) return 2;
+
+            ! ao. OLI:   if (ocFN == P_Req) monikko = true;
+	    if (u == v && ocFN == P_Req) monikko == true;
+	    
 	    if (u == v) rtrue;	    
 	    
 	    else if (u == -1) break;	! jos lista (csID nreq) valmis, break
@@ -308,8 +311,9 @@ Global sija; ! tulostusta varten
             #Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    	print parser_action, " indef_type: ", indef_type, " "; if (monikko == true) print "%ending MONIKKO!^";
-		else print "%ending YKSIKKÖ!^";	
+	    	print parser_action, " indef_type: ", indef_type, " ";
+	    if (monikko == true) print " % LanguageRefers: MONIKKO!^";
+		else print " % LanguageRefers: YKSIKKÖ!^";	
               #Endif;
 		    rtrue; 
 	};
