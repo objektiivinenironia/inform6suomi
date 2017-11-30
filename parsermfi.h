@@ -505,6 +505,8 @@
                             while (wn < num_words) {
                                 l=NextWord();
                                 if ( l && (l->#dict_par1) &8 ) {   ! if preposition
+				    print "%  PARSER__PARSE!^";
+				    
                                     l = Descriptors();  ! skip past THE etc
                                     if (l~=0) etype=l;  ! don't allow multiple objects
                                     l = NounDomain(actors_location, actor, NOUN_TOKEN);
@@ -1415,8 +1417,14 @@
 	   if (o == LanguageDescriptors-->x) {
 	       
                 flag = true;
-                type = LanguageDescriptors-->(x+2);		
-                if (type ~= DEFART_PK) indef_mode = true;
+	       type = LanguageDescriptors-->(x+2);
+	       print " %descriptors AA type: ", type, " ";	       
+               if (type ~= DEFART_PK) print "DEFART_PK untrue:
+	       	   *indef_mode!*^"; else print "DEFART_PK true!^";
+	       
+	       
+		   
+              if (type ~= DEFART_PK) indef_mode = true;
                 indef_possambig = true;
                 indef_cases = indef_cases & (LanguageDescriptors-->(x+1));
 
@@ -1679,6 +1687,11 @@
       print parser_action, " indef_type: ", indef_type, " "; if (monikko == true) print "%scorematch MONIKKO!^"; else print
 	  "%scorematch YKSIKKÖ!^";
 
+    !!! allaoleva siis EI toimi:
+    ! if (monikko == false) indef_mode = 0; 
+    
+    
+    
     a_s = SCORE__NEXTBESTLOC; l_s = SCORE__BESTLOC;
     if (context == HELD_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN) {
         a_s = SCORE__BESTLOC; l_s = SCORE__NEXTBESTLOC;
@@ -2061,7 +2074,7 @@
     wn--;
     if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     else {
-	print "% DESCRIPTORS!^";
+	print "% CantSee!! DESCRIPTORS!^";
 	
         Descriptors();  ! skip past THE etc
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
