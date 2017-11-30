@@ -22,11 +22,11 @@ System_file;
 
 !! Allaolevat <Replace ...> on muokattuja ja korvattuja rutiineja tiedostosta "parserm.h". 
 !! Muokatut on tiedostossa "parsermfi.h". 
-!! Osa on kommentoitu pois (turhaan korvattu) 22.9.2013
 
-!! Replace Parser__Parse; 
-!! Replace ParseToken;
-!! Replace ParseToken__;
+
+Replace Parser__Parse; 
+Replace ParseToken;
+Replace ParseToken__;
 
 Replace NounDomain; 
 Replace Adjudicate; 
