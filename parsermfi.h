@@ -1406,7 +1406,7 @@
     ResetDescriptors();
     if (wn > num_words) return 0;
 
-    print "% DESCRIPTORS! parser_action: ", parser_action, " wn: ", wn,
+    print "%    DESCRIPTORS! parser_action: ", parser_action, " wn: ", wn,
 	" indef_type: ", indef_type,
 	" % descriptors A monikko == ", monikko, "^";
     
@@ -1419,7 +1419,7 @@
 	       
                 flag = true;
 	       type = LanguageDescriptors-->(x+2);
-	       print " %descriptors AA type: ", type, " ";	       
+	       print " %    descriptors AA type: ", type, " ";	       
                if (type ~= DEFART_PK) print "DEFART_PK untrue:
 	       	   *indef_mode!*^"; else print "DEFART_PK true!^";
 	       
@@ -1502,7 +1502,7 @@
     #Endif; ! DEBUG
     if (token_filter ~= 0 && UserFilter(obj) == 0) {
         #Ifdef DEBUG;
-        if (parser_trace >= 0) print "    Match filtered out: token filter ", token_filter, "^";
+        if (parser_trace >= 0) print "%    MAKEMATCH! Match filtered out: token filter ", token_filter, "^";
         #Endif; ! DEBUG
         rtrue;
     }
@@ -1515,7 +1515,7 @@
     }
     match_list-->number_matched++ = obj;
     #Ifdef DEBUG;
-    if (parser_trace >= 0) print "    Match added to list^";
+    if (parser_trace >= 0) print "%    MAKEMATCH! Match added to list^";
     #Endif; ! DEBUG
 ];
 
@@ -1570,7 +1570,7 @@
 			! lisätty monikko-ehtoja
 			! if (monikko == true)
 		        !{ print "%   monikko INDEF_MODE = 1^";
-			print parser_action, " indef_type: ",
+			print "% TRYGIVENOBJECT! ", parser_action, " indef_type: ",
                 indef_type, " "; if (monikko==1) print "% trygivenobj MONIKKO!^";
                 	else print "%trygivenobj YKSIKKÖ!^";
 
@@ -2075,7 +2075,7 @@
     wn--;
     if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     else {
-	print "% CantSee!! DESCRIPTORS!^";
+	print "% CANTSEE! kutsuu -> **descriptors()** !^";
 	
         Descriptors();  ! skip past THE etc
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;

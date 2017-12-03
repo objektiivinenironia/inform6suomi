@@ -315,7 +315,7 @@ Global sija; ! tulostusta varten
             #Ifdef DEBUG;				
 	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    	print parser_action, " indef_type: ", indef_type, " ";
+	    	print "% LANGUAGEREFERS! parser action:",  parser_action, " indef_type: ", indef_type, " ";
 	    if (monikko == true) print " % LanguageRefers: MONIKKO!^";
 		else print " % LanguageRefers: YKSIKKÖ!^";	
               #Endif;
@@ -457,19 +457,16 @@ Array verbi_array --> verbi_pituus;
     
 #Endif;	
 
-print "%  [1] C_TOKEN return value: ", retval, " monikko == ",
+print "%     [1] C_TOKEN return value: ", retval, " monikko == ",
     monikko, "^";
 
-if (sija == 10000 && monikko == 0) print "% ***** C_TOKEN: YKSIKKÖ JA
-	REPARSEEE!!! ***^";
-    
     
     csLR = csID;
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     
     if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
-    print "%  [2] C_TOKEN return value: ", retval, " monikko == ",
+    print "%     [2] C_TOKEN return value: ", retval, " monikko == ",
     monikko, "^";
 
     
