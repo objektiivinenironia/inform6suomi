@@ -226,7 +226,8 @@ global monikko = 0;
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
 
             ! ao. OLI:   if (ocFN == P_Req) monikko = true;
-	    if (u == v && ocFN == P_Req) monikko == true;
+	    
+	    if (ocFN == P_Req) monikko = true;
 	    
 	    if (u == v) rtrue;	    
 	    
@@ -241,9 +242,11 @@ global monikko = 0;
 	
 	! jos yksikkölista on käyty läpi, siirry monikkolistaan
 	! rfalse jos monikkolista on käyty läpi (ilman osumaa)
+
+        if (ocFN == P_Req) monikko = true; else monikko = false;
 	
 	if (ocFN == S_Req) ocFN = P_Req; else rfalse;
-	
+	if (ocFN == P_Req) monikko = true; else monikko = false;
     }
     
     rfalse;
@@ -291,7 +294,7 @@ Global sija; ! tulostusta varten
 	{
            #Ifdef DEBUG;				
 	    if (parser_trace > 0)
-	    { print "^[ * Taipumaton * ]^"; 
+	    {print "^[ * Taipumaton * ]^";
 		debugsijat(adr, wnum, len, end, w, csID);
        	
 	   
@@ -299,6 +302,7 @@ Global sija; ! tulostusta varten
             #Endif;
 	    rtrue; 
 	}; 
+	
 	
 	
 
@@ -453,13 +457,22 @@ Array verbi_array --> verbi_pituus;
     
 #Endif;	
 
+print "%  [1] C_TOKEN return value: ", retval, " monikko == ",
+    monikko, "^";
+
+if (sija == 10000 && monikko == 0) print "% ***** C_TOKEN: YKSIKKÖ JA
+	REPARSEEE!!! ***^";
+    
     
     csLR = csID;
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     
     if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
+    print "%  [2] C_TOKEN return value: ", retval, " monikko == ",
+    monikko, "^";
 
+    
     
     CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
     

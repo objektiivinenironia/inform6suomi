@@ -1406,9 +1406,9 @@
     ResetDescriptors();
     if (wn > num_words) return 0;
 
-    print "parser_action: ", parser_action, " wn: ", wn,
+    print "% DESCRIPTORS! parser_action: ", parser_action, " wn: ", wn,
 	" indef_type: ", indef_type,
-	" %descriptors A monikko == ", monikko, "^";
+	" % descriptors A monikko == ", monikko, "^";
     
 
     for (flag=true : flag :) {
