@@ -444,24 +444,28 @@ Array verbi_array --> verbi_pituus;
 [ c_token  idtok csID
     retval;
 
-#Ifdef DEBUG;			     
-    if (parser_trace > 1) 
-	print 	"^[ c_token -- ", 
+!#Ifdef DEBUG;			     
+!    if (parser_trace > 1) !% 
+
+    print   "%     [0] C_TOKEN ", 
 	    " found_ttype: ", found_ttype, 
-	    " found_tdata: ", found_tdata,"^",
+	    " found_tdata: ", found_tdata,
 	    
-	    "  CaseIs: ", CaseIs,
+	    " CaseIs: ", CaseIs,
 	    " csLR: ", csLR,
 	    " csID: ", csID,
-	    " sija: ", sija, "]^^";
+	    " sija: ", sija, "]^";
     
-#Endif;	
+! #Endif;	
 
 print "%     [1] C_TOKEN return value: ", retval, " monikko == ",
     monikko, "^";
 
     
     csLR = csID;
+
+    print "%     [1.5] C_TOKEN -> ParseToken(",ELEMENTARY_TT, ", ",
+ idtok,")^";
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     

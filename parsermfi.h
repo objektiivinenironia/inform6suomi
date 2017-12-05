@@ -505,7 +505,7 @@
                             while (wn < num_words) {
                                 l=NextWord();
                                 if ( l && (l->#dict_par1) &8 ) {   ! if preposition
-				    print "%  PARSER__PARSE!^";
+				    print "% ** parser__parse -> l = Descriptors()!^";
 				    
                                     l = Descriptors();  ! skip past THE etc
                                     if (l~=0) etype=l;  ! don't allow multiple objects
@@ -1113,7 +1113,9 @@
 
   .TryAgain;
 
-    ! First, we parse any descriptive words (like "the", "five" or "every"):
+    ! First, we parse any descriptive words (like "the", "five" or
+    ! "every"):
+    print "% **  ParseToken__ at .TryAgain -> l = Descriptors()!^";
     l = Descriptors();
     if (l ~= 0) { etype = l; return GPR_FAIL; }
 
@@ -1158,7 +1160,8 @@
                 jump TryAgain2;
             }
             if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
-            etype=CantSee();
+            print "% ** ParseToken__ at .TryAgain2 (...) -> etype = CantSee()!^";
+	    etype=CantSee();
             jump FailToken;
         } ! Choose best error
 
@@ -1678,9 +1681,8 @@
     ! >t lasi -----> indef_mode 0 indef_type 0
     ! >t lasia ----> indef_mode 1 indef_type 8
     #Ifdef DEBUG;
-       	if (parser_trace >= 1)
-	    print "[ VÄLIAIK. RATK.: indef_mode = 0 *EI TOIMI* KOSKA
-		SILLOIN ESIM 'OTA KAIKKI' EI TOIMI!]^";
+       	if (parser_trace >= 0)
+	    print "% SCOREMATCH! ";
     #Endif;     
     ! indef_mode = 0;
     !!!!!!¤¤¤¤¤¤¤ TEMP
@@ -2075,7 +2077,7 @@
     wn--;
     if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     else {
-	print "% CANTSEE! kutsuu -> **descriptors()** !^";
+	print "% ** cantsee -> descriptors()!^";
 	
         Descriptors();  ! skip past THE etc
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
