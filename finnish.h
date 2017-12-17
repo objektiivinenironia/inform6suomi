@@ -80,6 +80,12 @@ Constant vbImp = 0; ! oletus
 !Constant vbM3 =	28; !pukevat 
 
 
+![ ChooseObjects;
+
+!    print "% //-----------> ChooseObjects !^";
+    
+!];
+
 
 ! ei artikkeleita...
   

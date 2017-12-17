@@ -1,5 +1,7 @@
 ! parsermfi.h
 ! ===========
+
+
 ! Muokattuja rutiineja parserm:stä (finnish korvaa alkuperäiset näillä).
 
 ! ----------------------------------------------------------------------------
@@ -1115,12 +1117,14 @@
 
     ! First, we parse any descriptive words (like "the", "five" or
     ! "every"):
-    print "% **  ParseToken__ at .TryAgain -> l = Descriptors()!^";
+    print "% ****  ParseToken__ at .TryAgain -> l = Descriptors()!^";
     l = Descriptors();
     if (l ~= 0) { etype = l; return GPR_FAIL; }
 
   .TryAgain2;
 
+    print "% **** ParseToken__ at .TryAgain2^";
+    
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !
     ! D: Parse an object name
@@ -1141,18 +1145,27 @@
 
     if (token ~= HELD_TOKEN) {
         i = multiple_object-->0;
+	print "% ***** ParseToken__ at .TryAgain2 (i ", i,")^";
         #Ifdef DEBUG;
         if (parser_trace >= 3) print "  [Calling NounDomain on location and actor]^";
         #Endif; ! DEBUG
         l = NounDomain(actors_location, actor, token);
-        if (l == REPARSE_CODE) return l;                  ! Reparse after Q&A
+	print "% ***** ParseToken__ at .TryAgain2 (l ", l, ")^";
+        if (l == REPARSE_CODE) return l;                  ! Reparse
+	! after Q&A
+	print "% ***** ParseToken__ at .TryAgain2 (indef_wanted ",
+        indef_wanted, ")^";
         if (indef_wanted == 100 && l == 0 && number_matched == 0)
             l = 1;  ! ReviseMulti if TAKE ALL FROM empty container
 
+	print "% ***** ParseToken__ at .TryAgain2 (best_etype ",
+        best_etype, " multiflag ", multiflag, ")^";
         if (token_allows_multiple && ~~multiflag) {
             if (best_etype==MULTI_PE) best_etype=STUCK_PE;
             multiflag = true;
         }
+	print "% ***** ParseToken__ at .TryAgain2 (...)^";
+	
         if (l == 0) {
             if (indef_possambig) {
                 ResetDescriptors();
@@ -1160,7 +1173,7 @@
                 jump TryAgain2;
             }
             if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
-            print "% ** ParseToken__ at .TryAgain2 (...) -> etype = CantSee()!^";
+            print "% ***** ParseToken__ at .TryAgain2 (...) -> etype = CantSee()!^";
 	    etype=CantSee();
             jump FailToken;
         } ! Choose best error
@@ -1780,7 +1793,10 @@
  	#Ifdef DEBUG;	
     if (parser_trace > 0) print "[ChooseObjects ", code,"]^";
 #Endif;
-    
+
+
+    print "% //-------------> ChooseObjects! code ", code, "^";
+
     return 0; ! 0 hyväxyy parserin ratkaisun
     
  ];
@@ -1899,7 +1915,9 @@
                 flag = 0;
             if (action_to_be == ##Take or ##Remove && parent(j) == actor)
                 flag = 0;
-            k = ChooseObjects(j, flag);
+	    print "% //////-> Adjudicate !^";
+	    
+	        k = ChooseObjects(j, flag);
             if (k == 1)
                 flag = 1;
             else {
@@ -1925,6 +1943,8 @@
         }
         multiple_object-->0 = i+offset;
         multi_context = context;
+	print "% //////-> Adjudicate: Made multiple object of size ",
+     i,"^";	
         #Ifdef DEBUG;
         if (parser_trace >= 4)
             print "   Made multiple object of size ", i, "]^";
@@ -1947,6 +1967,9 @@
         }
      n--; number_of_classes = n;
 
+
+    print "% //////-> Adjudicate: Grouped into ", n, " possibilities...^";
+    
     #Ifdef DEBUG;
     if (parser_trace >= 4) {
         print "   Grouped into ", n, " possibilities by name:^";
