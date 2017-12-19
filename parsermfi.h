@@ -1630,7 +1630,7 @@
 
 [ TryGivenObject obj threshold k w j;
     #Ifdef DEBUG;
-    if (parser_trace >= 5) print "    Trying ", (the) obj, " (", obj, ") at word ", wn, "^";
+    if (parser_trace >= 5) print "     Trying ", (the) obj, " (", obj, ") at word ", wn, "^";
 #Endif; ! DEBUG
     
     
@@ -1644,7 +1644,7 @@
             dict_flags_of_noun = $$01110000;  ! Reject "plural" bit
         MakeMatch(obj,0);
         #Ifdef DEBUG;
-        if (parser_trace >= 5) print "    Matched (0)^";
+        if (parser_trace >= 0) print " [%TryGivenObject]  Matched (0)^";
         #Endif; ! DEBUG
         return 1;
     }
@@ -1984,12 +1984,21 @@
         }
     }
 
+    ! nyt "t kuutiota" vastaa "Tarkoitatko vihreää, keltaista jne."
+    ! MUTTA niin myös "ota laatikot", mutta oikeilla jäljillä
+    if (indef_mode == 1 && indef_type && PLURAL_BIT ~= 0 && monikko ==
+    	false)
+    { indef_mode = 0;
+	indef_type = 0;
+	flag = 1;	
+    }
     
     
     if (indef_mode == 1 && indef_type & PLURAL_BIT ~= 0) {
-        if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN
+        if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or
+            MULTIEXCEPT_TOKEN
 	    or MULTIINSIDE_TOKEN) {
-	    etype = "%<---TEMP!---> Voit tehdä niin vain YHDELLE asialle
+	    etype = "% Voit tehdä niin vain YHDELLE asialle
         	kerrallaan.";
 	    
 	    ! etype = MULTI_PE;
