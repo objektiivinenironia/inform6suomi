@@ -592,7 +592,7 @@
                             while (wn < num_words) {
                                 l=NextWord();
                                 if ( l && (l->#dict_par1) &8 ) {   ! if preposition
-				    print "% ** parser__parse -> l = Descriptors()!^";
+				    ! print "% ** parser__parse -> l = Descriptors()!^";
 				    
                                     l = Descriptors();  ! skip past THE etc
                                     if (l~=0) etype=l;  ! don't allow multiple objects
@@ -1202,13 +1202,13 @@
 
     ! First, we parse any descriptive words (like "the", "five" or
     ! "every"):
-    print "% ****  ParseToken__ at .TryAgain -> l = Descriptors()!^";
+    ! print "% ****  ParseToken__ at .TryAgain -> l = Descriptors()!^";
     l = Descriptors();
     if (l ~= 0) { etype = l; return GPR_FAIL; }
 
   .TryAgain2;
 
-    print "% **** ParseToken__ at .TryAgain2^";
+    ! print "% **** ParseToken__ at .TryAgain2^";
     
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !
@@ -1230,26 +1230,26 @@
 
     if (token ~= HELD_TOKEN) {
         i = multiple_object-->0;
-	print "% ***** ParseToken__ at .TryAgain2 (i ", i,")^";
+	! print "% ***** ParseToken__ at .TryAgain2 (i ", i,")^";
         #Ifdef DEBUG;
         if (parser_trace >= 3) print "  [Calling NounDomain on location and actor]^";
         #Endif; ! DEBUG
         l = NounDomain(actors_location, actor, token);
-	print "% ***** ParseToken__ at .TryAgain2 (l ", l, ")^";
+	! print "% ***** ParseToken__ at .TryAgain2 (l ", l, ")^";
         if (l == REPARSE_CODE) return l;                  ! Reparse
 	! after Q&A
-	print "% ***** ParseToken__ at .TryAgain2 (indef_wanted ",
-        indef_wanted, ")^";
+	! print "% ***** ParseToken__ at .TryAgain2 (indef_wanted ",
+        ! indef_wanted, ")^";
         if (indef_wanted == 100 && l == 0 && number_matched == 0)
             l = 1;  ! ReviseMulti if TAKE ALL FROM empty container
 
-	print "% ***** ParseToken__ at .TryAgain2 (best_etype ",
-        best_etype, " multiflag ", multiflag, ")^";
+	! print "% ***** ParseToken__ at .TryAgain2 (best_etype ",
+        ! best_etype, " multiflag ", multiflag, ")^";
         if (token_allows_multiple && ~~multiflag) {
             if (best_etype==MULTI_PE) best_etype=STUCK_PE;
             multiflag = true;
         }
-	print "% ***** ParseToken__ at .TryAgain2 (...)^";
+	! print "% ***** ParseToken__ at .TryAgain2 (...)^";
 	
         if (l == 0) {
             if (indef_possambig) {
@@ -1258,7 +1258,7 @@
                 jump TryAgain2;
             }
             if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
-            print "% ***** ParseToken__ at .TryAgain2 (...) -> etype = CantSee()!^";
+            ! print "% ***** ParseToken__ at .TryAgain2 (...) -> etype = CantSee()!^";
 	    etype=CantSee();
             jump FailToken;
         } ! Choose best error
@@ -1507,9 +1507,9 @@
     ResetDescriptors();
     if (wn > num_words) return 0;
 
-    print "%    DESCRIPTORS! parser_action: ", parser_action, " wn: ", wn,
-	" indef_type: ", indef_type,
-	" % descriptors A monikko == ", monikko, "^";
+    ! print "%    DESCRIPTORS! parser_action: ", parser_action, " wn: ", wn,
+    !	" indef_type: ", indef_type,
+    !	" % descriptors A monikko == ", monikko, "^";
     
 
     for (flag=true : flag :) {
@@ -1520,9 +1520,9 @@
 	       
                 flag = true;
 	       type = LanguageDescriptors-->(x+2);
-	       print " %    descriptors AA type: ", type, " ";	       
-               if (type ~= DEFART_PK) print "DEFART_PK untrue:
-	       	   *indef_mode!*^"; else print "DEFART_PK true!^";
+	       ! print " %    descriptors AA type: ", type, " ";	       
+               ! if (type ~= DEFART_PK) print "DEFART_PK untrue:
+	       !	   *indef_mode!*^"; else print "DEFART_PK true!^";
 	       
 	       
 		   
@@ -1557,22 +1557,22 @@
         if (allow_plurals) {
             n = TryNumber(wn-1);
             if (n == 1) {
-		print "% Descriptors B: allow_plurals, n == ", n, "
-            indef_mode ", indef_mode; 
+		! print "% Descriptors B: allow_plurals, n == ", n, "
+            ! indef_mode ", indef_mode; 
 		indef_mode = 1; flag = 1;
-            	print " -> ", indef_mode, "^";
+            	! print " -> ", indef_mode, "^";
 		
 	    }
             if (n > 1) {
-		print "% Descriptors C: allow_plurals, n == ", n, "
-            indef_mode", indef_mode;		
+		! print "% Descriptors C: allow_plurals, n == ", n, "
+            ! indef_mode", indef_mode;		
                 indef_guess_p = 1;
                 indef_mode = 1; flag = 1; indef_wanted = n;
-		print " -> ", indef_mode, "^";
+		! print " -> ", indef_mode, "^";
                 indef_nspec_at = wn-1;
                 indef_type = indef_type | PLURAL_BIT;
-		print "% Descriptors D: indef_type == ", indef_type,
-            	    "^";
+		! print "% Descriptors D: indef_type == ", indef_type,
+            	!    "^";
 		
             }
         }
@@ -1662,7 +1662,7 @@
 
             
             if (parser_action == ##PluralFound)
-		print "% TRYGIVENOBJECT says PluralFound!^";
+		! print "% TRYGIVENOBJECT says PluralFound!^";
 	       
 	    
 	    
@@ -1678,10 +1678,10 @@
 			! lisätty monikko-ehtoja
 			! if (monikko == true)
 		        !{ print "%   monikko INDEF_MODE = 1^";
-			print "% TRYGIVENOBJECT! ", parser_action, " indef_type: ",
-                indef_type, " "; if (monikko==1) print "% trygivenobj MONIKKO!";
-		else print "%trygivenobj YKSIKKÖ!";
-			print "% --> set indef_mode true !!";
+			! print "% TRYGIVENOBJECT! ", parser_action, " indef_type: ",
+                ! indef_type, " "; if (monikko==1) print "% trygivenobj MONIKKO!";
+		! else print "%trygivenobj YKSIKKÖ!";
+		!	print "% --> set indef_mode true !!";
 
 			indef_mode = 1;
 			
@@ -1793,8 +1793,8 @@
     ! indef_mode = 0;
     !!!!!!¤¤¤¤¤¤¤ TEMP
      
-      print parser_action, " indef_type: ", indef_type, " "; if (monikko == true) print "%scorematch MONIKKO!^"; else print
-	  "%scorematch YKSIKKÖ!^";
+      ! print parser_action, " indef_type: ", indef_type, " "; if (monikko == true) print "%scorematch MONIKKO!^"; else print
+	!  "%scorematch YKSIKKÖ!^";
 
     !!! allaoleva siis EI toimi:
     ! if (monikko == false) indef_mode = 0; 
@@ -1888,7 +1888,7 @@
 #Endif;
 
 
-    print "% //-------------> ChooseObjects! code ", code, "^";
+    ! print "% //-------------> ChooseObjects! code ", code, "^";
 
     return 0; ! 0 hyväxyy parserin ratkaisun
     
@@ -2017,7 +2017,7 @@
                 flag = 0;
             if (action_to_be == ##Take or ##Remove && parent(j) == actor)
                 flag = 0;
-	    print "% //////-> Adjudicate !^";
+	    ! print "% //////-> Adjudicate !^";
 	    
 	        k = ChooseObjects(j, flag);
             if (k == 1)
@@ -2045,8 +2045,7 @@
         }
         multiple_object-->0 = i+offset;
         multi_context = context;
-	print "% //////-> Adjudicate: Made multiple object of size ",
-     i,"^";	
+	!print "% //////-> Adjudicate: Made multiple object of size ",i,"^";	
         #Ifdef DEBUG;
         if (parser_trace >= 4)
             print "   Made multiple object of size ", i, "]^";
@@ -2070,7 +2069,7 @@
      n--; number_of_classes = n;
 
 
-    print "% //////-> Adjudicate: Grouped into ", n, " possibilities...^";
+    ! print "% //////-> Adjudicate: Grouped into ", n, " possibilities...^";
     
     #Ifdef DEBUG;
     if (parser_trace >= 4) {
@@ -2202,7 +2201,7 @@
     wn--;
     if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     else {
-	print "% ** cantsee -> descriptors()!^";
+	! print "% ** cantsee -> descriptors()!^";
 	
         Descriptors();  ! skip past THE etc
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
