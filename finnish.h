@@ -38,6 +38,7 @@ Replace MakeMatch;
 Replace TryGivenObject;
 Replace Descriptors;
 Replace ResetDescriptors;
+Replace ScopeWithin_O;
 
 Constant LanguageVersion = "Finnish";
 

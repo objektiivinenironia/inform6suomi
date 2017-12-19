@@ -4,6 +4,91 @@
 
 ! Muokattuja rutiineja parserm:stä (finnish korvaa alkuperäiset näillä).
 
+[ ScopeWithin_O domain nosearch context i ad n;
+
+    ! If the scope reason is unusual, don't parse.
+
+    if (scope_reason ~= PARSING_REASON or TALKING_REASON) {
+        DoScopeAction(domain);
+        jump DontAccept;
+    }
+
+    ! "it" or "them" matches to the it-object only.  (Note that (1) this means
+    ! that "it" will only be understood if the object in question is still
+    ! in context, and (2) only one match can ever be made in this case.)
+
+    if (match_from <= num_words) {  ! If there's any text to match, that is
+        wn = match_from;
+        i = NounWord();
+        if (i == 1 && player == domain) MakeMatch(domain, 1);
+        if (i >= 2 && i < 128 && (LanguagePronouns-->i == domain)) MakeMatch(domain, 1);
+    }
+
+    ! Construing the current word as the start of a noun, can it refer to the
+    ! object?
+
+    wn = match_from;
+    if (TryGivenObject(domain) > 0)
+        if (indef_nspec_at > 0 && match_from ~= indef_nspec_at) {
+            ! This case arises if the player has typed a number in
+            ! which is hypothetically an indefinite descriptor:
+            ! e.g. "take two clubs".  We have just checked the object
+            ! against the word "clubs", in the hope of eventually finding
+            ! two such objects.  But we also backtrack and check it
+            ! against the words "two clubs", in case it turns out to
+            ! be the 2 of Clubs from a pack of cards, say.  If it does
+            ! match against "two clubs", we tear up our original
+            ! assumption about the meaning of "two" and lapse back into
+            ! definite mode.
+
+            wn = indef_nspec_at;
+            if (TryGivenObject(domain) > 0) {
+                match_from = indef_nspec_at;
+                ResetDescriptors();
+            }
+            wn = match_from;
+        }
+
+  .DontAccept;
+
+    ! Shall we consider the possessions of the current object, as well?
+    ! Only if it's a container (so, for instance, if a dwarf carries a
+    ! sword, then "drop sword" will not be accepted, but "dwarf, drop sword"
+    ! will).
+    ! Also, only if there are such possessions.
+    !
+    ! Notice that the parser can see "into" anything flagged as
+    ! transparent - such as a dwarf whose sword you can get at.
+
+    if (child(domain) ~= 0 && domain ~= nosearch && IsSeeThrough(domain) == 1)
+        ScopeWithin(domain,nosearch,context);
+
+    ! Drag any extras into context
+
+    ad = domain.&add_to_scope;
+    if (ad ~= 0) {
+
+        ! Test if the property value is not an object.
+        #Ifdef TARGET_ZCODE;
+        i = (UnsignedCompare(ad-->0, top_object) > 0);
+        #Ifnot; ! TARGET_GLULX
+        i = (((ad-->0)->0) ~= $70);
+        #Endif; ! TARGET_
+
+        if (i) {
+            ats_flag = 2+context;
+            RunRoutines(domain, add_to_scope);
+            ats_flag = 0;
+        }
+        else {
+            n = domain.#add_to_scope;
+            for (i=0 : (WORDSIZE*i)<n : i++)
+                if (ad-->i)
+                    ScopeWithin_O(ad-->i, 0, context);
+        }
+    }
+];
+
 ! ----------------------------------------------------------------------------
 !  ParseToken(type, data):
 !      Parses the given token, from the current word number wn, with exactly
@@ -1546,7 +1631,8 @@
 [ TryGivenObject obj threshold k w j;
     #Ifdef DEBUG;
     if (parser_trace >= 5) print "    Trying ", (the) obj, " (", obj, ") at word ", wn, "^";
-    #Endif; ! DEBUG
+#Endif; ! DEBUG
+    
     
     dict_flags_of_noun = 0;
 
@@ -1574,6 +1660,12 @@
 
             .MMbyPN;
 
+            
+            if (parser_action == ##PluralFound)
+		print "% TRYGIVENOBJECT says PluralFound!^";
+	       
+	    
+	    
             if (parser_action == ##PluralFound)
 	
 		dict_flags_of_noun = dict_flags_of_noun | 4;
@@ -1587,8 +1679,9 @@
 			! if (monikko == true)
 		        !{ print "%   monikko INDEF_MODE = 1^";
 			print "% TRYGIVENOBJECT! ", parser_action, " indef_type: ",
-                indef_type, " "; if (monikko==1) print "% trygivenobj MONIKKO!^";
-                	else print "%trygivenobj YKSIKKÖ!^";
+                indef_type, " "; if (monikko==1) print "% trygivenobj MONIKKO!";
+		else print "%trygivenobj YKSIKKÖ!";
+			print "% --> set indef_mode true !!";
 
 			indef_mode = 1;
 			
