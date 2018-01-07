@@ -1603,7 +1603,7 @@
     #Endif; ! DEBUG
     if (token_filter ~= 0 && UserFilter(obj) == 0) {
         #Ifdef DEBUG;
-        if (parser_trace >= 0) print "%    MAKEMATCH! Match filtered out: token filter ", token_filter, "^";
+        if (parser_trace >= 1) print "%    MAKEMATCH! Match filtered out: token filter ", token_filter, "^";
         #Endif; ! DEBUG
         rtrue;
     }
@@ -1616,7 +1616,7 @@
     }
     match_list-->number_matched++ = obj;
     #Ifdef DEBUG;
-    if (parser_trace >= 0) print "%    MAKEMATCH! Match added to list^";
+    if (parser_trace >= 1) print "%    MAKEMATCH! Match added to list^";
     #Endif; ! DEBUG
 ];
 
@@ -1787,7 +1787,7 @@
     ! >t lasi -----> indef_mode 0 indef_type 0
     ! >t lasia ----> indef_mode 1 indef_type 8
     #Ifdef DEBUG;
-       	if (parser_trace >= 0)
+       	if (parser_trace >= 1)
 	    print "% SCOREMATCH! ";
     #Endif;     
     ! indef_mode = 0;

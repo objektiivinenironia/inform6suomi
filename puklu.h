@@ -316,11 +316,11 @@ Global sija; ! tulostusta varten
 	{
 		
             #Ifdef DEBUG;				
-	    if (parser_trace > 0)
+	    if (parser_trace > 1)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    	print "% LANGUAGEREFERS! parser action:",  parser_action, " indef_type: ", indef_type, " ";
-	    if (monikko == true) print " % LanguageRefers: MONIKKO!^";
-		else print " % LanguageRefers: YKSIKKÖ!^";	
+	    !	print "% LANGUAGEREFERS! parser action:",  parser_action, " indef_type: ", indef_type, " ";
+	    ! if (monikko == true) print " % LanguageRefers: MONIKKO!^";
+	    ! else print " % LanguageRefers: YKSIKKÖ!^";	
               #Endif;
 		    rtrue; 
 	};
@@ -450,31 +450,31 @@ Array verbi_array --> verbi_pituus;
 !#Ifdef DEBUG;			     
     if (parser_trace > 1) !% 
 
-    print   "%     [0] C_TOKEN ", 
-	    " found_ttype: ", found_ttype, 
-	    " found_tdata: ", found_tdata,
-	    
-	    " CaseIs: ", CaseIs,
-	    " csLR: ", csLR,
-	    " csID: ", csID,
-	    " sija: ", sija, "]^";
+!    print   "%     [0] C_TOKEN ", 
+!	    " found_ttype: ", found_ttype, 
+!	    " found_tdata: ", found_tdata,
+!	    
+!	    " CaseIs: ", CaseIs,
+!	    " csLR: ", csLR,
+!	    " csID: ", csID,
+!	    " sija: ", sija, "]^";
     
 ! #Endif;	
 
- print "%     [1] C_TOKEN return value: ", retval, " monikko == ",
-    monikko, "^";
+! print "%     [1] C_TOKEN return value: ", retval, " monikko == ",
+!    monikko, "^";
 
     
     csLR = csID;
 
-    print "%     [1.5] C_TOKEN -> ParseToken(",ELEMENTARY_TT, ", ",
- idtok,")^";
+!    print "%     [1.5] C_TOKEN -> ParseToken(",ELEMENTARY_TT, ", ",
+! idtok,")^";
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     
     if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
-    print "%     [2] C_TOKEN return value: ", retval, " monikko == ",
-    monikko, "^";
+!    print "%     [2] C_TOKEN return value: ", retval, " monikko == ",
+!    monikko, "^";
 
     
     
