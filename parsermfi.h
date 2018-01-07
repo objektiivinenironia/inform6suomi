@@ -1899,6 +1899,24 @@
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
 
+    ! nyt "t kuutiota" vastaa "Tarkoitatko vihreää, keltaista jne."
+    ! MUTTA niin myös "ota laatikot", mutta oikeilla jäljillä...
+    ! Koko ratkaisu hyvin Ad Hoc. (Ks. purloin.)
+    ! Tämä pitäisi tehdä eri tavalla.
+    ! Tosin Purloin ond debug-verbi, jos nyt sattuisi (!??) niin
+    ! että kaikki toimii paitsi Purloin, tämä voisi menetellä
+    ! Ad Hoc-ratkaisuna.
+    ! ja -- ööh! -- mitä esimerkiksi 'flag = 1' oikeastaan tekee? 
+
+    
+    if (indef_mode == 1 && indef_type && PLURAL_BIT ~= 0 && monikko ==
+    	false) ! action_to_be ~= ##XPurloin)
+    { indef_mode = 0;
+	indef_type = 0;
+	! flag = 1;	
+    }
+
+    
     
     #Ifdef DEBUG;
     if (parser_trace >= 4) {
@@ -1982,15 +2000,6 @@
             #Endif; ! DEBUG
             return i;
         }
-    }
-
-    ! nyt "t kuutiota" vastaa "Tarkoitatko vihreää, keltaista jne."
-    ! MUTTA niin myös "ota laatikot", mutta oikeilla jäljillä
-    if (indef_mode == 1 && indef_type && PLURAL_BIT ~= 0 && monikko ==
-    	false)
-    { indef_mode = 0;
-	indef_type = 0;
-	flag = 1;	
     }
     
     
@@ -2178,7 +2187,7 @@
 ! ----------------------------------------------------------------------------
 
 [ CantSee  i w e;
-    
+
     saved_oops=oops_from;
 
     if (scope_token ~= 0) {

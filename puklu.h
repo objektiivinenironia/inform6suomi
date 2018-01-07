@@ -216,7 +216,7 @@ global monikko = 0;
     
     ocFN = S_Req; ! etsii yksikön päätteitä
 
-        monikko = 0;        
+!        monikko = 0;        
     
     for (::) {
 	for (i = 0: : ++i) { 
@@ -244,10 +244,12 @@ global monikko = 0;
 	! jos yksikkölista on käyty läpi, siirry monikkolistaan
 	! rfalse jos monikkolista on käyty läpi (ilman osumaa)
 
-        if (ocFN == P_Req) monikko = true; else monikko = false;
+        !??? if (ocFN == P_Req) monikko = true; else monikko = false;
+
+!	monikko = true;
 	
 	if (ocFN == S_Req) ocFN = P_Req; else rfalse;
-	if (ocFN == P_Req) monikko = true; else monikko = false;
+	
     }
     
     rfalse;
@@ -446,7 +448,7 @@ Array verbi_array --> verbi_pituus;
     retval;
 
 !#Ifdef DEBUG;			     
-!    if (parser_trace > 1) !% 
+    if (parser_trace > 1) !% 
 
     print   "%     [0] C_TOKEN ", 
 	    " found_ttype: ", found_ttype, 
@@ -459,7 +461,7 @@ Array verbi_array --> verbi_pituus;
     
 ! #Endif;	
 
-print "%     [1] C_TOKEN return value: ", retval, " monikko == ",
+ print "%     [1] C_TOKEN return value: ", retval, " monikko == ",
     monikko, "^";
 
     
