@@ -1644,7 +1644,7 @@
             dict_flags_of_noun = $$01110000;  ! Reject "plural" bit
         MakeMatch(obj,0);
         #Ifdef DEBUG;
-        if (parser_trace >= 0) print " [%TryGivenObject]  Matched (0)^";
+        if (parser_trace >= 1) print " [%TryGivenObject]  Matched (0)^";
         #Endif; ! DEBUG
         return 1;
     }
@@ -1898,9 +1898,13 @@
 
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
-
+    
     ! nyt "t kuutiota" vastaa "Tarkoitatko vihreää, keltaista jne."
-    ! MUTTA niin myös "ota laatikot", mutta oikeilla jäljillä...
+    ! Mutta niin myös "ota laatikot", mutta oikeilla jäljillä...
+    !
+    ! ** MUTTA ">OTA KAIKKI" vastaa "Ota mitä?" **
+    ! -------- toisinsanoen ei toimi. ------------
+    !                       ^^
     ! Koko ratkaisu hyvin Ad Hoc. (Ks. purloin.)
     ! Tämä pitäisi tehdä eri tavalla.
     ! Tosin Purloin ond debug-verbi, jos nyt sattuisi (!??) niin

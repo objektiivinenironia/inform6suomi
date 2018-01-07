@@ -318,7 +318,8 @@ Global sija; ! tulostusta varten
             #Ifdef DEBUG;				
 	    if (parser_trace > 1)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    !	print "% LANGUAGEREFERS! parser action:",  parser_action, " indef_type: ", indef_type, " ";
+
+	    ! print "% LANGUAGEREFERS! parser action:",  parser_action, " indef_type: ", indef_type, " ";
 	    ! if (monikko == true) print " % LanguageRefers: MONIKKO!^";
 	    ! else print " % LanguageRefers: YKSIKKÖ!^";	
               #Endif;
