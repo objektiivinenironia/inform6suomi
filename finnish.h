@@ -22,11 +22,11 @@ System_file;
 
 !! Allaolevat <Replace ...> on muokattuja ja korvattuja rutiineja tiedostosta "parserm.h". 
 !! Muokatut on tiedostossa "parsermfi.h". 
+!! Osa on kommentoitu pois (turhaan korvattu) 22.9.2013
 
-
-Replace Parser__Parse; 
-Replace ParseToken;
-Replace ParseToken__;
+!! Replace Parser__Parse; 
+!! Replace ParseToken;
+!! Replace ParseToken__;
 
 Replace NounDomain; 
 Replace Adjudicate; 
@@ -34,11 +34,7 @@ Replace PrintCommand;
 Replace CantSee;
 Replace Refers;
 Replace ScoreMatchL;
-Replace MakeMatch;
-Replace TryGivenObject;
-Replace Descriptors;
-Replace ResetDescriptors;
-Replace ScopeWithin_O;
+
 
 Constant LanguageVersion = "Finnish";
 
@@ -80,12 +76,6 @@ Constant vbImp = 0; ! oletus
 !Constant vbM2 =	27; !puette
 !Constant vbM3 =	28; !pukevat 
 
-
-![ ChooseObjects;
-
-!    print "% //-----------> ChooseObjects !^";
-    
-!];
 
 
 ! ei artikkeleita...
@@ -235,8 +225,6 @@ Array LanguageDescriptors table
   !                s  p  s  p
   !                mfnmfnmfnmfn
 
-   'yhtä'        $$111000111000    DEFART_PK          0 !TEMP!
- ! 'yhtä'        $$111000111000    INDEFART_PK          0 !TEMP!
    'minun'       $$111111111111    POSSESS_PK           0
    'oma'         $$111000111000    POSSESS_PK           0
    'omat'        $$000111000111    POSSESS_PK           0
@@ -319,7 +307,7 @@ Array LanguageArticles -->
  !   Contraction form 0:     Contraction form 1:
  !   Cdef   Def    Indef     Cdef   Def    Indef
 
-    "" "" "" ;      
+	"" "" "" ;      
 
 		       !         a     i
 		       !         s     p     s     p

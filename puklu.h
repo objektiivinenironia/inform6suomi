@@ -13,7 +13,6 @@ Array  Tparse  -> 6;
 
 
 
-
 ! RusMCE:n Dictinary Lookup
 
 [DL buf len 
@@ -165,14 +164,8 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 global muu_sija = 0;
 
-
-! TODO: "Tuota verbiä ei voi käyttää useisiin kohteisiin
-    ! kerralla." on melko kökköä... LibraryMessages (tai parsererror?) voisi
-    ! sanoa jos esim actiontobe == examine
-    ! "Voit tutkia vain yhtä asiaa kerrallaan."
-
 [ ParserError error_code en_k;
-    
+
     en_k = 0;    
     
     if (muu_sija == 1) en_k = 1;
@@ -194,15 +187,11 @@ global muu_sija = 0;
     
 ];
 
-global monikko = 0;
-
 ! ao. etsii sijamuodon päätteen
 
 [ EndingLookup   addr len csID 
     v u ocFN i;
-
-
-      
+    
     if (csID == 0) rtrue;    
     
     if (len ~= 0) {v = DL (addr, len); 	! "len" on haettavan sijamuodon päätteen pituus
@@ -215,22 +204,14 @@ global monikko = 0;
     else v = 0; ! ei sijamuodon päätettä, v = 0
     
     ocFN = S_Req; ! etsii yksikön päätteitä
-
-!        monikko = 0;        
+    
     
     for (::) {
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
-
 	    
-		    
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
-
-            ! ao. OLI:   if (ocFN == P_Req) monikko = true;
-	    
-	    if (ocFN == P_Req) monikko = true;
-	    
-	    if (u == v) rtrue;	    
+	    if (u == v) rtrue; 		
 	    
 	    else if (u == -1) break;	! jos lista (csID nreq) valmis, break
 	    
@@ -241,15 +222,12 @@ global monikko = 0;
  	
 	muu_sija = true;
 	
-	! jos yksikkölista on käyty läpi, siirry monikkolistaan
-	! rfalse jos monikkolista on käyty läpi (ilman osumaa)
-
-        !??? if (ocFN == P_Req) monikko = true; else monikko = false;
-
-!	monikko = true;
-	
-	if (ocFN == S_Req) ocFN = P_Req; else rfalse;
-	
+	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
+	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)	
+	switch (ocFN) {
+	 S_Req: ocFN = P_Req; 
+	 P_Req: rfalse;		
+	}	
     }
     
     rfalse;
@@ -267,7 +245,6 @@ Global sija; ! tulostusta varten
 ! kertoo sijapäätteestä. 
 
 [ LanguageRefers  obj wnum adr len end w csID; 
-
     
     adr = WordAddress(wnum); len = WordLength(wnum);
 
@@ -297,35 +274,22 @@ Global sija; ! tulostusta varten
 	{
            #Ifdef DEBUG;				
 	    if (parser_trace > 0)
-	    {print "^[ * Taipumaton * ]^";
-		debugsijat(adr, wnum, len, end, w, csID);
-       	
-	   
+	    { print "^[ * Taipumaton * ]^"; 
+		 debugsijat(adr, wnum, len, end, w, csID);
 	    }
             #Endif;
 	    rtrue; 
 	}; 
 	
 	
-	
-
-	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
-	    (adr+end, len-end, csID))
-
-	    	
-	{
-		
-            #Ifdef DEBUG;				
-	    if (parser_trace > 1)
+	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
+	    
+	{ 	#Ifdef DEBUG;				
+	    if (parser_trace > 0)
 		debugsijat(adr, wnum, len, end, w, csID);
-
-	    ! print "% LANGUAGEREFERS! parser action:",  parser_action, " indef_type: ", indef_type, " ";
-	    ! if (monikko == true) print " % LanguageRefers: MONIKKO!^";
-	    ! else print " % LanguageRefers: YKSIKKÖ!^";	
               #Endif;
 		    rtrue; 
-	};
-	
+	}; 
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
 	!! esim. 'mato', 'madot' / 'matto', 'matot'; 'pato', 'padot' / 'patto', 'patot',  jne... 
@@ -448,36 +412,26 @@ Array verbi_array --> verbi_pituus;
 [ c_token  idtok csID
     retval;
 
-!#Ifdef DEBUG;			     
-    if (parser_trace > 1) !% 
-
-!    print   "%     [0] C_TOKEN ", 
-!	    " found_ttype: ", found_ttype, 
-!	    " found_tdata: ", found_tdata,
-!	    
-!	    " CaseIs: ", CaseIs,
-!	    " csLR: ", csLR,
-!	    " csID: ", csID,
-!	    " sija: ", sija, "]^";
+#Ifdef DEBUG;			     
+    if (parser_trace > 1) 
+	print 	"^[ c_token -- ", 
+	    " found_ttype: ", found_ttype, 
+	    " found_tdata: ", found_tdata,"^",
+	    
+	    "  CaseIs: ", CaseIs,
+	    " csLR: ", csLR,
+	    " csID: ", csID,
+	    " sija: ", sija, "]^^";
     
-! #Endif;	
-
-! print "%     [1] C_TOKEN return value: ", retval, " monikko == ",
-!    monikko, "^";
+#Endif;	
 
     
     csLR = csID;
-
-!    print "%     [1.5] C_TOKEN -> ParseToken(",ELEMENTARY_TT, ", ",
-! idtok,")^";
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     
     if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
-!    print "%     [2] C_TOKEN return value: ", retval, " monikko == ",
-!    monikko, "^";
 
-    
     
     CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
     
