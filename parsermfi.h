@@ -16,8 +16,6 @@
 !  entries which fail the basic requirements of the descriptors.
 ! ----------------------------------------------------------------------------
 
-! VÄLIAIKAINEN RATKAISU
-! parseri luulee muuten partitiivia monikoksi  
 
 [ ScoreMatchL context its_owner its_score obj i j threshold met a_s l_s;
 
@@ -31,19 +29,7 @@
     #Ifdef DEBUG;
     if (parser_trace >= 4) print "   Scoring match list: indef mode ", indef_mode, " type ",
       indef_type, ", satisfying ", threshold, " requirements:^";
-#Endif; ! DEBUG
-
-    !!!!!!¤¤¤¤¤¤¤ TEMP
-    ! >t lasi -----> indef_mode 0 indef_type 0
-    ! >t lasia ----> indef_mode 1 indef_type 8
-    #Ifdef DEBUG;
-       	if (parser_trace >= 1)
-	    print "[ VÄLIAIK. RATK.: indef_mode = 0 *EI TOIMI* KOSKA
-		SILLOIN ESIM 'OTA KAIKKI' EI TOIMI!]^";
-    #Endif;     
-    ! indef_mode = 0;
-    !!!!!!¤¤¤¤¤¤¤ TEMP
-
+    #Endif; ! DEBUG
 
     a_s = SCORE__NEXTBESTLOC; l_s = SCORE__BESTLOC;
     if (context == HELD_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN) {
@@ -114,10 +100,11 @@
 ! adjudicate kutsuu rutiinia ChooseObjects jos sellainen löytyy
 ! ks DM4 A5 EntryPointRoutines
 !
+
 [ ChooseObjects obj code;
- 	obj = obj; 
- 	#Ifdef DEBUG;	
-    if (parser_trace > 0) print "[ChooseObjects ", code,"]^";
+    obj = obj; 
+#Ifdef DEBUG;	
+    if (parser_trace >= 5) print "[ChooseObjects ", code,"]^";
 #Endif;
     
     return 0; ! 0 hyväxyy parserin ratkaisun
@@ -128,7 +115,16 @@
 
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
+    
+#Ifdef DEBUG;
+    if (parser_trace >= 4) {
+        print "   [!* Adjudicate. indef_mode ", indef_mode,
+	", indef_type ", " indef_type & PLURAL_BIT ",
+	(indef_type & PLURAL_BIT), ", monikko ", monikko, "]^";
+    } 
+#Endif; ! DEBUG
 
+    
     #Ifdef DEBUG;
     if (parser_trace >= 4) {
         print "   [Adjudicating match list of size ", number_matched, " in context ", context, "^";
@@ -439,9 +435,19 @@
 ! ----------------------------------------------------------------------------
 
 
-
 [ NounDomain domain1 domain2 context    first_word i j k l
-                                        answer_words marker;
+    answer_words marker;
+
+
+#Ifdef DEBUG;
+    if (parser_trace >= 4) 
+    { print "   [!* NounDomain. indef_mode ", indef_mode,
+	", indef_type ", " indef_type & PLURAL_BIT, ",
+	(indef_type & PLURAL_BIT), ", monikko ", monikko, "]^";
+    } 
+#Endif; ! DEBUG
+
+
     #Ifdef DEBUG;
     if (parser_trace >= 4) {
         print "   [NounDomain called at word ", wn, "^";
@@ -464,7 +470,7 @@
         else print "seeking definite object^";
     }
     #Endif; ! DEBUG
-    
+
     match_length = 0; number_matched = 0; match_from = wn; placed_in_flag = 0;
 
     SearchScope(domain1, domain2, context);

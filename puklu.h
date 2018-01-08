@@ -187,10 +187,14 @@ global muu_sija = 0;
     
 ];
 
+global monikko;
+
 ! ao. etsii sijamuodon päätteen
 
 [ EndingLookup   addr len csID 
     v u ocFN i;
+
+    monikko = 0;   
     
     if (csID == 0) rtrue;    
     
@@ -223,8 +227,12 @@ global muu_sija = 0;
 	muu_sija = true;
 	
 	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
-	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)	
-	switch (ocFN) {
+	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)
+
+	monikko = 1;
+	
+	switch (ocFN) {           
+   	    
 	 S_Req: ocFN = P_Req; 
 	 P_Req: rfalse;		
 	}	
@@ -273,7 +281,7 @@ Global sija; ! tulostusta varten
 	    
 	{
            #Ifdef DEBUG;				
-	    if (parser_trace > 0)
+	    if (parser_trace >= 5)
 	    { print "^[ * Taipumaton * ]^"; 
 		 debugsijat(adr, wnum, len, end, w, csID);
 	    }
@@ -285,7 +293,7 @@ Global sija; ! tulostusta varten
 	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
 	    
 	{ 	#Ifdef DEBUG;				
-	    if (parser_trace > 0)
+	    if (parser_trace >= 5)
 		debugsijat(adr, wnum, len, end, w, csID);
               #Endif;
 		    rtrue; 
@@ -298,7 +306,7 @@ Global sija; ! tulostusta varten
 	!! (Monikkovartalon perään kelpaa genetiivi-, partitiivi-, illatiivi-, ja essiivipääte.
 	!! Yksikön nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivipääte) 
 	if (w ~=0 && WordInProperty (w, obj, vahva_a) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj provides pluralname && csID == 2 or 3 or 6 or 10 ) rtrue; !  monikko ja gen, par, ill tai ess 
 	    else if (csID == 0 or 1 or 3 or 6 or 10)  !yksikkö ja nom, par, ess tai ill
@@ -308,7 +316,7 @@ Global sija; ! tulostusta varten
 	!! esim. 'Mauka' (mon. 'Maukat', 'Mauko')
 	!! (kelpaa muut sijapäätteet kuin edellisessä)
 	if (w ~=0 && WordInProperty (w, obj, heikko_a) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj provides pluralname && csID ~= 0 or 2 or 3 or 6 or 10 ) rtrue; !  monikko ja ei 0, gen, par, ill tai ess 
 	    else if (csID ~= 0 or 1 or 3 or 6 or 10)  !yksikkö ja ei nom, par, ess tai ill
@@ -317,7 +325,7 @@ Global sija; ! tulostusta varten
 	!! esim. vahva_b 'maukka' 'maukkaa' 
 	!! (kaikki paitsi yksikön nominatiivi 'maukka' + partitiivipääte 'ta' kelpaa)
 	if (w ~=0 && WordInProperty (w, obj, vahva_b) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj hasnt pluralname && csID ~= 0 or 1 or 3 ) ! ei 0 tai nom tai par 
 		rtrue; 
@@ -325,7 +333,7 @@ Global sija; ! tulostusta varten
 	!! esim. heikko_b 'maukas'  
 	!! (kelpaa muut kuin edellisessä, ts. vain yksikön nominatiivi ja partitiivi kelpaa)
 	if (w ~=0 && WordInProperty (w, obj, heikko_b) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace > 0) debugsijat(wnum, len, end, w, csID);
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
 	    if (obj hasnt pluralname && csID == 0 or 1 or 3 ) ! nom tai par 
 	       rtrue; 
