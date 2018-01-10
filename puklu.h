@@ -308,7 +308,7 @@ Global sija; ! tulostusta varten
 	    if (parser_trace >= 5)
 		debugsijat(adr, wnum, len, end, w, csID, 2); ! 2 monikko
               #Endif;
-	    rtrue;  ! return 2?
+	    return 2;  ! return 2?
 	};
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
@@ -318,8 +318,7 @@ Global sija; ! tulostusta varten
 	!! (Monikkovartalon perään kelpaa genetiivi-, partitiivi-, illatiivi-, ja essiivipääte.
 	!! Yksikön nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivipääte) 
 	if (w ~=0 && WordInProperty (w, obj, vahva_a) && EndingLookup (adr+end, len-end, csID) )!!
-	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
-#Endif;
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);#Endif;
 	    if (obj provides pluralname && csID == 2 or 3 or 6 or 10 ) rtrue; !  monikko ja gen, par, ill tai ess 
 	    else if (csID == 0 or 1 or 3 or 6 or 10)  !yksikkö ja nom, par, ess tai ill
 		rtrue; 
