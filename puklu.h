@@ -295,6 +295,8 @@ Global sija; ! tulostusta varten
 	    (adr+end, len-end, csID) > 1) ! Endinglookup yli 1 eli monikko
 	    
 	{ 	#Ifdef DEBUG;
+	    if (parser_trace >= 4)
+		print "[ YKSIKKÖ ]^";
 	    if (parser_trace >= 5)
 		debugsijat(adr, wnum, len, end, w, csID, 1); ! 1 yksikkö
               #Endif;
@@ -305,6 +307,8 @@ Global sija; ! tulostusta varten
 	    (adr+end, len-end, csID)) ! Endinglookup true eli yksikkö
 	    
 	{ 	#Ifdef DEBUG;
+	    if (parser_trace >= 4)
+	       	print "[ MONIKKO ]^";
 	    if (parser_trace >= 5)
 		debugsijat(adr, wnum, len, end, w, csID, 2); ! 2 monikko
               #Endif;
