@@ -119,7 +119,7 @@
 #Ifdef DEBUG;
     if (parser_trace >= 4) {
         print "   [!* Adjudicate. indef_mode ", indef_mode,
-	", indef_type ", " indef_type & PLURAL_BIT ",
+	", indef_type ", indef_type, " indef_type & PLURAL_BIT ",
 	(indef_type & PLURAL_BIT), ", monikko ", monikko, "]^";
     } 
 #Endif; ! DEBUG
@@ -442,7 +442,7 @@
 #Ifdef DEBUG;
     if (parser_trace >= 4) 
     { print "   [!* NounDomain. indef_mode ", indef_mode,
-	", indef_type ", " indef_type & PLURAL_BIT, ",
+	", indef_type ", indef_type, " indef_type & PLURAL_BIT ",
 	(indef_type & PLURAL_BIT), ", monikko ", monikko, "]^";
     } 
 #Endif; ! DEBUG

@@ -110,7 +110,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 ! monikko
 
-[ P_Req  csID nreq;
+[ P_Req  csID nreq;    
     
     switch (csID) {
 	
@@ -187,14 +187,12 @@ global muu_sija = 0;
     
 ];
 
-global monikko;
+global monikko = 0;
 
 ! ao. etsii sijamuodon päätteen
 
 [ EndingLookup   addr len csID 
-    v u ocFN i;
-
-    monikko = 0;   
+    v u ocFN i;  
     
     if (csID == 0) rtrue;    
     
@@ -213,9 +211,13 @@ global monikko;
     for (::) {
 	for (i = 0: : ++i) { 
 	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
-	    
+
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
-	    if (u == v) rtrue; 		
+
+	    if (u == v && ocFN == P_Req) rtrue; ! yksikkö
+            if (u == v) return 2; ! monikko
+	    
+	    !if (u == v) rtrue; 		
 	    
 	    else if (u == -1) break;	! jos lista (csID nreq) valmis, break
 	    
@@ -228,15 +230,16 @@ global monikko;
 	
 	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
 	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)
-
-	monikko = 1;
-	
+		
 	switch (ocFN) {           
    	    
 	 S_Req: ocFN = P_Req; 
 	 P_Req: rfalse;		
-	}	
+	}
+	
+	
     }
+    
     
     rfalse;
 ];
@@ -255,7 +258,6 @@ Global sija; ! tulostusta varten
 [ LanguageRefers  obj wnum adr len end w csID; 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
-
        
     if (parent (obj) == Compass) 
     {
@@ -282,22 +284,32 @@ Global sija; ! tulostusta varten
 	{
            #Ifdef DEBUG;				
 	    if (parser_trace >= 5)
-	    { print "^[ * Taipumaton * ]^"; 
+	    {print "^[ * Taipumaton * ]^";
 		 debugsijat(adr, wnum, len, end, w, csID);
 	    }
             #Endif;
 	    rtrue; 
 	}; 
 	
-	
-	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup (adr+end, len-end, csID))
+	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
+	    (adr+end, len-end, csID) > 1) ! Endinglookup yli 1 eli monikko
 	    
-	{ 	#Ifdef DEBUG;				
+	{ 	#Ifdef DEBUG;
 	    if (parser_trace >= 5)
-		debugsijat(adr, wnum, len, end, w, csID);
+		debugsijat(adr, wnum, len, end, w, csID, 1); ! 1 yksikkö
               #Endif;
-		    rtrue; 
-	}; 
+	    rtrue;  
+	};
+	
+ 	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
+	    (adr+end, len-end, csID)) ! Endinglookup true eli yksikkö
+	    
+	{ 	#Ifdef DEBUG;
+	    if (parser_trace >= 5)
+		debugsijat(adr, wnum, len, end, w, csID, 2); ! 2 monikko
+              #Endif;
+	    rtrue;  ! return 2?
+	};
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
 	!! esim. 'mato', 'madot' / 'matto', 'matot'; 'pato', 'padot' / 'patto', 'patot',  jne... 
@@ -378,11 +390,14 @@ Array verbi_array --> verbi_pituus;
 ! ----------
 
 !! debug parsimiseen									 
-[ debugsijat adr wnum len end w csID;
+[ debugsijat adr wnum len end w csID ym;
     
     print
 	"^-- Debug (parsiminen, LR) --^
-	wnum: ", wnum, " / len-end (pääte): ", (len-end),")^",
+	wnum: ", wnum, " / len-end (pääte): ", (len-end),")^";
+    if (ym == 2) print "MONIKKO^"; 
+    if (ym == 1) print "YKSIKKÖ^";
+    print
 	"(adr: ", adr, ")^",
 	"(end: ", end, ")^",
 	"(len: ", len, ")^   ",
@@ -421,15 +436,14 @@ Array verbi_array --> verbi_pituus;
     retval;
 
 #Ifdef DEBUG;			     
-    if (parser_trace > 1) 
-	print 	"^[ c_token -- ", 
+    if (parser_trace >= 4) 
+	print 	"^[!* c_token --", 
 	    " found_ttype: ", found_ttype, 
-	    " found_tdata: ", found_tdata,"^",
-	    
-	    "  CaseIs: ", CaseIs,
+	    " found_tdata: ", found_tdata,	    
+	    " CaseIs: ", CaseIs,
 	    " csLR: ", csLR,
 	    " csID: ", csID,
-	    " sija: ", sija, "]^^";
+	    " sija: ", sija, "]^";
     
 #Endif;	
 
