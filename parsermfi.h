@@ -111,7 +111,110 @@
     
  ];
 
+! ----------------------------------------------------------------------------
+!  TryGivenObject tries to match as many words as possible in what has been
+!  typed to the given object, obj.  If it manages any words matched at all,
+!  it calls MakeMatch to say so, then returns the number of words (or 1
+!  if it was a match because of inadequate input).
+! ----------------------------------------------------------------------------
 
+[ TryGivenObject obj threshold k w j;
+    #Ifdef DEBUG;
+    if (parser_trace >= 5) print "    Trying ", (the) obj, " (", obj, ") at word ", wn, "^";
+    #Endif; ! DEBUG
+
+    dict_flags_of_noun = 0;
+
+!  If input has run out then always match, with only quality 0 (this saves
+!  time).
+
+    if (wn > num_words) {
+        if (indef_mode ~= 0)
+            dict_flags_of_noun = $$01110000;  ! Reject "plural" bit
+        MakeMatch(obj,0);
+        #Ifdef DEBUG;
+        if (parser_trace >= 5) print "    Matched (0)^";
+        #Endif; ! DEBUG
+        return 1;
+    }
+
+!  Ask the object to parse itself if necessary, sitting up and taking notice
+!  if it says the plural was used:
+
+    if (obj.parse_name~=0) {
+        parser_action = NULL; j=wn;
+        k = RunRoutines(obj,parse_name);
+        if (k > 0) {
+            wn=j+k;
+
+          .MMbyPN;
+
+            if (parser_action == ##PluralFound)
+                dict_flags_of_noun = dict_flags_of_noun | 4;
+
+            if (dict_flags_of_noun & 4) {
+                if (~~allow_plurals) k = 0;
+                else {
+                    if (indef_mode == 0) {
+                        indef_mode = 1; indef_type = 0; indef_wanted = 0;
+                    }
+                    indef_type = indef_type | PLURAL_BIT;
+                    if (indef_wanted == 0) indef_wanted = 100;
+                }
+            }
+
+            #Ifdef DEBUG;
+            if (parser_trace >= 5) print "    Matched (", k, ")^";
+            #Endif; ! DEBUG
+            MakeMatch(obj,k);
+            return k;
+        }
+        if (k == 0) jump NoWordsMatch;
+    }
+
+    ! The default algorithm is simply to count up how many words pass the
+    ! Refers test:
+
+    parser_action = NULL;
+
+    w = NounWord();
+
+    if (w == 1 && player == obj) { k=1; jump MMbyPN; }
+
+    if (w >= 2 && w < 128 && (LanguagePronouns-->w == obj)) { k = 1; jump MMbyPN; }
+
+    j=--wn;
+    threshold = ParseNoun(obj);
+    #Ifdef DEBUG;
+    if (threshold >= 0 && parser_trace >= 5) print "    ParseNoun returned ", threshold, "^";
+    #Endif; ! DEBUG
+    if (threshold < 0) wn++;
+    if (threshold > 0) { k = threshold; jump MMbyPN; }
+
+    if (threshold == 0 || Refers(obj,wn-1) == 0) {
+      .NoWordsMatch;
+        if (indef_mode ~= 0) {
+            k = 0; parser_action = NULL;
+            jump MMbyPN;
+        }
+        rfalse;
+    }
+
+    if (threshold < 0) {
+        threshold = 1;
+        dict_flags_of_noun = (w->#dict_par1) & $$01110100;
+        w = NextWord();
+        while (Refers(obj, wn-1)) {
+            threshold++;
+            if (w)
+               dict_flags_of_noun = dict_flags_of_noun | ((w->#dict_par1) & $$01110100);
+            w = NextWord();
+        }
+    }
+
+    k = threshold;
+    jump MMbyPN;
+];
 
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
