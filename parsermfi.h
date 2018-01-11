@@ -442,7 +442,7 @@
     if (obj == 0) rfalse;
 
     #Ifdef LanguageRefers;
-    k = LanguageRefers(obj,wnum);    
+    k = LanguageRefers(obj,wnum);
     if (k >= 0) return k;
     #Endif; ! LanguageRefers
 
