@@ -187,7 +187,7 @@ global muu_sija = 0;
     
 ];
 
-global monikko = 0;
+global luku = 0;
 
 ! ao. etsii sijamuodon p‰‰tteen
 
@@ -214,8 +214,8 @@ global monikko = 0;
 
 	    ! jos 'u' on 0 tai lˆytyy sanakirjasta (DL) rtrue
 
-	    if (u == v && ocFN == P_Req) print "*** MONIKKO ***^";
-            if (u == v && ocFN == S_Req) print "*** YKSIKK÷ ***^"; 
+	    if (u == v && ocFN == P_Req) luku = 2;	    
+            if (u == v && ocFN == S_Req) luku = 1;
 
 	    if (u == v) rtrue; 		
 	    
@@ -291,28 +291,23 @@ Global sija; ! tulostusta varten
 	    rtrue; 
 	}; 
 	
-	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
-	    (adr+end, len-end, csID) > 1) ! Endinglookup yli 1 eli monikko
-	    
-	{ 	#Ifdef DEBUG;
-	    !if (parser_trace >= 4)
-	!	print "[ YKSIKK÷ ]^";
-	    if (parser_trace >= 5)
-		debugsijat(adr, wnum, len, end, w, csID); ! 1 yksikkˆ
-              #Endif;
-	    rtrue;  
-	};
-	
  	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
 	    (adr+end, len-end, csID)) ! Endinglookup true eli yksikkˆ
 	    
 	{ 	#Ifdef DEBUG;
-	 !   if (parser_trace >= 4)
-	  !     	print "[ MONIKKO ]^";
+	    if (parser_trace >= 1) 
+	     switch (luku) 
+	     {
+	      0: print "*** luku ? (nolla) ***^";
+	      1: print "*** luku yksikkˆ ***^";
+	      2: print "*** luku monikko ***^";
+		 
+	    }
+	    
 	    if (parser_trace >= 5)
-		debugsijat(adr, wnum, len, end, w, csID); ! 2 monikko
+		debugsijat(adr, wnum, len, end, w, csID);
               #Endif;
-	    rtrue;  ! return 2?
+	    rtrue;
 	};
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
@@ -397,10 +392,7 @@ Array verbi_array --> verbi_pituus;
     
     print
 	"^-- Debug (parsiminen, LR) --^
-	wnum: ", wnum, " / len-end (p‰‰te): ", (len-end),")^";
-    !if (monikko == 2) print "MONIKKO^"; 
-    !if (monikko == 1) print "YKSIKK÷^";
-    print
+	wnum: ", wnum, " / len-end (p‰‰te): ", (len-end),")^",
 	"(adr: ", adr, ")^",
 	"(end: ", end, ")^",
 	"(len: ", len, ")^   ",
