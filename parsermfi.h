@@ -218,6 +218,14 @@
 
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
+
+! Tämä ei tälläisenään toimi
+! --------------------------    
+!    if (indef_mode == 1 && indef_type && PLURAL_BIT ~= 0 && luku == 1) ! action_to_be ~= ##XPurloin)
+!    {  indef_mode = 0;
+!	indef_type = 0;
+!	 flag = 1;	
+!    }
     
 #Ifdef DEBUG;
     if (parser_trace >= 1)
