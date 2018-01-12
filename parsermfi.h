@@ -220,13 +220,21 @@
     sovert;
     
 #Ifdef DEBUG;
+    if (parser_trace >= 1)
+	switch (luku) 
+	     {
+	 0: print "[* Adjudicate: päätteen luku tuntematon!]^";
+	 1: print "[* Adjudicate: pääte yksikkö!]^";
+	 2: print "[* Adjudicate: pääte monikko!]^";
+		 
+	    } 
+	
     if (parser_trace >= 4) {
         print "   [!* Adjudicate. indef_mode ", indef_mode,
 	", indef_type ", indef_type, " indef_type & PLURAL_BIT ",
 	(indef_type & PLURAL_BIT), ", luku ", luku, "]^";
     } 
 #Endif; ! DEBUG
-
     
     #Ifdef DEBUG;
     if (parser_trace >= 4) {

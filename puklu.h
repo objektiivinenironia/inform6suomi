@@ -284,7 +284,7 @@ Global sija; ! tulostusta varten
 	{
            #Ifdef DEBUG;				
 	    if (parser_trace >= 5)
-	    {print "^[ * Taipumaton * ]^";
+	    {print "^[* EndingLookup: Taipumaton * ]^";
 		 debugsijat(adr, wnum, len, end, w, csID);
 	    }
             #Endif;
@@ -295,12 +295,12 @@ Global sija; ! tulostusta varten
 	    (adr+end, len-end, csID)) ! Endinglookup true eli yksikkö
 	    
 	{ 	#Ifdef DEBUG;
-	    if (parser_trace >= 1) 
+	    if (parser_trace >= 4) 
 	     switch (luku) 
 	     {
-	      0: print "*** luku ? (nolla) ***^";
-	      1: print "*** luku yksikkö ***^";
-	      2: print "*** luku monikko ***^";
+	      0: print "[* LanguageRefers: luku ? (0)]^";
+	      1: print "[* LanguageRefers: luku yksikkö (1)]^";
+	      2: print "[* LanguageRefers: luku monikko (2)]^";
 		 
 	    }
 	    
