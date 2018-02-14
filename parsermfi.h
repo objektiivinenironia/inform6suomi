@@ -16,7 +16,6 @@
 !  entries which fail the basic requirements of the descriptors.
 ! ----------------------------------------------------------------------------
 
-
 [ ScoreMatchL context its_owner its_score obj i j threshold met a_s l_s;
 
     !   if (indef_type & OTHER_BIT ~= 0) threshold++;
@@ -147,12 +146,15 @@
         if (k > 0) {
             wn=j+k;
 
-          .MMbyPN;
+            .MMbyPN;
 
             if (parser_action == ##PluralFound)
                 dict_flags_of_noun = dict_flags_of_noun | 4;
 
             if (dict_flags_of_noun & 4) {
+		print " *? TryGivenObject allow plurals:",
+	     allow_plurals, "!^";
+		
                 if (~~allow_plurals) k = 0;
                 else {
                     if (indef_mode == 0) {
@@ -220,6 +222,8 @@
     jump MMbyPN;
 ];
 
+
+
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
 
@@ -232,6 +236,7 @@
 !    }
     
 #Ifdef DEBUG;
+    print "[*? Adjudicate allow plurals? ", allow_plurals, "]^"; 
     if (parser_trace >= 1)	
 	switch (luku) 
 	{	    
