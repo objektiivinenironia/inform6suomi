@@ -151,10 +151,7 @@
             if (parser_action == ##PluralFound)
                 dict_flags_of_noun = dict_flags_of_noun | 4;
 
-            if (dict_flags_of_noun & 4) {
-		print " *? TryGivenObject allow plurals:",
-	     allow_plurals, "!^";
-		
+            if (dict_flags_of_noun & 4) {		
                 if (~~allow_plurals) k = 0;
                 else {
                     if (indef_mode == 0) {
@@ -192,7 +189,7 @@
     j=--wn;
     threshold = ParseNoun(obj);
     #Ifdef DEBUG;
-    if (threshold >= 0 && parser_trace >= 5) print "    ParseNoun returned ", threshold, "^";
+    if (threshold >= 0 && parser_trace >= 0) print "    ParseNoun returned ", threshold, "^";
     #Endif; ! DEBUG
     if (threshold < 0) wn++;
     if (threshold > 0) { k = threshold; jump MMbyPN; }
@@ -235,8 +232,7 @@
 !	 flag = 1;	
 !    }
     
-#Ifdef DEBUG;
-    print "[*? Adjudicate allow plurals? ", allow_plurals, "]^"; 
+#Ifdef DEBUG; 
     if (parser_trace >= 1)	
 	switch (luku) 
 	{	    
