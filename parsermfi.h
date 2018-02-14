@@ -228,9 +228,9 @@
 !    }
     
 #Ifdef DEBUG;
-    if (parser_trace >= 1)
+    if (parser_trace >= 1)	
 	switch (luku) 
-	     {
+	{	    
 	 0: print "[* Adjudicate: päätteen luku tuntematon!]^";
 	 1: print "[* Adjudicate: pääte yksikkö!]^";
 	 2: print "[* Adjudicate: pääte monikko!]^";
@@ -332,6 +332,8 @@
         if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN
                      or MULTIINSIDE_TOKEN) {
             etype = MULTI_PE;
+	    print "********???????";
+	    
             return -1;
         }
         i = 0; offset = multiple_object-->0; sovert = -1;
