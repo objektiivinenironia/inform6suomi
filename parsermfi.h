@@ -148,6 +148,8 @@
 
             .MMbyPN;
 
+	    print " ***??? k: ", k, "";
+	    
             if (parser_action == ##PluralFound)
                 dict_flags_of_noun = dict_flags_of_noun | 4;
 
@@ -189,7 +191,7 @@
     j=--wn;
     threshold = ParseNoun(obj);
     #Ifdef DEBUG;
-    if (threshold >= 0 && parser_trace >= 0) print "    ParseNoun returned ", threshold, "^";
+    if (threshold >= 0 && parser_trace >= 5) print "    ParseNoun returned ", threshold, "^";
     #Endif; ! DEBUG
     if (threshold < 0) wn++;
     if (threshold > 0) { k = threshold; jump MMbyPN; }
