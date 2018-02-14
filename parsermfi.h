@@ -156,9 +156,13 @@
                 if (~~allow_plurals) k = 0;
                 else {
                     if (indef_mode == 0) {
+			print " *? TryGivenObject
+			    indef_mode = 1 ";
+			
                         indef_mode = 1; indef_type = 0; indef_wanted = 0;
                     }
                     indef_type = indef_type | PLURAL_BIT;
+		    print " indef_type = ", indef_type, "!^";		    
                     if (indef_wanted == 0) indef_wanted = 100;
                 }
             }
@@ -304,6 +308,7 @@
         }
     }
     if (good_ones == 1) return last;
+    
 
     ! If there is ambiguity about what was typed, but it definitely wasn't
     ! animate as required, then return anything; higher up in the parser
@@ -332,9 +337,12 @@
         if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN
                      or MULTIINSIDE_TOKEN) {
             etype = MULTI_PE;
-	    print "********???????";
+	    print "[ ****???? adjudicate sanoo etype = MULTI_PE ja
+        palaa -1 ]^";
+	    return -1;
+	   	    
 	    
-            return -1;
+	    
         }
         i = 0; offset = multiple_object-->0; sovert = -1;
         for (j=BestGuess() : j~=-1 && i<indef_wanted && i+offset<63 : j=BestGuess()) {
