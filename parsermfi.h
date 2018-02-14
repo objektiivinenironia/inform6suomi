@@ -148,7 +148,8 @@
 
             .MMbyPN;
 
-	    print " ***??? k: ", k, "";
+	    ! ****?????
+	    print " k: ", k, "^";
 	    
             if (parser_action == ##PluralFound)
                 dict_flags_of_noun = dict_flags_of_noun | 4;
@@ -322,7 +323,11 @@
     if (indef_mode == 0) indef_type=0;
 
     ScoreMatchL(context);
-    if (number_matched == 0) return -1;
+    if (number_matched == 0)
+	{ print "[ ****???? adjudicate palaa -1 (number_matched == 0) ]^";
+    return -1;
+    }
+
 
     if (indef_mode == 0) {
         !  Is there now a single highest-scoring object?
