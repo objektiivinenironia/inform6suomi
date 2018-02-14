@@ -149,7 +149,7 @@
             .MMbyPN;
 
 	    ! ****?????
-	    print " k: ", k, "^";
+	    ! print " k: ", k, "^";
 	    
             if (parser_action == ##PluralFound)
                 dict_flags_of_noun = dict_flags_of_noun | 4;
