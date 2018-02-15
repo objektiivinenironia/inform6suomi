@@ -215,9 +215,6 @@
 
     if (threshold < 0) {	
         threshold = 1;
-	! *? kuutio ja kuutiota tulee tänne
-        ! *? dict_flags_of_noun: kuutiota = 68, kuutio = 0
-	print " *? dict_flags_of_noun = ", dict_flags_of_noun, "^";
 	
         dict_flags_of_noun = (w->#dict_par1) & $$01110100;
         w = NextWord();
@@ -226,9 +223,12 @@
             if (w)
                dict_flags_of_noun = dict_flags_of_noun |
         	   ((w->#dict_par1) & $$01110100);
-	  
-            w = NextWord();
+        ! *? kuutio / kuutiota ei tule tänne?
+            w = NextWord();	
         }
+	! *? kuutio ja kuutiota tulee tänne
+        ! *? dict_flags_of_noun: kuutiota = 68, kuutio = 0
+	print " *? dict_flags_of_noun = ", dict_flags_of_noun, "^";
     }
 
     k = threshold;
