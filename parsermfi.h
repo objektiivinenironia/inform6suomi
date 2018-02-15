@@ -178,7 +178,9 @@
             MakeMatch(obj,k);
             return k;
         }
+	! *? kuutio tai kuutiota eivät hyppää tästä
         if (k == 0) jump NoWordsMatch;
+	
     }
 
     ! The default algorithm is simply to count up how many words pass the
@@ -201,7 +203,7 @@
     if (threshold > 0) { k = threshold; jump MMbyPN; }
 
     if (threshold == 0 || Refers(obj,wn-1) == 0) {
-      .NoWordsMatch;
+      	.NoWordsMatch; ! *? kuutio/kuutiota ei tule tästä
         if (indef_mode ~= 0) {
             k = 0; parser_action = NULL;
 	    ! *? kuutio EI tee tätä hyppyä
@@ -213,12 +215,18 @@
 
     if (threshold < 0) {	
         threshold = 1;
+	! *? kuutio ja kuutiota tulee tänne
+        ! *? dict_flags_of_noun: kuutiota = 68, kuutio = 0
+	print " *? dict_flags_of_noun = ", dict_flags_of_noun, "^";
+	
         dict_flags_of_noun = (w->#dict_par1) & $$01110100;
         w = NextWord();
         while (Refers(obj, wn-1)) {
             threshold++;
             if (w)
-               dict_flags_of_noun = dict_flags_of_noun | ((w->#dict_par1) & $$01110100);
+               dict_flags_of_noun = dict_flags_of_noun |
+        	   ((w->#dict_par1) & $$01110100);
+	  
             w = NextWord();
         }
     }
