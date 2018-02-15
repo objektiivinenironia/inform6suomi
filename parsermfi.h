@@ -221,7 +221,7 @@
 	! *?
 	! *? olisiko mahdollista ratkaista tämä esim
 	! *? vain ehdolla
-	! *? "jos partitiivi ja dict_flags... > 60, niin..."
+	! *? "jos partitiivi ja dict_flags... > 0, niin..."
         dict_flags_of_noun = (w->#dict_par1) & $$01110100;
         w = NextWord();
 	
