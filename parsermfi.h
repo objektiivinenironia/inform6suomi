@@ -203,10 +203,10 @@
     if (threshold > 0) { k = threshold; jump MMbyPN; }
 
     if (threshold == 0 || Refers(obj,wn-1) == 0) {
-      	.NoWordsMatch; ! *? kuutio/kuutiota ei tule tästä
+      	.NoWordsMatch; ! *? kuutio/kuutiota ei tule tästä tänne
         if (indef_mode ~= 0) {
             k = 0; parser_action = NULL;
-	    ! *? kuutio EI tee tätä hyppyä
+	    ! *? "kuutio" EI tee tätä hyppyä
 	    ! *? tämä hyppy on viimeinen jonka "kuutiota" tekee	    
      		jump MMbyPN;
         }
@@ -215,19 +215,27 @@
 
     if (threshold < 0) {	
         threshold = 1;
-	
+
+	! *? kuutio ja kuutiota tulee tänne
+	! *? dict_flags_of_noun: kuutiota = 60+, kuutio = 0
+	! *?
+	! *? olisiko mahdollista ratkaista tämä esim
+	! *? vain ehdolla
+	! *? "jos partitiivi ja dict_flags... > 60, niin..."
         dict_flags_of_noun = (w->#dict_par1) & $$01110100;
         w = NextWord();
+	
         while (Refers(obj, wn-1)) {
+	    ! *? kuutio / kuutiota _ei_ tule tänne	    
             threshold++;
             if (w)
                dict_flags_of_noun = dict_flags_of_noun |
         	   ((w->#dict_par1) & $$01110100);
-        ! *? kuutio / kuutiota ei tule tänne?
+        
             w = NextWord();	
         }
 	! *? kuutio ja kuutiota tulee tänne
-        ! *? dict_flags_of_noun: kuutiota = 68, kuutio = 0
+        ! *? dict_flags_of_noun: kuutiota = 60+, kuutio = 0
 	print " *? dict_flags_of_noun = ", dict_flags_of_noun, "^";
     }
 
