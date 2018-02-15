@@ -148,23 +148,26 @@
 
             .MMbyPN;
 
-	    ! ****?????
-	    ! print " k: ", k, "^";
-	    
-            if (parser_action == ##PluralFound)
-                dict_flags_of_noun = dict_flags_of_noun | 4;
+	    ! *? kuutio ja kuutiota tulee tänne
 
-            if (dict_flags_of_noun & 4) {		
+	    ! *? kummassakaan parser_action ei ole ##PluralFound
+	    if (parser_action == ##PluralFound)
+	       dict_flags_of_noun = dict_flags_of_noun | 4;
+
+	    ! *? vain kuutiota tulee tänne
+            if (dict_flags_of_noun & 4) {
+		! print "***???";
+		
                 if (~~allow_plurals) k = 0;
                 else {
                     if (indef_mode == 0) {
-			print " *? TryGivenObject
+			print " *****????? TryGivenObject
 			    indef_mode = 1 ";
 			
                         indef_mode = 1; indef_type = 0; indef_wanted = 0;
                     }
                     indef_type = indef_type | PLURAL_BIT;
-		    print " indef_type = ", indef_type, "!^";		    
+		    print " *? indef_type = ", indef_type, "!^";		    
                     if (indef_wanted == 0) indef_wanted = 100;
                 }
             }
@@ -191,7 +194,7 @@
 
     j=--wn;
     threshold = ParseNoun(obj);
-    #Ifdef DEBUG;
+    #Ifdef DEBUG;  
     if (threshold >= 0 && parser_trace >= 5) print "    ParseNoun returned ", threshold, "^";
     #Endif; ! DEBUG
     if (threshold < 0) wn++;
@@ -201,12 +204,14 @@
       .NoWordsMatch;
         if (indef_mode ~= 0) {
             k = 0; parser_action = NULL;
-            jump MMbyPN;
+	    ! *? kuutio EI tee tätä hyppyä
+	    ! *? tämä hyppy on viimeinen jonka "kuutiota" tekee	    
+     		jump MMbyPN;
         }
         rfalse;
     }
 
-    if (threshold < 0) {
+    if (threshold < 0) {	
         threshold = 1;
         dict_flags_of_noun = (w->#dict_par1) & $$01110100;
         w = NextWord();
@@ -219,6 +224,7 @@
     }
 
     k = threshold;
+    ! *? kuutiota ja kuutio tekevät tämän hypyn 
     jump MMbyPN;
 ];
 
@@ -346,7 +352,7 @@
                      or MULTIINSIDE_TOKEN) {
             etype = MULTI_PE;
 	    print "[ ****???? adjudicate sanoo etype = MULTI_PE ja
-        palaa -1 ]^";
+        palaa -1 ]";
 	    return -1;
 	   	    
 	    
