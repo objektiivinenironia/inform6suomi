@@ -219,9 +219,34 @@
 	! *? kuutio ja kuutiota tulee tänne
 	! *? dict_flags_of_noun: kuutiota = 60+, kuutio = 0
 	! *?
-	! *? olisiko mahdollista ratkaista tämä esim
-	! *? vain ehdolla
-	! *? "jos partitiivi ja dict_flags... > 0, niin..."
+	! *? DECLINATIONS? -->> Descriptors	
+	! *? Descriptors -->> DECLINATIONS?
+	! *? ------------------------------
+	! *?
+	! *?     Wikipedia:
+	! *?
+	! *?     "Deklinaatio on nominien taivutusluokka.
+	! *?      Useissa kielissä nominit tai vain substantiivit
+	! *?      voidaan jakaa useampaan eri deklinaatioon       
+	! *?      sen mukaan, mitkä taivutuspäätteet niissä ovat
+	! *?      missäkin luku- tai sijamuodossa.
+	! *?      Eri kielissä deklinaatioiden määrä vaihtelee.
+	! *?      Esimerkiksi nykyvenäjässä on kolme
+	! *?      substantiivien deklinaatiota." (16.2.18)
+	! *?                                    
+	! *?
+	! *? * Tee ekaks ikäänkuin "periaatteessa"
+	! *?   niin että sijat olisivat muka "descriptors"
+ 	! *?
+	! *?   ~ Esim. globaalit Nom_M / Nom_Y -> "ALL"/"THE" tms.
+	! *?                     PAR_S / PAR_M -> "some"
+	! *?
+ 	! *? * Tokaksi voit kirjoittaaa ison osan parserista
+	! *?   uudestaan "....nollasta" ("keksiä p. uudelleen?")
+	! *?
+	! *?   - Esim. "Descriptors" ("the", "some") sijaan 
+        ! *?     sijoja, "deklinaatioita"... "declensions"
+	! *?
         dict_flags_of_noun = (w->#dict_par1) & $$01110100;
         w = NextWord();
 	
