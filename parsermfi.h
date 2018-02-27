@@ -10,14 +10,99 @@
 
 
 ! ----------------------------------------------------------------------------
+!  Descriptors()
+!
+!  Handles descriptive words like "my", "his", "another" and so on.
+!  Skips "the", and leaves wn pointing to the first misunderstood word.
+!
+!  Allowed to set up for a plural only if allow_p is set
+!
+!  Returns error number, or 0 if no error occurred
+! ----------------------------------------------------------------------------
+
+!Constant OTHER_BIT  =   1;     !  These will be used in Adjudicate()
+!Constant MY_BIT     =   2;     !  to disambiguate choices
+!Constant THAT_BIT   =   4;
+!Constant PLURAL_BIT =   8;
+!Constant LIT_BIT    =  16;
+!Constant UNLIT_BIT  =  32;
+
+[ ResetDescriptors *;
+    indef_mode = 0; indef_type = 0; indef_wanted = 0; indef_guess_p = 0;
+    indef_possambig = false;
+    indef_owner = nothing;
+    indef_cases = $$111111111111;
+    indef_nspec_at = 0;
+];
+
+[ Descriptors * o x flag cto type n;
+    ResetDescriptors();
+    if (wn > num_words) return 0;
+
+    for (flag=true : flag :) {
+        o = NextWordStopped(); flag = false;
+
+       for (x=1 : x<=LanguageDescriptors-->0 : x=x+4)
+            if (o == LanguageDescriptors-->x) {
+                flag = true;
+                type = LanguageDescriptors-->(x+2);
+                if (type ~= DEFART_PK) indef_mode = true;
+                indef_possambig = true;
+                indef_cases = indef_cases & (LanguageDescriptors-->(x+1));
+
+                if (type == POSSESS_PK) {
+                    cto = LanguageDescriptors-->(x+3);
+                    switch (cto) {
+                      0: indef_type = indef_type | MY_BIT;
+                      1: indef_type = indef_type | THAT_BIT;
+                      default:
+                        indef_owner = PronounValue(cto);
+                        if (indef_owner == NULL) indef_owner = InformParser;
+                    }
+                }
+
+                if (type == light)  indef_type = indef_type | LIT_BIT;
+                if (type == -light) indef_type = indef_type | UNLIT_BIT;
+            }
+
+        if (o == OTHER1__WD or OTHER2__WD or OTHER3__WD) {
+            indef_mode = 1; flag = 1;
+            indef_type = indef_type | OTHER_BIT;
+        }
+        if (o == ALL1__WD or ALL2__WD or ALL3__WD or ALL4__WD or ALL5__WD) {
+            indef_mode = 1; flag = 1; indef_wanted = 100;
+            if (take_all_rule == 1) take_all_rule = 2;
+            indef_type = indef_type | PLURAL_BIT;
+        }
+        if (allow_plurals) {
+            n = TryNumber(wn-1);
+            if (n == 1) { indef_mode = 1; flag = 1; }
+            if (n > 1) {
+                indef_guess_p = 1;
+                indef_mode = 1; flag = 1; indef_wanted = n;
+                indef_nspec_at = wn-1;
+                indef_type = indef_type | PLURAL_BIT;
+            }
+        }
+        if (flag == 1 && NextWordStopped() ~= OF1__WD or OF2__WD or OF3__WD or OF4__WD)
+            wn--;  ! Skip 'of' after these
+    }
+    wn--;
+    return 0;
+];
+
+
+! ----------------------------------------------------------------------------
 !  ScoreMatchL  scores the match list for quality in terms of what the
 !  player has vaguely asked for.  Points are awarded for conforming with
 !  requirements like "my", and so on.  Remove from the match list any
 !  entries which fail the basic requirements of the descriptors.
 ! ----------------------------------------------------------------------------
 
-[ ScoreMatchL context its_owner its_score obj i j threshold met a_s l_s;
+[ ScoreMatchL * context its_owner its_score obj i j threshold met a_s l_s;
 
+print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
+    
     !   if (indef_type & OTHER_BIT ~= 0) threshold++;
     if (indef_type & MY_BIT ~= 0)    threshold++;
     if (indef_type & THAT_BIT ~= 0)  threshold++;
@@ -100,7 +185,7 @@
 ! ks DM4 A5 EntryPointRoutines
 !
 
-[ ChooseObjects obj code;
+[ ChooseObjects * obj code;
     obj = obj; 
 #Ifdef DEBUG;	
     if (parser_trace >= 5) print "[ChooseObjects ", code,"]^";
@@ -117,7 +202,7 @@
 !  if it was a match because of inadequate input).
 ! ----------------------------------------------------------------------------
 
-[ TryGivenObject obj threshold k w j;
+[ TryGivenObject * obj threshold k w j;
     #Ifdef DEBUG;
     if (parser_trace >= 5) print "    Trying ", (the) obj, " (", obj, ") at word ", wn, "^";
     #Endif; ! DEBUG
@@ -274,7 +359,7 @@
 
 
 
-[ Adjudicate context i j k good_flag good_ones last n flag offset
+[ Adjudicate * context i j k good_flag good_ones last n flag offset
     sovert;
 
 ! Tämä ei tälläisenään toimi
@@ -284,6 +369,8 @@
 !	indef_type = 0;
 !	 flag = 1;	
 !    }
+
+print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
     
 #Ifdef DEBUG; 
     if (parser_trace >= 1)	
@@ -396,7 +483,7 @@
                      or MULTIINSIDE_TOKEN) {
             etype = MULTI_PE;
 	    print "[ ****???? adjudicate sanoo etype = MULTI_PE ja
-        palaa -1 ]";
+        palaa -1 ]^";
 	    return -1;
 	   	    
 	    
@@ -520,7 +607,7 @@
 
 
 
-[ Refers obj wnum   wd k l m;
+[ Refers * obj wnum   wd k l m;
 
     
     if (obj == 0) rfalse;
@@ -566,7 +653,7 @@
 !  Thus game objects always triumph over scenery.)
 ! ----------------------------------------------------------------------------
 
-[ CantSee  i w e;
+[ CantSee * i w e;
     
     saved_oops=oops_from;
 
@@ -623,14 +710,14 @@
 !  (F)            Return the conclusion of parsing an object list
 ! ----------------------------------------------------------------------------
 
-[ ParseToken given_ttype given_tdata token_n x y;
+[ ParseToken * given_ttype given_tdata token_n x y;
     x = lookahead; lookahead = NOUN_TOKEN;
     y = ParseToken__(given_ttype,given_tdata,token_n);
     if (y == GPR_REPARSE) Tokenise__(buffer,parse);
     lookahead = x; return y;
 ];
 
-[ ParseToken__ given_ttype given_tdata token_n
+[ ParseToken__ * given_ttype given_tdata token_n
              token l o i j k and_parity single_object desc_wn many_flag
              token_allows_multiple prev_indef_wanted;
 
@@ -826,8 +913,11 @@
 
     if (o == ME1__WD or ME2__WD or ME3__WD) { pronoun_word = o; pronoun_obj = player; }
 
+    
     allow_plurals = true; desc_wn = wn;
 
+    print "?* ParseToken__ (C) allow_plurals == ", allow_plurals, "^"; ! *?
+    
   .TryAgain;
 
     ! First, we parse any descriptive words (like "the", "five" or "every"):
@@ -870,12 +960,16 @@
         }
         if (l == 0) {
             if (indef_possambig) {
+		print "?* ParseToken__ (D 1) allow_plurals == ", allow_plurals, "^"; ! *?
                 ResetDescriptors();
+		print "?* ParseToken__ (D 2) allow_plurals == ", allow_plurals, "^"; ! *?
                 wn = desc_wn;
                 jump TryAgain2;
             }
-            if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
-            etype=CantSee();
+            if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE
+;
+	    print "?* ParseToken__ (D 3) allow_plurals == ", allow_plurals, "^"; ! *?
+      	    etype=CantSee();
             jump FailToken;
         } ! Choose best error
 
@@ -1097,7 +1191,7 @@
 !   hand (not by MultiAdd, because we want to allow duplicates).
 ! ----------------------------------------------------------------------------
 
-[ NounDomain domain1 domain2 context    first_word i j k l
+[ NounDomain * domain1 domain2 context    first_word i j k l
     answer_words marker;
 
 

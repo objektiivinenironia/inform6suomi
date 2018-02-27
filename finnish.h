@@ -37,6 +37,8 @@ Replace ScoreMatchL;
 Replace TryGivenObject;
 Replace ParseToken;
 Replace ParseToken__;
+Replace ResetDescriptors;
+Replace Descriptors;
 
 
 
