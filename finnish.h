@@ -35,6 +35,10 @@ Replace CantSee;
 Replace Refers;
 Replace ScoreMatchL;
 Replace TryGivenObject;
+Replace ParseToken;
+Replace ParseToken__;
+
+
 
 Constant LanguageVersion = "Finnish";
 
