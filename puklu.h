@@ -166,15 +166,17 @@ global muu_sija = 0;
 
 [ ParserError * error_code en_k;
 
+    print " *? ParserError: etype ", etype, "^";
+    
+    
     en_k = 0;    
     
     if (muu_sija == 1) en_k = 1;
     muu_sija = 0;    
     
     !! v‰hennet‰‰n UPTO_PE -> STUCK_PE:ksi
-    ! if (error_code == 2) etype = 1;    
     if (error_code == 2) etype = 1;
-
+    
     ! jos sija on olemassa, mutta v‰‰r‰ konteksti,
     ! ei sanota "Et n‰e mit‰‰n sellaista" (4), vaan...
 

@@ -680,6 +680,8 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     }
     wn++;
+    print "** CantSee: if etype (", etype, ") > e (", e, "), return
+    etype^";
     if (etype > e) return etype;
     return e;
 ];
@@ -966,8 +968,8 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
                 wn = desc_wn;
                 jump TryAgain2;
             }
-            if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE
-;
+	    ! ?* "kuutiota" on *MULTI_PE*, mutta EI *multiflag*
+            if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
 	    print "?* ParseToken__ (D 3) allow_plurals == ", allow_plurals, "^"; ! *?
       	    etype=CantSee();
             jump FailToken;
@@ -1162,9 +1164,11 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
         wn = desc_wn;
         jump TryAgain;
     }
-
+    
     if ((indef_wanted > 0 || prev_indef_wanted > 0) && (~~multiflag)) etype = MULTI_PE;
 
+    print "?*? ParseToken__ *********** GPR_FAIL!^";
+    
     return GPR_FAIL;
 
 ]; ! end of ParseToken__
