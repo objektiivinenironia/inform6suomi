@@ -185,7 +185,7 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
 ! ks DM4 A5 EntryPointRoutines
 !
 
-[ ChooseObjects * obj code;
+[ ChooseObjects obj code;
     obj = obj; 
 #Ifdef DEBUG;	
     if (parser_trace >= 5) print "[ChooseObjects ", code,"]^";
@@ -202,7 +202,7 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
 !  if it was a match because of inadequate input).
 ! ----------------------------------------------------------------------------
 
-[ TryGivenObject * obj threshold k w j;
+[ TryGivenObject obj threshold k w j;
     #Ifdef DEBUG;
     if (parser_trace >= 5) print "    Trying ", (the) obj, " (", obj, ") at word ", wn, "^";
     #Endif; ! DEBUG
@@ -607,7 +607,7 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
 
 
 
-[ Refers * obj wnum   wd k l m;
+[ Refers obj wnum   wd k l m;
 
     
     if (obj == 0) rfalse;
@@ -968,9 +968,11 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
                 wn = desc_wn;
                 jump TryAgain2;
             }
+
 	    ! ?* "kuutiota" on *MULTI_PE*, mutta EI *multiflag*
             if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
-	    print "?* ParseToken__ (D 3) allow_plurals == ", allow_plurals, "^"; ! *?
+	    print "?* ParseToken__ (D 3) etype == ", etype, "
+            luku ", luku, "^"; ! *?
       	    etype=CantSee();
             jump FailToken;
         } ! Choose best error
@@ -1167,7 +1169,7 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
     
     if ((indef_wanted > 0 || prev_indef_wanted > 0) && (~~multiflag)) etype = MULTI_PE;
 
-    print "?*? ParseToken__ *********** GPR_FAIL!^";
+    print "?*? ParseToken__ ***??? GPR_FAIL!^";
     
     return GPR_FAIL;
 

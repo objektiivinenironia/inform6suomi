@@ -39,7 +39,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 ];
 
 ! yksikkö
-[ S_Req * csID nreq;
+[ S_Req csID nreq;
     
     switch (csID) {
 	
@@ -110,7 +110,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 ! monikko
 
-[ P_Req * csID nreq;    
+[ P_Req csID nreq;    
     
     switch (csID) {
 	
@@ -193,7 +193,7 @@ global luku = 0;
 
 ! ao. etsii sijamuodon päätteen
 
-[ EndingLookup * addr len csID 
+[ EndingLookup addr len csID 
     v u ocFN i;  
     
     if (csID == 0) rtrue;    
@@ -257,7 +257,7 @@ Global sija; ! tulostusta varten
 ! languagerefers vastaa sen perusteella mitä endinglookup
 ! kertoo sijapäätteestä. 
 
-[ LanguageRefers * obj wnum adr len end w csID; 
+[ LanguageRefers obj wnum adr len end w csID; 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
        
