@@ -27,6 +27,7 @@
 !Constant LIT_BIT    =  16;
 !Constant UNLIT_BIT  =  32;
 
+
 [ ResetDescriptors *;
     indef_mode = 0; indef_type = 0; indef_wanted = 0; indef_guess_p = 0;
     indef_possambig = false;
@@ -249,10 +250,18 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
                 if (~~allow_plurals) k = 0;
                 else {
                     if (indef_mode == 0) {
-			print " *****????? TryGivenObject
-			    indef_mode = 1 ";
+
+			!*?*!!!***???***!!! 
+			! jos partitiivi ja luku 1 
+			if (csLR == 3 && luku == 1)
+			    indef_mode = 0;
+			else
+                            indef_mode = 1;
+			indef_type = 0; indef_wanted = 0;
+ 			print " *****????? TryGivenObject luku: ",
+		     luku, " csLR: ", csLR, 		     
+			    " indef_mode: ", indef_mode, "^";
 			
-                        indef_mode = 1; indef_type = 0; indef_wanted = 0;
                     }
                     indef_type = indef_type | PLURAL_BIT;
 		    print " *? indef_type = ", indef_type, "!^";		    
@@ -969,6 +978,12 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
                 jump TryAgain2;
             }
 
+	    ! *?****???? AD HOC !!!
+	    !if (etype == MULTI_PE && luku == 1)  {etype = 1;
+	    !	indef_mode = 0; indef_type = 0;		
+	    !}
+	    
+	    
 	    ! ?* "kuutiota" on *MULTI_PE*, mutta EI *multiflag*
             if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
 	    print "?* ParseToken__ (D 3) etype == ", etype, "
