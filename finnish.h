@@ -481,7 +481,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 #Ifdef DEBUG;
 [ LanguageVerbIsDebugging w;
     if (w == 'purloin' or 'tree' or 'abstract'
-		       or 'gonear' or 'scope' or 'showobj' or 'sijat')
+		       or 'gonear' or 'scope' or 'showobj' or 'sijat'
+	or 'pylly')
 	rtrue;
     rfalse;
 ];
