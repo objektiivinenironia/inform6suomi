@@ -662,7 +662,7 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
 !  Thus game objects always triumph over scenery.)
 ! ----------------------------------------------------------------------------
 
-[ CantSee * i w e;
+[ CantSee i w e;
     
     saved_oops=oops_from;
 
@@ -1212,7 +1212,7 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
 !   hand (not by MultiAdd, because we want to allow duplicates).
 ! ----------------------------------------------------------------------------
 
-[ NounDomain * domain1 domain2 context    first_word i j k l
+[ NounDomain domain1 domain2 context    first_word i j k l
     answer_words marker;
 
 

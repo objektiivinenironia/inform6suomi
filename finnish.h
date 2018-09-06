@@ -115,34 +115,49 @@ Object Compass "compass" has concealed;
 
 
 #Ifndef WITHOUT_DIRECTIONS;
-CompassDirection -> n_obj "pohjoinen" 
-		    with door_dir n_to, name 'p//' 'pohjoi' 'pohjoiseen' 'pohjois';
-CompassDirection -> s_obj "etelä"
-		    with door_dir s_to, name 'e//' 'etelä' 'etelään' 'eteläi';
-CompassDirection -> e_obj "itä" 
-		    with door_dir e_to, name 'i//' 'itä' 'itään' 'itäi';
+
+CompassDirection -> n_obj "pohjoi/nen" 
+    with door_dir n_to, name 'p//' 'pohjoi' 'pohjoiseen' 'pohjois',
+    gen "sen", par "sta", ess "sena", ill "seen";
+CompassDirection -> s_obj "etelä/"
+		    with door_dir s_to, name 'e//' 'etelä' 'etelään'
+    	    'eteläi',
+	gen "n", par "ä", ess "nä", ill "stä";
+CompassDirection -> e_obj "i/tä" 
+		    with door_dir e_to, name 'i//' 'itä' 'itään' 'itäi',
+	gen "dän", par "tää", ess "tänä", ill "tään";
 CompassDirection -> w_obj "län/si"
 		    with door_dir w_to, name 'l//' 'länsi' 'länt'
 	    'länteen' 'länti',
-	gen "nen", par "ttä", ess"tenä", ill "teen";
-CompassDirection -> ne_obj "koillinen"
-		    with door_dir ne_to, name 'ko' 'koillis' 'koillise'; 
-CompassDirection -> nw_obj "luode"
-		    with door_dir nw_to, name 'lu' 'luode' 'luoteeseen' 'luote' 'luoteis';
-CompassDirection -> sw_obj "lounas" 
-		    with door_dir sw_to, name 'lo' 'lounaa' 'lounaaseen' 'lounais';
-CompassDirection -> se_obj "kaakko"
-		    with door_dir se_to, name 'ka' 'kaakko' 'kaakkoon' 'kaakkois';
-CompassDirection -> u_obj "yläpuolella"
+	gen "nen", par "ttä", ess "tenä", ill "teen";
+CompassDirection -> ne_obj "koilli/nen"
+		    with door_dir ne_to, name 'ko' 'koillis' 'koillise',
+	gen "sen", par "sta", ess "sena", ill "seen"; 
+CompassDirection -> nw_obj "luo/de"
+		    with door_dir nw_to, name 'lu' 'luode' 'luoteeseen' 'luote' 'luoteis',
+	gen "teen", par "detta", ess "teena", ill "teeseen";
+CompassDirection -> sw_obj "louna/s" 
+		    with door_dir sw_to, name 'lo' 'lounaa' 'lounaaseen' 'lounais',
+	gen "an", par "sta", ess "ana", ill "aseen";
+CompassDirection -> se_obj "kaak/ko"
+		    with door_dir se_to, name 'ka' 'kaakko' 'kaakkoon' 'kaakkois',
+	gen "on", par "koa", ess "kona", ill "koon";
+
+CompassDirection -> u_obj "ylös"
 		    with door_dir u_to, name 'y//' 'ylös' 'ylhää' 'katto' 'kato' 'taivas';
-CompassDirection -> d_obj "maassa"
-		    with door_dir d_to, name 'a//' 'alas' 'alhaa' 'lattia' 'maa' 'maa-taso';
+CompassDirection -> d_obj "alas"
+ with 	door_dir d_to, name 'a//' 'alas' 'alhaa' 'lattia' 'maa'
+    	    'maa-taso';
+
 #endif; ! WITHOUT_DIRECTIONS
 
-CompassDirection -> in_obj "sisäpuolella"
-		    with door_dir in_to, name 'sisään' 'sisä' 'sisäpuole';
-CompassDirection -> out_obj "ulkopuolella"
-		    with door_dir out_to, name 'ulos' 'ulkopuole';
+CompassDirection -> in_obj "sisä/"
+		    with door_dir in_to, name 'sisään' 'sisä'
+	    'sisäpuole',
+	gen "n", par "ä", ess "nä", ill "än";
+CompassDirection -> out_obj "ul/ko"
+ with 	door_dir out_to, name 'ulos' 'ulkopuole',
+	gen "on", par "koa", ess "kona", ill "os";
 
 ! ------------------------------------------------------------------------------
 !   Part II.   Vocabulary
