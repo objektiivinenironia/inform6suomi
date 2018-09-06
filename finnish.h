@@ -1333,23 +1333,6 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
     }
 ! Yes:  see No.
 
-!! debug verbi "sijat <objekti>" tulostaa ao.:n
-  PrintSijat:
-  print ! "^Artikkeli?:", (a) x1,
-  	"^Oletus (name):", (name) x1,
-  	"^Nominatiivi:  ", (nominatiivi) x1, 
-  	"^Partitiivi:   ", (partitiivi) x1, 
-  	"^Genetiivi:    ", (genetiivi) x1, 
-  	"^Essiivi:      ", (essiivi) x1,	
-  	"^Inessiivi:    ", (inessiivi) x1, 
-  	"^Illatiivi:    ", (illatiivi) x1, 
-  	"^Elatiivi:     ", (elatiivi) x1, 
-  	"^Adessiivi:    ", (adessiivi) x1, 
-  	"^Ablatiivi:    ", (ablatiivi) x1,
-	"^Translatiivi: ", (translatiivi) x1, 
-	"^Allatiivi:    ", (allatiivi) x1, "^";
-
-
 ];
 
 ! ==============================================================================

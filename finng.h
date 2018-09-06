@@ -125,7 +125,7 @@ Verb meta 'paikat'
 
 #Ifdef DEBUG;
 Verb meta 'sijat'
-    * nom_multi                             -> PrintSijat;
+    * noun                             -> PrintSijat;
 Verb meta 'actions'
     *                                      -> ActionsOn
     * 'on'                                 -> ActionsOn

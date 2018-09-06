@@ -768,7 +768,22 @@ Array Juttu --> JutLen;
 
 ! debug-verbi sijat
 
-[ PrintSijatSub; L__M(##PrintSijat, 1, noun); ];
+[ PrintSijatSub;
+  print ! "^Artikkeli?:", (a) x1,
+  	"^Oletus (name):", (name) noun,
+  	"^Nominatiivi:  ", (nominatiivi) noun, 
+  	"^Partitiivi:   ", (partitiivi) noun, 
+  	"^Genetiivi:    ", (genetiivi) noun, 
+  	"^Essiivi:      ", (essiivi) noun,	
+  	"^Inessiivi:    ", (inessiivi) noun, 
+  	"^Illatiivi:    ", (illatiivi) noun, 
+  	"^Elatiivi:     ", (elatiivi) noun, 
+  	"^Adessiivi:    ", (adessiivi) noun, 
+  	"^Ablatiivi:    ", (ablatiivi) noun,
+	"^Translatiivi: ", (translatiivi) noun, 
+	"^Allatiivi:    ", (allatiivi) noun, "^";
+
+ ];
 
 
 ! k‰‰nteisi‰ sanaj‰rjestyksi‰
