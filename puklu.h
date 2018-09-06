@@ -265,7 +265,8 @@ Global sija; ! tulostusta varten
     {
 	w = DL (adr, len);
 	if (w ~= 0 && WordInProperty (w, obj, name)) rtrue;
-	rfalse;
+! jos rfalse, ilmansuunnat ei ymmärrä taivutusta esim. >t pohjoista	
+!	rfalse; 
     }
     
     csID = csLR; 
