@@ -124,8 +124,9 @@ Verb meta 'paikat'
 ! ------------------------------------------------------------------------------
 
 #Ifdef DEBUG;
+! anything rutiini on 
 Verb meta 'sijat'
-    * noun                             -> PrintSijat;
+    * scope=anything                       -> PrintSijat;
 Verb meta 'actions'
     *                                      -> ActionsOn
     * 'on'                                 -> ActionsOn

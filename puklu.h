@@ -766,25 +766,6 @@ Array Juttu --> JutLen;
 
 ! verbien tulostus tulisi tänne?
 
-! debug-verbi sijat
-
-[ PrintSijatSub;
-  print ! "^Artikkeli?:", (a) x1,
-  	"^Oletus (name):", (name) noun,
-  	"^Nominatiivi:  ", (nominatiivi) noun, 
-  	"^Partitiivi:   ", (partitiivi) noun, 
-  	"^Genetiivi:    ", (genetiivi) noun, 
-  	"^Essiivi:      ", (essiivi) noun,	
-  	"^Inessiivi:    ", (inessiivi) noun, 
-  	"^Illatiivi:    ", (illatiivi) noun, 
-  	"^Elatiivi:     ", (elatiivi) noun, 
-  	"^Adessiivi:    ", (adessiivi) noun, 
-  	"^Ablatiivi:    ", (ablatiivi) noun,
-	"^Translatiivi: ", (translatiivi) noun, 
-	"^Allatiivi:    ", (allatiivi) noun, "^";
-
- ];
-
 
 ! käänteisiä sanajärjestyksiä
 ! "laita X pöydälle" - "laita pöydälle X" 
