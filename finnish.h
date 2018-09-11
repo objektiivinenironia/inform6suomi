@@ -472,6 +472,40 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ];
 
 
+! Anything (ks. DM4) debug verbi 'sijat')
+
+[ Anything i;
+    
+    if (scope_stage == 1) rfalse;
+    if (scope_stage == 2) 
+    {
+	objectloop (i ofclass Object) PlaceInScope(i);
+	rtrue;
+	
+    }
+    "Sitä ei löydy pelistä.";
+    
+];	
+
+! debug-verbi sijat
+
+[ PrintSijatSub;
+  print ! "^Artikkeli?:", (a) x1,
+  	"^Oletus (name):", (name) noun,
+  	"^Nominatiivi:  ", (nominatiivi) noun, 
+  	"^Partitiivi:   ", (partitiivi) noun, 
+  	"^Genetiivi:    ", (genetiivi) noun, 
+  	"^Essiivi:      ", (essiivi) noun,	
+  	"^Inessiivi:    ", (inessiivi) noun, 
+  	"^Illatiivi:    ", (illatiivi) noun, 
+  	"^Elatiivi:     ", (elatiivi) noun, 
+  	"^Adessiivi:    ", (adessiivi) noun, 
+  	"^Ablatiivi:    ", (ablatiivi) noun,
+	"^Translatiivi: ", (translatiivi) noun, 
+	"^Allatiivi:    ", (allatiivi) noun, "^";
+
+ ];
+
 
 ! ----------------------------------------------------------------------------
 !  LanguageVerbIsDebugging is called by SearchScope.  It should return true
@@ -481,7 +515,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 #Ifdef DEBUG;
 [ LanguageVerbIsDebugging w;
     if (w == 'purloin' or 'tree' or 'abstract'
-		       or 'gonear' or 'scope' or 'showobj' or 'pylly')
+		       or 'gonear' or 'scope' or 'showobj')
 	rtrue;
     rfalse;
 ];
