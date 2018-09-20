@@ -264,11 +264,12 @@ Global sija; ! tulostusta varten
     if (parent (obj) == Compass) 
     {
 	w = DL (adr, len);
-	if (w ~= 0 && WordInProperty (w, obj, name)) 
+	if (w ~= 0 && WordInProperty (w, obj, name)) rfalse;
 ! jos rfalse, ilmansuunnat ei ymmärrä taivutusta esim. >t pohjoista	
-	rfalse;
-!  jos rtrue, ">lu" vastaa "länsi vai luode?"
-!       rtrue;
+! >t pohjoista toimii, mutta >p, >l ei: "En tunne tuota verbiä" !
+	! (myös: >pohjoinen: "En käsittänyt...")
+! jos rtrue, ">lu" vastaa "länsi vai luode?"
+
     }
     
     csID = csLR; 
