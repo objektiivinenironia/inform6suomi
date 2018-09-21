@@ -117,7 +117,7 @@ Object Compass "compass" has concealed;
 #Ifndef WITHOUT_DIRECTIONS;
 
 CompassDirection -> n_obj "pohjoi/nen" 
-    with door_dir n_to, name 'p//' 'pohjoi' 'pohjoiseen' 'pohjois',
+    with door_dir n_to, name 'p//' 'pohjoinen' 'pohjoi' 'pohjoiseen' 'pohjois',
     gen "sen", par "sta", ess "sena", ill "seen";
 CompassDirection -> s_obj "etel‰/"
 		    with door_dir s_to, name 'e//' 'etel‰' 'etel‰‰n'
