@@ -260,18 +260,7 @@ Global sija; ! tulostusta varten
 [ LanguageRefers obj wnum adr len end w csID; 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
-       
-    if (parent (obj) == Compass) 
-    {
-	w = DL (adr, len);
-	if (w ~= 0 && WordInProperty (w, obj, name)) rfalse;
-! jos rfalse, ilmansuunnat ei ymmärrä taivutusta esim. >t pohjoista	
-! >t pohjoista toimii, mutta >p, >l ei: "En tunne tuota verbiä" !
-	! (myös: >pohjoinen: "En käsittänyt...")
-! jos rtrue, ">lu" vastaa "länsi vai luode?"
 
-    }
-    
     csID = csLR; 
     
     
@@ -279,7 +268,18 @@ Global sija; ! tulostusta varten
     {
 	w = DL (adr, end); 
 
+	
+	if (parent (obj) == Compass)
+   	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
+	    (adr+end, len-end, csID)) rtrue;
 
+	    ! ao. hyväksyy vain partitiivin ">t ptä" ">mene pohjoista"
+	    ! muuten esim. ">lu" (luode) vastaa: "Länsi vai luode?"
+	    if (csID ~= 3) rfalse; 
+	}
+	
+	
+    	
 
 	!! (property) taipumaton
 	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	   
@@ -314,6 +314,7 @@ Global sija; ! tulostusta varten
 		debugsijat(adr, wnum, len, end, w, csID);
               #Endif;
 	    rtrue;
+	    
 	};
 	
 	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
