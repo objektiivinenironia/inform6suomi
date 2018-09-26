@@ -136,7 +136,7 @@ Verb meta 'changes'
     * 'on'                                 -> ChangesOn
     * 'off'                                -> ChangesOff;
 Verb meta 'gonear'
-    * noun                                 -> Gonear;
+    * nom_noun                                 -> Gonear;
 Verb meta 'goto'
     * number                               -> Goto;
 Verb meta 'random'
@@ -147,11 +147,11 @@ Verb meta 'routines' 'messages'
     * 'off'                                -> RoutinesOff;
 Verb meta 'scope'
     *                                      -> Scope
-    * noun                                 -> Scope;
+    * nom_noun                                 -> Scope;
 Verb meta 'showobj'
     *                                      -> Showobj
     * number                               -> Showobj
-    * multi                                -> Showobj;
+    * nom_multi                                -> Showobj;
 Verb meta 'showverb'
     * special                              -> Showverb;
 Verb meta 'timers' 'daemons'
