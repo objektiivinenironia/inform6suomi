@@ -39,7 +39,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 ];
 
 ! yksikkö
-[ S_Req * csID nreq;
+[ S_Req csID nreq;
     
     switch (csID) {
 	
@@ -110,7 +110,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 ! monikko
 
-[ P_Req * csID nreq;    
+[ P_Req csID nreq;    
     
     switch (csID) {
 	

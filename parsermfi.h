@@ -28,7 +28,7 @@
 !Constant UNLIT_BIT  =  32;
 
 
-[ ResetDescriptors *;
+[ ResetDescriptors;
     indef_mode = 0; indef_type = 0; indef_wanted = 0; indef_guess_p = 0;
     indef_possambig = false;
     indef_owner = nothing;
@@ -36,7 +36,7 @@
     indef_nspec_at = 0;
 ];
 
-[ Descriptors * o x flag cto type n;
+[ Descriptors o x flag cto type n;
     ResetDescriptors();
     if (wn > num_words) return 0;
 
@@ -100,9 +100,9 @@
 !  entries which fail the basic requirements of the descriptors.
 ! ----------------------------------------------------------------------------
 
-[ ScoreMatchL * context its_owner its_score obj i j threshold met a_s l_s;
+[ ScoreMatchL context its_owner its_score obj i j threshold met a_s l_s;
 
-print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
+!!! print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
     
     !   if (indef_type & OTHER_BIT ~= 0) threshold++;
     if (indef_type & MY_BIT ~= 0)    threshold++;
@@ -235,7 +235,7 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
             .MMbyPN;
 
 	    ! *? kuutio ja kuutiota tulee tänne
-	    print "indef_guess_p: ", indef_guess_p, "^";
+	    !!! print "indef_guess_p: ", indef_guess_p, "^";
 	    
 
 	    
@@ -258,13 +258,13 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
 			else
                             indef_mode = 1;
 			indef_type = 0; indef_wanted = 0;
- 			print " *****????? TryGivenObject luku: ",
-		     luku, " csLR: ", csLR, 		     
-			    " indef_mode: ", indef_mode, "^";
+ 			!!! print " *****????? TryGivenObject luku: ",
+		     !!! luku, " csLR: ", csLR, 		     
+			 !!!   " indef_mode: ", indef_mode, "^";
 			
                     }
                     indef_type = indef_type | PLURAL_BIT;
-		    print " *? indef_type = ", indef_type, "!^";		    
+		   !!! print " *? indef_type = ", indef_type, "!^";		    
                     if (indef_wanted == 0) indef_wanted = 100;
                 }
             }
@@ -358,7 +358,7 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
         }
 	! *? kuutio ja kuutiota tulee tänne
         ! *? dict_flags_of_noun: kuutiota = 60+, kuutio = 0
-	print " *? dict_flags_of_noun = ", dict_flags_of_noun, "^";
+	!!! print " *? dict_flags_of_noun = ", dict_flags_of_noun, "^";
     }
 
     k = threshold;
@@ -368,7 +368,7 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
 
 
 
-[ Adjudicate * context i j k good_flag good_ones last n flag offset
+[ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
 
 ! Tämä ei tälläisenään toimi
@@ -379,7 +379,7 @@ print "?* ScoreMatchL allow_plurals == ", allow_plurals, "^"; ! *?
 !	 flag = 1;	
 !    }
 
-print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
+!!! print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
     
 #Ifdef DEBUG; 
     if (parser_trace >= 1)	
@@ -470,7 +470,7 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
 
     ScoreMatchL(context);
     if (number_matched == 0)
-	{ print "[ ****???? adjudicate palaa -1 (number_matched == 0) ]^";
+	{ !!! print "[ ****???? adjudicate palaa -1 (number_matched == 0) ]^";
     return -1;
     }
 
@@ -491,8 +491,8 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
         if (context ~= MULTI_TOKEN or MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN
                      or MULTIINSIDE_TOKEN) {
             etype = MULTI_PE;
-	    print "[ ****???? adjudicate sanoo etype = MULTI_PE ja
-        palaa -1 ]^";
+	   !!! print "[ ****???? adjudicate sanoo etype = MULTI_PE ja
+        !!! palaa -1 ]^";
 	    return -1;
 	   	    
 	    
@@ -689,8 +689,8 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
         if (i has visited && Refers(i,wn) == 1) e = SCENERY_PE;
     }
     wn++;
-    print "** CantSee: if etype (", etype, ") > e (", e, "), return
-    etype^";
+    !!! print "** CantSee: if etype (", etype, ") > e (", e, "), return
+    !!! etype^";
     if (etype > e) return etype;
     return e;
 ];
@@ -721,14 +721,14 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
 !  (F)            Return the conclusion of parsing an object list
 ! ----------------------------------------------------------------------------
 
-[ ParseToken * given_ttype given_tdata token_n x y;
+[ ParseToken given_ttype given_tdata token_n x y;
     x = lookahead; lookahead = NOUN_TOKEN;
     y = ParseToken__(given_ttype,given_tdata,token_n);
     if (y == GPR_REPARSE) Tokenise__(buffer,parse);
     lookahead = x; return y;
 ];
 
-[ ParseToken__ * given_ttype given_tdata token_n
+[ ParseToken__ given_ttype given_tdata token_n
              token l o i j k and_parity single_object desc_wn many_flag
              token_allows_multiple prev_indef_wanted;
 
@@ -927,7 +927,7 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
     
     allow_plurals = true; desc_wn = wn;
 
-    print "?* ParseToken__ (C) allow_plurals == ", allow_plurals, "^"; ! *?
+    !!! print "?* ParseToken__ (C) allow_plurals == ", allow_plurals, "^"; ! *?
     
   .TryAgain;
 
@@ -971,9 +971,9 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
         }
         if (l == 0) {
             if (indef_possambig) {
-		print "?* ParseToken__ (D 1) allow_plurals == ", allow_plurals, "^"; ! *?
+		!!! print "?* ParseToken__ (D 1) allow_plurals == ", allow_plurals, "^"; ! *?
                 ResetDescriptors();
-		print "?* ParseToken__ (D 2) allow_plurals == ", allow_plurals, "^"; ! *?
+		!!! print "?* ParseToken__ (D 2) allow_plurals == ", allow_plurals, "^"; ! *?
                 wn = desc_wn;
                 jump TryAgain2;
             }
@@ -986,8 +986,8 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
 	    
 	    ! ?* "kuutiota" on *MULTI_PE*, mutta EI *multiflag*
             if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
-	    print "?* ParseToken__ (D 3) etype == ", etype, "
-            luku ", luku, "^"; ! *?
+	    !!! print "?* ParseToken__ (D 3) etype == ", etype, "
+            !!! luku ", luku, "^"; ! *?
       	    etype=CantSee();
             jump FailToken;
         } ! Choose best error
@@ -1184,7 +1184,7 @@ print "?* Adjudicate (a) allow_plurals == ", allow_plurals, "^"; ! *?
     
     if ((indef_wanted > 0 || prev_indef_wanted > 0) && (~~multiflag)) etype = MULTI_PE;
 
-    print "?*? ParseToken__ ***??? GPR_FAIL!^";
+    !!! print "?*? ParseToken__ ***??? GPR_FAIL!^";
     
     return GPR_FAIL;
 
