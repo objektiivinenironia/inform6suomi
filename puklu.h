@@ -262,8 +262,7 @@ Global sija; ! tulostusta varten
     adr = WordAddress(wnum); len = WordLength(wnum);
 
     csID = csLR; 
-    
-    
+        
     for (end = len: end ~= 0 : --end) 
     {
 	w = DL (adr, end); 
@@ -279,7 +278,23 @@ Global sija; ! tulostusta varten
 	}
 	
 	
-    	
+        ! WTF   
+        ! wtf kelpuuttaa mitä vain köntsää 
+	if (w ~= 0 && WordInProperty (w, obj, wtf)) {
+	    print "köntsä! ", len, " ";
+	    rtrue;
+	}
+	
+	
+	    ! print " TEMP ", adr, " ", end;
+	
+	     !&& EndingLookup
+	     !(adr+end, len-end, csID)) print csID;
+
+
+		!if (csID ~= 3) rfalse;
+
+	
 
 	!! (property) taipumaton
 	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	   
@@ -313,7 +328,7 @@ Global sija; ! tulostusta varten
 	    if (parser_trace >= 5)
 		debugsijat(adr, wnum, len, end, w, csID);
               #Endif;
-	    rtrue;
+              rtrue;
 	    
 	};
 	

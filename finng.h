@@ -186,6 +186,7 @@ Verb meta 'glklist'
 [ ADirection; if (noun in compass) rtrue; rfalse; ];
 
 
+! WTF
 Verb 'vastaa' 'sano' 'puhu'
     * topic                                -> Answer
     * all_creat topic                      -> Answer
