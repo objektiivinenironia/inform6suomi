@@ -367,7 +367,9 @@ Verb 'tiirikoi' 'murra'
     * nom_noun 'auki' ade_held             -> Unlock;
 Verb 'vedä' 'kisko'
     * par_noun                             -> Pull
-    * ela_noun                             -> Pull;  
+    * ela_noun				-> Pull;
+Verb 'paina'
+    * par_noun		        		-> Push;
 Verb 'työnnä' 'puske' 'liikuta'
     * par_noun                             -> Push
     * nom_noun ill_noun                    -> PushDir
@@ -406,7 +408,7 @@ Object 	"lait/a" VerbDepot
 
 
 
- 
+! siirrä voisi olla myös pushdir
 Verb 'siirrä'
     * nom_noun all_noun                    -> Transfer
     * nom_noun ill_noun                    -> Transfer;
