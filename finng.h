@@ -369,7 +369,8 @@ Verb 'vedä' 'kisko'
     * par_noun                             -> Pull
     * ela_noun				-> Pull;
 Verb 'paina'
-    * par_noun		        		-> Push;
+    * par_noun				-> Push
+    * nom_noun				-> Push;
 Verb 'työnnä' 'puske' 'liikuta'
     * par_noun                             -> Push
     * nom_noun ill_noun                    -> PushDir
@@ -509,7 +510,7 @@ Verb 'pukeudu' 'pue'
     * ill_noun nom_held                    -> Wear;
 Verb 'kyllä' 'joo' 'ok'
     *                                      -> Yes;
-Verb 'odota' 'z//'
+Verb 'odota' 'z//' 'ö//' 
     *                                      -> Wait;
 Verb 'herää' 'herätä' 'herätys'
     *                                      -> Wake
