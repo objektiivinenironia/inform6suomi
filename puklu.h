@@ -489,10 +489,13 @@ Array verbi_array --> verbi_pituus;
     sn = short_name;
     
     ! if (obj provides sn && PrintOrRun(obj, sn, 1) ~= 0) rtrue;
+    !print "^*** ", sija, " ***^";
     
-    if (sija ~= 0) rfalse; !!!# LPSN ei tee mit‰‰n jos globaali sija on muuta kuin nolla 
-    if (sija == 0 && obj hasnt oletus_par) CCase (obj, csNom, false);	!!!# nominatiivi 
-    if (sija == 0 && obj has oletus_par) CCase (obj, csPar, false); 
+    
+    if (sija == 0 or 10000 && obj hasnt oletus_par) CCase (obj, csNom, false);	!!!# nominatiivi 
+    if (sija == 0 or 10000 && obj has oletus_par) CCase (obj, csPar, false);
+    if (sija ~= 0) rfalse; !!!# LPSN ei tee mit‰‰n jos globaali sija on muuta kuin nolla
+    
     rtrue;
 ];
 
