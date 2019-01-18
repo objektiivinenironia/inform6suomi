@@ -166,7 +166,7 @@ global muu_sija = 0;
 
 [ ParserError error_code en_k;
 
-    print " *? ParserError: etype ", etype, "^";
+    ! print " *? ParserError: etype ", etype, "^";
     
     
     en_k = 0;    
