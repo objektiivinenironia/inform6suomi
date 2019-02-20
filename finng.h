@@ -301,7 +301,7 @@ Verb 'hyppää' 'loikkaa'
 Verb 'suutele' 'pussaa' 'halaa' 'syleile'
     * par_creat                            -> Kiss
     * par_noun                             -> Kiss;
-Verb 'mene' 'juokse' 'kävele' 'käy'
+Verb 'mene' 'juokse' 'kävele' 'käy' 'astu'
     *                                      -> VagueGo
     * noun=ADirection                      -> Go
     * ill_noun                             -> Enter

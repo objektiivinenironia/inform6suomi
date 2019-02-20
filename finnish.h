@@ -153,7 +153,7 @@ CompassDirection -> d_obj "alas"
 
 CompassDirection -> in_obj "sisä/"
 		    with door_dir in_to, name 'sisään' 'sisä'
-	    'sisäpuole',
+	    'sisäpuole' 'sis',
 	gen "n", par "ä", ess "nä", ill "än";
 CompassDirection -> out_obj "ul/ko"
  with 	door_dir out_to, name 'ulos' 'ulkopuole',
