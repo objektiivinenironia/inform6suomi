@@ -445,6 +445,12 @@ Verb 'istu' 'makaa'
     * all_noun                             -> Enter
     * ade_noun                             -> Enter
     * ill_noun                             -> Enter;
+
+Object 	"istu" VerbDepot
+ with 	name 'isti' 'makaa',
+	kysymys "mille";
+
+
 Verb 'nuku' 'koisaa'
     *                                      -> Sleep;
 Verb 'haista' 'haistele' 'nuuhki'
