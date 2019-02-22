@@ -447,7 +447,7 @@ Verb 'istu' 'makaa'
     * ill_noun                             -> Enter;
 
 Object 	"istu" VerbDepot
- with 	name 'isti' 'makaa',
+ with 	name 'istu' 'makaa',
 	kysymys "mille";
 
 
