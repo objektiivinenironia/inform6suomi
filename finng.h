@@ -381,9 +381,11 @@ Verb 'työnnä' 'puske' 'liikuta'
 ! "Työnnä talo pohjoinen" ei toiminut --
 ! "Et näe mitään sellaista."
 
-Object 	"työnnä" VerbDepot
- with 	name 'työnnä' 'puske' 'liikuta',
-    	kysymys "minne";
+! ehkä oletus "Työnnä mitä?" on silti parempi kuin ao.(?)
+
+!Object 	"työnnä" VerbDepot
+! with 	name 'työnnä' 'puske' 'liikuta',
+!    	kysymys "minne";
 
 
 Verb 'laita' 'pane' 'pistä' 'aseta'
