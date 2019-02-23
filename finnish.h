@@ -1300,7 +1300,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
     }
   Take: switch (n) {
 	1:  "Otettu."; ! "Taken."
-	2:  "Olet aina itseissäsi.";
+	2:  "Olet aina täynnä itseäsi.";
 	3:  "En usko että ", (nominatiivi) x1, " on kiinnostunut siitä.";
 	4:  print "Sinun täytyy ensin poistua ";
 	    if (x1 has supporter) print_ret (ablatiivi) x1, ".^";

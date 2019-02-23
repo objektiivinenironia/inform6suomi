@@ -1666,18 +1666,24 @@ Object 	itse "itse//si"
 
 
 ! YOURSELF__TX = "sinä itse"
-! parserm.h:
+! muokataan (parserm.h):
 [ PSN__ o;
     if (o == 0) { print (string) NOTHING__TX; rtrue; }
     switch (metaclass(o)) {
-      Routine:  print "<routine ", o, ">"; rtrue;
-      String:   print "<string ~", (string) o, "~>"; rtrue;
-      nothing:  print "<illegal object number ", o, ">"; rtrue;
+     Routine:  print "<routine ", o, ">"; rtrue;
+     String:   print "<string ~", (string) o, "~>"; rtrue;
+     nothing:  print "<illegal object number ", o, ">"; rtrue;
     }
-    if (o == player) { print (string) YOURSELF__TX; rtrue; }
-    #Ifdef LanguagePrintShortName;
+    ! if (o == player) { print (string) YOURSELF__TX; rtrue; }
+    if (o == player) {
+	if (sija == 9) print (allatiivi)itse; 
+	else print (string) YOURSELF__TX; rtrue;
+	rtrue;
+    }   
+    
+#Ifdef LanguagePrintShortName;
     if (LanguagePrintShortName(o)) rtrue;
-    #Endif; ! LanguagePrintShortName
+#Endif; ! LanguagePrintShortName
     if (indef_mode && o.&short_name_indef ~= 0 && PrintOrRun(o, short_name_indef, 1) ~= 0) rtrue;
     if (o.&short_name ~= 0 && PrintOrRun(o, short_name, 1) ~= 0) rtrue;
     print (object) o;
