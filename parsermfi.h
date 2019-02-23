@@ -1653,16 +1653,22 @@
     
 ];
 
-Object 	itse "itse//si" 
- with 	gen "n", par "‰", ess "n‰", ill "een",
-	name 'itse',
- 	     short_name
-	     [; if (Sija == csGen) {print "itsesi"; rtrue;};
- 		if (Sija == csIll) {print "itseesi"; rtrue;};
-		if (Sija == csTra) {print "itseksesi"; rtrue;};
-		 rfalse;];
-
-
+! N‰ytt‰‰ silt‰ ett‰ omat puskurit
+! sotkee PrintCommandin tekstipuskurit (PSN__)
+! siis ao. "itse"-objekti ei toimi.
+!
+! T‰m‰ olisi tulostanut "itsen omistusliitteell‰,
+! mutta lista alla on ihan yht‰ j‰rkev‰
+! (PSN_ tulostaa puskuriin, j)
+!
+!Object 	itse "itse//si" 
+! with 	gen "n", par "‰", ess "n‰", ill "een",
+!	name 'm‰',
+! 	     short_name
+!	     [; if (Sija == csGen) {print "itsesi"; rtrue;};
+! 		if (Sija == csIll) {print "itseesi"; rtrue;};
+!		if (Sija == csTra) {print "itseksesi"; rtrue;};
+!		 rfalse;];
 
 
 ! YOURSELF__TX = "sin‰ itse"
@@ -1674,12 +1680,10 @@ Object 	itse "itse//si"
      String:   print "<string ~", (string) o, "~>"; rtrue;
      nothing:  print "<illegal object number ", o, ">"; rtrue;
     }
-    ! if (o == player) { print (string) YOURSELF__TX; rtrue; }
-    if (o == player) {
-	if (sija == 9) print (allatiivi)itse; 
-	else print (string) YOURSELF__TX; rtrue;
-	rtrue;
-    }   
+   !  if (o == player) { print (string) YOURSELF__TX; rtrue; }
+    if (o == player && sija > 0) { print (itse)sija; rtrue; }
+    else if (o == player) { print (string) YOURSELF__TX; rtrue; }
+
     
 #Ifdef LanguagePrintShortName;
     if (LanguagePrintShortName(o)) rtrue;
@@ -1687,4 +1691,44 @@ Object 	itse "itse//si"
     if (indef_mode && o.&short_name_indef ~= 0 && PrintOrRun(o, short_name_indef, 1) ~= 0) rtrue;
     if (o.&short_name ~= 0 && PrintOrRun(o, short_name, 1) ~= 0) rtrue;
     print (object) o;
+];
+
+[ itse s;
+    switch (s) 
+    {
+     	!Nominatiivi:
+     1: print "itsesi";
+	
+     	!Genetiivi:
+     2: print "itsesi";
+	
+     	!Partitiivi:
+     3: print "itse‰si";
+	
+     	!Inessiivi:
+     4: print "itsess‰si";
+	
+     	!Elatiivi:
+     5: print "itsest‰si";
+	
+     	!Illatiivi:
+     6: print "itseesi";
+     	
+     	!Adessiivi:	
+     7: print "itsell‰si";
+	
+     	!Ablatiivi:
+     8: print "itselt‰si";     
+	
+     	!Allatiivi:
+     9: print "itsellesi";
+	
+     	!Essiivi:
+     10: print "itsen‰si";
+	
+     	!Translatiivi:
+     11: print "itseksesi";
+     default: print "sin‰ itse";
+	
+    }
 ];
