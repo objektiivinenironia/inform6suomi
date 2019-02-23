@@ -1125,8 +1125,8 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 !       48: print "Whom do you want";
 !           if (actor ~= player) print " ", (the) actor;
         48: ! print "Ket‰ haluat ";
-           if (actor ~= player) print " ", (the) actor;
-           print " "; PrintCommand(); print "?^";
+           if (actor ~= player) {print (The) actor;
+           print " ";} PrintCommand(); print "?^";
 !       49: print "What do you want";
 !            if (actor ~= player) print " ", (the) actor;
 !            print " to "; PrintCommand(); print "?^";
@@ -1272,7 +1272,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
   SetTo:    "Et voi s‰‰t‰‰ ", (SitajaNiita) x1, " mihink‰‰n.";
   Show: switch (n) {
 	1:  "Et pitele ", (partitiivi) x1, ".";
-	2:  print (k_nominatiivi) x1; if (noun has pluralname) print " eiv‰t ole vaikuttuneita."; else print " ei ole vaikuttunut.";
+	2:  print (k_nominatiivi) x1; if (noun has pluralname) print_ret " eiv‰t ole vaikuttuneita."; else print_ret " ei ole vaikuttunut.";
     }
   Sing:     "Laulantasi on kammottavaa.";
   Sleep:    "Et tunne itse‰si kovin uniseksi.";

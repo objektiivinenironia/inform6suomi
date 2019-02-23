@@ -434,11 +434,11 @@ Verb 'säädä' 'määritä'
 Verb 'riisu' 'riisuudu'
     * held                                 -> Disrobe;
 Verb 'näytä' 'esitä'
-    * all_creat par_held                   -> Show reverse
-    * all_creat nom_held                   -> Show reverse
     * par_held all_creat                   -> Show
-    * nom_Held all_creat                   -> Show;
-
+    * nom_Held all_creat                   -> Show
+    * all_creat par_held                   -> Show reverse
+    * all_creat nom_held                   -> Show reverse;
+   
 Object 	"näytä" VerbDepot
  with 	name 'näytä' 'esitä',
 	kysymys "kenelle";

@@ -1622,8 +1622,8 @@
 		!!    " verb_word ", (address)
 		!!    verb_word;
 
-	! jos, 1. sana nom. 2. sana taipuu	
-		if (CaseIs ~= 0 && k >= 2) 
+		! jos, 1. sana nom. 2. sana taipuu
+		if (CaseIs > 0 && k > 1) 
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
              		csGen: print (genetiivi) i;
@@ -1635,10 +1635,13 @@
 			csAll: print (allatiivi) i; 
 			csEss: print (essiivi) i;
 			csTra: print (translatiivi) i;}
-                       
+	
+	! "näytä palloA kenelle?"
+		else if (CaseIs == csPar && k < 2) print (partitiivi) i;
+	
  		else print (the) i;
 	
-    .TokenPrinted;
+    	.TokenPrinted;
 	spacing_flag = true;
 
 	
