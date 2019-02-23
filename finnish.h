@@ -463,7 +463,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     {	        	 
 	if (obj provides kysymys && from <= 1) print " ", (string)
     	    obj.kysymys;
-	rtrue;
+	rtrue; 
+	
     }
 	
     }
@@ -1123,7 +1124,7 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 
 !       48: print "Whom do you want";
 !           if (actor ~= player) print " ", (the) actor;
-        48: print "Ketä haluat ";
+        48: ! print "Ketä haluat ";
            if (actor ~= player) print " ", (the) actor;
            print " "; PrintCommand(); print "?^";
 !       49: print "What do you want";
