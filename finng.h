@@ -450,7 +450,7 @@ Verb 'istu' 'makaa'
 
 Object 	"istu" VerbDepot
  with 	name 'istu' 'makaa',
-	kysymys "mille";
+	kysymys "mihin";
 
 
 Verb 'nuku' 'koisaa'

@@ -20,14 +20,6 @@ System_file;
 !   Part I.   Preliminaries
 ! ------------------------------------------------------------------------------
 
-!! Allaolevat <Replace ...> on muokattuja ja korvattuja rutiineja tiedostosta "parserm.h". 
-!! Muokatut on tiedostossa "parsermfi.h". 
-!! Osa on kommentoitu pois (turhaan korvattu) 22.9.2013
-
-!! Replace Parser__Parse; 
-!! Replace ParseToken;
-!! Replace ParseToken__;
-
 Replace NounDomain; 
 Replace Adjudicate; 
 Replace PrintCommand; 
@@ -39,6 +31,7 @@ Replace ParseToken;
 Replace ParseToken__;
 Replace ResetDescriptors;
 Replace Descriptors;
+Replace PSN__; ! "sinä itse" jne.
 
 
 
@@ -65,7 +58,7 @@ Global csDflt = csNom;
 Constant ocS =		1;
 Constant ocP =		2;
 
-! Verbin tai nominin alkuosa ennen kenoviivaa (/)
+! Verbin tai nominin alkuosa ennen "/"
 Constant Alku =		20; !pu
 
 ! Verbit...
@@ -577,6 +570,8 @@ Constant TIME__TX       = "Aika: ";
 Constant CANTGO__TX     = "Et pääse siihen suuntaan.";
 Constant FORMER__TX     = "aiempi itsesi";
 Constant YOURSELF__TX   = "sinä itse"; !! pitäisi taivuttaa
+Constant ITSELLESI__TX  = "itsellesi";
+Constant ITSEASI_TX     = "itseäsi";
 Constant YOU__TX        = "Sinä"; !! kuin myös?
 Constant DARKNESS__TX   = "Pimeys";
 

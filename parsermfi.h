@@ -1,14 +1,7 @@
 ! parsermfi.h
 ! ===========
-! Muokattuja rutiineja parserm:stä (finnish korvaa alkuperäiset näillä).
-! Seuraavia rutiineja on muokattu:
-!
-!     * NounDomain 
-!     * PrintCommand
-!     * CantSee
-!
-
-
+! Muokattuja rutiineja parserm:stä
+! ks. ->finnish (replace) 
 ! ----------------------------------------------------------------------------
 !  Descriptors()
 !
@@ -1658,4 +1651,22 @@
     if (kys == 0) PrintKysymys(verb_word, from, k); 	
 
     
+];
+
+! YOURSELF__TX = "sinä itse"
+! parserm.h:
+[ PSN__ o;
+    if (o == 0) { print (string) NOTHING__TX; rtrue; }
+    switch (metaclass(o)) {
+      Routine:  print "<routine ", o, ">"; rtrue;
+      String:   print "<string ~", (string) o, "~>"; rtrue;
+      nothing:  print "<illegal object number ", o, ">"; rtrue;
+    }
+    if (o == player) { print (string) YOURSELF__TX; rtrue; }
+    #Ifdef LanguagePrintShortName;
+    if (LanguagePrintShortName(o)) rtrue;
+    #Endif; ! LanguagePrintShortName
+    if (indef_mode && o.&short_name_indef ~= 0 && PrintOrRun(o, short_name_indef, 1) ~= 0) rtrue;
+    if (o.&short_name ~= 0 && PrintOrRun(o, short_name, 1) ~= 0) rtrue;
+    print (object) o;
 ];
