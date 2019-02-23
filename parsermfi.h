@@ -1653,6 +1653,18 @@
     
 ];
 
+Object 	itse "itse//si" 
+ with 	gen "n", par "ä", ess "nä", ill "een",
+	name 'itse',
+ 	     short_name
+	     [; if (Sija == csGen) {print "itsesi"; rtrue;};
+ 		if (Sija == csIll) {print "itseesi"; rtrue;};
+		if (Sija == csTra) {print "itseksesi"; rtrue;};
+		 rfalse;];
+
+
+
+
 ! YOURSELF__TX = "sinä itse"
 ! parserm.h:
 [ PSN__ o;

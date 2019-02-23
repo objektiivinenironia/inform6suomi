@@ -570,8 +570,8 @@ Constant TIME__TX       = "Aika: ";
 Constant CANTGO__TX     = "Et pääse siihen suuntaan.";
 Constant FORMER__TX     = "aiempi itsesi";
 Constant YOURSELF__TX   = "sinä itse"; !! pitäisi taivuttaa
-Constant ITSELLESI__TX  = "itsellesi";
-Constant ITSEASI_TX     = "itseäsi";
+!Constant ITSELLESI__TX  = "itsellesi";
+!Constant ITSEASI_TX     = "itseäsi";
 Constant YOU__TX        = "Sinä"; !! kuin myös?
 Constant DARKNESS__TX   = "Pimeys";
 
