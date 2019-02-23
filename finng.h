@@ -438,6 +438,12 @@ Verb 'näytä' 'esitä'
     * all_creat par_held                   -> Show reverse
     * nom_held all_creat                   -> Show
     * par_Held all_creat                   -> Show;
+
+Object 	"näytä" VerbDepot
+ with 	name 'näytä' 'esitä',
+	kysymys "kenelle";
+
+
 Verb  'saatana' 'helvetti' 'jumalauta' 'vittu' 'perkele'
     *                                      -> Strong           
     * topic                                -> Strong;
