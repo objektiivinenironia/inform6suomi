@@ -449,7 +449,13 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     }  
 ];
 
-
+! Siis yritetään niin ettei pelaaja vastaa
+! genetiivissä? (haittaisiko se?)
+!
+!  What do you want to sit on top of?
+!
+!  -> MIHIN haluat istua? (juttuun/jutulle)
+	
 ! tulee PrintCommandista... k on sen laskuri
 [ PrintKysymys verbi from k obj;
     !!!  print from, "*", k, "/", from, "e:", etype, "^";
@@ -460,6 +466,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     objectloop (obj in VerbDepot) 
     { if (WordInProperty (verbi, obj, name))
 	! esim. "Laita kuutio mihin?"
+	! esim. "Istu mihin?"
     {	        	 
 	if (obj provides kysymys && from <= 1) print " ", (string)
     	    obj.kysymys;
