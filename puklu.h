@@ -164,18 +164,14 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 
 global muu_sija = 0;
 
-[ ParserError error_code en_k;
+[ ParserError error_code;
     
-    ! print " *? ParserError: etype ", etype, "^";
+      
+   ! if (muu_sija == 1) en_k = 1;
+   ! muu_sija = 0;    
     
-    
-    en_k = 0;    
-    
-    if (muu_sija == 1) en_k = 1;
-    muu_sija = 0;    
-    
-    print "^*** muu sija: ", muu_sija, " en_k: ",en_k, " ecode: ",
- error_code, " number_matched ", number_matched, " ***^";
+    print "^*** muu sija: ", muu_sija, " ", "ecode: ",
+ error_code, " ***^";
     
     !! vähennetään UPTO_PE -> STUCK_PE:ksi
     if (error_code == 2) etype = 1;
@@ -198,7 +194,7 @@ global muu_sija = 0;
     !   En ihan käsittänyt.
 
     ! ao. on ÖTÖ:
-    if (en_k == true && error_code == 4) print_ret "En ihan
+    if (muu_sija == true && error_code == 4) print_ret "En ihan
     käsittänyt.";
     
      ! käytännössä sama kuin etype = 1: En käsittänyt tuota lausetta.
