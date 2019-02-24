@@ -180,13 +180,13 @@ global muu_sija = 0;
     !! v‰hennet‰‰n UPTO_PE -> STUCK_PE:ksi
     if (error_code == 2) etype = 1;
     
-    ! jos sija on olemassa, ja esine/asia on paikalla,
+    ! jos sija ON olemassa, ja esine/asia ON paikalla,
     ! mutta konteksti v‰‰r‰ (">ota palloLLE"),
     ! ja ei sanota "Et n‰e mit‰‰n sellaista" (error_code 4),
     ! vaan
     ! "En ihan k‰sitt‰nyt."
     !
-    ! TƒMƒ EI TOIMI:
+    ! TƒMƒ EI TOIMI (pallo ei paikalla):
     !
     !   >ota pallo
     !   Et n‰e mit‰‰n sellaista.
@@ -217,6 +217,8 @@ global luku = 0;
 
 [ EndingLookup addr len csID 
     v u ocFN i;  
+
+    muu_sija = 0; ! nollataan!
     
     if (csID == 0) rtrue;    
     
@@ -260,6 +262,7 @@ global luku = 0;
 	 S_Req: ocFN = P_Req; 
 	 P_Req: rfalse;		
 	}
+	
 	
 	
     }
