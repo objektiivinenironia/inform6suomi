@@ -166,12 +166,19 @@ global muu_sija = 0;
 
 [ ParserError error_code;
     
-      
-   ! if (muu_sija == 1) en_k = 1;
-   ! muu_sija = 0;    
     
-    print "^*** muu sija: ", muu_sija, " ", "ecode: ",
- error_code, " ***^";
+    ! if (muu_sija == 1) en_k = 1;
+    ! muu_sija = 0;    
+    
+#Ifdef DEBUG;				
+    if (parser_trace > 1)	
+    	print "^**! (ParserError) muu_sija: ", muu_sija,
+	    " ecode: ", error_code, " ^";
+    if (error_code == 2) print "vähennetään UPTO_PE -> STUCK_PE:ksi^";    
+    	if (muu_sija == true && error_code == 4) print
+	"~Et näe mitään sellaista.~ (ecode 4) -> ~En ihan
+    	käsittänyt.~ (käytännössä sama kuin ecode 1)^";
+#Endif;
     
     !! vähennetään UPTO_PE -> STUCK_PE:ksi
     if (error_code == 2) etype = 1;
@@ -192,13 +199,13 @@ global muu_sija = 0;
     !
     !   >ota pallo
     !   En ihan käsittänyt.
-
+    
     ! ao. on ÖTÖ:
     if (muu_sija == true && error_code == 4) print_ret "En ihan
-    käsittänyt.";
+    	käsittänyt.";
     
-     ! käytännössä sama kuin etype = 1: En käsittänyt tuota lausetta.
-     ! print_ret "En ihan käsittänyt.";
+    ! käytännössä sama kuin etype = 1: En käsittänyt tuota lausetta.
+    ! print_ret "En ihan käsittänyt.";
     
     !! (vai annetaanko merkkijono?) 
     if (error_code ofclass String) print_ret (string) error_code;
