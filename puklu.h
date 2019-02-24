@@ -165,7 +165,7 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
 global muu_sija = 0;
 
 [ ParserError error_code en_k;
-
+    
     ! print " *? ParserError: etype ", etype, "^";
     
     
@@ -174,17 +174,39 @@ global muu_sija = 0;
     if (muu_sija == 1) en_k = 1;
     muu_sija = 0;    
     
+    print "^*** muu sija: ", muu_sija, " en_k: ",en_k, " ecode: ",
+ error_code, " number_matched ", number_matched, " ***^";
+    
     !! vähennetään UPTO_PE -> STUCK_PE:ksi
     if (error_code == 2) etype = 1;
     
-    ! jos sija on olemassa, mutta väärä konteksti,
-    ! ei sanota "Et näe mitään sellaista" (4), vaan...
+    ! jos sija on olemassa, ja esine/asia on paikalla,
+    ! mutta konteksti väärä (">ota palloLLE"),
+    ! ja ei sanota "Et näe mitään sellaista" (error_code 4),
+    ! vaan
+    ! "En ihan käsittänyt."
+    !
+    ! TÄMÄ EI TOIMI:
+    !
+    !   >ota pallo
+    !   Et näe mitään sellaista.
+    !
+    !   >mene kaapille
+    !   Sinne ei voi mennä.
+    !
+    !   >ota pallo
+    !   En ihan käsittänyt.
 
-    if (en_k == true && error_code == 4) print_ret "En ihan käsittänyt.";
-	
+    ! ao. on ÖTÖ:
+    if (en_k == true && error_code == 4) print_ret "En ihan
+    käsittänyt.";
+    
+     ! käytännössä sama kuin etype = 1: En käsittänyt tuota lausetta.
+     ! print_ret "En ihan käsittänyt.";
+    
     !! (vai annetaanko merkkijono?) 
     if (error_code ofclass String) print_ret (string) error_code;
-
+    
     rfalse; ! Print standard parser error message
     
 ];
@@ -227,7 +249,7 @@ global luku = 0;
 	
         ! sijapääte on eri kontekstissa, esim "tutki uomasta"
 	! (mutta ei "tutki uomarrro") ks. ParserError yllä
- 	
+
 	muu_sija = true;
 	
 	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
