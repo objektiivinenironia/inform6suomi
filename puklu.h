@@ -162,50 +162,53 @@ Attribute oletus_par; ! tulostaa objektin oletuksena partitiivissa
     return -1;
 ];	
 
+! muu_sija (PrintCommandissa)
 global muu_sija = 0;
 
-[ ParserError error_code;
-    
+[ ParserError error_code;   
     
     ! if (muu_sija == 1) en_k = 1;
     ! muu_sija = 0;    
     
 #Ifdef DEBUG;				
     if (parser_trace > 1)	
-    	print "^**! (ParserError) muu_sija: ", muu_sija,
+    	{ print "^**! (ParserError) muu_sija: ", muu_sija,
 	    " ecode: ", error_code, " ^";
     if (error_code == 2) print "vähennetään UPTO_PE -> STUCK_PE:ksi^";    
     	if (muu_sija == true && error_code == 4) print
 	"~Et näe mitään sellaista.~ (ecode 4) -> ~En ihan
-    	käsittänyt.~ (käytännössä sama kuin ecode 1)^";
+    	    käsittänyt.~ (käytännössä sama kuin ecode 1)^";
+    }
+    
 #Endif;
     
     !! vähennetään UPTO_PE -> STUCK_PE:ksi
     if (error_code == 2) etype = 1;
     
-    ! jos sija ON olemassa, ja esine/asia ON paikalla,
+    ! jos sija ON olemassa (esim. ei "pallorz%s5t"),
+    ! ja esine/asia ON paikalla,
     ! mutta konteksti väärä (">ota palloLLE"),
-    ! ja ei sanota "Et näe mitään sellaista" (error_code 4),
-    ! vaan
-    ! "En ihan käsittänyt."
+    ! ei sanota "Et näe mitään sellaista" (error_code 4),
+    ! vaan:
     !
-    ! TÄMÄ EI TOIMI (pallo ei paikalla):
-    !
-    !   >ota pallo
-    !   Et näe mitään sellaista.
-    !
-    !   >mene kaapille
-    !   Sinne ei voi mennä.
-    !
-    !   >ota pallo
+    !   >ota pallosta
     !   En ihan käsittänyt.
+    !
+    ! ...ja myös:
+    !
+    !   >ota pallox
+    !	En ihan käsittänyt.
+    !
+    ! menee sijamuotona koska "x//" on sanakirjassa
+    ! (samoin "pallosyö" ("syö" on sanak) -> "En ihan käsittänyt"
+    ! mikä on ihan hyvä vastaus jos pallo on huoneessa).
+    ! Se on käytännössä sama kuin etype 1
+    ! (error type 1 == STUCK_PE == "En käsittänyt tuota lausetta.")    
     
-    ! ao. on ÖTÖ:
     if (muu_sija == true && error_code == 4) print_ret "En ihan
     	käsittänyt.";
     
-    ! käytännössä sama kuin etype = 1: En käsittänyt tuota lausetta.
-    ! print_ret "En ihan käsittänyt.";
+    
     
     !! (vai annetaanko merkkijono?) 
     if (error_code ofclass String) print_ret (string) error_code;
