@@ -380,23 +380,19 @@ Verb 'työnnä' 'puske' ! 'liikuta'
 !    * par_noun				-> Push
     * par_noun noun=ADirection		-> PushDir
     * nom_noun noun=ADirection		-> PushDir;
+! push rfalse "Se pysyy paikallaan."
 
-! push rfalse "Se ei tunnu irtoavan."
 
-Verb 'laita' 'pane' 'pistä' 'aseta'
+Verb 'laita' 'pane' 'pistä' ! 'aseta'
+! laita valot päälle
+! * nom_noun 'päälle'
     * nom_multiexcept ill_noun		-> Insert 
-! 1 6
     * par_noun ill_noun			-> Insert
-! 3 6
     * nom_multiexcept all_noun		-> PutOn
-! 1 9
     * par_noun all_noun			-> PutOn
- ! 3 9
     * nom_noun gen_noun 'sisään'	-> Insert
- 
     * nom_noun gen_noun 'päälle'	-> PutOn 
     * all_noun nom_multiexcept		-> PutOn reverse
- ! 9 1
     * 'pois' nom_multiheld		-> Drop
     * multiheld 'pois'			-> Drop; 
 
@@ -404,7 +400,7 @@ Verb 'laita' 'pane' 'pistä' 'aseta'
     !* nom_multiexcept off_noun          -> Insert;
     !* multiheld noun                    -> Insert;
 
-Object 	"lait/a" VerbDepot
+Object 	"laita" VerbDepot
  with	
 	!inf_ "taa", ind_y "taa", ind_m "tavat",
 	name 'laita' 'pane' 'pistä' 'aseta',

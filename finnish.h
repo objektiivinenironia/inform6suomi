@@ -872,7 +872,7 @@ if (obj == player)      { print "Itseesi"; return; }
 	2:  "Syöt ", (genetiivi) x1, ". Ei hullumpaa.";
     }
   EmptyT: switch (n) {
-	1:  print_ret (k_nominatiivi) x1, " ei toimi säiliönä.";
+	1:  print_ret (k_nominatiivi) x1, " ", (eijaeivat) x1, " toimi säiliönä.";
 	2:  print_ret (k_nominatiivi) x1, " ", (OnjaOvat) x1, " kiinni.";
 	3:  if (x1 has pluralname) print_ret (k_nominatiivi) x1, " on jo tyhjiä."; 
 		else print_ret (k_nominatiivi) x1, " on jo tyhjä.";
@@ -947,7 +947,7 @@ if (obj == player)      { print "Itseesi"; return; }
   Insert: switch (n) {
 	1:  "Sinun täytyy pidellä ", (partitiivi) x1, " ennenkuin voit laittaa ", (sitajaniita) x1,
 	    " mihinkään.";
-	2:  print_ret (Ksenjaniiden) x1, " sisään ei voi laittaa asioita.";
+	2:  print_ret (ksejane) x1, " ", (eijaeivat) x1, " toimi säiliönä.";
 	3:  print (k_nominatiivi) x1; if (x1 has pluralname) print
 	    " ovat suljetut.^";	else print " on kiinni.^";
 	4:  "Sinun täytyy ensin ottaa ", (sejane) x1, " pois.";
@@ -1190,8 +1190,8 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 	5:  ".";
     }
   Pull,Push,Turn: switch (n) {
-	1:  if (x1 has pluralname) print "Ne eivät "; else print "Se ei ";
-	    "tunnu irtoavan.";
+	1:  if (x1 has pluralname) print "Ne pysyvät "; else print "Se pysyy ";
+	    "paikallaan.";
 	2:  "Et pysty.";
 	3:  "Mitään ilmeistä ei tapahdu.";
 	4:  "Se ei olisi kohteliasta.";
