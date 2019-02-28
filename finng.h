@@ -384,13 +384,19 @@ Verb 'työnnä' 'puske' ! 'liikuta'
 ! push rfalse "Se ei tunnu irtoavan."
 
 Verb 'laita' 'pane' 'pistä' 'aseta'
-    * nom_multiexcept ill_noun		-> Insert ! 1 6
-    * par_noun ill_noun			-> Insert! 3 6
-    * nom_multiexcept all_noun		-> PutOn! 1 9
-    * par_noun all_noun			-> PutOn ! 3 9
-    * nom_noun gen_noun 'sisään'	-> Insert 
+    * nom_multiexcept ill_noun		-> Insert 
+! 1 6
+    * par_noun ill_noun			-> Insert
+! 3 6
+    * nom_multiexcept all_noun		-> PutOn
+! 1 9
+    * par_noun all_noun			-> PutOn
+ ! 3 9
+    * nom_noun gen_noun 'sisään'	-> Insert
+ 
     * nom_noun gen_noun 'päälle'	-> PutOn 
-    * all_noun nom_multiexcept		-> PutOn reverse ! 9 1
+    * all_noun nom_multiexcept		-> PutOn reverse
+ ! 9 1
     * 'pois' nom_multiheld		-> Drop
     * multiheld 'pois'			-> Drop; 
 
