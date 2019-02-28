@@ -282,6 +282,11 @@ Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
     * par_held all_creat                   -> Give
     * creature nom_held                    -> Give reverse
     * creature par_Held                    -> Give reverse;
+
+Object 	"anna" VerbDepot
+ with 	name 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita',
+	kysymys "kenelle";
+
 Verb 'lahjo' 'ruoki'
     * ade_held creature                    -> Give
     * creature ade_held                    -> Give reverse;
