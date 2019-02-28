@@ -222,7 +222,7 @@ global luku = 0;
 ! ao. etsii sijamuodon päätteen
 
 [ EndingLookup addr len csID 
-    v u ocFN i;  
+    v u Nomini i;  
 
     muu_sija = 0; ! nollataan!
     
@@ -237,17 +237,17 @@ global luku = 0;
     
     else v = 0; ! ei sijamuodon päätettä, v = 0
     
-    ocFN = S_Req; ! etsii yksikön päätteitä
+    Nomini = S_Req; ! etsii yksikön päätteitä
     
     
     for (::) {
 	for (i = 0: : ++i) { 
-	    u = indirect (ocFN, csID, i);	! 'i' on 'nreq' arvo
+	    u = indirect (Nomini, csID, i);	! 'i' on 'nreq' arvo
 
 	    ! jos 'u' on 0 tai löytyy sanakirjasta (DL) rtrue
 
-	    if (u == v && ocFN == P_Req) luku = 2;	    
-            if (u == v && ocFN == S_Req) luku = 1;
+	    if (u == v && Nomini == P_Req) luku = 2;	    
+            if (u == v && Nomini == S_Req) luku = 1;
 
 	    if (u == v) rtrue; 		
 	    
@@ -263,9 +263,9 @@ global luku = 0;
 	    ! jos yksikkölista on käyty läpi, siirry monikkolistaan
 	    ! rfalse jos monikkolista on käyty läpi (ilman osumaa)
 		
-	switch (ocFN) {           
+	switch (Nomini) {           
    	    
-	 S_Req: ocFN = P_Req; 
+	 S_Req: Nomini = P_Req; 
 	 P_Req: rfalse;		
 	}
 	
