@@ -376,22 +376,12 @@ Verb 'vedä' 'kisko'
 Verb 'paina'
     * par_noun				-> Push
     * nom_noun				-> Push;
-Verb 'työnnä' 'puske' 'liikuta'
-    * par_noun                             -> Push
-    * nom_noun ill_noun                    -> PushDir
-    * par_noun ill_noun  		   -> PushDir;
-! huom. noun=ADirection ei toiminut (jäi silmukkaan
-! kuten pelkkä noun) ill_noun tuntui toimivan
-! ilmansuunnan kanssa ok. "p", "pohjoiseen"
-! "Työnnä talo pohjoinen" ei toiminut --
-! "Et näe mitään sellaista."
+Verb 'työnnä' 'puske' ! 'liikuta'
+!    * par_noun				-> Push
+    * par_noun noun=ADirection		-> PushDir
+    * nom_noun noun=ADirection		-> PushDir;
 
-! ehkä oletus "Työnnä mitä?" on silti parempi kuin ao.(?)
-
-!Object 	"työnnä" VerbDepot
-! with 	name 'työnnä' 'puske' 'liikuta',
-!    	kysymys "minne";
-
+! push rfalse "Se ei tunnu irtoavan."
 
 Verb 'laita' 'pane' 'pistä' 'aseta'
     * nom_multiexcept ill_noun		-> Insert ! 1 6
