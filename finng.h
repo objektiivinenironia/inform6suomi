@@ -186,7 +186,12 @@ Verb meta 'glklist'
 [ ADirection; if (noun in compass) rtrue; rfalse; ];
 
 
-! WTF
+! vajaaseen syötteeseen oletuksena kysytään "mitä?"
+! esim.
+!   >tutki
+!   Tutki mitä?
+! PrintKysymys (finnish.h) tulostaa muita
+
 Verb 'vastaa' 'sano' 'puhu'
     * topic                                -> Answer
     * all_creat topic                      -> Answer
@@ -197,6 +202,12 @@ Verb 'kysy' 'tiedustele' 'pyydä'
     * abl_creat par_noun                   -> AskFor
     * par_creat   topic                    -> AskTo
     * abl_creat   topic                    -> AskTo;
+Object 	"kysy" VerbDepot
+ with 	name 'kysy' 'tiedustele' 'pyydä',
+	kys "kekeltäkö", kys_ "mittee";
+
+
+
 Verb 'hyökkää' 'riko' 'särje' 'murskaa' 'tuhoa' 'potkaise' 'potki'
      'lyö' 'tapa' 'murhaa' 'iske'
      'hajota' 'hakkaa' 'piekse' 'kiduta' 'romuta'
@@ -267,16 +278,15 @@ Verb 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile'
     * par_noun                          -> Examine
     * nom_noun                          -> Examine;
 
-
 Object 	"tutki" VerbDepot
- with 	name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile',
-	kysymys "mitä";
+ with 	name 'tutki' 't//' 'x//' 'tarkasta' 'kuvaile';
 
 Verb 'exit' 'ulos'
     *                                      -> Exit
     * ela_noun                             -> Exit;
 Verb 'täytä'
     * nom_noun                             -> Fill;
+! mitä - kenelle
 Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
     * nom_held all_creat                   -> Give
     * par_held all_creat                   -> Give
@@ -284,9 +294,9 @@ Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
     * creature par_Held                    -> Give reverse;
 
 Object 	"anna" VerbDepot
- with 	name 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita',
-	kysymys "kenelle";
+ with 	name 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita';
 
+! millä - kenet
 Verb 'lahjo' 'ruoki'
     * ade_held creature                    -> Give
     * creature ade_held                    -> Give reverse;
@@ -335,12 +345,13 @@ Verb 'kuuntele'
     * nom_noun                             -> Listen
     * par_noun                             -> Listen
     * ela_noun                             -> Listen;
+
+! mikä millä
 Verb 'lukitse'
     * nom_noun ade_held                    -> Lock;
 
 Object 	"lukitse" VerbDepot
- with 	name 'lukitse',
- 	kysymys "millä";
+ with 	name 'lukitse';
 
 
 Verb 'katso' 'ks' 'k//'
@@ -382,9 +393,9 @@ Verb 'työnnä' 'puske' ! 'liikuta'
     * nom_noun noun=ADirection		-> PushDir;
 ! push rfalse "Se pysyy paikallaan."
 
-
+! (ehkä) mitä - mihin
 Verb 'laita' 'pane' 'pistä' ! 'aseta'
-! laita valot päälle
+
 ! * nom_noun 'päälle'
     * nom_multiexcept ill_noun		-> Insert 
     * par_noun ill_noun			-> Insert
@@ -403,8 +414,7 @@ Verb 'laita' 'pane' 'pistä' ! 'aseta'
 Object 	"laita" VerbDepot
  with	
 	!inf_ "taa", ind_y "taa", ind_m "tavat",
-	name 'laita' 'pane' 'pistä' 'aseta',
-	kysymys "mihin";
+	name 'laita' 'pane' 'pistä' 'aseta';
 
 
 
@@ -429,7 +439,8 @@ Verb 'säädä' 'määritä'
     * nom_noun                             -> Set
     * noun special                         -> SetTo;
 Verb 'riisu' 'riisuudu'
-    * held                                 -> Disrobe;
+    * held				   -> Disrobe;
+! mitä - kenelle
 Verb 'näytä' 'esitä'
     * par_held all_creat                   -> Show
     * nom_held all_creat                   -> Show
@@ -437,8 +448,7 @@ Verb 'näytä' 'esitä'
     * all_creat nom_held                   -> Show reverse;
    
 Object 	"näytä" VerbDepot
- with 	name 'näytä' 'esitä',
-	kysymys "kenelle";
+ with 	name 'näytä' 'esitä';
 
 
 Verb  'saatana' 'helvetti' 'jumalauta' 'vittu' 'perkele'
@@ -452,8 +462,7 @@ Verb 'istu' 'makaa'
     * ill_noun                             -> Enter;
 
 Object 	"istu" VerbDepot
- with 	name 'istu' 'makaa',
-	kysymys "mihin";
+ with 	name 'istu' 'makaa';
 
 
 Verb 'nuku' 'koisaa'

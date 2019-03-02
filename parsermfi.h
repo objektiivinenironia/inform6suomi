@@ -1590,7 +1590,7 @@
 ! ----------------------------------------------------------------------------
 
 !! kys, sijamuotoja yms
-[ PrintCommand from i k spacing_flag kys; 
+[ PrintCommand from i k spacing_flag kys poikkeus; 
 
   kys = from;    
     
@@ -1615,15 +1615,54 @@
             if (i in compass && LanguageVerbLikesAdverb(verb_word))
                 LanguageDirection (i.door_dir); ! the direction name
 	! as adverb
-            else
-	  
-		
-		!! print "** k ", k, ", kys ", kys, ", caseis ", CaseIs,
-		!!    " verb_word ", (address)
-		!!    verb_word;
 
-		! jos, 1. sana nom. 2. sana taipuu
-		if (CaseIs > 0 && k > 1) 
+
+	! jos MUU kuin ilmansuunta?
+	
+	!            else
+
+#ifdef DEBUG;
+    if (parser_trace > 0) {
+	print "^* PrintCommand: ", (address)verb_word, "! from ", from, ",
+	    k(ysymys) #", k, ", kys ", kys, ", CaseIs ", CaseIs, " *^";
+	if (action_reversed) print "* action reversed! *^";
+    }    
+#endif;
+
+
+	! taivutetaanko kysymystä?
+	poikkeus = 0;
+	
+	! jos, 1. sana taipuu vain partitiivissa (ks. alla)
+	! (2. sana taipuu)
+	!    "näytä mitä kenelle?"
+	!           1    2
+	! kysymykset "käänteisessä" järjestyksessä
+	!    "näytä kenelle mitä?"
+	!           2       1      
+	if (action_reversed) poikkeus = true;
+	! jotkut verbit ovat jo valmiiksi "toisinpäin",
+     	! esim ##ask:
+	!    "kysy keneltä mitä?"
+	!          (1)     (2)
+	! jolloin ##ask aiheuttaa "poikkeuksen" silloin
+	! kun action_reversed on epätosi.
+	! (tämä on sekavaa, voisi tehdä niin että
+	! lähtökohtaisesti 0 verbi - 1 subjekti - 2 objekti?
+	! jolloin oletus olisi aina esim. "näytä kenelle mitä?")
+	if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
+	    poikkeus = true;
+
+	! Tulostaa väärän sijan (partitiivin koska olettaa sen väärin
+	! tulevan annettavasta objektista eikä subj.)
+	!   >anna ristolle
+	!   anna Ristoa mitä?
+	!
+	! Eikä tätä näin ratkaista:
+	if (action_to_be == ##Give) {poikkeus = true; CaseIs = csAll;}	
+
+	
+		if (CaseIs > 0 && k > 1 || poikkeus) 
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
              		csGen: print (genetiivi) i;
@@ -1637,7 +1676,7 @@
 			csTra: print (translatiivi) i;}
 	
 	! "näytä palloA kenelle?"
-		else if (CaseIs == csPar && k < 2) print (partitiivi) i;
+	!	else if (CaseIs == csPar && k < 2) print (partitiivi) i;
 	
  		else print (the) i;
 	

@@ -442,34 +442,77 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     }  
 ];
 
-! Siis yritetään niin ettei pelaaja vastaa
-! genetiivissä? (haittaisiko se?)
+
+! [esim. lm misc 48 49]
+! Alla ajatuksena se että jos pelaaja antaa vajaan komennon
+! tarkentava kysymys johon pelaaja vastaa sijam.
 !
-!  What do you want to sit on top of?
+!   >istu
+!   (What do you want to sit on top of?)
+!   Istu mihin?
+!   >tuoliin/tuolille
 !
-!  -> MIHIN haluat istua? (juttuun/jutulle)
+! ("mihin" tulee action_to_be  ##Enter:istä)
 	
 ! tulee PrintCommandista... k on sen laskuri
-[ PrintKysymys verbi from k obj;
-    !!!  print from, "*", k, "/", from, "e:", etype, "^";
+[ PrintKysymys verbi from k obj kys _kys;
+   ! print "! from ", from, ", k ", k, ", etype ", etype, "^";
     
-    ! [lm misc 49]
-    if (k == 1) {print " mitä"; rtrue;}
     
-    objectloop (obj in VerbDepot) 
-    { if (WordInProperty (verbi, obj, name))
-	! esim. "Laita kuutio mihin?"
-	! esim. "Istu mihin?"
-    {	        	 
-	if (obj provides kysymys && from <= 1) print " ", (string)
-    	    obj.kysymys;
+    kys = "mitä";
+    _kys = 0;
+  
+    if (action_to_be == ##Fill or ##Unlock or ##Open or ##Take)
+	kys = "mikä";
+    ! kysy keneltä mitä -- poikkeus (on sääntö? --> tee siitä?)
+    if (action_to_be == ##Ask or ##Ask) kys = "keneltä";
+    
+
+    
+    ! "näytä mitä (oletus) kenelle (_kys)"  
+    if (action_to_be == ##Show or ##Give) _kys = "kenelle";
+    if (action_to_be == ##Lock or ##Unlock) _kys = "millä";
+    ! esim. laita mitä - mihin?
+    if (action_to_be == ##Insert) _kys = "mihin";
+    ! kysy ristolta mitä
+    if (action_to_be == ##Ask or ##AskFor) _kys = "mitä";
+    
+    
+#ifdef DEBUG;
+    if (parser_trace > 0) {
+	print "^* PrintKysymys: ", (address)verbi, "! from ", from, ",
+	    k(ysymys) #", k, ", CaseIs ", CaseIs, " *^";
+	if (action_reversed) print "* action reversed! *^";
+    }    
+#endif;
+        
+    
+    if (k == 1 && from < 2) {print " ", (string)kys; rtrue;}
+
+    ! VerbDepotissa voisi antaa omat kys ja_kys
+	! esim.: 
+	
+!    objectloop (obj in VerbDepot) 
+!    { if (WordInProperty (verbi, obj, name))
+!	kys = obj.kys;
+
+	
+    
+		
+
+	print " ";
+	! jos toinen kysymys, eikä käänteinen, tulosta _kys,
+	! muuten tulosta kys (ts. "poikkeus" ks printcommand)
+	if (k > 1 && _kys > 0 && action_reversed == false) print(string)_kys;
+	else print(string)kys;
+	
 	rtrue; 
 	
-    }
-	
-    }
     
-    rfalse;
+	
+    
+    
+    
 ];
 
 
