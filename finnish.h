@@ -443,6 +443,77 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ];
 
 
+
+! tänne tullaan PrintCommandista (parsermfi.h)...
+[ PrintKysNomini i from k poikkeus;
+    
+#ifdef DEBUG;
+    if (parser_trace > 0) {
+	print "^* PrintKysNomini: ", (address)verb_word, "! from ", from, ",
+	    k(ysymys) #", k, ", CaseIs ", CaseIs, " *^";
+	if (action_reversed) print "* action reversed! *^";
+    }    
+#endif;
+
+
+	! taivutetaanko kysymystä?
+	
+    if (CaseIs > 0 && k > 1) poikkeus = true;
+    else poikkeus = 0;
+
+    
+	! jos, 1. sana taipuu vain partitiivissa (ks. alla)
+	! (2. sana taipuu)
+	!    "näytä mitä kenelle?"
+	!           1    2
+	! kysymykset "käänteisessä" järjestyksessä
+	!    "näytä kenelle mitä?" 
+	!           2       1      
+	if (action_reversed) poikkeus = true;
+	! jotkut verbit ovat jo valmiiksi "toisinpäin",
+     	! esim ##ask:
+	!    "kysy keneltä mitä?"
+	!          (1)     (2)
+	! jolloin ##ask aiheuttaa "poikkeuksen" silloin
+	! kun action_reversed on epätosi.
+	! (tämä on sekavaa, voisi tehdä niin että
+	! lähtökohtaisesti 0 verbi - 1 subjekti - 2 objekti?
+    ! jolloin oletus olisi aina esim. "näytä kenelle mitä?")
+    !
+    ! ts. sallitaan 1. nominin taivutus "Näytä Ristolle mitä?"
+	if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
+	    poikkeus = true;
+
+	! Tulostaa väärän sijan (partitiivin koska olettaa sen väärin
+	! tulevan annettavasta objektista eikä subj.)
+	!   >anna ristolle
+	!   anna Ristoa mitä?
+	!
+	! Eikä tätä näin ratkaista:
+	if (action_to_be == ##Give) {poikkeus = true; CaseIs = csAll;}	
+
+	
+		if (poikkeus) 
+             		switch (CaseIs) {
+                 	csNom: print (nominatiivi) i;
+             		csGen: print (genetiivi) i;
+             		csPar: print (partitiivi) i; 
+			csIne: print (inessiivi) i;
+			csIll: print (illatiivi) i;
+			csAde: print (adessiivi) i; 
+			csAbl: print (ablatiivi) i;
+			csAll: print (allatiivi) i; 
+			csEss: print (essiivi) i;
+			csTra: print (translatiivi) i;}
+	
+	! "näytä palloA kenelle?"
+	!	else if (CaseIs == csPar && k < 2) print (partitiivi) i;
+	
+ 		else print (the) i;
+
+];
+
+
 ! [esim. lm misc 48 49]
 ! Alla ajatuksena se että jos pelaaja antaa vajaan komennon
 ! tarkentava kysymys johon pelaaja vastaa sijam.
@@ -454,7 +525,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 !
 ! ("mihin" tulee action_to_be  ##Enter:istä)
 	
-! tulee PrintCommandista... k on sen laskuri
+! myös tänne tullaan PrintCommandista... k on sen laskuri
 [ PrintKysymys verbi from k obj kys _kys;
    ! print "! from ", from, ", k ", k, ", etype ", etype, "^";
     
