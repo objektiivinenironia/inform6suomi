@@ -445,7 +445,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 
 ! tänne tullaan PrintCommandista (parsermfi.h)...
-[ PrintKysNomini i from k poikkeus;
+[ PrintKysNomini i from k taivuta;
     
 #ifdef DEBUG;
     if (parser_trace > 0) {
@@ -458,8 +458,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 	! taivutetaanko kysymystä?
 	
-    if (CaseIs > 0 && k > 1) poikkeus = true;
-    else poikkeus = 0;
+    if (CaseIs > 0 && k > 1) taivuta = true;
+    else taivuta = 0;
 
     
 	! jos, 1. sana taipuu vain partitiivissa (ks. alla)
@@ -469,7 +469,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	! kysymykset "käänteisessä" järjestyksessä
 	!    "näytä kenelle mitä?" 
 	!           2       1      
-	if (action_reversed) poikkeus = true;
+	if (action_reversed) taivuta = true;
 	! jotkut verbit ovat jo valmiiksi "toisinpäin",
      	! esim ##ask:
 	!    "kysy keneltä mitä?"
@@ -482,7 +482,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     !
     ! ts. sallitaan 1. nominin taivutus "Näytä Ristolle mitä?"
 	if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
-	    poikkeus = true;
+	    taivuta = true;
 
 	! Tulostaa väärän sijan (partitiivin koska olettaa sen väärin
 	! tulevan annettavasta objektista eikä subj.)
@@ -490,10 +490,10 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	!   anna Ristoa mitä?
 	!
 	! Eikä tätä näin ratkaista:
-	if (action_to_be == ##Give) {poikkeus = true; CaseIs = csAll;}	
+	if (action_to_be == ##Give) {taivuta = true; CaseIs = csAll;}	
 
 	
-		if (poikkeus) 
+		if (taivuta) 
              		switch (CaseIs) {
                  	csNom: print (nominatiivi) i;
              		csGen: print (genetiivi) i;
@@ -529,25 +529,40 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 [ PrintKysymys verbi from k obj kys _kys;
    ! print "! from ", from, ", k ", k, ", etype ", etype, "^";
     
-    
     kys = "mitä";
     _kys = 0;
   
     if (action_to_be == ##Fill or ##Unlock or ##Open or ##Take)
 	kys = "mikä";
-    ! kysy keneltä mitä -- poikkeus (on sääntö? --> tee siitä?)
-    if (action_to_be == ##Ask or ##Ask) kys = "keneltä";
-    
+    ! kysy keneltä mitä -- taivuta (poikkeus on sääntö?)
+    ! kysy ristolta mitä
+    if (action_to_be == ##Ask or ##AskFor)
+    { kys = "keneltä"; _kys = "mitä"; }
 
-    
-    ! "näytä mitä (oletus) kenelle (_kys)"  
+        ! "näytä mitä (oletus) kenelle (_kys)"  
     if (action_to_be == ##Show or ##Give) _kys = "kenelle";
     if (action_to_be == ##Lock or ##Unlock) _kys = "millä";
     ! esim. laita mitä - mihin?
     if (action_to_be == ##Insert) _kys = "mihin";
-    ! kysy ristolta mitä
-    if (action_to_be == ##Ask or ##AskFor) _kys = "mitä";
-    
+
+    ! VerbDepotissa voi antaa omat kys_a ja kys_b
+    ! esim.
+    !   Object "kysy" VerbDepot with name 'kysy',
+    !   kys_a "keneltäkö", kys_b "mittee";
+    !	
+    !    >kysy
+    !     Kysy keneltäkö?
+    !
+    !     >kysy ristolta
+    !     Kysy Ristolta mittee?
+      
+    objectloop (obj in VerbDepot) 
+    { if (WordInProperty (verbi, obj, name))
+	{
+	if (obj provides kys_a) kys = obj.kys_a;
+	if (obj provides kys_b) _kys = obj.kys_b;
+    }	
+    }
     
 #ifdef DEBUG;
     if (parser_trace > 0) {
@@ -555,35 +570,19 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	    k(ysymys) #", k, ", CaseIs ", CaseIs, " *^";
 	if (action_reversed) print "* action reversed! *^";
     }    
-#endif;
-        
+#endif;        
     
     if (k == 1 && from < 2) {print " ", (string)kys; rtrue;}
 
-    ! VerbDepotissa voisi antaa omat kys ja_kys
-	! esim.: 
-	
-!    objectloop (obj in VerbDepot) 
-!    { if (WordInProperty (verbi, obj, name))
-!	kys = obj.kys;
-
-	
-    
-		
-
 	print " ";
 	! jos toinen kysymys, eikä käänteinen, tulosta _kys,
-	! muuten tulosta kys (ts. "poikkeus" ks printcommand)
+	! muuten tulosta kys (taivuta, ks. PrintKysNomini)
 	if (k > 1 && _kys > 0 && action_reversed == false) print(string)_kys;
 	else print(string)kys;
 	
 	rtrue; 
 	
-    
-	
-    
-    
-    
+       
 ];
 
 

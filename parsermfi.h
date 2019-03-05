@@ -1590,7 +1590,7 @@
 ! ----------------------------------------------------------------------------
 
 !! kys, sijamuotoja yms
-[ PrintCommand from i k spacing_flag kys poikkeus; 
+[ PrintCommand from i k spacing_flag kys; 
 
   kys = from;    
     

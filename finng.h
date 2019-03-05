@@ -202,9 +202,10 @@ Verb 'kysy' 'tiedustele' 'pyydä'
     * abl_creat par_noun                   -> AskFor
     * par_creat   topic                    -> AskTo
     * abl_creat   topic                    -> AskTo;
+
 Object 	"kysy" VerbDepot
- with 	name 'kysy' 'tiedustele' 'pyydä',
-	kys "kekeltäkö", kys_ "mittee";
+ with 	name 'kysy' 'tiedustele' 'pyydä';
+! kys_a "keneltäkö", kys_b "mittee"; ! miksei?
 
 
 
