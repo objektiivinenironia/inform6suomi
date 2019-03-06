@@ -483,28 +483,27 @@ Array verbi_array --> verbi_pituus;
 ! ks. finng.h - etsii sijapäätteen 
 [ c_token  idtok csID
     retval;
-
-#Ifdef DEBUG;			     
-    if (parser_trace >= 4) 
-	print 	"^[!* c_token --", 
-	    " found_ttype: ", found_ttype, 
-	    " found_tdata: ", found_tdata,	    
-	    " CaseIs: ", CaseIs,
-	    " csLR: ", csLR,
-	    " csID: ", csID,
-	    " sija: ", sija, "]^";
-    
-#Endif;	
-
-    
+   
     csLR = csID;
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
     
     if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
 
-    
     CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
+
+#Ifdef DEBUG;			     
+    if (parser_trace >= 1) 
+	print 	"^[!* c_token!", 
+	    " found_ttype: ", found_ttype,
+	   ! " found_tdata: ", found_tdata,	    
+	    " CaseIs: ", CaseIs,
+	    " csLR: ", csLR,
+	    " csID: ", csID,
+	    " sija: ", sija,
+	    " retval: ", retval, "^";
+    
+#Endif;	
     
     csLR = 0;
     

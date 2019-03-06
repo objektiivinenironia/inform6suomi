@@ -1616,7 +1616,7 @@
                 LanguageDirection (i.door_dir); ! the direction name
 	! as adverb
 
-	! jos MUU kuin ilmansuunta?
+	! jos MUU kuin ilmansuunta?!
 	
 	!            else
 

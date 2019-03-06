@@ -289,10 +289,11 @@ Verb 'täytä'
     * nom_noun                             -> Fill;
 ! mitä - kenelle
 Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
-    * nom_held all_creat                   -> Give
-    * par_held all_creat                   -> Give
-    * creature nom_held                    -> Give reverse
-    * creature par_Held                    -> Give reverse;
+    * nom_held all_creat		-> Give 
+    * par_held all_creat		-> Give
+    * all_creat nom_held		-> Give reverse
+    * all_creat par_Held		-> Give reverse;
+
 
 Object 	"anna" VerbDepot
  with 	name 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita';

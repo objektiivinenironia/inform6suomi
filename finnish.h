@@ -450,16 +450,18 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 #ifdef DEBUG;
     if (parser_trace > 0) {
 	print "^* PrintKysNomini: ", (address)verb_word, "! from ", from, ",
-	    k(ysymys) #", k, ", CaseIs ", CaseIs, " *^";
+	    k(ysymys) #", k, ", CaseIs ", CaseIs, ", csLR ", csLR, "*^";
 	if (action_reversed) print "* action reversed! *^";
     }    
 #endif;
 
+    taivuta = true;
+    
 
 	! taivutetaanko kysymystä?
 	
-    if (CaseIs > 0 && k > 1) taivuta = true;
-    else taivuta = 0;
+!    if (CaseIs > 0 && k > 1) taivuta = true;
+!    else taivuta = 0;
 
     
 	! jos, 1. sana taipuu vain partitiivissa (ks. alla)
@@ -469,7 +471,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	! kysymykset "käänteisessä" järjestyksessä
 	!    "näytä kenelle mitä?" 
 	!           2       1      
-	if (action_reversed) taivuta = true;
+!	if (action_reversed) taivuta = true;
 	! jotkut verbit ovat jo valmiiksi "toisinpäin",
      	! esim ##ask:
 	!    "kysy keneltä mitä?"
@@ -481,8 +483,8 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     ! jolloin oletus olisi aina esim. "näytä kenelle mitä?")
     !
     ! ts. sallitaan 1. nominin taivutus "Näytä Ristolle mitä?"
-	if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
-	    taivuta = true;
+!	if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
+!	    taivuta = true;
 
 	! Tulostaa väärän sijan (partitiivin koska olettaa sen väärin
 	! tulevan annettavasta objektista eikä subj.)
@@ -490,7 +492,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	!   anna Ristoa mitä?
 	!
 	! Eikä tätä näin ratkaista:
-	if (action_to_be == ##Give) {taivuta = true; CaseIs = csAll;}	
+!	if (action_to_be == ##Give) {taivuta = true; CaseIs = csAll;}	
 
 	
 		if (taivuta) 
@@ -567,7 +569,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 #ifdef DEBUG;
     if (parser_trace > 0) {
 	print "^* PrintKysymys: ", (address)verbi, "! from ", from, ",
-	    k(ysymys) #", k, ", CaseIs ", CaseIs, " *^";
+	    k(ysymys) #", k, ", CaseIs ", CaseIs, ", csLR ", csLR, " *^";
 	if (action_reversed) print "* action reversed! *^";
     }    
 #endif;        
