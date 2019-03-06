@@ -193,15 +193,18 @@ Verb meta 'glklist'
 ! PrintKysymys (finnish.h) tulostaa muita
 
 Verb 'vastaa' 'sano' 'puhu'
-    * topic                                -> Answer
-    * all_creat topic                      -> Answer
-    * all_creat ela_noun topic             -> Answer reverse;
-Verb 'kysy' 'tiedustele' 'pyydä'
-    * creature topic                       -> Ask
-    * abl_creat nom_noun                   -> AskFor
-    * abl_creat par_noun                   -> AskFor
-    * par_creat   topic                    -> AskTo
-    * abl_creat   topic                    -> AskTo;
+    * topic				-> Answer
+    * all_creat topic			-> Answer
+    * all_creat ela_noun topic		-> Answer reverse;
+Verb 'kysy' 'pyydä' ! 'tiedustele'
+! ristolta pallosta
+    * abl_creat topic			-> Ask 
+!   * abl_creat nom_noun                   -> AskFor
+! ristolta palloa
+    * abl_creat par_noun		-> AskFor
+! ristoa olemaan hiljaa
+    * par_creat   topic			-> AskTo;
+!   * abl_creat   topic                    -> AskTo;
 
 Object 	"kysy" VerbDepot
  with 	name 'kysy' 'tiedustele' 'pyydä';
@@ -505,7 +508,7 @@ Verb 'tee'
 Verb 'maista'
     * par_noun                             -> Taste;
 Verb 'kerro'
-    * creature topic                       -> Tell; 
+    * creature topic			-> Tell; ! all_creat
 Verb 'ajattele'
     *                                      -> Think;
 Verb 'sido' 'kiinnitä'

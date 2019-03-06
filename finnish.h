@@ -497,7 +497,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	
 		if (taivuta) 
              		switch (CaseIs) {
-                 	csNom: print (nominatiivi) i;
+                 	 csNom: print (nominatiivi) i; ! +jos oletus_par?
              		csGen: print (genetiivi) i;
              		csPar: print (partitiivi) i; 
 			csIne: print (inessiivi) i;
@@ -533,7 +533,37 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     
     kys = "mitä";
     _kys = 0;
-  
+
+    switch (csLR) 
+    {
+	!Nominatiivi 1: Risto
+     1: _kys = "kenet";!kuka?	
+	!Genetiivi   2: Riston
+     2: _kys = "kenen";!kenet?
+   	!Partitiivi  3: Ristoa
+     3: _kys = "ketä";
+	!Inessiivi   4: Ristossa
+     4: _kys = "kenessä";
+      	!Elatiivi    5: Ristosta
+     5: _kys = "kenestä";
+   	!Illatiivi   6: Ristoon
+     6: _kys = "keneen";
+      	!Adessiivi   7: Ristolla
+     7: _kys = "kenellä";
+   	!Ablatiivi   8: Ristolta
+     8: _kys = "keneltä";
+   	!Allatiivi   9: Ristolle
+     9: _kys = "kenelle";
+   	!Essiivi    10: Ristona
+     10: _kys = "kenenä";
+      	!Translat.  11: Ristoksi
+     11: _kys = "keneksi";
+   	
+    }
+    
+
+    
+    
     if (action_to_be == ##Fill or ##Unlock or ##Open or ##Take)
 	kys = "mikä";
     ! kysy keneltä mitä -- taivuta (poikkeus on sääntö?)
@@ -545,7 +575,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     if (action_to_be == ##Show or ##Give) _kys = "kenelle";
     if (action_to_be == ##Lock or ##Unlock) _kys = "millä";
     ! esim. laita mitä - mihin?
-    if (action_to_be == ##Insert) _kys = "mihin";
+!    if (action_to_be == ##Insert) _kys = "mihin";
 
     ! VerbDepotissa voi antaa omat kys_a ja kys_b
     ! esim.
@@ -607,18 +637,18 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 [ PrintSijatSub;
   print ! "^Artikkeli?:", (a) x1,
-  	"^Oletus (name):", (name) noun,
-  	"^Nominatiivi:  ", (nominatiivi) noun, 
-  	"^Partitiivi:   ", (partitiivi) noun, 
-  	"^Genetiivi:    ", (genetiivi) noun, 
-  	"^Essiivi:      ", (essiivi) noun,	
-  	"^Inessiivi:    ", (inessiivi) noun, 
-  	"^Illatiivi:    ", (illatiivi) noun, 
-  	"^Elatiivi:     ", (elatiivi) noun, 
-  	"^Adessiivi:    ", (adessiivi) noun, 
-  	"^Ablatiivi:    ", (ablatiivi) noun,
-	"^Translatiivi: ", (translatiivi) noun, 
-	"^Allatiivi:    ", (allatiivi) noun, "^";
+  	"^Oletus (name): ", (name) noun,
+  	"^Nominatiivi 1: ", (nominatiivi) noun, 
+  	"^Partitiivi  3: ", (partitiivi) noun, 
+  	"^Genetiivi   2: ", (genetiivi) noun, 
+  	"^Essiivi    10: ", (essiivi) noun,	
+  	"^Inessiivi   4: ", (inessiivi) noun, 
+  	"^Illatiivi   6: ", (illatiivi) noun, 
+  	"^Elatiivi    5: ", (elatiivi) noun, 
+  	"^Adessiivi   7: ", (adessiivi) noun, 
+  	"^Ablatiivi   8: ", (ablatiivi) noun,
+	"^Translat.  11: ", (translatiivi) noun, 
+	"^Allatiivi   9: ", (allatiivi) noun, "^";
 
  ];
 
