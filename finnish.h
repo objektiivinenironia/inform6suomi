@@ -37,6 +37,11 @@ Replace PSN__; ! "sinä itse" jne.
 
 Constant LanguageVersion = "Finnish";
 
+
+! asiayhteys on rutiinin PrintKysymys
+! arvailua varten ks. adjudicate (context)
+Global asiayhteys = 0; 
+
 Constant LanguageCases = 11;	
 
 Constant csOff =	0;
@@ -455,10 +460,10 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     }    
 #endif;
 
-    taivuta = true;
-    
-
-	! taivutetaanko kysymystä?
+    ! taivutetaanko kysymyslauseen 1. nomini vai ei?
+    if (action_reversed == false && k == 1)
+    	taivuta = false; else taivuta = true;
+    	
 	
 !    if (CaseIs > 0 && k > 1) taivuta = true;
 !    else taivuta = 0;
@@ -528,40 +533,81 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! ("mihin" tulee action_to_be  ##Enter:istä)
 	
 ! myös tänne tullaan PrintCommandista... k on sen laskuri
-[ PrintKysymys verbi from k obj kys _kys;
-   ! print "! from ", from, ", k ", k, ", etype ", etype, "^";
+[ PrintKysymys verbi from k obj kys _kys joku;
+    !   print "! from ", from, ", k ", k, ", etype ", etype, "^";
+    
+    joku = 0;
+    
+    ! asiayhteys tulee
+    ! adjudicate context jolla arvataan
+    ! onko kysymyksen kohde "elollinen" (6 == CREATURE_TOKEN) 
+    if (asiayhteys == CREATURE_TOKEN) 
+    	joku = 1;
+    
+    ! ...nollataan se.
+    asiayhteys = 0;
+    
     
     kys = "mitä";
     _kys = 0;
-
-    switch (csLR) 
-    {
-	!Nominatiivi 1: Risto
-     1: _kys = "kenet";!kuka?	
-	!Genetiivi   2: Riston
-     2: _kys = "kenen";!kenet?
-   	!Partitiivi  3: Ristoa
-     3: _kys = "ketä";
-	!Inessiivi   4: Ristossa
-     4: _kys = "kenessä";
-      	!Elatiivi    5: Ristosta
-     5: _kys = "kenestä";
-   	!Illatiivi   6: Ristoon
-     6: _kys = "keneen";
-      	!Adessiivi   7: Ristolla
-     7: _kys = "kenellä";
-   	!Ablatiivi   8: Ristolta
-     8: _kys = "keneltä";
-   	!Allatiivi   9: Ristolle
-     9: _kys = "kenelle";
-   	!Essiivi    10: Ristona
-     10: _kys = "kenenä";
-      	!Translat.  11: Ristoksi
-     11: _kys = "keneksi";
-   	
-    }
     
-
+    if (joku)
+    	switch (csLR) 
+    	{
+	    !Nominatiivi 1: Risto
+     	 1: _kys = "kenet";!kuka?	
+	    !Genetiivi   2: Riston
+     	 2: _kys = "kenen";!kenet?
+   	    !Partitiivi  3: Ristoa
+     	 3: _kys = "ketä";
+	    !Inessiivi   4: Ristossa
+     	 4: _kys = "kenessä";
+      	    !Elatiivi    5: Ristosta
+     	 5: _kys = "kenestä";
+   	    !Illatiivi   6: Ristoon
+     	 6: _kys = "keneen";
+      	    !Adessiivi   7: Ristolla
+     	 7: _kys = "kenellä";
+   	    !Ablatiivi   8: Ristolta
+     	 8: _kys = "keneltä";
+   	    !Allatiivi   9: Ristolle
+     	 9: _kys = "kenelle";
+   	    !Essiivi    10: Ristona
+     	 10: _kys = "kenenä";
+      	    !Translat.  11: Ristoksi
+     	 11: _kys = "keneksi";
+   	    
+    	}
+    
+    else
+    	switch (csLR) 
+    	{
+	    !Nominatiivi 1: pallo
+     	 1: _kys = "mikä";	
+	    !Genetiivi   2: pallon
+     	 2: _kys = "minkä";
+   	    !Partitiivi  3: palloa
+     	 3: _kys = "mitä";
+	    !Inessiivi   4: pallossa
+     	 4: _kys = "missä";
+      	    !Elatiivi    5: pallosta
+     	 5: _kys = "mistä";
+   	    !Illatiivi   6: palloon
+     	 6: _kys = "mihin";
+      	    !Adessiivi   7: pallolla
+     	 7: _kys = "millä";
+   	    !Ablatiivi   8: pallolta
+     	 8: _kys = "miltä";
+   	    !Allatiivi   9: pallolle
+     	 9: _kys = "mille";
+   	    !Essiivi    10: pallona
+     	 10: _kys = "minä";
+      	    !Translat.  11: palloksi
+     	 11: _kys = "miksi";
+   	    
+    	}
+    
+    
     
     
     if (action_to_be == ##Fill or ##Unlock or ##Open or ##Take)
@@ -570,13 +616,13 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     ! kysy ristolta mitä
     if (action_to_be == ##Ask or ##AskFor)
     { kys = "keneltä"; _kys = "mitä"; }
-
-        ! "näytä mitä (oletus) kenelle (_kys)"  
+    
+    ! "näytä mitä (oletus) kenelle (_kys)"  
     if (action_to_be == ##Show or ##Give) _kys = "kenelle";
     if (action_to_be == ##Lock or ##Unlock) _kys = "millä";
     ! esim. laita mitä - mihin?
-!    if (action_to_be == ##Insert) _kys = "mihin";
-
+    !    if (action_to_be == ##Insert) _kys = "mihin";
+    
     ! VerbDepotissa voi antaa omat kys_a ja kys_b
     ! esim.
     !   Object "kysy" VerbDepot with name 'kysy',
@@ -587,10 +633,10 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     !
     !     >kysy ristolta
     !     Kysy Ristolta mittee?
-      
+    
     objectloop (obj in VerbDepot) 
     { if (WordInProperty (verbi, obj, name))
-	{
+    {
 	if (obj provides kys_a) kys = obj.kys_a;
 	if (obj provides kys_b) _kys = obj.kys_b;
     }	
@@ -598,23 +644,24 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     
 #ifdef DEBUG;
     if (parser_trace > 0) {
-	print "^* PrintKysymys: ", (address)verbi, "! from ", from, ",
-	    k(ysymys) #", k, ", CaseIs ", CaseIs, ", csLR ", csLR, " *^";
+	print "^* PrintKysymys: ", (address)verbi, "! (joku=", joku,
+	    ") from ", from, ", k(ysymys) #", k, ", CaseIs ", CaseIs,
+	    ", csLR ", csLR, " *^";
 	if (action_reversed) print "* action reversed! *^";
     }    
 #endif;        
     
     if (k == 1 && from < 2) {print " ", (string)kys; rtrue;}
-
-	print " ";
-	! jos toinen kysymys, eikä käänteinen, tulosta _kys,
-	! muuten tulosta kys (taivuta, ks. PrintKysNomini)
-	if (k > 1 && _kys > 0 && action_reversed == false) print(string)_kys;
-	else print(string)kys;
-	
-	rtrue; 
-	
-       
+    
+    print " ";
+    ! jos toinen kysymys, eikä käänteinen, tulosta _kys,
+    ! muuten tulosta kys (taivuta, ks. PrintKysNomini)
+    if (k > 1 && _kys > 0 && action_reversed == false) print(string)_kys;
+    else print(string)kys;
+    
+    rtrue; 
+    
+    
 ];
 
 

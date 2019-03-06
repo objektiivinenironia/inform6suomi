@@ -360,7 +360,6 @@
 ];
 
 
-
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
 
@@ -390,11 +389,24 @@
 	(indef_type & PLURAL_BIT), ", luku ", luku, "]^";
     } 
 #Endif; ! DEBUG
-    
+
+
+    ! asiayhteys on globaali
+    ! ks. PrintKysymys (arvataan onko jokin/joku)
+    asiayhteys = context;
+        
     #Ifdef DEBUG;
+    ! konteksti väliaik. näkyviin tasolla 1
+    if (parser_trace > 0)
+	{ print "   ** Adjudicate: asiayhteys = context (", context, ") ";
+ 	if (context == 6) print " == CREATURE_TOKEN "; print "**^";
+    }
+    
+	
+    
     if (parser_trace >= 4) {
         print "   [Adjudicating match list of size ", number_matched, " in context ", context, "^";
-        print "   ";
+        print "   ";	
 
         if (indef_mode) {
             print "indefinite type: ";
