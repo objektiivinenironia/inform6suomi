@@ -460,11 +460,35 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     }    
 #endif;
 
-    ! taivutetaanko kysymyslauseen 1. nomini vai ei?
-    if (action_reversed == false && k == 1)
-    	taivuta = false; else taivuta = true;
-    	
+    ! 1. nomini taipuu jos: "kysy -Ristolta- mitä?"
+    if (k == 1 && action_to_be == ##Ask or ##AskFor)
+	! && action_reversed == false?
+    taivuta = true;
+    
+    ! 1. nomini ei lähtökohtaisesti taivu
+    ! paitsi partitiivissa: "näytä -palloa- kenelle?"
+    else if (k == 1 && action_reversed == false && CaseIs ~= csPar) 
+	taivuta = false;
+    ! k>2 TAI action_reversed TAI csPar 
+    else taivuta = true;
+    
+
 	
+!    if (action_reversed == false && k == 1)
+!    	taivuta = false;
+
+!    if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
+!	    taivuta = true;
+    ! ei...
+!    if (action_reversed == true && k == 2)
+!	taivuta = false;
+    	
+
+
+
+
+
+    
 !    if (CaseIs > 0 && k > 1) taivuta = true;
 !    else taivuta = 0;
 
@@ -533,25 +557,21 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! ("mihin" tulee action_to_be  ##Enter:istä)
 	
 ! myös tänne tullaan PrintCommandista... k on sen laskuri
-[ PrintKysymys verbi from k obj kys _kys joku;
+[ PrintKysymys verbi from k obj kys _kys asia;
     !   print "! from ", from, ", k ", k, ", etype ", etype, "^";
     
-    joku = 0;
+    asia = asiayhteys;
+    asiayhteys = 0; ! ...nollataan se.
     
     ! asiayhteys tulee
     ! adjudicate context jolla arvataan
-    ! onko kysymyksen kohde "elollinen" (6 == CREATURE_TOKEN) 
-    if (asiayhteys == CREATURE_TOKEN) 
-    	joku = 1;
-    
-    ! ...nollataan se.
-    asiayhteys = 0;
-    
-    
+    ! esim. onko kysymyksen kohde "elollinen" (6 == CREATURE_TOKEN) 
+     
+        
     kys = "mitä";
     _kys = 0;
     
-    if (joku)
+    if (asia == CREATURE_TOKEN) !(== 6)
     	switch (csLR) 
     	{
 	    !Nominatiivi 1: Risto
@@ -644,23 +664,37 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     
 #ifdef DEBUG;
     if (parser_trace > 0) {
-	print "^* PrintKysymys: ", (address)verbi, "! (joku=", joku,
+	print "^* PrintKysymys: ", (address)verbi, "! (asia=", asia,
 	    ") from ", from, ", k(ysymys) #", k, ", CaseIs ", CaseIs,
 	    ", csLR ", csLR, " *^";
 	if (action_reversed) print "* action reversed! *^";
     }    
 #endif;        
     
-    if (k == 1 && from < 2) {print " ", (string)kys; rtrue;}
+    
     
     print " ";
+    ! ok, ao. on aikamoista suttua
+    !
     ! jos toinen kysymys, eikä käänteinen, tulosta _kys,
     ! muuten tulosta kys (taivuta, ks. PrintKysNomini)
-    if (k > 1 && _kys > 0 && action_reversed == false) print(string)_kys;
-    else print(string)kys;
+    ! (_kys täytyy olla merkkijono tai error)
+    !
+    ! ehto: asia == NOUN_TOKEN on nolla,
+    ! jotta esim.
+    ! ">istu" ei vastaisi "istu mitä?" vaan "istu mille?"
+    if (k > 1 && _kys > 0 && action_reversed == false)
+       	! print "*A* ", (string)_kys;
+       	print (string)_kys;
+    else if (asia == NOUN_TOKEN && from == k && _kys > 0)
+       	! print "*B* ", (string)_kys;
+       	print (string)_kys;
+    else
+       	! print "*C* ", (string)kys;
+        print (string)kys;
+    rtrue;
     
-    rtrue; 
-    
+    ! if (k == 1 && from < 2) {print " ", "*C*", (string)kys; rtrue;}
     
 ];
 
