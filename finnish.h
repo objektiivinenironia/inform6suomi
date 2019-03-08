@@ -450,12 +450,17 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 
 ! tänne tullaan PrintCommandista (parsermfi.h)...
-[ PrintKysNomini i from k taivuta;
+[ PrintKysNomini i from k taivuta; ! asia;
+
+       
+    !asia = asiayhteys; !(ks. PrintKysymys) 
+    !asiayhteys = 0;
+    
     
 #ifdef DEBUG;
     if (parser_trace > 0) {
-	print "^* PrintKysNomini: ", (address)verb_word, "! from ", from, ",
-	    k(ysymys) #", k, ", CaseIs ", CaseIs, ", csLR ", csLR, "*^";
+	print "^* PrintKysNomini: ", (address)verb_word, "! from ", from,
+	    " k(ysymys) #", k, ", CaseIs ", CaseIs, ", csLR ", csLR, "*^";
 	if (action_reversed) print "* action reversed! *^";
     }    
 #endif;
@@ -474,56 +479,6 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     
 
 	
-!    if (action_reversed == false && k == 1)
-!    	taivuta = false;
-
-!    if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
-!	    taivuta = true;
-    ! ei...
-!    if (action_reversed == true && k == 2)
-!	taivuta = false;
-    	
-
-
-
-
-
-    
-!    if (CaseIs > 0 && k > 1) taivuta = true;
-!    else taivuta = 0;
-
-    
-	! jos, 1. sana taipuu vain partitiivissa (ks. alla)
-	! (2. sana taipuu)
-	!    "näytä mitä kenelle?"
-	!           1    2
-	! kysymykset "käänteisessä" järjestyksessä
-	!    "näytä kenelle mitä?" 
-	!           2       1      
-!	if (action_reversed) taivuta = true;
-	! jotkut verbit ovat jo valmiiksi "toisinpäin",
-     	! esim ##ask:
-	!    "kysy keneltä mitä?"
-	!          (1)     (2)
-	! jolloin ##ask aiheuttaa "poikkeuksen" silloin
-	! kun action_reversed on epätosi.
-	! (tämä on sekavaa, voisi tehdä niin että
-	! lähtökohtaisesti 0 verbi - 1 subjekti - 2 objekti?
-    ! jolloin oletus olisi aina esim. "näytä kenelle mitä?")
-    !
-    ! ts. sallitaan 1. nominin taivutus "Näytä Ristolle mitä?"
-!	if (action_to_be == ##Ask or ##AskFor && action_reversed == false)
-!	    taivuta = true;
-
-	! Tulostaa väärän sijan (partitiivin koska olettaa sen väärin
-	! tulevan annettavasta objektista eikä subj.)
-	!   >anna ristolle
-	!   anna Ristoa mitä?
-	!
-	! Eikä tätä näin ratkaista:
-!	if (action_to_be == ##Give) {taivuta = true; CaseIs = csAll;}	
-
-	
 		if (taivuta) 
              		switch (CaseIs) {
                  	 csNom: print (nominatiivi) i; ! +jos oletus_par?
@@ -536,9 +491,6 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 			csAll: print (allatiivi) i; 
 			csEss: print (essiivi) i;
 			csTra: print (translatiivi) i;}
-	
-	! "näytä palloA kenelle?"
-	!	else if (CaseIs == csPar && k < 2) print (partitiivi) i;
 	
  		else print (the) i;
 
@@ -559,13 +511,14 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! myös tänne tullaan PrintCommandista... k on sen laskuri
 [ PrintKysymys verbi from k obj kys _kys asia;
     !   print "! from ", from, ", k ", k, ", etype ", etype, "^";
-    
+
+    ! asiayhteys on token
+    ! adjudicate (context), sillä arvataan
+    ! kysytäänkö esim. "mille"/"kenelle"
+
     asia = asiayhteys;
     asiayhteys = 0; ! ...nollataan se.
     
-    ! asiayhteys tulee
-    ! adjudicate context jolla arvataan
-    ! esim. onko kysymyksen kohde "elollinen" (6 == CREATURE_TOKEN) 
      
         
     kys = "mitä";
@@ -676,9 +629,11 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     print " ";
     ! ok, ao. on aikamoista suttua
     !
-    ! jos toinen kysymys, eikä käänteinen, tulosta _kys,
+    ! jos kysymys #2, eikä käänteinen järjestys
+    ! (action_reversed), tulosta _kys,
     ! muuten tulosta kys (taivuta, ks. PrintKysNomini)
-    ! (_kys täytyy olla merkkijono tai error)
+    !
+    ! -- _kys täytyy olla merkkijono 
     !
     ! ehto: asia == NOUN_TOKEN on nolla,
     ! jotta esim.
@@ -694,8 +649,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
         print (string)kys;
     rtrue;
     
-    ! if (k == 1 && from < 2) {print " ", "*C*", (string)kys; rtrue;}
-    
+      
 ];
 
 

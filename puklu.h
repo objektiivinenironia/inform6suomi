@@ -309,8 +309,14 @@ Global sija; ! tulostusta varten
 	}
 	
 	
-        ! WTF   
-        ! wtf kelpuuttaa mitä vain köntsää 
+        ! villikortti
+        ! kelpuuttaa mitä vain
+ 	! sanakirjasanan ja sijapäätteen väliin
+	! luolasusi luolasutta luolasudelle luolasudesta luolasuteen
+	!
+	! luolasu* 
+	!
+	! 
 	if (w ~= 0 && WordInProperty (w, obj, wtf)) {
 	    print "köntsä! ", len, " ";
 	    rtrue;
@@ -491,28 +497,32 @@ Array verbi_array --> verbi_pituus;
     if (retval == 10000) sija = 10000; else sija = 0; !! mikä tämä on?
     
     CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
+
+  if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)  
+  multiflag = 1;
     
 #Ifdef DEBUG;			     
-    if (parser_trace >= 1)
+    if (parser_trace >= 2)
     {
-	
+
 	print 	"^[!* c_token! idtok (", idtok, "): ";  
     switch (idtok) {
-     NOUN_TOKEN: print "NOUN_TOKEN";
-     HELD_TOKEN: print "HELD_TOKEN";
-     CREATURE_TOKEN: print "CREATURE_TOKEN";
-     MULTI_TOKEN: print "MULTI_TOKEN";
-     MULTIHELD_TOKEN: print "MULTIHELD_TOKEN";
+     NOUN_TOKEN: print "NOUN_TOKEN^";
+     HELD_TOKEN: print "HELD_TOKEN^";
+     CREATURE_TOKEN: print "CREÄTURE_TOKEN^";
+     MULTI_TOKEN: print "MULTI_TOKEN^";
+     MULTIHELD_TOKEN: print "MULTIHELD_TOKEN^";
+	
     }
-    
-    print " | ",
-!	" lookahead: ", lookahead,
-!	" found_ttype: ", found_ttype,
+    	   if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)
+    	   print "- Asetetaan *multiflag* koska muuten luulee moneksi -^"; 
+	!" lookahead: ", lookahead,
+	!" found_ttype: ", found_ttype,
 	" CaseIs: ", CaseIs,
-	" csLR: ", csLR,
-	" csID: ", csID,
-	" sija: ", sija,
-	" retval: ", retval, "^";
+	"^ csLR: ", csLR,
+	"^ csID: ", csID,
+	"^ sija: ", sija,
+	"^ retval: ", retval, "]^";
     }
     
 #Endif;	

@@ -256,8 +256,8 @@
 			 !!!   " indef_mode: ", indef_mode, "^";
 			
                     }
-                    indef_type = indef_type | PLURAL_BIT;
-		   !!! print " *? indef_type = ", indef_type, "!^";		    
+		    ! Tästä saadaan vääriä virheilmoituksia
+                    indef_type = indef_type | PLURAL_BIT;		    
                     if (indef_wanted == 0) indef_wanted = 100;
                 }
             }
@@ -1186,10 +1186,12 @@
         wn = desc_wn;
         jump TryAgain;
     }
-    
-    if ((indef_wanted > 0 || prev_indef_wanted > 0) && (~~multiflag)) etype = MULTI_PE;
 
-    !!! print "?*? ParseToken__ ***??? GPR_FAIL!^";
+    ! ks. myös TryGivenObject (...) indef_type = indef_type | PLURAL_BIT
+    ! virheilmoissa tänne tultaessa väärä fail (MULTI_PE)
+    ! jos joku muu kuin nominatiivi, siis sijapääte aiheuttaa tässä että:
+    ! indef_wanted == 100, multiflag == false joten MULTI_PE
+    if ((indef_wanted > 0 || prev_indef_wanted > 0) && (~~multiflag)) etype = MULTI_PE;    
     
     return GPR_FAIL;
 

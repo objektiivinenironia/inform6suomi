@@ -206,8 +206,8 @@ Verb 'kysy' 'pyydä' ! 'tiedustele'
     * par_creat   topic			-> AskTo;
 !   * abl_creat   topic                    -> AskTo;
 
-Object 	"kysy" VerbDepot
- with 	name 'kysy' 'tiedustele' 'pyydä';
+!Object 	"kysy" VerbDepot
+! with 	name 'kysy' 'tiedustele' 'pyydä';
 ! kys_a "keneltäkö", kys_b "mittee"; ! miksei?
 
 
