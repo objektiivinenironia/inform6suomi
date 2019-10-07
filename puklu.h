@@ -282,11 +282,79 @@ Global CaseIs; ! kertoo PrintCommandille mikä on syötteen sijamuoto
 Global sija; ! tulostusta varten
 
 
+[ NextWordOma i j adr len end w;
+
+    !print WordLength(wn);
+
+    adr = WordAddress(wn);  
+    len = WordLength(wn);
+
+    for (end = len: end ~= 0 : --end)
+    {
+	w = DL(adr, end);
+	
+
+     ! print end, " ", len, "/", adr, " ";
+     ! if (wn > parse->1) { wn++; rfalse; }
+    
+	print len, "*", end, "/";
+	if (w ~= 0)
+	{
+	    print w;
+	    j = w;
+	    
+	    break;
+	    
+	}
+	
+	
+	
+    }
+    print " ";
+    
+!    print "^w=", w, "^";
+!    print "j=", j, "^"; 
+!    print "i=", i, "^"; 
+!    print "adr=", adr, "^";
+!    print "---------------------^";
+    
+	    !while (end < len)
+	    !{
+		!end++;		
+		!if (EndingLookup (adr+end, len-end, csID))
+		 !   }
+    
+    
+    
+    if (wn > parse->1) { wn++; rfalse; }
+    i = wn*2-1; wn++;
+    j = parse-->i;
+    if (j == ',//') j = comma_word;
+    if (j == './/') j = THEN1__WD;
+  
+ !   print "w=", w, "^";
+ !   print "j=", j, "^"; 
+ !   print "i=", i, "^"; 
+ !   print "adr=", adr, "^";
+ !   print "---------------------^";
+
+    print j;
+    
+
+
+    
+    return j;
+];
+
+
 ! LanguageRefers
 !
 ! Parseri kysyy languagerefersiltä kelpaako syöte sanakirjasanaksi
 ! languagerefers vastaa sen perusteella mitä endinglookup
 ! kertoo sijapäätteestä. 
+
+! lyh on "jokeri"
+property lyh;
 
 [ LanguageRefers obj wnum adr len end w csID; 
     
@@ -301,36 +369,53 @@ Global sija; ! tulostusta varten
 	
 	if (parent (obj) == Compass)
    	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
-	    (adr+end, len-end, csID)) rtrue;
+	      (adr+end, len-end, csID)) rtrue;
+	    
+	    
 
 	    ! ao. hyväksyy vain partitiivin ">t ptä" ">mene pohjoista"
 	    ! muuten esim. ">lu" (luode) vastaa: "Länsi vai luode?"
 	    if (csID ~= 3) rfalse; 
-	}
+	}	
 	
-	
-        ! villikortti
+        ! villikortti lyh
         ! kelpuuttaa mitä vain
- 	! sanakirjasanan ja sijapäätteen väliin
+ 	! sanakirjasanan ja sijapäätteen väliin. esim.
 	! luolasusi luolasutta luolasudelle luolasudesta luolasuteen
+        ! (muista sanakirjasanat ''-sisään ei toimi muuten)
 	!
-	! luolasu* 
-	!
-	! 
-	if (w ~= 0 && WordInProperty (w, obj, wtf)) {
-	    print "köntsä! ", len, " ";
-	    rtrue;
+	! Object -> luolis "luolasu/si"
+        !  with 	lyh 'luolasu' 'su'
+	
+	
+	if (w ~= 0 && WordInProperty (w, obj, lyh))
+	{
+	    !  etsitään sanakirjasanan
+	    !  jälkeen ja rtrue kun pääte löytyy
+	    !  välissä voi olla mitä tahansa köntsää
+	    !    >anna pallo sudelle
+	    !  ja
+	    !    >anna pallo surtkgjkjkrgjegeglle
+	    !  sama lopputulos
+	    while (end < len)
+	    {
+		end++;		
+		if (EndingLookup (adr+end, len-end, csID))
+		{
+		    
+
+	    	    ! "^[* lyh (villikortti, jokeri, wtf...) end: ", end,
+		    !	    " len: ", len" *]^";
+		    ! debugsijat(adr, wnum, len, end, w, csID);
+		    
+		    rtrue;
+		}
+		
+	    	
+	    }
 	}
 	
-	
-	    ! print " TEMP ", adr, " ", end;
-	
-	     !&& EndingLookup
-	     !(adr+end, len-end, csID)) print csID;
-
-
-		!if (csID ~= 3) rfalse;
-
+	    
 	
 
 	!! (property) taipumaton
@@ -498,6 +583,9 @@ Array verbi_array --> verbi_pituus;
     
     CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
 
+    ! multiflag jottei luule montaa asiaa haettavan
+    ! nyt kys. onkin onko edes tämä "ei MULTI_" ehto paikallaan
+    ! ANIMA_PE -> MULTI_PE bugi
   if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)  
   multiflag = 1;
     

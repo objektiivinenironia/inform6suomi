@@ -256,7 +256,11 @@
 			 !!!   " indef_mode: ", indef_mode, "^";
 			
                     }
+		 
+		    ! ANIMA_PE -> MULTI_PE bugi (t‰‰ll‰p‰in)
 		    ! T‰st‰ saadaan v‰‰ri‰ virheilmoituksia
+		    ! koska indef_wanted saa t‰ss‰ arvon 100
+		    ! * paikattu multiflagill‰ c_tokenissa *
                     indef_type = indef_type | PLURAL_BIT;		    
                     if (indef_wanted == 0) indef_wanted = 100;
                 }
