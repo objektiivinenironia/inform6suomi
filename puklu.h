@@ -282,67 +282,50 @@ Global CaseIs; ! kertoo PrintCommandille mikä on syötteen sijamuoto
 Global sija; ! tulostusta varten
 
 
+! jos olio on in scope ja sillä on parse_namessa allaoleva
+! niin ajaa tämän aina
 [ NextWordOma i j adr len end w;
 
-    !print WordLength(wn);
-
-    adr = WordAddress(wn);  
+    !syötetty sana
+    adr = WordAddress(wn);
+    !syötetyn sanan pituus
     len = WordLength(wn);
 
     for (end = len: end ~= 0 : --end)
     {
+	! yritetään parsia syötetty sana
+	! lopusta alkuun 
 	w = DL(adr, end);
 	
+	! print len, "*", end, "/";
 
-     ! print end, " ", len, "/", adr, " ";
-     ! if (wn > parse->1) { wn++; rfalse; }
-    
-	print len, "*", end, "/";
+	! jos syöte kelpaa DL:lle...
 	if (w ~= 0)
 	{
-	    print w;
-	    j = w;
+	    !...j 
+	    j = w; ! print w;
 	    
-	    break;
+	    break; ! ...poistutaan silmukasta
 	    
 	}
 	
 	
 	
     }
-    print " ";
-    
-!    print "^w=", w, "^";
-!    print "j=", j, "^"; 
-!    print "i=", i, "^"; 
-!    print "adr=", adr, "^";
-!    print "---------------------^";
-    
-	    !while (end < len)
-	    !{
-		!end++;		
-		!if (EndingLookup (adr+end, len-end, csID))
-		 !   }
-    
-    
-    
+    ! print " ";
+
     if (wn > parse->1) { wn++; rfalse; }
     i = wn*2-1; wn++;
-    j = parse-->i;
+    ! ...jos for-luuppi ei löytänyt
+    ! sanaa (j ei ole sama kuin w), parsitaan i...
+    if (j ~= w) j = parse-->i;
     if (j == ',//') j = comma_word;
     if (j == './/') j = THEN1__WD;
+	    return j;
   
- !   print "w=", w, "^";
- !   print "j=", j, "^"; 
- !   print "i=", i, "^"; 
- !   print "adr=", adr, "^";
- !   print "---------------------^";
+ 
+    ! print " ret:", j, " ";
 
-    print j;
-    
-
-
-    
     return j;
 ];
 
