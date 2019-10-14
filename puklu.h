@@ -172,7 +172,7 @@ global muu_sija = 0;
     
 #Ifdef DEBUG;				
     if (parser_trace > 1)	
-    	{ print "^**! (ParserError) muu_sija: ", muu_sija,
+    	{ print "^*PARSER ERROR !*! etype ", etype, "  muu_sija: ", muu_sija,
 	    " ecode: ", error_code, " ^";
     if (error_code == 2) print "vähennetään UPTO_PE -> STUCK_PE:ksi^";    
     	if (muu_sija == true && error_code == 4) print
@@ -284,7 +284,7 @@ Global sija; ! tulostusta varten
 
 ! jos olio on in scope ja sillä on parse_namessa allaoleva
 ! niin ajaa tämän aina
-[ NextWordOma i j adr len end w;
+[ NextWordLyh i j adr len end w;
 
     !syötetty sana
     adr = WordAddress(wn);
@@ -321,11 +321,8 @@ Global sija; ! tulostusta varten
     if (j ~= w) j = parse-->i;
     if (j == ',//') j = comma_word;
     if (j == './/') j = THEN1__WD;
-	    return j;
-  
  
     ! print " ret:", j, " ";
-
     return j;
 ];
 
@@ -484,31 +481,31 @@ property lyh;
 
 ! Tulosta (address) verbi isolla alkukirjaimella
 ! (ks. sanakirja.h)
-Constant verbi_pituus = 39;
-Array verbi_array --> verbi_pituus;
+!Constant verbi_pituus = 39;
+!Array verbi_array --> verbi_pituus;
 
-[ VerbiKap w i k iso;
-    @output_stream 3 verbi_array;
-    print (address) w;
-    @output_stream -3;
-
-    k = verbi_array->2;
-
-    ! å,ä ja ö on sijoitettu toisin kuin a-z
-    switch (k)
- { 155, 158: iso = 158; ! ä, Ä -> Ä
-   156, 159: iso = 159; ! ö. Ö -> Ö 	
-   201, 202: iso = 202; ! å, Å -> Å	
-   default: iso = k-32;   
-    }    
-    print (char) iso;
-    
-    for (i=2:i<=verbi_array-->0:i++) 
-  { print (char) verbi_array->(i+1);
-    }
-    ! ao. ei tarvita?
-    return verbi_array-->0;
- ];
+![ VerbiKap w i k iso;
+!    @output_stream 3 verbi_array;
+!    print (address) w;
+!    @output_stream -3;
+!
+!    k = verbi_array->2;
+!
+!    ! å,ä ja ö on sijoitettu toisin kuin a-z
+!    switch (k)
+! { 155, 158: iso = 158; ! ä, Ä -> Ä
+!   156, 159: iso = 159; ! ö. Ö -> Ö 	
+!   201, 202: iso = 202; ! å, Å -> Å	
+!   default: iso = k-32;   
+!    }    
+!    print (char) iso;
+!    
+!    for (i=2:i<=verbi_array-->0:i++) 
+!  { print (char) verbi_array->(i+1);
+!    }
+!    ! ao. ei tarvita?
+!    return verbi_array-->0;
+! ];
 
 
 ! Tulostusta
