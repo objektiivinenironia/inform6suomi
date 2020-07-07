@@ -481,31 +481,31 @@ property lyh;
 
 ! Tulosta (address) verbi isolla alkukirjaimella
 ! (ks. sanakirja.h)
-!Constant verbi_pituus = 39;
-!Array verbi_array --> verbi_pituus;
+Constant verbi_pituus = 39;
+Array verbi_array --> verbi_pituus;
 
-![ VerbiKap w i k iso;
-!    @output_stream 3 verbi_array;
-!    print (address) w;
-!    @output_stream -3;
-!
-!    k = verbi_array->2;
-!
-!    ! å,ä ja ö on sijoitettu toisin kuin a-z
-!    switch (k)
-! { 155, 158: iso = 158; ! ä, Ä -> Ä
-!   156, 159: iso = 159; ! ö. Ö -> Ö 	
-!   201, 202: iso = 202; ! å, Å -> Å	
-!   default: iso = k-32;   
-!    }    
-!    print (char) iso;
-!    
-!    for (i=2:i<=verbi_array-->0:i++) 
-!  { print (char) verbi_array->(i+1);
-!    }
-!    ! ao. ei tarvita?
-!    return verbi_array-->0;
-! ];
+[ VerbiKap w i k iso;
+    @output_stream 3 verbi_array;
+    print (address) w;
+    @output_stream -3;
+
+    k = verbi_array->2;
+
+    ! å,ä ja ö on sijoitettu toisin kuin a-z
+    switch (k)
+ { 155, 158: iso = 158; ! ä, Ä -> Ä
+   156, 159: iso = 159; ! ö. Ö -> Ö 	
+   201, 202: iso = 202; ! å, Å -> Å	
+   default: iso = k-32;   
+    }    
+    print (char) iso;
+    
+    for (i=2:i<=verbi_array-->0:i++) 
+  { print (char) verbi_array->(i+1);
+    }
+    ! ao. ei tarvita?
+    return verbi_array-->0;
+ ];
 
 
 ! Tulostusta

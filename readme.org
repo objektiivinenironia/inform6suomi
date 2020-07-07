@@ -1,0 +1,61 @@
+* Inform 6-kirjaston suomentamisen juttu tai jutut
+
+Inform 6 on ohjelmointikieli ja kääntäjä tekstiseikkailupelien kehittelyä varten, tämä on sen kirjaston 6/11 kotoistusjuttu tai ainakin yrittää olla.
+
+Täällä liikaa itsekeksittyjä kökköratkaisuja.
+
+** Nominien taivutuksen tulostus on erittäin epäkiva
+
+Nykyinen höskä kannattaa (pitäisi) kirjoittaa uudelleen. Esimerkiksi kehittelemällä kotimaisten kielten keskuksen nykysuomen sanalistan pohjalta jotain  
+http://kaino.kotus.fi/sanat/nykysuomi/
+
+Nykyisellään, jotta olion nimen voi tulostaa sijamuodoissa, täytyy käsipelillä syöttää genetiivin, partitiivin, essiivin ja
+illatiivin loppuosat
+
+#+BEGIN_SRC c
+Object "mauk/as ruo/ka" with gen "kaan/an", par "asta/kaa", ess "kaana/kana", ill "kaaseen/kaan"
+#+END_SRC c
+
+Nimi ("maukas ruoka") jaetaan kauttaviivalla "/" ennen astevaihtelua tai jos astevaihtelua ei
+esiinny, kauttaviiva laitetaan taivutettavan sanan loppuun, esim.: "omena/". Loppuosa ('gen, par,
+ess' ja 'ill') on se osa sanavartaloa joka tulee astevaihtelun jälkeen, plus pääte.
+
+Antamalla oliolle ominaisuuden 'oletus_par' nimi ei tulostu oletusarvoisesti perusmuodossa vaan
+partitiivissa - esim. "Täällä on maukasta ruokaa".
+
+Taivutusta voi testata debug-verbillä 'sijat'. 
+
+Monikko tulostetaan antamalla oliolle ominaisuus 'pluralname'. Joskus monikko tarvitsee myös
+tulostusohjeen 'ine', jotta sijat tulostuvat oikein:
+
+#+BEGIN_SRC c
+!! ao. tarvitsee ine:n - muuten tulostaa "likapyykkeiksi" yms
+
+Object "likapyyk/it" with gen "kien", par "kejä", ess "keinä", ill "keihin", ine "eissä", has pluralname;
+#+END_SRC c
+
+Omistusmuotojen tulostaminen
+Omistusmuotoja tulostettaessa lisätään kauttaviiva ja omistusliite nimen perään, mutta esimerkiksi
+"kapsäkkisi" tarvitsee vähän lisäapua:
+
+#+BEGIN_SRC c
+ Object "kapsäk/ki/si" gen "in", par "kiä", ess "kinä", ill "kiin",
+short_name [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;}; if (Sija == csIll) {print "kapsäkkiisi";
+rtrue;}; if (Sija == csTra) {print "kapsäkiksesi"; rtrue;}; rfalse;],
+#+END_SRC
+
+ynnä muuta.
+
+** parsiminenkin on kömpelöä ja työlästä
+
+Vahva vai heikko astevaihtelu?
+Esimerkiksi jos pelissä on Maukka ja maukasta ruokaa, käsky
+"anna maukalle maukasta"
+Ei välttämättä toimi ilman parsimisohjeita tyyliin:
+Maukka: vahva_a 'maukka', heikko_a 'mauka'
+Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
+
+** Copyright
+
+Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla vastaavat kuin Inform-kirjaston 6/11
+https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
