@@ -50,7 +50,7 @@ rtrue;}; if (Sija == csTra) {print "kapsäkiksesi"; rtrue;}; rfalse;],
 
 ** Parsiminen on kömpelöä
 
-...sanakirjasanoissa on vieläkin tällaista: "punainen" "punaise" "punais" (vaikka ei pitäisi)
+Olioiden sanakirjasanoissa on vieläkin tällaista: "punainen" "punaise" "punais" (vaikka ei pitäisi)
 
 Vahva vai heikko astevaihtelu?
 Esimerkiksi jos pelissä on Maukka ja maukasta ruokaa, käsky
@@ -60,10 +60,10 @@ Maukka: vahva_a 'maukka', heikko_a 'mauka'
 Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
 
 ** Esimerkkipeli
-/dok/lelukauppa.inf
-/dok/toyshop.inf
+- /esim/lelukauppa.inf
+- /esim/toyshop.inf
 
-** Päläpälä
+** Pälä pälä
 
 Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlainen kuin Inform-kirjaston 6/11 https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
 
