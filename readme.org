@@ -63,9 +63,7 @@ Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
 - /esim/lelukauppa.inf
 - /esim/toyshop.inf
 
-** Pälä pälä
+** Pläp
 
-Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlainen kuin Inform-kirjaston 6/11 https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
-
-
+Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlaiset kuin Inform-kirjaston https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
 
