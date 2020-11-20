@@ -5,14 +5,14 @@ Inform 6 on ohjelmointikieli ja kääntäjä tekstiseikkailupelien kehittelyä v
 Täällä on liikaa itsekeksittyjä kökköratkaisuja jotka toimivat huonosti tai eivät ollenkaan. 
 Ne pitäisi kirjoittaa uudelleen.
 
-Esimerkiksi nominien taivutuksen tulostus on erittäin epäkäytännöllinen. 
+Esimerkiksi nominien taivutuksen tulostaminen on erittäin epäkäytännöllistä. 
 
 Ehkä kotimaisten kielten keskuksen sanalistasta voisi kehitellä jonkinlaisen haun? 
 http://kaino.kotus.fi/sanat/nykysuomi/
 
-** Nominien taivutuksen tulostus
-: 
-Jotta olion nimeä saadaan jotenkin taivutettua ja tulostettua, täytyy käsipelillä syöttää 5 taivutusta jotta ohjelmallisesti saadaan tulostettua 6 taivutusta (fifty-sixty).
+** Nominien taivutuksen tulostaminen
+
+Jotta olion nimeä saadaan jotenkin taivutettua ja tulostettua, täytyy käsipelillä syöttää 5 taivutusta jotta ohjelmallisesti saadaan tulostettua +6 taivutusta (fifty-sixty).
 
 #+BEGIN_SRC c
 Object "mauk/as ruo/ka" with gen "kaan/an", par "asta/kaa", ess "kaana/kana", ill "kaaseen/kaan"
@@ -59,10 +59,11 @@ Ei välttämättä toimi ilman parsimisohjeita tyyliin:
 Maukka: vahva_a 'maukka', heikko_a 'mauka'
 Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
 
-** Esimerkkipelit
+** Esimerkkipeli
 /dok/lelukauppa.inf
+/dok/toyshop.inf
 
-** Blaa blaa blaa
+** Päläpälä
 
 Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlainen kuin Inform-kirjaston 6/11 https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
 
