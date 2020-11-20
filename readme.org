@@ -1,29 +1,31 @@
-* Inform 6-kirjaston suomentamisen juttu tai jutut
+* Inform 6-kirjaston suomentamisen jutut
 
 Inform 6 on ohjelmointikieli ja kääntäjä tekstiseikkailupelien kehittelyä varten, tämä on sen kirjaston 6/11 kotoistusjuttu tai ainakin yrittää olla.
 
-Täällä liikaa itsekeksittyjä kökköratkaisuja.
+Täällä on liikaa itsekeksittyjä kökköratkaisuja jotka toimivat huonosti tai eivät ollenkaan. 
+Ne pitäisi kirjoittaa uudelleen.
 
-** Nominien taivutuksen tulostus on erittäin epäkiva
+Esimerkiksi nominien taivutuksen tulostus on erittäin epäkäytännöllinen. 
 
-Nykyinen höskä kannattaa (pitäisi) kirjoittaa uudelleen. Esimerkiksi kehittelemällä kotimaisten kielten keskuksen nykysuomen sanalistan pohjalta jotain  
+Ehkä kotimaisten kielten keskuksen sanalistasta voisi kehitellä jonkinlaisen haun? 
 http://kaino.kotus.fi/sanat/nykysuomi/
 
-Nykyisellään, jotta olion nimen voi tulostaa sijamuodoissa, täytyy käsipelillä syöttää genetiivin, partitiivin, essiivin ja
-illatiivin loppuosat
+** Nominien taivutuksen tulostus
+: 
+Jotta olion nimeä saadaan jotenkin taivutettua ja tulostettua, täytyy käsipelillä syöttää 5 taivutusta jotta ohjelmallisesti saadaan tulostettua 6 taivutusta (fifty-sixty).
 
 #+BEGIN_SRC c
 Object "mauk/as ruo/ka" with gen "kaan/an", par "asta/kaa", ess "kaana/kana", ill "kaaseen/kaan"
 #+END_SRC c
 
-Nimi ("maukas ruoka") jaetaan kauttaviivalla "/" ennen astevaihtelua tai jos astevaihtelua ei
+Nimi "maukas ruoka" jaetaan kauttaviivalla "/" ennen astevaihtelua tai jos astevaihtelua ei
 esiinny, kauttaviiva laitetaan taivutettavan sanan loppuun, esim.: "omena/". Loppuosa ('gen, par,
 ess' ja 'ill') on se osa sanavartaloa joka tulee astevaihtelun jälkeen, plus pääte.
 
 Antamalla oliolle ominaisuuden 'oletus_par' nimi ei tulostu oletusarvoisesti perusmuodossa vaan
 partitiivissa - esim. "Täällä on maukasta ruokaa".
 
-Taivutusta voi testata debug-verbillä 'sijat'. 
+Taivutusta testataan debug-verbillä 'sijat'. 
 
 Monikko tulostetaan antamalla oliolle ominaisuus 'pluralname'. Joskus monikko tarvitsee myös
 tulostusohjeen 'ine', jotta sijat tulostuvat oikein:
@@ -34,7 +36,9 @@ tulostusohjeen 'ine', jotta sijat tulostuvat oikein:
 Object "likapyyk/it" with gen "kien", par "kejä", ess "keinä", ill "keihin", ine "eissä", has pluralname;
 #+END_SRC c
 
-Omistusmuotojen tulostaminen
+
+** Omistusmuotojen tulostaminen
+
 Omistusmuotoja tulostettaessa lisätään kauttaviiva ja omistusliite nimen perään, mutta esimerkiksi
 "kapsäkkisi" tarvitsee vähän lisäapua:
 
@@ -44,9 +48,9 @@ short_name [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;}; if (Sija == csIl
 rtrue;}; if (Sija == csTra) {print "kapsäkiksesi"; rtrue;}; rfalse;],
 #+END_SRC
 
-ynnä muuta.
+** Parsiminen on kömpelöä
 
-** parsiminenkin on kömpelöä ja työlästä
+...sanakirjasanoissa on vieläkin tällaista: "punainen" "punaise" "punais" (vaikka ei pitäisi)
 
 Vahva vai heikko astevaihtelu?
 Esimerkiksi jos pelissä on Maukka ja maukasta ruokaa, käsky
@@ -55,7 +59,12 @@ Ei välttämättä toimi ilman parsimisohjeita tyyliin:
 Maukka: vahva_a 'maukka', heikko_a 'mauka'
 Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
 
-** Copyright
+** Esimerkkipelit
+/dok/lelukauppa.inf
 
-Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla vastaavat kuin Inform-kirjaston 6/11
-https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
+** Blaa blaa blaa
+
+Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlainen kuin Inform-kirjaston 6/11 https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
+
+
+
