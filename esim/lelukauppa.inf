@@ -2,6 +2,14 @@
 
 Include "fialpha";
 
+! suomennoksen koukut (T viittaa tulostamiseen, P parsimiseen)
+!
+! >TY  nominin tulostaminen (yksikkö)
+! >TM  nominin tulostaminen (monikko)
+! >TO  omistusmuotojen tulostaminen
+! >PA  parsiminen: astevaihtelu (heikko/vahva?) 
+! >PP  parsiminen: astevaihtelun "resoluutio" (???)
+
 ! ----------------------------------------------------------------------------
 !  Toyshop 961111                   One of the standard Inform 6 example games
 !
@@ -60,7 +68,6 @@ Replace BurnSub;
 Include "Parser";
 
 
-
 ! ----------------------------------------------------------------------------
 ! >SA  Ungenerously, the player can only carry at most 4 things, but there's
 !      a satchel to carry other things around in...
@@ -69,26 +76,48 @@ Include "Parser";
 Constant MAX_CARRIED = 4;
 Constant SACK_OBJECT = satchel;
 
+! >TY  nominin tulostaminen (yksikkö)
+!
+! Nominien taivutuksen tulostaminen on nykyisellään erittäin epäkäytännöllistä. 
+!
+! Ehkä kotimaisten kielten keskuksen sanalistasta voisi kehitellä
+! jonkinlaisen hakujutun? 
+! http://kaino.kotus.fi/sanat/nykysuomi/
+!
+! Jotta olion nimeä saadaan jotenkin taivutettua ja tulostettua,
+! täytyy käsipelillä syöttää 5 taivutusta jotta ohjelmallisesti
+! saadaan tulostettua +6 taivutusta (fifty-sixty).
+!
+!   "kapsäk/ki"
+!   gen "in", par "kiä", ess "kinä", ill "kiin"
+!
+! Merkkijonot jaetaan kauttaviivalla "/" ennen astevaihtelua, tai jos
+! astevaihtelua ei esiinny, menee "/" taivutettavan sanan loppuun.
+!
+! Merkkijonoihin gen, par, ess ja ill nysvätään se osa sanavartaloa joka tulee
+! astevaihtelun jälkeen, plus pääte.
+!
+! Antamalla oliolle ominaisuuden 'oletus_par' nimi ei tulostu
+! oletusarvoisesti perusmuodossa vaan
+! partitiivissa - esim. "Täällä on maukasta ruokaa".
+!
+! Taivutusta voi testata verbillä 'sijat'.
+!
+! !! esimerkkitulostus tähän !!
+
+! >TM Omistusmuotoja tulostettaessa lisätään kauttaviiva ja
+! omistusliite nimen perään, mutta esimerkiksi "kapsäkkisi" tarvitsee lisäapua
+
 Object satchel "kapsäk/ki/si"
   with description "Iso ja siihen on maalattu keltainen iso hymynaama.", 
-       name "kapsäkki" "kapsäki" "säkki" "säki" "laukku" "lauku" "reppu" "repu", !article "sinun"
+       name "kapsäkki" "kapsäki" "säkki" "säki" "laukku" "lauku" "reppu" "repu",
 		gen "in", par "kiä", ess "kinä", ill "kiin",
-
  	     short_name
 	     [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;};
  		if (Sija == csIll) {print "kapsäkkiisi"; rtrue;};
 		if (Sija == csTra) {print "kapsäkiksesi"; rtrue;};
 		rfalse;],
-		
-		 !!!-ao. tulosti myös rivinvaihdot... 
-	         !!- switch (sija) {
-	         !!-   csGen: "kapsäkkisi";
-	         !!-   csIll: "kapsäkkiisi";
-	         !!-   csTra: "kapsäkiksesi";
-	         !!-   default: rfalse;
-	         !!-  }; rtrue;],
-	
-	
+			
        when_closed "Kapsäkkisi lojuu lattialla.",
        when_open "Kapsäkkisi lojuu aukinaisena lattialla.",
   has  container open openable;
@@ -187,6 +216,16 @@ Object -> balloon "heliumpallo/"
 !   The "before" for Go must return true to signify that travelling in
 !   the object is legal.  (Note that it must also be enterable.)
 ! ----------------------------------------------------------------------------
+
+! >PP
+! jos astevaihtelun "resoluutio" on liian tarkka, seuraa typerää:
+! olioiden nimissä (sanakirjassa ) on vieläkin tällaista:
+! "punainen" "punaise" "punais" (vaikka ei pitäisi!)
+!
+! näitä moniongelmaisia on täällä paljon muuallakin
+!
+! johtuu siitä ettei parsimisen resoluu
+!
 
 Object -> car "pien/i punai/nen auto/"
  with 	name 'pien' 'punais' "punainen" "auto" "kar1" "kar1:",
@@ -465,6 +504,17 @@ Toyroom East_End "Itäpää/ty"
 !   can see and refer to them.
 ! ----------------------------------------------------------------------------
 
+
+! >TM
+! monikkojen tulostaminen
+!
+! Olio jolla on 'pluralname' tulostuu oletusarvoisesti monikkona.
+! Joskus (!) monikko tarvitsee myös tulostusohjeen 'ine',
+! jotta taivutus tulostuu oikein, esim. "pyykit"
+!
+! "pyyk/it" with gen "kien", par "kejä", ess "keinä", ill "keihin", ine "eissä"
+
+
 Object -> gloves "valkois/et käsine/et"
    with article "pari", 
        name "pari" "valkois" "hansikkai" "hansko" "hanskat" "hansikkaat" "käsineet" "käsinei",
@@ -579,7 +629,7 @@ Object -> "pultat/tu kaap/pi"
        with_key key
   has  locked container openable lockable static;
 
-!! "boiled sweet" (?)
+! Maukas lisätään e
 Object -> -> "keitet/ty namu/"
   with name "keitetty" "keitety" "namu",
 	gen "yn/n", par "tyä/a", ess "tynä/na", ill "tyyn/un",
@@ -762,15 +812,13 @@ Block -> "sini/nen kuutio/"
 !      (* In 1993, when this game was first written.)
 ! ----------------------------------------------------------------------------
 
-! TEMP TESTI TESTI
-object 	-> orkam
- with 	short_name "Orkam/",
-	gen "in", par "ia", ess "ina", ill "in",
- 	description "Orkam on täällä väliaikaisesti testinä.",
-	name 'orkam',
- has 	animate;
-
-
+! >PA
+! Vahva vai heikko astevaihtelu?
+! Esimerkiksi jos pelissä on Maukka ja maukasta ruokaa, käsky
+! "anna maukalle maukasta"
+! Ei välttämättä toimi ilman parsimisohjeita tyyliin:
+! Maukka: vahva_a 'maukka', heikko_a 'mauka'
+! Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
 
 Object -> Chris "Risto/"
   with name "Poika" "poja" "nimeltä" "risto",
