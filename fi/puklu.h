@@ -1,7 +1,7 @@
 ! puklu.h -- Parsimista ja Tulostamista
 ! =====================================
-! Parsimista
-! ----------
+! * Parsimista
+! ------------
 
 System_file;
 
@@ -480,8 +480,8 @@ property lyh;
     rfalse;
 ];
 
-! Tulostamista
-! ------------
+! * Tulostamista
+! --------------
 
 ! ** sijat-verbi testitulostaa 
 [ debugsijat adr wnum len end w csID;
@@ -660,7 +660,6 @@ Array Suttu --> SutLen;
 
 ];
 
-
 !??? 
 
 Constant ParLen = 50;
@@ -669,16 +668,16 @@ Array ParArr --> ParLen;
 Constant JutLen = 100;
 Array Juttu --> JutLen;
 
-! tämä ei ole hyvä "juttu!"
-! -------------------------
+! tämä "juttu" pitäisi kirjoittaa uudelleen
+! -----------------------------------------
 ! ps = printtaussääntö, onko yksikkö, monikko vai monikko ja "ine"-ohje.
 ! 0 on yksikkö
 ! 1 jos monikko
 ! 2 jos monikko ja ine tulostusohje.
-
-	!!!# 's' ei tulostu ine-tulostusohjeen takia
-	!!!# ps on 1 jos (monikko)objektilla *ei* ole ine-ohjetta (esim. "susilla")
-	!!!# ps on 2 jos (monikko)objektilla on ine-ohje (esim. "pöydillä")
+!
+!??? 's' ei tulostu ine-tulostusohjeen takia
+!??? ps on 1 jos (monikko)objektilla *ei* ole ine-ohjetta (esim. "susilla")
+!??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "pöydillä")
 
 [ CaseEnd obj csID at num limit i ps a paate_isolla;
 
@@ -752,7 +751,9 @@ Array Juttu --> JutLen;
 
   	if (ps == 2) !??? monikko ja ine-ohje
 	    for (i = 2: i ~= limit: ++ i) {
-		if ((num == at-1) && (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä'))
+		if ((num == at-1)
+		    &&
+		    (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä'))
 		    print (char) (Juttu->i);
 
 		if (Juttu->i == 'S' or 'A' or 'Ä' ) paate_isolla = 1; 
@@ -762,7 +763,9 @@ Array Juttu --> JutLen;
    	if (ps == 1) !??? monikko
  	    for (i = 2: i ~= limit: ++ i) {
 
- 	  	if ((num == at-1) && (Juttu->i ~= 'n' or 'a' or 'ä' or '/' or 'N' or 'A' or 'Ä'))
+ 	  	if ((num == at-1)
+		    &&
+		    (Juttu->i ~= 'n' or 'a' or 'ä' or '/' or 'N' or 'A' or 'Ä'))
 		    print (char) (Juttu->i);
 
 		if (Juttu->i == 'N' or 'A' or 'Ä') paate_isolla = 1; 
@@ -770,14 +773,19 @@ Array Juttu --> JutLen;
 
  	    };
 
-    	if (obj hasnt pluralname) ! yksikkö
+	!??? olio ei ole monikollinen
+    	if (obj hasnt pluralname) 
 	    for (i = 2: i ~= limit: ++ i) {
-
-		!??? (gen-päätteestä) jos kirjain on 'n' tai 'N', eikä sitä seuraa '/' tai jonon loppu, se tulostetaan.
-		!??? Esim.: "ont/to kan/to"  gen "on/non" - genetiivin "non" ensimmäinen "n" tulostetaan.
-		!??? <limit ~= (i+1) or (i+2)> (?) -eli- merkkijonon loppu ei tule heti '/' jälkeenkään - ?
-
-		if ((num == at-1) && (Juttu->i == 'n' or 'N') && (Juttu->(i+1) ~= '/'))
+		
+		!??? (gen-päätteestä) jos kirjain on 'n' tai 'N',
+	     	!??? eikä sitä seuraa '/' tai jonon loppu, se tulostetaan.
+		!??? Esim.: "ont/to kan/to"  gen "on/non"
+		!??? genetiivin "non" ensimmäinen "n" tulostetaan.
+		!??? <limit ~= (i+1) or (i+2)> (?) eli merkkijonon
+		!??? loppu ei tule heti '/' jälkeenkään?
+		
+		if ((num == at-1) && (Juttu->i == 'n' or 'N')
+		    && (Juttu->(i+1) ~= '/'))
 		{ if (limit ~= (i+1) or (i+2)) print (char) (Juttu->i);};
 
 		!??? tulosta kaikki kirjaimet paitsi '/', 'n' tai 'N'.
@@ -788,47 +796,48 @@ Array Juttu --> JutLen;
 	    	if (Juttu->i == '/') num++;
 
 	    };
+
 	if (paate_isolla == 0)
 	    switch (csID) {
 	     csIne: print "ss";
-
+		
 	     csEla: print "st";
 	     csAde: print "ll";
 	     csAbl: print "lt";
-
+		
 	     csTra: print "ksi";
 	     csAll: print "lle"; 
-}
-
+	    }
+	
 	else switch (csID) {
 	 csIne: print "SS";
-
+	    
 	 csEla: print "ST";
 	 csAde: print "LL";
 	 csAbl: print "LT";
-
+	    
 	 csTra: print "KSI";
 	 csAll: print "LLE"; 
-}
+	}
 	if (csID ~= csTra or csAll) {
 	    ParArr-->0 = ParLen-1;
 	    @output_stream 3 ParArr;
 	    print (string) obj.par;
 	    @output_stream -3;
-
+	    
 	    num = 0;
 	    limit = (ParArr-->0) +2;
 	    a = 0;
-
+	    
 	    for (i = 2: i ~= limit: i++)
-
+		
 	    {
-if ((ParArr->(i+1) == '/') || (i == limit-1))
-	    {a++;
- 	 	if (a == at) print (char) (ParArr->i);} }
+		if ((ParArr->(i+1) == '/') || (i == limit-1))
+	    	{a++;
+ 	 	    if (a == at) print (char) (ParArr->i);} }
 	}
     }
-
+    
 ];
 
 ! ** Tulosta verbi isolla alkukirjaimella
@@ -859,14 +868,14 @@ Array verbi_array --> verbi_pituus;
  ];
 
 ! ** verbin loppuosan tulostus
-!??? tä?
-[ VerbEnd obj csID;
 
+[ VerbEnd obj csID;
+    
     switch (csID) {
-    vbInf: print (string) obj.inf_;
-!???tä?     vbInd: print (string) obj.ind_y;
-!???tä?     vbY2: print "t";
-!???tä?     vbY3: print (string) obj.ind_y;
+     vbInf: print (string) obj.inf_;	
+     	! vbInd: print (string) obj.ind_y;
+ 	!     vbY2: print "t";
+	!     vbY3: print (string) obj.ind_y;
 	!     vbM3: print (string) obj.ind_m;
      default: print "^[ !verbin tulostusvirhe! ]^";
     }
