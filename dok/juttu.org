@@ -1,0 +1,69 @@
+* Inform 6-kirjaston suomentamisen jutut
+
+Inform 6 on ohjelmointijuttu tekstiseikkailupelien kehittelyä varten, tämä on sen kirjaston 6/11 kotoistus suomenkielelle tai ainakin yrittää olla.
+
+Täällä on liikaa itsekeksittyä kökköä joka toimii huonosti tai ei ollenkaan. 
+Kaikki pitäisi kirjoittaa uudelleen.
+
+Esimerkiksi nominien taivutuksen tulostaminen on erittäin epäkäytännöllistä. 
+
+Ehkä kotimaisten kielten keskuksen sanalistasta voisi kehitellä jonkinlaisen hakujutun? 
+http://kaino.kotus.fi/sanat/nykysuomi/
+
+** Nominien taivutuksen tulostaminen
+
+Jotta olion nimeä saadaan jotenkin taivutettua ja tulostettua, täytyy käsipelillä syöttää 5 taivutusta jotta ohjelmallisesti saadaan tulostettua +6 taivutusta (fifty-sixty).
+
+#+BEGIN_SRC c
+Object "mauk/as ruo/ka" with gen "kaan/an", par "asta/kaa", ess "kaana/kana", ill "kaaseen/kaan"
+#+END_SRC c
+
+Nimi "maukas ruoka" jaetaan kauttaviivalla "/" ennen astevaihtelua tai jos astevaihtelua ei
+esiinny, kauttaviiva laitetaan taivutettavan sanan loppuun, esim.: "omena/". Loppuosa ('gen, par,
+ess' ja 'ill') on se osa sanavartaloa joka tulee astevaihtelun jälkeen, plus pääte.
+
+Antamalla oliolle ominaisuuden 'oletus_par' nimi ei tulostu oletusarvoisesti perusmuodossa vaan
+partitiivissa - esim. "Täällä on maukasta ruokaa".
+
+Taivutusta testataan debug-verbillä 'sijat'. 
+
+Monikko tulostetaan antamalla oliolle ominaisuus 'pluralname'. Joskus (!) monikko tarvitsee myös
+tulostusohjeen 'ine', jotta taivutus tulostuu oikein:
+
+#+BEGIN_SRC c
+!! ao. tarvitsee ine:n - muuten tulostaa "likapyykkeiksi" yms
+
+Object "likapyyk/it" with gen "kien", par "kejä", ess "keinä", ill "keihin", ine "eissä", has pluralname;
+#+END_SRC c
+
+
+** Omistusmuotojen tulostaminen
+
+Omistusmuotoja tulostettaessa lisätään kauttaviiva ja omistusliite nimen perään, mutta esimerkiksi
+"kapsäkkisi" tarvitsee lisäapua:
+
+#+BEGIN_SRC c
+ Object "kapsäk/ki/si" gen "in", par "kiä", ess "kinä", ill "kiin",
+short_name [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;}; if (Sija == csIll) {print "kapsäkkiisi";
+rtrue;}; if (Sija == csTra) {print "kapsäkiksesi"; rtrue;}; rfalse;],
+#+END_SRC
+
+** Parsiminen on kömpelöä
+
+Olioiden sanakirjanimissä (name) on vieläkin tällaista: "punainen" "punaise" "punais" (vaikka ei pitäisi)
+
+Vahva vai heikko astevaihtelu?
+Esimerkiksi jos pelissä on Maukka ja maukasta ruokaa, käsky
+"anna maukalle maukasta"
+Ei välttämättä toimi ilman parsimisohjeita tyyliin:
+Maukka: vahva_a 'maukka', heikko_a 'mauka'
+Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
+
+** Esimerkkipeli
+- /esim/lelukauppa.inf
+- /esim/toyshop.inf
+
+** Pläp
+
+Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlaiset kuin Inform-kirjaston https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
+
