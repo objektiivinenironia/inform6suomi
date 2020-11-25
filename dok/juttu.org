@@ -1,34 +1,97 @@
-* Inform 6-kirjaston suomentamisen jutut
+* Inform 6-kirjaston suomentamisen jutut (kehitys)
 
 Inform 6 on ohjelmointijuttu tekstiseikkailupelien kehittelyä varten, tämä on sen kirjaston 6/11 kotoistus suomenkielelle tai ainakin yrittää olla.
 
-Täällä on liikaa itsekeksittyä kökköä joka toimii huonosti tai ei ollenkaan. 
-Kaikki pitäisi kirjoittaa uudelleen.
+** esimerkkipelit
 
-Esimerkiksi nominien taivutuksen tulostaminen on erittäin epäkäytännöllistä. 
+*** adventin aika
+seikkailu tai advent on pääasiallinen esimerkki 
+*** lelukauppa
+lelukaupassa on erilaisempia olioita kuin seikkailussa
+
+
+** ad hoc 
+
+- osittain toimii riittävän hyvin "ad hoc"
+- myös huonoja kyhäelmiä jotka pitäisi kirjoittaa uudelleen
+
+Esimerkiksi nominien taivutuksen tulostaminen on erittäin epäkäytännöllistä.
+- vaikeuttaa mahdollista pelinkehittelyä 
 
 Ehkä kotimaisten kielten keskuksen sanalistasta voisi kehitellä jonkinlaisen hakujutun? 
 http://kaino.kotus.fi/sanat/nykysuomi/
 
-** Nominien taivutuksen tulostaminen
 
-Jotta olion nimeä saadaan jotenkin taivutettua ja tulostettua, täytyy käsipelillä syöttää 5 taivutusta jotta ohjelmallisesti saadaan tulostettua +6 taivutusta (fifty-sixty).
+** tulkit
 
-#+BEGIN_SRC c
-Object "mauk/as ruo/ka" with gen "kaan/an", par "asta/kaa", ess "kaana/kana", ill "kaaseen/kaan"
-#+END_SRC c
+** kääntäjä
+- kääntäjä syö iso8859:ä (ei utf8 tms) 
 
-Nimi "maukas ruoka" jaetaan kauttaviivalla "/" ennen astevaihtelua tai jos astevaihtelua ei
-esiinny, kauttaviiva laitetaan taivutettavan sanan loppuun, esim.: "omena/". Loppuosa ('gen, par,
-ess' ja 'ill') on se osa sanavartaloa joka tulee astevaihtelun jälkeen, plus pääte.
+** lelukaupasta palasia -> simppeli html/txt
 
-Antamalla oliolle ominaisuuden 'oletus_par' nimi ei tulostu oletusarvoisesti perusmuodossa vaan
+** Nominien taivutuksen *tulostaminen*
+
+Nominien taivutuksen tulostaminen on nykyisellään erittäin epäkäytännöllistä. 
+
+Jotta olion nimi saadaan ohjelmallisesti taivutettua ja tulostettua,
+täytyy antaa 5 taivutusta käsin -- ohjelma tulostaa loput 6 taivutusmuotoa (fifty-sixty?).
+
+#+BEGIN_SRC
+   "kapsäk/ki", gen "in", par "kiä", ess "kinä", ill "kiin"
+#+END_SRC
+
+Merkkijonot jaetaan kauttaviivalla "/" ennen astevaihtelua, tai jos
+astevaihtelua ei esiinny, menee "/" taivutettavan sanan loppuun.
+
+Merkkijonoihin =gen=, =par=, =ess= ja =ill= nysvätään se osa sanavartaloa joka tulee
+astevaihtelun jälkeen, plus pääte.
+
+*** omistusmuotojen tulostaminen
+
+Omistusmuotoja tulostettaessa lisätään kauttaviiva ja
+omistusliite nimen perään, mutta esimerkiksi "kapsäkkisi" (lelukauppa) tarvitsee lisäapua (lelukauppa):
+
+#+BEGIN_SRC
+Object satchel "kapsäk/ki/si"
+[...]
+     gen "in", par "kiä", ess "kinä", ill "kiin",
+ 	     short_name
+	     [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;};
+ 		if (Sija == csIll) {print "kapsäkkiisi"; rtrue;};
+		if (Sija == csTra) {print "kapsäkiksesi"; rtrue;};
+		rfalse;],
+#+END_SRC
+
+
+*** oletus partitiivi
+
+Antamalla oliolle ominaisuuden =oletus_par= nimi ei tulostu
+oletusarvoisesti perusmuodossa vaan
 partitiivissa - esim. "Täällä on maukasta ruokaa".
 
-Taivutusta testataan debug-verbillä 'sijat'. 
+Taivutusta voi testata verbillä *sijat*.
+
+#+BEGIN_SRC
+>sijat auto
+
+  Oletus (name): pieni punainen auto
+  Nominatiivi 1: pieni punainen auto
+  Partitiivi  3: pientä punaista autoa
+  Genetiivi   2: pienen punaisen auton
+  Essiivi    10: pienenä punaisena autona
+  Inessiivi   4: pienessä punaisessa autossa
+  Illatiivi   6: pieneen punaiseen autoon
+  Elatiivi    5: pienestä punaisesta autosta
+  Adessiivi   7: pienellä punaisella autolla
+  Ablatiivi   8: pieneltä punaiselta autolta
+  Translat.  11: pieneksi punaiseksi autoksi
+  Allatiivi   9: pienelle punaiselle autolle
+#+END_SRC
+
+*** monikon tulostaminen
 
 Monikko tulostetaan antamalla oliolle ominaisuus 'pluralname'. Joskus (!) monikko tarvitsee myös
-tulostusohjeen 'ine', jotta taivutus tulostuu oikein:
+tulostusohjeen =ine=, jotta taivutus tulostuu oikein:
 
 #+BEGIN_SRC c
 !! ao. tarvitsee ine:n - muuten tulostaa "likapyykkeiksi" yms
@@ -36,17 +99,57 @@ tulostusohjeen 'ine', jotta taivutus tulostuu oikein:
 Object "likapyyk/it" with gen "kien", par "kejä", ess "keinä", ill "keihin", ine "eissä", has pluralname;
 #+END_SRC c
 
+*** TODO hakujuttu nykysuomen sanalistasta 
+Kotimaisten kielten keskuksen sanalistasta voisi kehittää jonkinlaisen hakujutun.
 
-** Omistusmuotojen tulostaminen
+http://kaino.kotus.fi/sanat/nykysuomi/
+(GNULPL)
 
-Omistusmuotoja tulostettaessa lisätään kauttaviiva ja omistusliite nimen perään, mutta esimerkiksi
-"kapsäkkisi" tarvitsee lisäapua:
+Jonkinlainen "esikääntäjä" (?) kenties jolla haettaisiin olioiden nimet lähdetekstistä -> sanalistasta niiden taivutus- ja astevaihtelutiedot, jotka kirjoitettaisiin joko suoraan näytölle tai lähdetekstiin.
 
-#+BEGIN_SRC c
- Object "kapsäk/ki/si" gen "in", par "kiä", ess "kinä", ill "kiin",
-short_name [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;}; if (Sija == csIll) {print "kapsäkkiisi";
-rtrue;}; if (Sija == csTra) {print "kapsäkiksesi"; rtrue;}; rfalse;],
+- (esikääntäjän) tulostus *ei mielellään merkkijonoina* nykyiseen tyyliin:  
+#+BEGIN_SRC
+short_name "spede/", gen "n", par "ä", ess "nä", ill "en"
 #+END_SRC
+
+vaan *mielummin taulukko* (array), esimerkiksi?
+- ohjelman tuottama taulukko / merkkijono täytihmisen luettava myös
+
+esimerkiksi kapsäkki löytyy listasta, mutta spede ei löydy. 
+Spede taitaa taipua samoin (5)?
+
+kapsäkki tn 5 av A
+spede tn (5?) av (?)
+
+- voisi olla hyödyllistä jos nykyinen (puklu) osaisi päätellä annetuista merkkijonoista (=gen par ess ill=) taivutustiedot
+
+*kapsäkki*
+tn 5 risti 
+av A takki kk:k
+
+*spede*
+tn 8 nalle
+av - (ei astevaihtelua)
+
+
+- ! listassa on myös verbien taivutus
+- ! puklussa voisi olla (tulee olemaan?) valmiina malliolioita (nominit): takki (tn 5), risti (av A) jne. 
+- myös verbit (myöhemmin?): liikkua (av A) jne... 
+- ? täytyisi vain tietää loppuuko a/ä ja voisi toteuttaa paljon nyk. puklulla
+
+#+BEGIN_SRC
+short_name "spede/", tt 
+kapsäkki tn 5 av A
+
+#+END_SRC
+
+- lisäksi parempi (varsinainen) tulostusjuttu joka ymmärtää sanalistan sanatietueiden elementit ja osaa niiden perusteella tehdä taivutukset. 
+- myös kiinnostavaa parsimisen kannalta! (esim. astevaihtelun vahva vai heikko muoto)
+- yhdenmukaistaminen (puklu) sanatietuiden kanssa 
+
+- *parhaimmillaan* esikääntäjä olisi toteutettu informilla, ja olisi yhteensopiva nyk. materiaalin kanssa ja lähes täysin automaaginen. Sanoista joita ei löytyisi listasta (esim. erisnimet), esikääntäjä tekisi valistuneita arvauksia. 
+
+- *nollaratkaisu:* lunttaat taivutuksia ja astevaihteluita suomenkielisestä wiktionarystä ja teet taivutukset (noin puolet taivutuksista) käsin kuten nykyään.
 
 ** Parsiminen on kömpelöä
 
