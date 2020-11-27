@@ -2,7 +2,12 @@
 
 Inform 6 on ohjelmointijuttu tekstiseikkailupelien kehittelyä varten, tämä on sen kirjaston 6/11 kotoistus suomenkielelle tai ainakin yrittää olla.
 
-** esimerkkipelit
+** TODO (info) inform
+- mikä? mitä, kuka, missä? mikä maailma tämä on?
+
+** TODO esimerkkipelit 
+-> missä!? (eri repossa)
+-> demo?
 
 *** adventin aika
 seikkailu tai advent on pääasiallinen esimerkki 
@@ -10,15 +15,14 @@ seikkailu tai advent on pääasiallinen esimerkki
 lelukaupassa on erilaisempia olioita kuin seikkailussa
 
 ** ad hoc 
-
-- osittain toimii riittävän hyvin "ad hoc"
+- osittain toimii riittävän hyvin "ad hoc"?
 - kyhäelmiä (huonoja) jotka pitäisi kirjoittaa uudelleen (ks. esim. nominien taivutuksen tulostaminen)
 
-** tulkit
+** TODO (info) tulkit
 - fizmo
 - frotz
 
-** kääntäjä
+** TODO kääntäjä
 - kääntäjä syö iso8859:ä (ei utf8 tms) 
 
 ** Nominien taivutuksen *tulostaminen*
@@ -142,7 +146,7 @@ kapsäkki tn 5 av A
 
 - *nollaratkaisu:* lunttaat taivutuksia ja astevaihteluita suomenkielisestä wiktionarystä ja teet taivutukset (noin puolet taivutuksista) käsin kuten nykyään.
 
-** Parsiminen on kömpelöä
+** TODO (villikortti tms.) parsiminen on kömpelöä
 
 Olioiden sanakirjanimissä (name) on vieläkin tällaista: "punainen" "punaise" "punais" (vaikka ei pitäisi)
 
@@ -152,10 +156,10 @@ Esimerkiksi jos pelissä on Maukka ja maukasta ruokaa, käsky
 Ei välttämättä toimi ilman parsimisohjeita tyyliin:
 Maukka: vahva_a 'maukka', heikko_a 'mauka'
 Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
-
-** Esimerkkipelit
--> missä!? (eri repossa)
-
+** TODO (info) pitkien nimien resoluutio sanakirjasanat (9 merkkiä)?
+ei ole aiheuttanut pulmia tähän asti joten miksi?
+** TODO glulx-tuki
+puuttuu!
 ** Pläp
 
 Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlaiset kuin Inform-kirjaston https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
