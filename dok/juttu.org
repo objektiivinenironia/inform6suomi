@@ -9,25 +9,17 @@ seikkailu tai advent on pääasiallinen esimerkki
 *** lelukauppa
 lelukaupassa on erilaisempia olioita kuin seikkailussa
 
-
 ** ad hoc 
 
 - osittain toimii riittävän hyvin "ad hoc"
-- myös huonoja kyhäelmiä jotka pitäisi kirjoittaa uudelleen
-
-Esimerkiksi nominien taivutuksen tulostaminen on erittäin epäkäytännöllistä.
-- vaikeuttaa mahdollista pelinkehittelyä 
-
-Ehkä kotimaisten kielten keskuksen sanalistasta voisi kehitellä jonkinlaisen hakujutun? 
-http://kaino.kotus.fi/sanat/nykysuomi/
-
+- kyhäelmiä (huonoja) jotka pitäisi kirjoittaa uudelleen (ks. esim. nominien taivutuksen tulostaminen)
 
 ** tulkit
+- fizmo
+- frotz
 
 ** kääntäjä
 - kääntäjä syö iso8859:ä (ei utf8 tms) 
-
-** lelukaupasta palasia -> simppeli html/txt
 
 ** Nominien taivutuksen *tulostaminen*
 
@@ -61,7 +53,6 @@ Object satchel "kapsäk/ki/si"
 		if (Sija == csTra) {print "kapsäkiksesi"; rtrue;};
 		rfalse;],
 #+END_SRC
-
 
 *** oletus partitiivi
 
@@ -162,9 +153,8 @@ Ei välttämättä toimi ilman parsimisohjeita tyyliin:
 Maukka: vahva_a 'maukka', heikko_a 'mauka'
 Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
 
-** Esimerkkipeli
-- /esim/lelukauppa.inf
-- /esim/toyshop.inf
+** Esimerkkipelit
+-> missä!? (eri repossa)
 
 ** Pläp
 
