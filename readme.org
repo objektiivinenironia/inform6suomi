@@ -3,4 +3,4 @@
 suomenkielisten tekstiseikkailupelien kehittelyä varten.
 
 Dokumentaatio
-[[[[https://github.com/objektiivinenironia/inform6suomi/blob/master/dok/juttu.org]]][*./dok/juttu.org*]]
+[[[[https://github.com/objektiivinenironia/inform6suomi/blob/master/dok/juttu.org]]]]
