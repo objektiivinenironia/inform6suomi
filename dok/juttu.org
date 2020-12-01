@@ -163,5 +163,5 @@ ei ole aiheuttanut pulmia tähän asti joten miksi?
 puuttuu!
 ** pläp
 
-Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2004-2020. Sen käyttöehtojen on tarkoitus olla samanlaiset kuin Inform-kirjaston https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
+Kirjaston suomenkielistämisjuttu on (c) ihvi-työryhmä 2013-2020. Sen käyttöehtojen on tarkoitus olla samanlaiset kuin Inform-kirjaston https://gitlab.com/DavidGriffith/inform6lib/-/blob/master/COPYING
 

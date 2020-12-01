@@ -1,4 +1,4 @@
-* Inform-kirjaston 6/11 kotoistus
+* Inform 6 kotoistus
 
 suomenkielisten tekstiseikkailupelien kehittelyä varten.
 
