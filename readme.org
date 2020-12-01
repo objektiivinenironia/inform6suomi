@@ -1,5 +1,6 @@
-# Inform 6 suomeksi
+* Inform-kirjaston 6/11 kotoistus
 
-Suomenkielisten tekstiseikkailupelien kehittelyä varten.
+suomenkielisten tekstiseikkailupelien kehittelyä varten.
 
-Ks. */dok*
+Dokumentaatio
+[[[[https://github.com/objektiivinenironia/inform6suomi/blob/master/dok/juttu.org]]][*./dok/juttu.org*]]
