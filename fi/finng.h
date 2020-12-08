@@ -410,7 +410,7 @@ Verb 'laita' 'pane' 'pistä' ! 'aseta'
     * nom_noun gen_noun 'päälle'	-> PutOn 
     * all_noun nom_multiexcept		-> PutOn reverse
     * 'pois' nom_multiheld		-> Drop
-    * multiheld 'pois'			-> Drop; 
+    * nom_multiheld 'pois'		-> Drop; 
 
 
     !* nom_multiexcept off_noun          -> Insert;
