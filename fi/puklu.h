@@ -12,16 +12,17 @@ Array  Tparse  -> 6;
 
 ! ** Dictinary Lookup
 
-[DL buf len
-    i;
-    if (len == 0 || len > Tlimit) return 0;
-    Tbuffer->1 = len;
-    for (i = 0: i ~= len: i ++) Tbuffer->(2+i) = buf->i;
-    Tbuffer->(2+len) = 0;
-    Tparse->0 = 1;
-    @tokenise Tbuffer Tparse;
-    return Tparse-->1;
-];
+ [DL buf len
+     i;
+     if (len == 0 || len > Tlimit) return 0;
+     Tbuffer->1 = len;
+     for (i = 0: i ~= len: i ++) Tbuffer->(2+i) = buf->i;    
+     Tbuffer->(2+len) = 0;
+     Tparse->0 = 1;
+     @tokenise Tbuffer Tparse;
+     return Tparse-->1;
+ ];
+
 
 Attribute oletus_par;
 
@@ -209,11 +210,23 @@ global luku = 0;
 
     if (csID == 0) rtrue;
 
-    ! "len" on haettavan päätteen pituus
-    if (len ~= 0) {v = DL (addr, len); 	
+!    ! "len" on haettavan päätteen pituus
+!    if (len ~= 0) {v = DL (addr, len); 	
+!   	    
+!    	if (v == 0) rfalse;
 
+    ! "len" on haettavan päätteen pituus -- ONKO? (on) $$$
+    if (len ~= 0) {
+	v = DL (addr, len);
+	
+!	if (v ~= 0 && ) 
+   	    
     	if (v == 0) rfalse;
 
+	print " len ", len;!!$$$$
+	
+
+    
 
     } ! jos pääte ei löydy sanakirjasta, rfalse
 
@@ -253,7 +266,8 @@ global luku = 0;
     rfalse;
 ];
 
-
+! Tämä on rikki !
+!!!!!!!!!!!!!!!!!
 ! ** NextWordLyh (???) on tämäkin! 
 !??? jos olio on in scope ja sillä on parse_namessa allaoleva
 !??? niin ajaa tämän aina
@@ -271,7 +285,7 @@ global luku = 0;
 	! lopusta alkuun
 	w = DL(adr, end);
 
-	! print len, "*", end, "/";
+	!print len, "*", end, "/";
 
 	! jos syöte kelpaa DL:lle...
 	if (w ~= 0)
@@ -341,7 +355,7 @@ Global sija;
 
 property lyh;
 
-[ LanguageRefers obj wnum adr len end w csID; 
+[ LanguageRefers obj wnum adr len end w csID; !paska; !$$$$ 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
     
@@ -349,37 +363,52 @@ property lyh;
     
     for (end = len: end ~= 0 : --end) 
     {
+	!paska = DL (adr, end-1); !$$$$
+
+	! * rikki * $$$$$
+	! tässä oli *lyh* joka on *rikki*
+	! if (w ~= 0 && WordInProperty (w, obj, lyh))
+	!if (paska ~= 0 && WordInProperty (paska, obj, name)) !! && ?? $$$
+	!{
+
+	    !$$$ if boardtext->i~=' ' or 0) f=1
+  	    !$$$ i = WordAddress(wn++); i=i-buffer;
+            !$$$ if (buffer->i=='"')
+
+	    ! print " ", (address)paska, " ", end;
+	    ! if (paska->end=='*')!$$$ houno!!!
+	    !	print "*";
+	    
+	    
+	    !while (end < len)
+	    !{
+	!	end++;		
+	!	if (EndingLookup (adr+end, len-end, csID))
+	!	{
+	!	    rtrue;
+	!	    				    
+	!	}		
+	!    	
+	!    }
+	!}
+	
 	w = DL (adr, end); 
 	
 	if (parent (obj) == Compass)
    	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
 	      (adr+end, len-end, csID)) rtrue;
-	    
-	    if (csID ~= 3) rfalse; 
-	}	
-	
-	if (w ~= 0 && WordInProperty (w, obj, lyh))
-	{
-	    
-	    while (end < len)
-	    {
-		end++;		
-		if (EndingLookup (adr+end, len-end, csID))
-		{
-		    rtrue;
-		    
-		    !???
+
 		    ! hyväksytään vain partitiivi
 		    ! ">t ptä" ">mene pohjoista"
 		    ! muuten esim. ">lu" (luode) vastaa:
 		    ! "Länsi vai luode?"
 		    ! if (csID ~= 3) rfalse;
-		    
-		}		
-	    	
-	    }
-	}
-	!???
+
+	    if (csID ~= 3) rfalse; 
+	}	
+
+	
+ 	!???
 	! property *taipumaton*
 	! esimerkiksi genetiiviattribuutti
 	! "pöydän" -> "pöydän antimet"

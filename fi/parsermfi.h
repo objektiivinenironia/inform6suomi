@@ -1640,17 +1640,13 @@
 
 	! esim. Laita _pöydälle_ mitä?
 	PrintKysNomini(i, from, k);
-	
 	    
     	.TokenPrinted;
 	spacing_flag = true;
-
 	
     }
-
     ! esim, laita pöydälle _mitä_?
     if (kys == 0) PrintKysymys(verb_word, from, k); 	
-
     
 ];
 
@@ -1692,6 +1688,7 @@
     if (indef_mode && o.&short_name_indef ~= 0 && PrintOrRun(o, short_name_indef, 1) ~= 0) rtrue;
     if (o.&short_name ~= 0 && PrintOrRun(o, short_name, 1) ~= 0) rtrue;
     print (object) o;
+        
 ];
 
 [ itse s;
