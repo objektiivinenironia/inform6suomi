@@ -223,7 +223,7 @@ global luku = 0;
    	    
     	if (v == 0) rfalse;
 
-	print " len ", len;!!$$$$
+	! print " len ", len;!!$$$$
 	
 
     
