@@ -23,8 +23,8 @@ lelukaupassa on erilaisempia olioita kuin seikkailussa
 - fizmo
 - frotz
 
-** TODO kääntäjä
-- kääntäjä syö iso8859:ä (ei utf8 tms) 
+** UTF-8
+- tiedostot nyt UTF-8. Kääntäjässä 6.33 on valitsin -Cu 
 
 ** nominien taivutuksen *tulostaminen*
 

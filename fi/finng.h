@@ -70,7 +70,7 @@ Object VerbDepot;
 
 Verb meta 'brief' 'perus'
     *                                      -> LMode1;
-Verb meta 'laaja' 'pitkä'
+Verb meta 'laaja' 'pitkÃ¤'
     *                                      -> LMode2;
 Verb meta 'lyhyt'
     *                                      -> LMode3;
@@ -97,12 +97,12 @@ Verb meta 'tallenna' 'tallennus' 'save'
     *                                      -> Save;
 Verb meta 'pisteet'
     *                                      -> Score;
-Verb meta 'maksimi' 'maksimipi' 'täydet'
+Verb meta 'maksimi' 'maksimipi' 'tÃ¤ydet'
     *                                      -> FullScore
     * 'pisteet'                            -> FullScore;
 Verb meta 'script' 'kirjaus'
     *                                      -> ScriptOn
-    * 'päälle'                             -> ScriptOn
+    * 'pÃ¤Ã¤lle'                             -> ScriptOn
     * 'pois'                               -> ScriptOff
     * 'off'                                -> ScriptOff;
 Verb meta 'noscript' 'unscript'
@@ -186,17 +186,17 @@ Verb meta 'glklist'
 [ ADirection; if (noun in compass) rtrue; rfalse; ];
 
 
-! vajaaseen syötteeseen oletuksena kysytään "mitä?"
+! vajaaseen syÃ¶tteeseen oletuksena kysytÃ¤Ã¤n "mitÃ¤?"
 ! esim.
 !   >tutki
-!   Tutki mitä?
+!   Tutki mitÃ¤?
 ! PrintKysymys (finnish.h) tulostaa muita
 
 Verb 'vastaa' 'sano' 'puhu'
     * topic				-> Answer
     * all_creat topic			-> Answer
     * all_creat ela_noun topic		-> Answer reverse;
-Verb 'kysy' 'pyydä' ! 'tiedustele'
+Verb 'kysy' 'pyydÃ¤' ! 'tiedustele'
 ! ristolta pallosta
     * abl_creat topic			-> Ask 
 !   * abl_creat nom_noun                   -> AskFor
@@ -207,13 +207,13 @@ Verb 'kysy' 'pyydä' ! 'tiedustele'
 !   * abl_creat   topic                    -> AskTo;
 
 !Object 	"kysy" VerbDepot
-! with 	name 'kysy' 'tiedustele' 'pyydä';
-! kys_a "keneltäkö", kys_b "mittee"; ! miksei?
+! with 	name 'kysy' 'tiedustele' 'pyydÃ¤';
+! kys_a "keneltÃ¤kÃ¶", kys_b "mittee"; ! miksei?
 
 
 
-Verb 'hyökkää' 'riko' 'särje' 'murskaa' 'tuhoa' 'potkaise' 'potki'
-     'lyö' 'tapa' 'murhaa' 'iske'
+Verb 'hyÃ¶kkÃ¤Ã¤' 'riko' 'sÃ¤rje' 'murskaa' 'tuhoa' 'potkaise' 'potki'
+     'lyÃ¶' 'tapa' 'murhaa' 'iske'
      'hajota' 'hakkaa' 'piekse' 'kiduta' 'romuta'
     * nom_noun                             -> Attack
     * par_noun                             -> Attack
@@ -221,22 +221,22 @@ Verb 'hyökkää' 'riko' 'särje' 'murskaa' 'tuhoa' 'potkaise' 'potki'
 Verb 'puhalla'
     * par_held                             -> Blow
     * ill_held                             -> Blow;
-Verb 'äh' 'pahus' 'piru' 'hitsi' 'hitto'
+Verb 'Ã¤h' 'pahus' 'piru' 'hitsi' 'hitto'
     *                                      -> Mild
     * topic                                -> Mild;
-Verb 'polta' 'sytytä'
+Verb 'polta' 'sytytÃ¤'
     * nom_noun                             -> Burn
     * nom_noun ade_held                    -> Burn;
 Verb 'osta'
     * nom_noun                             -> Buy;
-Verb 'kiipeä'
+Verb 'kiipeÃ¤'
     * nom_noun                             -> Climb
     * par_noun                             -> Climb
     * ill_noun                             -> Climb
     * all_noun                             -> Climb
-    * gen_noun 'yli'/'päälle'              -> Climb
-    * 'ylös' par_noun                      -> Climb;
-Verb 'sulje' 'peitä'
+    * gen_noun 'yli'/'pÃ¤Ã¤lle'              -> Climb
+    * 'ylÃ¶s' par_noun                      -> Climb;
+Verb 'sulje' 'peitÃ¤'
     * nom_noun                             -> Close
     * 'off' nom_noun                       -> SwitchOff;
 Verb 'hae'
@@ -247,19 +247,19 @@ Verb 'leikkaa' 'katko' 'katkaise' 'viipaloi'
 Verb 'kaiva' 'kaivaudu'
     * nom_noun                             -> Dig
     * ill_noun                             -> Dig;
-Verb 'juo' 'hörppää' 'niele'
+Verb 'juo' 'hÃ¶rppÃ¤Ã¤' 'niele'
     * nom_noun                             -> Drink
     * ela_noun                             -> Drink
     * par_noun                             -> Drink;
-Verb 'pudota' 'laske' 'tiputa' 'poista' 'hylkää'
+Verb 'pudota' 'laske' 'tiputa' 'poista' 'hylkÃ¤Ã¤'
     * multiheld                            -> Drop
     * multiheld 'maahan'                   -> Drop;
-Verb 'jätä'
+Verb 'jÃ¤tÃ¤'
     * multiheld                            -> Drop
     * multiexcept ill_noun                 -> Insert
     * multiexcept all_noun                 -> PutOn
     * nom_noun                             -> Exit;
-Verb 'heitä' 'viskaa'
+Verb 'heitÃ¤' 'viskaa'
     * par_multi ade_held                   -> ThrowAt reverse
     * nom_multi                            -> Drop
     * nom_held ill_noun                    -> ThrowAt
@@ -271,10 +271,10 @@ Verb 'heitä' 'viskaa'
     * all_noun nom_held			   -> ThrowAt reverse
     * par_held all_noun                    -> ThrowAt
     * nom_held all_noun                    -> ThrowAt;
-Verb 'syö'
+Verb 'syÃ¶'
     * nom_held                             -> Eat
     * par_held                             -> Eat;
-Verb 'tyhjää' 'tyhjennä'
+Verb 'tyhjÃ¤Ã¤' 'tyhjennÃ¤'
     * nom_noun                             -> Empty
     * nom_noun ill_noun                    -> EmptyT
     * nom_noun all_noun                    -> EmptyT;
@@ -288,10 +288,10 @@ Object 	"tutki" VerbDepot
 Verb 'exit' 'ulos'
     *                                      -> Exit
     * ela_noun                             -> Exit;
-Verb 'täytä'
+Verb 'tÃ¤ytÃ¤'
     * nom_noun                             -> Fill;
-! mitä - kenelle
-Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
+! mitÃ¤ - kenelle
+Verb 'anna' 'syÃ¶tÃ¤' 'tarjoa' 'maksa' 'lahjoita'
     * nom_held all_creat		-> Give 
     * par_held all_creat		-> Give
     * all_creat nom_held		-> Give reverse
@@ -299,9 +299,9 @@ Verb 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita'
 
 
 Object 	"anna" VerbDepot
- with 	name 'anna' 'syötä' 'tarjoa' 'maksa' 'lahjoita';
+ with 	name 'anna' 'syÃ¶tÃ¤' 'tarjoa' 'maksa' 'lahjoita';
 
-! millä - kenet
+! millÃ¤ - kenet
 Verb 'lahjo' 'ruoki'
     * ade_held creature                    -> Give
     * creature ade_held                    -> Give reverse;
@@ -310,9 +310,9 @@ Verb 'tunge'
 Verb 'inv' 'tavarat' 'inventoi' 'inventaario' 'tarvikkeet' 'lista'
     'm//' 'v//'
     *                                      -> Inv
-    * 'pitkä'/'p'                          -> InvTall
-    * 'leveä'/'l'                          -> InvWide;
-Verb 'hyppää' 'loikkaa' 
+    * 'pitkÃ¤'/'p'                          -> InvTall
+    * 'leveÃ¤'/'l'                          -> InvWide;
+Verb 'hyppÃ¤Ã¤' 'loikkaa' 
     *                                      -> Jump
     * all_noun                             -> Enter
     * ill_noun                             -> Enter    
@@ -321,24 +321,24 @@ Verb 'hyppää' 'loikkaa'
 Verb 'suutele' 'pussaa' 'halaa' 'syleile'
     * par_creat                            -> Kiss
     * par_noun                             -> Kiss;
-Verb 'mene' 'juokse' 'kävele' 'käy' 'astu'
+Verb 'mene' 'juokse' 'kÃ¤vele' 'kÃ¤y' 'astu'
     *                                      -> VagueGo
     * noun=ADirection                      -> Go
     * ill_noun                             -> Enter
     * par_noun                             -> Enter
     * ela_noun                             -> Enter
     * all_noun                             -> Enter
-    * 'sisälle'/'sisään' ill_noun          -> Enter
-    * gen_noun 'sisälle'/'sisään'/'päälle' -> Enter
+    * 'sisÃ¤lle'/'sisÃ¤Ã¤n' ill_noun          -> Enter
+    * gen_noun 'sisÃ¤lle'/'sisÃ¤Ã¤n'/'pÃ¤Ã¤lle' -> Enter
     * 'pois'                               -> Exit;
-Verb 'poistu' 'tule' 'lähde'
+Verb 'poistu' 'tule' 'lÃ¤hde'
     *                                      -> Exit
     * abl_noun                             -> Exit
     * ela_noun                             -> Exit
-    * nom_noun 'päältä'/'sisältä'          -> Exit
+    * nom_noun 'pÃ¤Ã¤ltÃ¤'/'sisÃ¤ltÃ¤'          -> Exit
     * 'pois'                               -> Exit
-    * 'pois' gen_noun 'päältä'/'sisältä'   -> Exit
-    * gen_noun 'päältä'/'sisältä'          -> Exit
+    * 'pois' gen_noun 'pÃ¤Ã¤ltÃ¤'/'sisÃ¤ltÃ¤'   -> Exit
+    * gen_noun 'pÃ¤Ã¤ltÃ¤'/'sisÃ¤ltÃ¤'          -> Exit
     * gen_noun 'pois'/'ulos'               -> Exit
     * 'pois'/'ulos' ela_noun               -> Exit
     * 'pois'/'ulos' abl_noun               -> Exit
@@ -351,7 +351,7 @@ Verb 'kuuntele'
     * par_noun                             -> Listen
     * ela_noun                             -> Listen;
 
-! mikä millä
+! mikÃ¤ millÃ¤
 Verb 'lukitse'
     * nom_noun ade_held                    -> Lock;
 
@@ -363,10 +363,10 @@ Verb 'katso' 'ks' 'k//'
     *                                      -> Look
     * par_noun                             -> Examine
     * ill_noun                             -> Search
-    * gen_noun 'sisään'/'sisälle'          -> Search
+    * gen_noun 'sisÃ¤Ã¤n'/'sisÃ¤lle'          -> Search
     * gen_noun 'alle'                      -> LookUnder
     * noun=ADirection                      -> Examine;
-Verb 'ei' 'en' 'älä' 
+Verb 'ei' 'en' 'Ã¤lÃ¤' 
     *                                      -> No;
 Verb 'avaa'
     * nom_noun				-> Open
@@ -377,37 +377,37 @@ Verb 'avaa'
     
  Object "avaa" VerbDepot
  with 	name 'avaa',
- 	kysymys "millä";
+ 	kysymys "millÃ¤";
 
-Verb 'poimi' 'kerää'
+Verb 'poimi' 'kerÃ¤Ã¤'
     * nom_noun                             -> Take;
 Verb 'rukoile'
     *                                      -> Pray;
 Verb 'tiirikoi' 'murra'
     * nom_noun ade_held                    -> Unlock
     * nom_noun 'auki' ade_held             -> Unlock;
-Verb 'vedä' 'kisko'
+Verb 'vedÃ¤' 'kisko'
     * par_noun                             -> Pull
     * ela_noun				-> Pull;
 Verb 'paina'
     * par_noun				-> Push
     * nom_noun				-> Push;
-Verb 'työnnä' 'puske' ! 'liikuta'
+Verb 'tyÃ¶nnÃ¤' 'puske' ! 'liikuta'
 !    * par_noun				-> Push
     * par_noun noun=ADirection		-> PushDir
     * nom_noun noun=ADirection		-> PushDir;
 ! push rfalse "Se pysyy paikallaan."
 
-! (ehkä) mitä - mihin
-Verb 'laita' 'pane' 'pistä' ! 'aseta'
+! (ehkÃ¤) mitÃ¤ - mihin
+Verb 'laita' 'pane' 'pistÃ¤' ! 'aseta'
 
-! * nom_noun 'päälle'
+! * nom_noun 'pÃ¤Ã¤lle'
     * nom_multiexcept ill_noun		-> Insert 
     * par_noun ill_noun			-> Insert
     * nom_multiexcept all_noun		-> PutOn
     * par_noun all_noun			-> PutOn
-    * nom_noun gen_noun 'sisään'	-> Insert
-    * nom_noun gen_noun 'päälle'	-> PutOn 
+    * nom_noun gen_noun 'sisÃ¤Ã¤n'	-> Insert
+    * nom_noun gen_noun 'pÃ¤Ã¤lle'	-> PutOn 
     * all_noun nom_multiexcept		-> PutOn reverse
     * 'pois' nom_multiheld		-> Drop
     * nom_multiheld 'pois'		-> Drop; 
@@ -419,12 +419,12 @@ Verb 'laita' 'pane' 'pistä' ! 'aseta'
 Object 	"laita" VerbDepot
  with	
 	!inf_ "taa", ind_y "taa", ind_m "tavat",
-	name 'laita' 'pane' 'pistä' 'aseta';
+	name 'laita' 'pane' 'pistÃ¤' 'aseta';
 
 
 
-! siirrä voisi olla myös pushdir
-Verb 'siirrä'
+! siirrÃ¤ voisi olla myÃ¶s pushdir
+Verb 'siirrÃ¤'
     * nom_noun all_noun                    -> Transfer
     * nom_noun ill_noun                    -> Transfer;
 Verb 'lue'
@@ -434,26 +434,26 @@ Verb 'lue'
 Verb 'irrota'
     * multi                                -> Take
     * multiinside ela_noun                 -> Remove;
-Verb 'hankaa' 'siisti' 'siivoa' 'pölytä' 'kiillota'
+Verb 'hankaa' 'siisti' 'siivoa' 'pÃ¶lytÃ¤' 'kiillota'
      'kuuraa' 'hinkkaa' 'pyyhi' 'hiero'
     * nom_noun                             -> Rub
     * par_noun                             -> Rub;
 Verb 'etsi'
     * ela_noun                             -> Search;
-Verb 'säädä' 'määritä'
+Verb 'sÃ¤Ã¤dÃ¤' 'mÃ¤Ã¤ritÃ¤'
     * nom_noun                             -> Set
     * noun special                         -> SetTo;
 Verb 'riisu' 'riisuudu'
     * held				   -> Disrobe;
-! mitä - kenelle
-Verb 'näytä' 'esitä'
+! mitÃ¤ - kenelle
+Verb 'nÃ¤ytÃ¤' 'esitÃ¤'
     * par_held all_creat                   -> Show
     * nom_held all_creat                   -> Show
     * all_creat par_held                   -> Show reverse
     * all_creat nom_held                   -> Show reverse;
    
-Object 	"näytä" VerbDepot
- with 	name 'näytä' 'esitä';
+Object 	"nÃ¤ytÃ¤" VerbDepot
+ with 	name 'nÃ¤ytÃ¤' 'esitÃ¤';
 
 
 Verb  'saatana' 'helvetti' 'jumalauta' 'vittu' 'perkele'
@@ -478,12 +478,12 @@ Verb 'haista' 'haistele' 'nuuhki'
     * nom_noun                             -> Smell;
 Verb 'sori' 'pahoittelen' 'anteeksi'
     *                                      -> Sorry;
-Verb 'purista' 'litistä'
+Verb 'purista' 'litistÃ¤'
     * nom_noun                             -> Squeeze
     * par_noun                             -> Squeeze;
 Verb 'nouse'
     * 'seisomaan'                          -> Exit
-    * 'ylös'/'pystyyn'                     -> Exit
+    * 'ylÃ¶s'/'pystyyn'                     -> Exit
     * all_noun                             -> Enter
     * ill_noun                             -> Enter
     * ade_noun                             -> Enter;
@@ -497,9 +497,9 @@ Verb 'keinu' 'heilu'
     * ine_noun                             -> Swing;	
 Verb 'kytke'
     * nom_noun                             -> Switchon
-    * nom_noun 'päälle'                    -> Switchon
-    * nom_noun 'päältä'                    -> Switchoff
-    * nom_noun 'pois' 'päältä'             -> Switchoff;
+    * nom_noun 'pÃ¤Ã¤lle'                    -> Switchon
+    * nom_noun 'pÃ¤Ã¤ltÃ¤'                    -> Switchoff
+    * nom_noun 'pois' 'pÃ¤Ã¤ltÃ¤'             -> Switchoff;
 Verb 'ota'
     * nom_multi                            -> Take
     * par_multi                            -> Take;
@@ -511,17 +511,17 @@ Verb 'kerro'
     * creature topic			-> Tell; ! all_creat
 Verb 'ajattele'
     *                                      -> Think;
-Verb 'sido' 'kiinnitä'
+Verb 'sido' 'kiinnitÃ¤'
     * nom_noun                             -> Tie
     * nom_noun ill_noun                    -> Tie;
 Verb 'koske' 'kosketa' 'koskettele' 'tunnustele'
     * par_noun                             -> Touch;
-Verb 'käännä' 'kierrä' 'väännä'
+Verb 'kÃ¤Ã¤nnÃ¤' 'kierrÃ¤' 'vÃ¤Ã¤nnÃ¤'
     * par_noun                             -> Turn
-    * nom_noun 'päälle'                    -> Switchon
-    * nom_noun 'päältä'                    -> Switchoff
-    * nom_noun 'pois' 'päältä'             -> Switchoff
-    * nom_noun 'päältä' 'pois'             -> Switchoff;
+    * nom_noun 'pÃ¤Ã¤lle'                    -> Switchon
+    * nom_noun 'pÃ¤Ã¤ltÃ¤'                    -> Switchoff
+    * nom_noun 'pois' 'pÃ¤Ã¤ltÃ¤'             -> Switchoff
+    * nom_noun 'pÃ¤Ã¤ltÃ¤' 'pois'             -> Switchoff;
 Verb 'sammuta' 
     * nom_noun                             -> Switchoff;
 Verb 'heiluta' 'vilkuta'
@@ -530,14 +530,14 @@ Verb 'heiluta' 'vilkuta'
     * nom_noun                             -> Wave;
 Verb 'pukeudu' 'pue'
     * nom_held                             -> Wear
-    * nom_held 'päälle'                    -> Wear
-    * 'päälle' nom_held                    -> Wear
+    * nom_held 'pÃ¤Ã¤lle'                    -> Wear
+    * 'pÃ¤Ã¤lle' nom_held                    -> Wear
     * ill_noun nom_held                    -> Wear;
-Verb 'kyllä' 'joo' 'ok'
+Verb 'kyllÃ¤' 'joo' 'ok'
     *                                      -> Yes;
-Verb 'odota' 'z//' 'ö//' 
+Verb 'odota' 'z//' 'Ã¶//' 
     *                                      -> Wait;
-Verb 'herää' 'herätä' 'herätys'
+Verb 'herÃ¤Ã¤' 'herÃ¤tÃ¤' 'herÃ¤tys'
     *                                      -> Wake
     * nom_creat                            -> WakeOther;
 
