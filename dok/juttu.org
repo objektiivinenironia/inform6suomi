@@ -24,7 +24,7 @@ lelukaupassa on erilaisempia olioita kuin seikkailussa
 - frotz
 
 ** UTF-8
-- tiedostot nyt UTF-8. Kääntäjässä 6.33 on valitsin -Cu 
+- tiedostot on nyt muodossa UTF-8. Kääntäjässä (6.33 eteenpäin) on valitsin -Cu 
 
 ** nominien taivutuksen *tulostaminen*
 
