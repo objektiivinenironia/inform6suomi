@@ -1,0 +1,1134 @@
+!% +language_name=finnish
+
+Include "fialpha";
+
+! suomennoksen koukut (T viittaa tulostamiseen, P parsimiseen)
+!
+! >TY  nominin tulostaminen (yksikkö)
+! >TM  nominin tulostaminen (monikko)
+! >TO  omistusmuotojen tulostaminen
+! >PA  parsiminen: astevaihtelu (heikko/vahva?) 
+! >PP  parsiminen: astevaihtelun "resoluutio" (???)
+
+! ----------------------------------------------------------------------------
+!  Toyshop 961111                   One of the standard Inform 6 example games
+!
+!  This is not a real game.  The main example game for Inform is "Advent",
+!  a port of Colossal Cave.  Since that's something of an antique, and most
+!  of the objects in it are rather simple, this is a collection of more
+!  exotic features and peculiar objects.  Note that "Advent" has plenty of
+!  interesting doors, a good lantern and bottled oil and water, so those
+!  won't be part of the Toyshop.
+!
+!  Needs Inform 6 with library 6/1 or later to compile.
+!
+!  To win, simply find 6 interesting things to do and leave by the main exit!
+!
+!       Object            Is an example of...
+!
+!  >SA  satchel           Container into which the game silently puts things
+!  >HE  helium balloon    Something moving under the control of a daemon
+!  >CA  little red car    Vehicle, and pushable from place to place
+!  >PF  padded floor      Scenery present in several rooms at once
+!  >GR  hand grenade      Timed events: a grenade and its pin
+!  >MA  matchbook         Simple fire and matches; changing inventory styles
+!  >WC  white candles     A stock of objects identical to each other
+!  >GL  white gloves      Two independent objects which can behave as a pair
+!  >CO  green cone        Easy before and after rules
+!  >HW  high window       Starting and stopping daemons
+!  >BC  bolted cupboard   A typical locked container (with key)
+!  >GB  glass box         Container light can get through
+!  >SB  steel box         Container light can't get through
+!  >BL  building blocks   A complicated class definition; piles of objects
+!  >CH  Christopher       Someone you can talk to, and persuade to do things
+!  >OF  Office            Rules about moving in a particular direction
+!  >TB  toothed bag       A container with ideas about what it will allow
+!  >SL  spirit level      Something to put on top of things
+!  >BB  blackboard        A blackboard to write messages on
+!
+!  (The code is marked with >SA and so on for easy access with a text editor)
+! ----------------------------------------------------------------------------
+
+Constant DEBUG;
+
+Constant Story "LELUKAUPPA";
+Constant Headline "^ 
+             ~Lelukauppa - Interaktiivinen Esittely~^ Copyright (c) 1994 Graham Nelson. Kaikki oikeudet annettu pois.^";
+Release 4;
+!! Serial "961111";   	!   This sets the serial date to the date of this source
+                   	!   file, not to the date of compilation.
+
+!   Now we serve notice to Inform that we do not wish to use the standard
+!   routine for the Burn action, and will instead be defining our own:
+
+Replace BurnSub;
+
+!   Next include the first of the three standard library files:
+
+Include "Parser";
+
+
+! ----------------------------------------------------------------------------
+! >SA  Ungenerously, the player can only carry at most 4 things, but there's
+!      a satchel to carry other things around in...
+! ----------------------------------------------------------------------------
+
+Constant MAX_CARRIED = 4;
+Constant SACK_OBJECT = satchel;
+
+! >TY  nominin tulostaminen (yksikkö)
+!
+! Nominien taivutuksen tulostaminen on nykyisellään erittäin epäkäytännöllistä. 
+!
+! Ehkä kotimaisten kielten keskuksen sanalistasta voisi kehitellä
+! jonkinlaisen hakujutun? 
+! http://kaino.kotus.fi/sanat/nykysuomi/
+!
+! Jotta olion nimeä saadaan jotenkin taivutettua ja tulostettua,
+! täytyy käsipelillä syöttää 5 taivutusta jotta ohjelmallisesti
+! saadaan tulostettua +6 taivutusta (fifty-sixty).
+!
+!   "kapsäk/ki"
+!   gen "in", par "kiä", ess "kinä", ill "kiin"
+!
+! Merkkijonot jaetaan kauttaviivalla "/" ennen astevaihtelua, tai jos
+! astevaihtelua ei esiinny, menee "/" taivutettavan sanan loppuun.
+!
+! Merkkijonoihin gen, par, ess ja ill nysvätään se osa sanavartaloa joka tulee
+! astevaihtelun jälkeen, plus pääte.
+!
+! Antamalla oliolle ominaisuuden 'oletus_par' nimi ei tulostu
+! oletusarvoisesti perusmuodossa vaan
+! partitiivissa - esim. "Täällä on maukasta ruokaa".
+!
+! Taivutusta voi testata verbillä 'sijat'.
+!
+! !! esimerkkitulostus tähän !!
+
+! >TM Omistusmuotoja tulostettaessa lisätään kauttaviiva ja
+! omistusliite nimen perään, mutta esimerkiksi "kapsäkkisi" tarvitsee lisäapua
+
+Object satchel "kapsäk/ki/si"
+  with description "Iso ja siihen on maalattu keltainen iso hymynaama.", 
+       name "kapsäkki" "kapsäki" "säkki" "säki" "laukku" "lauku" "reppu" "repu",
+		gen "in", par "kiä", ess "kinä", ill "kiin",
+ 	     short_name
+	     [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;};
+ 		if (Sija == csIll) {print "kapsäkkiisi"; rtrue;};
+		if (Sija == csTra) {print "kapsäkiksesi"; rtrue;};
+		rfalse;],
+			
+       when_closed "Kapsäkkisi lojuu lattialla.",
+       when_open "Kapsäkkisi lojuu aukinaisena lattialla.",
+  has  container open openable;
+
+!   We're going to use the most elaborate scoring system the
+!   library provides (even though we're going to make the six tasks all
+!   score only 1 point each), so we define all this...
+
+Constant TASKS_PROVIDED;
+Constant NUMBER_TASKS = 6;
+Array    task_scores  -> 1 1 1 1 1 1;
+Constant MAX_SCORE = 6;
+
+!   And include the library of standard verbs and actions.
+
+Include "VerbLib";
+
+! ----------------------------------------------------------------------------
+!   Off we go into the Toyshop...
+! ----------------------------------------------------------------------------
+
+Class Toyroom
+  has  light;
+
+
+Toyroom Toyshop "Lelukaup/pa"
+ with gen "an", par "paa", ess "pana", ill "paan",
+  description
+  	"Keskellä idästä länteen ulottuvaa hallia.
+  	Hyllyt on täytetty leluilla, seiniin maalatut pellet 
+  	katselevat sinua ja lattia on
+  	peitetty värikkäillä matoilla. Oviaukko johtaa
+  	pohjoiseen, sen yläpuolella on punainen varoituskolmio.",
+
+       name "pellenaam" "pelle" "hylly" "varoitusko" "kolmio",
+       e_to East_End, w_to West_End, n_to Danger_Zone;
+
+
+Object -> chair "syöttötuoli/"
+  with name "korkea" "syöttötuo" "tuoli",
+	gen "n", par "a", ess "na", ill "in", 
+
+  has  supporter enterable;
+
+! ----------------------------------------------------------------------------
+! >HE  The balloon is completely self-contained as a piece of code, except
+!      that it does not set itself going (though even this could have been
+!      arranged): it is set going in the Initialise() routine.
+!
+!   Notice that the "after" for Drop takes away the "moved" attribute.
+!   This is one way to ensure that the "initial" message will always be
+!   the one displayed.  (Alternatively, we could have given it a "describe"
+!   property.)
+! ----------------------------------------------------------------------------
+
+Object -> balloon "heliumpallo/"
+  with description "Sininen, ja keltainen hymy.",
+       name "helium" "heliumpallo" "pallo" "ilmapallo" "naru" "sinis" "sininen",
+		gen "n", par "a", ess "na", ill "oon",
+       initial "Katossa huljuu ilmapallo pitkän narun päässä.",
+       before
+       [; Attack: remove self; StopDaemon(self);
+                "Tuhoat pallon helposti. Poks!^^
+                 Harmi että se oli korvaamaton, oikeasti.";
+       ],
+       after
+       [; Take: "Tartut ilmapalloon sen narusta. Se leijuu!";
+          Drop: give balloon ~moved;
+                "Ilmapallo nousee sulavasti kattoon.";
+       ],
+       daemon
+       [ from_room to_room;
+          if (random(3)~=1) rfalse;
+          from_room=parent(self);
+          if (from_room==East_End or West_End) to_room=Toyshop;
+          if (from_room==Toyshop)
+          {   if (random(2)==1) to_room=East_End;
+              else to_room=West_End;
+          }
+          if (to_room==0) rfalse;
+          move self to to_room;
+          if (location==from_room)
+            "^Tuuli vie ilmapallon ", (illatiivi) to_room, ".";
+          if (location==to_room)
+            "^Tuuli tuo ilmapallon ", (elatiivi) from_room, ".";
+       ];
+
+! ----------------------------------------------------------------------------
+! >CA  There are two exceptions to the ordinary before/after rules, for
+!      vehicles and things which can be pushed from place to place: this car
+!      demonstrates both at once.
+!
+!   The "before" for PushDir (push in a named direction) must call
+!   AllowPushDir and then return true to signify that the push is legal.
+!
+!   The "before" for Go must return true to signify that travelling in
+!   the object is legal.  (Note that it must also be enterable.)
+! ----------------------------------------------------------------------------
+
+! >PP
+! jos astevaihtelun "resoluutio" on liian tarkka, seuraa typerää:
+! olioiden nimissä (sanakirjassa ) on vieläkin tällaista:
+! "punainen" "punaise" "punais" (vaikka ei pitäisi!)
+!
+! näitä moniongelmaisia on täällä paljon muuallakin
+!
+! johtuu siitä ettei parsimisen resoluu
+!
+
+Object -> car "pien/i punai/nen auto/"
+ with 	name 'pien' 'punais' "punainen" "auto" "kar1" "kar1:",
+		gen "en/sen/n", par "tä/sta/a", ess "enä/sena/na", ill "een/seen/on",
+       description "Riittävän tilava istuttavaksi. Hallintalaitteiden joukossa on 
+	    huomattava on/off-kytkin. Rekisterinumero KAR 1.",
+
+       when_on  "Punainen auto on parkissa täällä, sen moottori on yhä käynnissä.",
+       when_off "Pieni punainen auto on parkkeerattu tänne.",
+       before
+       [; PushDir: AllowPushDir(); rtrue;
+          Go: if (car has on) { Achieved(1); "Brmm!  Brmm!"; }
+              print "(sitä ei ole kytketty päälle.)^";
+       ],
+       after
+       [; PushDir: "Auto liikkuu erittäin hitaasti työntäessäsi sitä.";
+       ],
+  has  switchable enterable static container open;
+
+Object -> -> "pien/i lap/pu"
+  with name "pieni" "lappu",
+	gen "en/un", par "tä/pua", ess "enä/puna", ill "een/puun",
+	 before
+         [; Consult: <<examine self>>; ], ! ts. "lue lappu" -> tutki (description)
+       description
+           "  !!!! FROBOZZ MAGIC CAR COMPANY !!!!^
+           ^Hei, Kuljettaja!^
+           ^Käyttöohjeet:^
+           ^Kytke virta ja anna mennä!^
+           ^Takuu:^
+           ^Tämä auto on vakuutettu kaikkia vikoja vastaan 
+           76 millisekunnin ajaksi ostopäivästä alkaen 
+           tai käyttöönottohetkeen asti, riippuen siitä 
+           kumpi tulee ensin.^
+           ^Onnea Matkaan!";
+
+! ----------------------------------------------------------------------------
+! >PF  An example of an object spread across several (three) rooms:
+! ----------------------------------------------------------------------------
+Object padded_floor "pehmustet/tu lattia/"
+  with name "pehmustettu" "pehmustetu" "lattia" "matto" "mato",
+		gen "un/n", par "tua/a", ess "tuna/na", ill "tuun/toon",
+       description "Se suojelee pikkulapsia ja seikkailijoita.",
+       before
+       [; Take: "Se on suojattu pikkulapsilta ja seikkailijoilta.";
+       ],
+       found_in East_End Toyshop West_End
+  has  scenery;
+
+! ----------------------------------------------------------------------------
+
+Toyroom Danger_Zone "Vaaravyöhyk/e"
+with name "vaaravyöhyke" "vyöhyke" "vyöhykke",
+gen "keen", par "että", ess "keenä", ill "keeseen",
+  description
+          "Tämä on Vaaravyöhyke, voisi olla viisasta pysyä poissa täältä. 
+          Yksi ovi johtaa takaisin etelään.",
+       s_to Toyshop;
+       
+
+! ----------------------------------------------------------------------------
+! >GR  A classic example of a timer (or, as some people call them and
+!      appropriately so in this case, a fuse).  To demonstrate stopping
+!      a timer before the alarm (and for fun), there is also a pin:
+! ----------------------------------------------------------------------------
+
+Object -> grenade "ilkeännäköi/nen käsikranaat/ti"
+  with name "kranaatti" "kranaati" "ilkeännäkö" "käsikranaa" "ilkeä",
+	gen "sen/in", par "stä/ia", ess "senä/tina", ill "seen/tiin",
+       initial "Ilkeännäköinen käsikranaatti (onko muunlaisia) 
+                pyörii vastuuttomasti lattialla.",
+       description "Ei suositella alle 90-vuotiaille lapsille.",
+       before
+       [; Pull: if (self has general) "Liian myöhäistä.";
+              StartTimer(self, 5); give self general;
+              move the_pin to player;
+              "Vedät sokan irti, peruuttamaton teko.";
+       ],
+       time_left 0,
+       time_out
+       [;  deadflag=1;
+           "^Yhtäkkiä valtava räjähdys tuhoaa lelukaupan!^^
+             Etkö koskaan opi?";
+       ],
+  has  transparent;
+
+Object -> -> the_pin "sok/ka"
+  with name "sokka" "soka" "varmistin" "varmistim",
+	gen "an", par "kaa", ess "kana", ill "kaan",
+       description "Sokka on suunniteltu irtoamaan helposti.",
+       before
+       [; Take, Pull: if (self in grenade) <<Pull grenade>>;
+          Insert:
+              if (self notin grenade && second==grenade)
+              {   StopTimer(grenade); move self to grenade;
+                  give grenade ~general;
+                  "Ihmeellistä! Sait sokan takaisin kranaattiin!";
+              }
+       ];
+
+! ----------------------------------------------------------------------------
+! >MA  This is a matchbook of five matches, which is quite simple in that you
+!      can only actually have one match at a time: otherwise, it's quite
+!      a full implementation.  Note that the inventory lines for the match
+!      and the matchbook are coded here.  Note also that the "match" object
+!      returns to the book even when the book is empty, so that the parser
+!      will still understand requests for matches - which the "before" rule,
+!      which automatically removes matches when needed, can then turn down.
+!
+!      The matchbook has a daemon whose job is to tidy up lost matches.  One
+!      might expect this rule to be coded with an "after" routine, to trap
+!      the player dropping matches.  But suppose there were a magpie in the
+!      game, and it flew down and stole the match but left the matchbook!
+!      As it happens there isn't, but this is better form.
+! ----------------------------------------------------------------------------
+
+Object -> matchbook "tikkuaski/"
+  with name "tikkuaski" "tulitikut" "tikut" "tikui" "tikkuj" "tikkui" "rasia" "tikkurasi",
+	gen "n", par "a", ess "na", ill "in",
+       number 5,
+       before
+       [; Burn: if (match has light)
+                {   remove match; remove matchbook;
+                    "Mitä tikkujen tuhlausta!";
+                }
+       ],
+       invent
+       [;  if (inventory_stage==2)
+           {   switch(self.number)
+               {   0: print " (tyhjä)";
+                   1: print " (1 tikku jäljellä)";
+                   default: print " (", self.number, " tikkua jäljellä)";
+               }
+           }
+       ],
+       description
+       [;  print "Askin kannessa on mainos: 
+                  ~Curses - Lounasajan Seikkailu~. Rasiassa ";
+           switch(self.number)
+           {   0: "ei ole tulitikkuja.";
+               1: "on yksi tulitikku jäljellä.";
+               default:
+                   print_ret "on ", self.number, " tulitikkua.";
+           }
+       ],
+       daemon
+       [;   if (match notin matchbook && match notin player)
+            {   move match to matchbook;
+                if (match has light)
+                {   give match ~light; StopTimer(match); }
+                StopDaemon(self);
+            }
+       ],
+  has  transparent;
+
+Object -> -> match "tulitik/ku"
+  with gen "un", par "kua", ess "kuna", ill "kuun", 
+  parse_name
+      [ i j;   if (self has light) j='palava'; else j='sytyttämätön';
+                while (NextWord()=='tulitikku' or 'tikku' or j) i++;
+                return i;
+       ],
+      !! article "an",
+       before
+       [ i; if (self in matchbook)
+            {   i=matchbook.number;
+                if (i==0) "Rasiassa ei ole enää tulitikkuja.";
+                i--; matchbook.number=i;
+                move self to player; StartDaemon(matchbook);
+                print "(otat tulitikun rasiasta, ";
+                if (i==0) print "joka on nyt tyhjä)^";
+                if (i==1) print "johon jää yksi tulitikku)^";
+                if (i>1)  print "jossa on nyt ", i, " jäljellä)^";
+             !!!   self.article = "an";
+            }
+            Take, Remove: if (self in player) "Selvä.";
+            Burn:
+                if (self has light) "Tulitikku palaa jo.";
+                if (matchbook notin player)
+                   "Tarvitset tikkuaskin jos haluat sytyttää sen.";
+                give self light; StartTimer(self, 2+random(3));
+                !! self.article = "a";
+                "Sytytät tulitikun.";
+       ],
+
+       short_name
+       [;   if (self has light) print "palava tulitikku";
+                           else print "sytyttämätön tulitikku";
+            rtrue;
+       ],
+
+       time_left,
+       time_out
+       [;   move self to matchbook; give self ~light;
+            "^Liekki saavuttaa sormesi ja pudotat tikun.";
+       ];
+
+! ----------------------------------------------------------------------------
+! >WC  A box of eight candles.
+!
+!      This is a simple way to code up duplicate objects.  For one thing,
+!      > take candles
+!      does not quite behave as we would hope: it'll only pick up one candle
+!      (though "> take four candles" will work).  See the "Block" class
+!      below for a way to make good.
+!
+!      If we had needed a much greater number of candles, we could have used
+!      object creation and destruction during play.  See the "Ticket" class
+!      from the "Balances" example game.
+! ----------------------------------------------------------------------------
+
+Class  Candle 
+  with name 'kynttilä' 'kynttilät' 'kynttilöi' 'talinkynt' 'vaha' 'vahakynttilä',
+       short_name "vahakynttilä/", plural "vahakynttilää", 
+		gen "n", par "ä", ess "nä", ill "än",
+
+       description "Samanlainen kuin muutkin kynttilät.",
+       before
+       [; Burn: "Harmillista, sydänlanka ei suostu syttymään."; ];
+
+!! Class  Candle
+!!   with name "wax" "candle" "candles",
+!!        short_name "wax candle", plural "wax candles",
+!!        description "It looks just like all the other candles.",
+!!        before
+!!        [; Burn: "Disappointingly, the wick refuses to burn."; ];
+
+
+Object -> "harmaa/ peltilaatik/ko"
+  with name 'harmaa' 'pelti' 'peltilaat' 'laatikko' 'laatiko' 'laatiko',
+  		gen "n/on", par "ta/koa", ess "na/kona", ill "seen/koon",
+       description
+       !! "A grey tin box of ~Major's Candles~.",
+           "Harmaa peltilaatikollinen ~Major's~ kynttilöitä.", 
+  has  container openable;
+
+Candle -> ->;
+Candle -> ->;
+Candle -> ->;
+Candle -> ->;
+Candle -> ->;
+Candle -> ->;
+Candle -> ->;
+Candle -> ->;
+
+
+Toyroom East_End "Itäpää/ty"
+	  with gen "dyn", par "tyä", ess "tynä", ill "tyyn",
+ 
+ name 'nukke' 'nuke' 'sairaanhoi' 'hoitaj', 
+       description
+          "Lelukaupan itäpääty on vaaleanpunainen, ja hyllyt on täynnä 
+          nukkeja ja sairaanhoitajia ylös korkeaan ikkunaan asti. 
+          Hämärä oviaukko vie pohjoiseen sivukammioon.",
+       w_to Toyshop, n_to DarkRoom;
+
+! ----------------------------------------------------------------------------
+! >GL  The following example, suggested to the author by Richard Tucker,
+!      demonstrates an apparently tricky case of objects with associated
+!   sub-objects.  The pair of white gloves behaves just like any other item
+!   of clothing - but the player can also use the left and right gloves
+!   independently, can take away or wear only one and so on.  When they
+!   come back together (even in a cupboard, say, or on a mantelpiece)
+!   they are called a pair again.
+!
+!   We can do this with only three objects, one daemon and one rule.
+!   
+!   When the gloves are together, and the player refers to an individual
+!   glove, the before rule splits up the pair and starts the daemon.
+!   Once active, the daemon tries every turn to re-join them into a pair.
+!   (If it succeeds, it turns itself off.)
+!
+!   Note that the "pair of gloves" object has the "general" attribute exactly
+!   when the gloves are apart.  Otherwise the pair-object contains both
+!   glove objects, and has "transparent" so that the parser knows the player
+!   can see and refer to them.
+! ----------------------------------------------------------------------------
+
+
+! >TM
+! monikkojen tulostaminen
+!
+! Olio jolla on 'pluralname' tulostuu oletusarvoisesti monikkona.
+! Joskus (!) monikko tarvitsee myös tulostusohjeen 'ine',
+! jotta taivutus tulostuu oikein, esim. "pyykit"
+!
+! "pyyk/it" with gen "kien", par "kejä", ess "keinä", ill "keihin", ine "eissä"
+
+
+Object -> gloves "valkois/et käsine/et"
+   with article "pari", 
+       name "pari" "valkois" "hansikkai" "hansko" "hanskat" "hansikkaat" "käsineet" "käsinei",
+		gen "ten/iden", par "ia/itä", ess "ina/inä", ill "iin/isiin",
+       daemon
+       [;  if (parent(right_glove) ~= parent(left_glove)) return;
+           if ((left_glove has worn && right_glove hasnt worn)
+               || (left_glove hasnt worn && right_glove has worn)) return;
+           if (left_glove has worn) give gloves worn; else give gloves ~worn;
+           move gloves to parent(right_glove); give gloves ~general;
+
+           move right_glove to gloves; move left_glove to gloves;
+           give right_glove ~worn;     give left_glove ~worn;
+           
+           StopDaemon(self);
+       ],
+  has  clothing transparent pluralname oletus_par; 
+
+Class  Glove
+  with !! article "the",
+       name "valkoinen" "valkois" "hanska" "hansikas" "hansikkaa" "käsine",
+       before
+       [;  if (self notin gloves) rfalse;
+           move left_glove to parent(gloves); move right_glove to parent(gloves);
+           if (gloves has worn)
+           {   give left_glove worn; give right_glove worn;
+           }
+           give gloves general; remove gloves;
+           StartDaemon(gloves);
+       ],
+  has  clothing;
+
+Glove -> -> left_glove "vase/n käsine/",
+	
+  with description "Valkoista silkkiä, siihen on kirjailtu punainen R.",
+       name "vasen" "vasemp" "vasemm", 
+       gen "mman/en", par "nta/ttä", ess "mpana/enä", ill "mpaan/eseen";
+       
+Glove -> -> right_glove "oikea/ käsine/"
+  with description "Valkoista silkkiä, siihen on kirjailtu punainen T.",
+       name "oikea",
+       gen "n/en", par "ta/ttä", ess "na/enä", ill "aan/eseen";
+
+! ----------------------------------------------------------------------------
+!   ...and that's all: the "gloves" code is self-contained.
+!
+!   Exercise for the reader: hide a (sharp) jewel inside the left glove.
+!     (Alter the glove class to make them containers open only when not worn.
+!      Add two "after" rules to warn the player if there's something sharp
+!      to the touch, one for putting on the pair of gloves, one for putting on
+!      an individual glove.)
+! ----------------------------------------------------------------------------
+
+
+! ----------------------------------------------------------------------------
+! >CO  A traditional Inform example object:
+! ----------------------------------------------------------------------------
+
+Object -> cone "vihreä/ kartio/"
+  with name "vihreä" "kartio" "marsipaani" "muodoton" "epämuodost" "smaragdin" "tötterö" "töttörö",
+		gen "n/n", par "ä/ta", ess "nä/na", ill "än/on",
+       describe
+       [; if (cone has moved)
+              "^Täällä kököttää epämuodostunut vihreä marsipaanikartio.";
+          "^Lähistöllä on smaragdinvihreä kartio, yhden jalan korkuinen.";
+       ],
+       description "Kartio näyttäisi olevan vihreää marsipaania.",
+       before
+       [; Eat: if (random(100) <= 30)
+               {   deadflag = 1;
+                   "Ikävää, taidat olla allerginen mantelille.";
+               }
+               "Napostelet kartion kulmaa.";
+       ],
+       after
+       [; Take: "Otat sen. (Kätesi tahriintuvat marsipaanista.)";
+          Drop: cone.description = "Kartio on epämääräinen vihreä sotku.";
+                "Kartio putoaa lattialle ja rupsahtaa vähän.";
+       ],
+  has  edible;
+
+! ----------------------------------------------------------------------------
+! >HW  It's the draught from this slightly-concealed window which propels the
+!      balloon:
+! ----------------------------------------------------------------------------
+
+Object -> "korkea/ ikkuna/"
+  with name "ikkuna" "korkea",
+	gen "n/n", par "a/a", ess "na/na", ill "an/an",
+       description
+       [;  print "Kapea, korkea ikkuna ";
+           if (self has open) "jonka läpi vetää.";
+           "joka on suljettu.";
+       ],
+       after
+       [; Open: StartDaemon(balloon);
+          Close: Achieved(2); StopDaemon(balloon);
+       ],
+  has  scenery openable open;
+
+! ----------------------------------------------------------------------------
+! >BC  A typical locked container, containing a rather pathetic prize...
+! ----------------------------------------------------------------------------
+
+Object -> "pultat/tu kaap/pi"
+  with name "pultattu" "pultatu" "kaappi" "kaapi" "komero",
+		gen "un/in", par "tua/pia", ess "tuna/pina", ill "tuun/piin",
+       describe
+       [; if (self hasnt open) "^Yhteen seinään on pultattu suljettu kaappi.";
+          "^Yhteen seinään on pultattu aukinainen kaappi.";
+       ],
+       with_key key
+  has  locked container openable lockable static;
+
+! Maukas lisätään e
+Object -> -> "keitet/ty namu/"
+  with name "keitetty" "keitety" "namu",
+	gen "yn/n", par "tyä/a", ess "tynä/na", ill "tyyn/un",
+       after
+       [; Eat: Achieved(0);
+               "Kestää ärsyttävän kauan syödä sitä.";
+       ],
+  has  edible;
+
+! ----------------------------------------------------------------------------
+! >GB  This is really to demonstrate "transparent".  Shutting up the glowing
+! >SB  ball in the glass box does not make the room go dark: shutting it up
+!      in the steel box does.  Also, you can examine things in the glass box
+!   even when the glass box is shut.
+!   (Note also that the Dark Room is explicitly told not to have "light",
+!   which it would otherwise inherit from the "Toyroom" class.)
+! ----------------------------------------------------------------------------
+
+Toyroom DarkRoom "Pimeä/ Huone/"
+	  with gen "n/en", par "ä/tta", ess "nä/ena", ill "ään/eseen",
+ description "Mielenkiinnoton varastotila, tuskin valaisemisen arvoinen.",
+       cant_go "Ainoa tie on takaisin etelään.",
+       s_to East_End
+  has  ~light;
+
+Object -> "kannelli/nen lasilaatik/ko"
+  with name 'lasilaati' 'laatikko' 'laatiko' 'laatiko' 'jossa' 'on' 'kansi' 'kantt', !!!#!
+	gen "sen/on", par "sta/koa", ess "sena/kona", ill "seen/koon",
+  has  container transparent openable open;
+
+Object -> "kannelli/nen teräslaatik/ko"
+ with name 'teräs' 'teräslaat' 'teräksi'  'laatikko' 'laatiko' 
+ 'laatiko' 'kannellin' 'kannellis',  !!!#! 
+	gen "sen/on", par "sta/koa", ess "sena/kona", ill "seen/koon",
+  has  container openable open;
+
+Toyroom West_End "Länsipää/ty"
+with gen "dyn", par "tyä", ess "tynä", ill "tyyn",
+  name "solttu" "sotila" "leikkisot" "pienoismall" "lentokone" "malleja" "mallit", 
+       description
+          "Lelukaupan länsipääty on sininen, ja hyllyt on täynnä 
+          sotilaita ja lentokoneita ylös asti. 
+          Etelässä on pieni toimisto.",  
+       e_to Toyshop, s_to Office;
+
+! ----------------------------------------------------------------------------
+! >BL  The class Block provides for stackable building blocks.
+!
+!   Note that with the "describe" routine missing, the game would still
+!   correctly describe stacks of blocks: just a little less elegantly.
+! ----------------------------------------------------------------------------
+
+!! En onnistunut tulostamaan kuutioiden dict addressia - kun ne pinotaan, ao. rutiini
+!! tulostaisi kuution värin (sanakirjanimiä on enemmän kuin yksi). 
+!! Sen sijaan kun kuutiopinoa kuvaillaan, "pinossa" merkkijono tulostaa värin  (partitiivi). 
+
+Class  Block
+  with description "Lasten rakennuspalikka, neljä tuumaa per sivu.",
+
+!! Tämä ei ole ratkaisu...
+!! Alkuperäinen 'Class Block' ei käytä nimiä (name) vaan parse_namea. 
+!! En saanut parse_name:a toimimaan joten täytyi antaa nimiä, ja monikoille '//p'.
+!! (Toimii, mutta ks. DM4 §29) 
+!! Jatkon kannalta olisi hyvä selvittää miten parse_name-rutiineja voisi käyttää 
+!! sijamuotojen kanssa... Tyyliin:
+!!
+!! " if (Alkusana(j) =='palikat' or 'palikoi' or 'kuutiot' or 'kuutioi')
+!!     {   parser_action=##PluralFound; i++; } "
+!!
+!! (ikäänkuin... LanguageRefers.)
+!!
+!! Ao. poiskommentoitu parse_name olettaa että (luokan kuutioilla) on vain yksi nimi 
+!! (self.name), sen väri, vaikka 'green', suomennokseen tulee enemmän (astevaihtelun takia) 
+!!
+!!    "punainen" "punaise" "punais"
+!!
+!! [Ehkä "punaise" on turha? Entä muualla?]
+
+	name 'kuutio' 'palikka' 'palika' 'palikat//p' 'palikoi//p' 'kuutioi', 
+
+
+!!       parse_name
+!!        [ i j;
+!!         for (::)
+!!          {   j=NextWord();
+!!             if (j=='block' or 'cube' or 'building' or (self.name)) i++;
+!!              else
+!!              {   if (j=='blocks' or 'cubes')
+!!                  {   parser_action=##PluralFound; i++; }
+!!                  else return i;
+!!             }
+!!         }
+!!       ],
+
+       describe
+       [ c d e;
+           d = child(self);
+           while (d~=0 && d ofclass Block)
+           {   c++; e=d; d=child(d); }
+           if (c==0) rfalse;
+           print "^Täällä on pino rakennuspalikoita: ";
+           while (c>=0)
+ 	   !!{   print (address) e.name;  ! Sneaky: print the "name" out 
+           !!    if (c>0) print " on ";   ! using its dictionary address
+           !!    c--; e=parent(e);		
+           !!}
+           
+           {   if (c<=0) print (genetiivi) e; 
+      		else
+           	 print (string) e.pinossa; !! print (address) e.name ei toiminut (nimiä >1)
+	                  if (c>0) print " ";   
+	  
+	                  c--; e=parent(e);		
+           }
+           
+           
+           
+           " päällä.";
+       ],
+       before
+       [ c;
+         PutOn:
+           if (second ofclass Block)
+           {   if (child(second)~=0 && child(second) ofclass Block)
+                   "Yhden kuution päälle ei mahdu kahta vierekkäin.";
+           }
+           else
+               print "(Ne on tarkoitettu pinottavaksi päällekkäin.)^";
+           c=second; while (c ofclass Block) c=parent(c);
+           if (c~=location or mantelpiece) "Liian epävakaa alusta.";
+       ],
+       after
+       [ c stack;
+         PutOn:
+           stack=noun;
+           while (parent(stack) ofclass Block) { stack=parent(stack); c++; }
+           if (c<2)
+           {   if (Chris has general) rtrue;
+               rfalse;
+           }
+           if (c==2) "Kolmen kuution pino on epävakaa, mutta onnistuu.";
+           if (Chris has general)
+           {   Achieved(3);
+               "^Mestarillisesti hän saa pystytettyä neljän kuution tornin.";
+           }
+           stack=noun;
+           while (parent(stack) ofclass Block)
+           {   c=stack; stack=parent(stack); move c to location; }
+           "Neljän kuution pino huojuu, huojuu, asettuu... ja yhtäkkiä romahtaa!";
+         Take:
+           stack=child(noun); if (stack==0) rfalse;
+           while (stack~=0)
+           { c=stack; stack=child(stack); move c to location; }
+           "Seurauksena palikkapinosi romahtaa.";
+       ],
+  has  supporter;
+
+Block -> "vihreä/ kuutio/" 
+with name "vihreä",
+	gen "n/n", par "ä/ta", ess "nä/na", ill "än/on", 
+	pinossa "vihreää";
+Block -> "punai/nen kuutio/" 
+  with name "punainen" "punaise" "punais", 
+	gen "sen/n", par "sta/ta", ess "sena/na", ill "seen/on", 
+	pinossa "punaista";
+Block -> "keltai/nen kuutio/"
+  with name "keltainen" "keltaise" "keltaist", 
+	gen "sen/n", par "sta/ta", ess "sena/na", ill "seen/on", 
+	pinossa "keltaista";
+Block -> "sini/nen kuutio/"
+  with name "sininen" "sinise" "sinis",
+	gen "sen/n", par "stä/ta", ess "senä/na", ill "seen/on", 
+	pinossa "sinistä";
+
+! ----------------------------------------------------------------------------
+! >CH  A guest appearance by my cousin Christopher, aged six (*), who plays
+!      with one thing at a time (easily forgetting which). Being "transparent"
+!      (no reflection on him!) means the parser allows the player to examine
+!      whatever he's playing with... but not to take it from him.
+!      (* In 1993, when this game was first written.)
+! ----------------------------------------------------------------------------
+
+! >PA
+! Vahva vai heikko astevaihtelu?
+! Esimerkiksi jos pelissä on Maukka ja maukasta ruokaa, käsky
+! "anna maukalle maukasta"
+! Ei välttämättä toimi ilman parsimisohjeita tyyliin:
+! Maukka: vahva_a 'maukka', heikko_a 'mauka'
+! Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
+
+Object -> Chris "Risto/"
+  with name "Poika" "poja" "nimeltä" "risto",
+  	gen "n", par "a", ess "na", ill "on",
+       describe
+       [;  print "^Poika nimeltä Risto istuu täällä";
+           if (child(Chris) ~= nothing)
+               print " leikkimässä ", (adessiivi) child(Chris); !!!huom: allat
+           ".";
+       ],
+       life
+       [ x;
+           Ask:
+              switch(second)
+              {   'hohtavasta', 'pallosta': "~Se on minun!~";
+                  'heliumpallosta', 'ilmapallosta': "Risto haukottelee.";
+                  'kuutioista', 'kuutiosta', 'palikasta', 'palikoista': 
+                  "~Uskotko että osaan tehdä korkeamman tornin.~";
+                  'leluista', 'lelukaupasta': "~Eikö täällä olekin upeaa?~";
+                  default: "~En tiiä.~";
+              }
+           Answer:
+              switch(noun)
+              {   'hei', 'heippa', 'moi', 'moikka', 'terve':
+                       "~Hei,~ sanoo Risto iloisesti.";
+                  default: "Ristolla näyttää olevan muuta tekemistä.";
+              }
+           Attack: remove self;
+             "Risto luikahtaa ohitsesi, ja pakenee paikalta!";
+           Kiss: "~Tuo on ylitunteellista, tuo.~";
+           Give:
+             if (noun==balloon) "Hän on liian kyllästynyt ilmapalloon.";
+             x=child(Chris);
+             if (x~=0)
+             {   move x to location;
+                 print "Hän unohtaa ", (genetiivi) x, " ja ";
+             }
+             else print "Hän ";
+             print "tarttuu innoissaan ", (illatiivi) noun; move noun to Chris; ".";
+       ],
+       orders
+       [;  Drop: if (noun in Chris) "~Eipä! Se on minun!~";
+           Take: "Ristoa ei voi nyt häiritä.";
+           Give: if (second==player) "~Se on minun!~";
+           Go: "~Mutta kun viihdyn täällä!~";
+           PutOn: if (noun notin Chris) "Hän on hyvin hämmentynyt.";
+                 if (~~(noun ofclass Block && second ofclass Block))
+                     "Hän ei tunnu löytävän jutun juonta.";
+                 print "Risto uppoutuu tehtävään hyvin keskittyneesti.^";
+                 move noun to player; give self general;
+                 <PutOn noun second>;
+                 give self ~general; rtrue;
+       ],
+       each_turn
+       [;  if (random(3)~=1) rtrue;
+           print "^Risto ";
+           switch(random(4))
+           {  1: "haukottelee.";     2: "kurtistaa kulmiaan.";
+              3: "venyttelee."; 4: "hyräilee yksitoikkoisesti.";
+           }
+       ],
+  has  animate proper transparent;
+
+Object "hohtava/ pallo/" Chris
+  with initial "Lattialla on hohtava jongleerauspallo!",
+	gen "n/n", par "a/a", ess "na/na", ill "an/on",
+       name "hohtava" "pallo" "jongleera",
+       description "Siinä on pehmeästi hohtava valo."
+  has  light;
+
+! ----------------------------------------------------------------------------
+! >OF  A simple movement rule.
+! ----------------------------------------------------------------------------
+
+Toyroom Office "Toimisto"
+  with description
+          "Pieni, harmaa toimisto, jossa on leveä kivinen takanreunus. 
+           Itäseinän oviaukossa lukee ~Exit~, ja Lelukauppa, 
+           tietenkin sijaitsee pohjoisessa.",
+       cant_go "Lelukaupan lattia on pohjoisessa.",
+       n_to West_End,
+       e_to
+       [; if (score~=MAX_SCORE)
+              "Gongi kumahtaa. ~Et voi poistua Lelukaupasta ennenkuin 
+              olet tehnyt kuusi mielenkiintoista asiaa!~";
+          deadflag=2;
+          "Gongi kumahtaa. ~Onnittelut! Voit nyt poistua Lelukaupasta ja 
+          aloittaa oman Inform-pelisi kirjoittamisen!~";
+       ];
+
+! ----------------------------------------------------------------------------
+! >TB  A somewhat acquisitive container... but it can be taught to behave.
+! ----------------------------------------------------------------------------
+
+!g+ Yhdessä nurkassa on utelias, hammastettu laukku. ! erikoinen hampaikas
+Object -> "kassi/ jolla on hampaat"
+  with name "kassi" "jolla" "on" "hampaat" "hampai" "hammaskass" "merkillin" "merkillis",
+	gen "n", par "a", ess  "na", ill "in",
+       initial "Yhdessä nurkassa on merkillinen kassi jolla on rivi hampaita.",
+       description "Tilava kassi jonka suu-osa on täynnä hampaita.",
+       before
+       [; LetGo: "Kassi on pureutuu kiinni käteesi eikä hellitä ennenkuin päästät irti.";
+       ],
+       after
+       [; Receive:
+              if (noun==cone)
+              {   self.before=0; self.after=0;
+                  "Kassi kiemurtelee loputtomiin sen yrittäessä 
+                  syödä valtavaa marsipaanimassaa. Siitäs sai.";
+              }
+              "Kassi kiemurtelee kammottavasti sen niellessä ", (genetiivi) noun, ".";
+       ],
+  has  container open;
+
+! ----------------------------------------------------------------------------
+! >SL  Which can be put on the mantelpiece: the first time this is done, the
+!      game randomly decides which end is higher, and sticks to this decision.
+! ----------------------------------------------------------------------------
+
+Object -> -> spirit_level "vesivaa/ka"
+  with name "vaaka" "vaa^a" "vesivaaka" "vesivaa^a" "vatupassi" 
+  "puu-esine" "neste" "vihreä" "lasisäiliö" "säiliö" "lasi" "pieni" "pient" "kupla",
+	gen "@@39an", par "kaa", ess "kana", ill "kaan",
+       number 0,
+       description "Pitkänomaisen puu-esineen lasisäiliössä on vihreää nestettä, johon on
+       		vangittu pieni kupla.",
+       before
+       [; Examine:
+          if (spirit_level in mantelpiece)
+          {   print "Kupla on ";
+              if (self.number==1) "koillispäässä.";
+              "kaakossa.";
+          } 
+       ],
+       after
+       [; PutOn: if (second~=mantelpiece) rfalse;
+           if (spirit_level hasnt general) self.number=random(2);
+           give spirit_level general; Achieved(4);
+           print "Asetat vesivaa@@39an takanreunukselle, jolloin kupla hitaasti vaeltaa ";
+           if (self.number==1) "koilliseen.";
+           "kaakkoon.";
+       ];
+
+
+Object -> mantelpiece "takanreunu/s"
+  with name "taka" "takan" "takka" "reuna" "reunus" "reunuk" "takanreunu" "uuninreun" "mantteli" "kivinen" "kivise" "leveä",
+	gen "ksen", par "sta", ess "ksena", ill "kseen",
+  has  scenery supporter;
+
+Object -> -> key "rauta-avai/n"
+  with gen "men", par "nta", ess "mena", ill "meen",
+  name "rauta" "rauta-avain" "avain" "avaime"; !! "avaim" ei riittänyt...
+
+! ----------------------------------------------------------------------------
+! >BB  A blackboard which can be written on or wiped clear.
+! ----------------------------------------------------------------------------
+
+Object -> -> chalk "pien/i lii/tu"
+  with name "pieni" "pien" "piene" "liitu" "liidu",
+	gen "en/dun", par "tä/tua", ess "enä/tuna", ill "een/tuun" ;
+
+Array boardtext string 64;
+
+Object -> blackboard "liitutaulu"
+  with name "taulu" "liitutaulu",
+       describe
+       [;  <<Examine self>>; ],
+       before
+       [ i f;
+           Examine:
+               for (i=1:i<=boardtext->0:i++)
+                   if (boardtext->i~=' ' or 0) f=1;
+               if (f==0)
+               {   print "^Toimiston liitutaulu on pyyhitty puhtaaksi.^";
+                   if (self hasnt general)
+                   {   give self general;
+                       "^[Kirjoittaaksesi, kokeile   > kirjoita ~viesti...~]";
+                   }
+                   rtrue;
+               }
+               print "^Toimiston liitutaulussa lukee:^    ";
+               for (i=1:i<=boardtext->0:i++)
+               {   f=boardtext->i;
+                   if (f~=0) print (char) f;
+               }
+               new_line; rtrue;
+           Rub: for (i=1:i<=boardtext->0:i++) boardtext->i = ' ';
+                  "Pyyhit liitutaulun puhtaaksi.";
+       ],
+  has  static;
+
+Global from_char; Global to_char;
+[ QuotedText i j f;
+   i = WordAddress(wn++); i=i-buffer;
+   if (buffer->i=='"')
+   {   for (j=i+1:j<=(buffer->1)+1:j++)
+           if (buffer->j=='"') f=j;
+       if (f==0) return -1;
+       from_char = i+1; to_char=f-1;
+       if (from_char>to_char) return -1;
+       while (buffer+f > WordAddress(wn)) wn++; wn++;
+       return 1;
+   }
+   return -1;
+];
+
+[ WriteSub i j;
+   if (chalk notin player) "Et pitele mitään kirjoittamiseen kelpaavaa.";
+   if (blackboard notin location) "Liitutaulu on jossain muualla.";
+   for (i=from_char,j=1:i<=to_char && j<boardtext->0:i++,j++)
+       boardtext->j = buffer->i;
+   for (:j<boardtext->0:j++) boardtext->j=0;
+   Achieved(5);
+   <<Examine blackboard>>;
+];
+
+! ----------------------------------------------------------------------------
+!   End of object definitions.
+! ----------------------------------------------------------------------------
+!
+!   Routines and Entry Points
+!
+!   (Fuller examples of which can be found in the "Advent" example game.)
+!
+!   Initialise() just sets up the initial state of the game.
+!   We are required to set "location" to the start location of the
+!   player; the rest is optional.
+!
+!   StartDaemon(balloon)  starts the process which blows the balloon back
+!   and forth.
+! ----------------------------------------------------------------------------
+
+[ Initialise;
+  location=chair;  move satchel to player;
+
+  print "^^^^^~Mikä tässä Informissa muka on niin ihmeellistä,~ on viimeinen 
+  asia, mitä muistat sanoneesi hullulle alkemistille. Paha virhe...^^";
+  
+  StartDaemon(balloon);
+];
+
+! ----------------------------------------------------------------------------
+!   Print names of tasks out (when the library asks us to).  Note that they
+!   are numbered from 0 to NUMBER_TASKS-1.
+! ----------------------------------------------------------------------------
+
+[ PrintTaskName achievement;
+  switch(achievement)
+  {   0: "namun syömisestä";
+      1: "autolla ajamisesta";
+      2: "läpivedon sulkemisesta";
+      3: "neljän pinoamisesta torniksi";
+      4: "takanreunuksen kallistuman havainnoinnista";
+      5: "liitutaululle kirjoittamisesta";
+  }
+];
+
+[ PrintRank;
+  print ", ansaitset arvonimen ";
+  if (score >= 6)  "lelukauppias."; !! "Toyshop manager."
+  if (score >= 5)  "kauppa-apulainen.";  !! "management trainee."
+  if (score >= 4)  "lelu-alan opiskelija."; !! "undergraduate."
+  if (score >= 3)  "ala-koululainen."; !! "schoolchild."
+  if (score >= 2)  "leikkikoululainen."; !! "nursery-school child."
+  if (score >= 1)  "taapero."; !! "toddler."
+  "vastasyntynyt vauva."; !! "newborn baby.";
+];
+
+! ----------------------------------------------------------------------------
+!   Now (as promised earlier) we provide the replacement for BurnSub,
+!   specially adapted to the rules of the Toyshop:
+! ----------------------------------------------------------------------------
+
+
+
+[ BurnSub;
+    if (match hasnt light) "Sinulla ei ole liekkiä.";
+    if (noun has animate) <<Attack noun>>;
+    if (noun==padded_floor)
+    {   deadflag=1;
+        "Gongi kumahtaa, mutta ennenkuin kolkko ääni ehtii 
+        selvittää kurkkunsa, koko pehmustettu lattia roihahtaa 
+        ilmiliekkeihin.";
+    }
+    "Gongi kumahtaa, ja kolkko, melko pettynyt ääni sanoo: ~ On kiellettyä leikkiä tulella lelukaupassa.~";
+];
+
+! ----------------------------------------------------------------------------
+!   And we provide one new action, "Burst", which in fact just passes over to
+!   "Attack", plus one for writing on the board:
+! ----------------------------------------------------------------------------
+
+[ BurstSub; <<Attack noun>>; ];
+
+
+Include "finng"; !finnish grammar
+
+!! auton voi myös 'käynnistää' (ei vain kytkeä...)
+Verb "käynnistä"  
+                * noun                    -> SwitchOn;
+
+Verb "puhkaise" "räjäytä" "puhko" "poksauta" "pamauta" "paukauta"
+                * noun                           -> Burst;
+
+Verb "kirjoita"    * QuotedText -> Write;
+
+!! "avaa komeron lukitus avaimella"
+Extend "avaa"
+          * gen_noun 'lukitus'  Ade_held      -> Unlock
+          * gen_noun 'lukko'  Ade_held      -> Unlock;
+
+
+! ----------------------------------------------------------------------------
