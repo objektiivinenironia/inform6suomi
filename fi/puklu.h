@@ -26,7 +26,7 @@ Array  Tparse  -> 6;
 
 Attribute oletus_par;
 
-! ** yksikk√∂ S_Req
+! ** yksikkˆ S_Req
 [ S_Req csID nreq;
 
     switch (csID) {
@@ -40,22 +40,22 @@ Attribute oletus_par;
      }
      csPar:	switch (nreq) {
       0:	return 'a//';
-      1:	return '√§//';
+      1:	return '‰//';
       2:	return 'ta';
-      3:	return 't√§';
+      3:	return 't‰';
       4:	return 'tta';
-      5: 	return 'tt√§';
+      5: 	return 'tt‰';
      }
      csIne:	switch (nreq) {
       0:	return 'ssa';
-      1:	return 'ss√§';
-      2:        return 'ess√§'; ! pitk√§ 'ee'
+      1:	return 'ss‰';
+      2:        return 'ess‰'; ! pitk‰ 'ee'
 
      }
      csEla:	switch (nreq) {
       0:	return 'sta';
-      1:	return 'st√§';
-      3:        return 'est√§'; ! pitk√§ 'ee'
+      1:	return 'st‰';
+      3:        return 'est‰'; ! pitk‰ 'ee'
 
      }
      csIll:	switch (nreq) {
@@ -65,29 +65,29 @@ Attribute oletus_par;
       3:	return 'on';
       4:	return 'un';
       5:	return 'yn';
-      6:	return '√§n';
-      7:	return '√∂n';
+      6:	return '‰n';
+      7:	return 'ˆn';
       8:	return 'han';
       9:	return 'hun';
       10:	return 'seen';
       11:       return 'teen';
-      12:	return 'eseen'; ! pitk√§ 'ee'
+      12:	return 'eseen'; ! pitk‰ 'ee'
 
      }
      csAde:	switch (nreq) {
       0:	return 'lla';
-      1:        return 'll√§';
-      2:        return 'ell√§'; ! pitk√§ 'ee'
+      1:        return 'll‰';
+      2:        return 'ell‰'; ! pitk‰ 'ee'
      }
      csAbl:	switch (nreq) {
       0:	return 'lta';
-      1:	return 'lt√§';
-      2:        return 'elt√§'; ! pitk√§ 'ee'
+      1:	return 'lt‰';
+      2:        return 'elt‰'; ! pitk‰ 'ee'
 
      }
      csAll:	switch (nreq) {
       0:	return 'lle';
-      1:	return 'elle'; ! pitk√§ 'ee'
+      1:	return 'elle'; ! pitk‰ 'ee'
      }
     }
     return -1;
@@ -113,17 +113,17 @@ Attribute oletus_par;
      }
      csPar:	switch (nreq) {
       0:	return 'ta';
-      1:	return 't√§';
+      1:	return 't‰';
       2:	return 'ja';
-      3:	return 'j√§';
+      3:	return 'j‰';
      }
      csIne:	switch (nreq) {
       0:	return 'ssa';
-      1:	return 'ss√§';
+      1:	return 'ss‰';
      }
      csEla:	switch (nreq) {
       0:	return 'sta';
-      1:	return 'st√§';
+      1:	return 'st‰';
      }
      csIll:	switch (nreq) {
       0:	return 'siin';
@@ -136,9 +136,9 @@ Attribute oletus_par;
      }
      csAbl:	switch (nreq) {
       0:	return 'lta';
-      1:	return 'lt√§';
+      1:	return 'lt‰';
       2:	return 'ilta';
-      3:	return 'ilt√§';
+      3:	return 'ilt‰';
      }
      csAll:	switch (nreq) {
       0:	return 'lle';
@@ -155,23 +155,23 @@ global muu_sija = 0;
 !
 ! jos sija ON olemassa (esim. ei "pallorz%s5t"),
 ! ja esine/asia ON paikalla,
-! mutta konteksti v√§√§r√§ (">ota palloLLE"),
-! ei sanota "Et n√§e mit√§√§n sellaista" (error_code 4),
+! mutta konteksti v‰‰r‰ (">ota palloLLE"),
+! ei sanota "Et n‰e mit‰‰n sellaista" (error_code 4),
 ! vaan:
 !
 !   >ota pallosta
-!   En ihan k√§sitt√§nyt.
+!   En ihan k‰sitt‰nyt.
 !
-! ...ja my√∂s:
+! ...ja myˆs:
 !
 !   >ota pallox
-!	En ihan k√§sitt√§nyt.
+!	En ihan k‰sitt‰nyt.
 !
 ! menee sijamuotona koska "x//" on sanakirjassa
-! (samoin "pallosy√∂" ("sy√∂" on sanak) -> "En ihan k√§sitt√§nyt"
-! mik√§ on ihan hyv√§ vastaus jos pallo on huoneessa).
-! Se on k√§yt√§nn√∂ss√§ sama kuin etype 1
-! (error type 1 == STUCK_PE == "En k√§sitt√§nyt tuota lausetta.")
+! (samoin "pallosyˆ" ("syˆ" on sanak) -> "En ihan k‰sitt‰nyt"
+! mik‰ on ihan hyv‰ vastaus jos pallo on huoneessa).
+! Se on k‰yt‰nnˆss‰ sama kuin etype 1
+! (error type 1 == STUCK_PE == "En k‰sitt‰nyt tuota lausetta.")
 
 [ ParserError error_code;
 
@@ -179,18 +179,18 @@ global muu_sija = 0;
     if (parser_trace > 1)
     { print "^ ParserError: etype ", etype, "  muu_sija: ", muu_sija,
 	" ecode: ", error_code, " ^";
-    	if (error_code == 2) print "v√§hennet√§√§n UPTO_PE -> STUCK_PE:ksi^";
+    	if (error_code == 2) print "v‰hennet‰‰n UPTO_PE -> STUCK_PE:ksi^";
     	if (muu_sija == true && error_code == 4) print
-	    "~Et n√§e mit√§√§n sellaista.~ (ecode 4) -> ~En ihan
-    	    k√§sitt√§nyt.~ (k√§yt√§nn√∂ss√§ sama kuin ecode 1)^";
+	    "~Et n‰e mit‰‰n sellaista.~ (ecode 4) -> ~En ihan
+    	    k‰sitt‰nyt.~ (k‰yt‰nnˆss‰ sama kuin ecode 1)^";
     }
 #Endif;
 
-    ! v√§hennet√§√§n UPTO_PE -> STUCK_PE:ksi
+    ! v‰hennet‰‰n UPTO_PE -> STUCK_PE:ksi
     if (error_code == 2) etype = 1;
 
     if (muu_sija == true && error_code == 4)
-	print_ret "En ihan k√§sitt√§nyt.";
+	print_ret "En ihan k‰sitt‰nyt.";
 
     ! (vai annetaanko merkkijono?)
     if (error_code ofclass String) print_ret (string) error_code;
@@ -199,7 +199,7 @@ global muu_sija = 0;
 ];
 
 
-! ** Ending Lookup etsii sijap√§√§tett√§ sy√∂tteest√§
+! ** Ending Lookup etsii sijap‰‰tett‰ syˆtteest‰
 
 global luku = 0;
 
@@ -210,12 +210,12 @@ global luku = 0;
 
     if (csID == 0) rtrue;
 
-!    ! "len" on haettavan p√§√§tteen pituus
+!    ! "len" on haettavan p‰‰tteen pituus
 !    if (len ~= 0) {v = DL (addr, len); 	
 !   	    
 !    	if (v == 0) rfalse;
 
-    ! "len" on haettavan p√§√§tteen pituus -- ONKO? (on) $$$
+    ! "len" on haettavan p‰‰tteen pituus -- ONKO? (on) $$$
     if (len ~= 0) {
 	v = DL (addr, len);
 	
@@ -228,17 +228,17 @@ global luku = 0;
 
     
 
-    } ! jos p√§√§te ei l√∂ydy sanakirjasta, rfalse
+    } ! jos p‰‰te ei lˆydy sanakirjasta, rfalse
 
-    else v = 0; ! ei p√§√§tett√§
+    else v = 0; ! ei p‰‰tett‰
 
-    Nomini = S_Req; ! etsii yksik√∂n p√§√§tett√§
+    Nomini = S_Req; ! etsii yksikˆn p‰‰tett‰
 
     for (::) {
 	for (i = 0: : ++i) {
 	    u = indirect (Nomini, csID, i);
 
-	    ! jos 'u' on 0 tai p√§√§te l√∂ytyy sanakirjasta (DL) rtrue
+	    ! jos 'u' on 0 tai p‰‰te lˆytyy sanakirjasta (DL) rtrue
 
 	    if (u == v && Nomini == P_Req) luku = 2;
             if (u == v && Nomini == S_Req) luku = 1;
@@ -249,12 +249,12 @@ global luku = 0;
 
 	}
 
-        ! sijap√§√§te on oudossa asiayhteydess√§ 
+        ! sijap‰‰te on oudossa asiayhteydess‰ 
 	! esim. "tutki uomasta" (mutta ei "tutki uomarrr") 
 
 	muu_sija = true;
 
-	! yksik√∂n j√§lkeen etsit√§√§n monikkoa 
+	! yksikˆn j‰lkeen etsit‰‰n monikkoa 
 
 	switch (Nomini) {
 
@@ -266,28 +266,28 @@ global luku = 0;
     rfalse;
 ];
 
-! T√§m√§ on rikki !
+! T‰m‰ on rikki !
 !!!!!!!!!!!!!!!!!
-! ** NextWordLyh (???) on t√§m√§kin! 
-!??? jos olio on in scope ja sill√§ on parse_namessa allaoleva
-!??? niin ajaa t√§m√§n aina
+! ** NextWordLyh (???) on t‰m‰kin! 
+!??? jos olio on in scope ja sill‰ on parse_namessa allaoleva
+!??? niin ajaa t‰m‰n aina
 
 [ NextWordLyh i j adr len end w;
 
-    !sy√∂tetty sana
+    !syˆtetty sana
     adr = WordAddress(wn);
-    !sy√∂tetyn sanan pituus
+    !syˆtetyn sanan pituus
     len = WordLength(wn);
 
     for (end = len: end ~= 0 : --end)
     {
-	! yritet√§√§n parsia sy√∂tetty sana
+	! yritet‰‰n parsia syˆtetty sana
 	! lopusta alkuun
 	w = DL(adr, end);
 
 	!print len, "*", end, "/";
 
-	! jos sy√∂te kelpaa DL:lle...
+	! jos syˆte kelpaa DL:lle...
 	if (w ~= 0)
 	{
 	    j = w; 
@@ -297,7 +297,7 @@ global luku = 0;
     }
     if (wn > parse->1) { wn++; rfalse; }
     i = wn*2-1; wn++;
-    ! jos sanaa ei l√∂ytynyt, parsitaan i...
+    ! jos sanaa ei lˆytynyt, parsitaan i...
     if (j ~= w) j = parse-->i;
     if (j == ',//') j = comma_word;
     if (j == './/') j = THEN1__WD;
@@ -308,34 +308,34 @@ global luku = 0;
 ! ** LanguageRefers (ja globaaleja muuttujia)
 
 Global csLR = 0;
-! sy√∂tteen tulostusta varten sijamuoto PrintCommand
+! syˆtteen tulostusta varten sijamuoto PrintCommand
 Global CaseIs; 
 ! tulostusta varten 
 Global sija; 
 
 ! LanguageRefers 
 !
-! !! T√§m√§kin pit√§isi kirjoittaa uudelleen!
+! !! T‰m‰kin pit‰isi kirjoittaa uudelleen!
 ! !! nimien astevaihtelun erottelu (vahva_a, heikko_b)
 ! !! on hankalaa.
-! !! "jokeri" (lyh) viel√§ samassa niin tulee takkua...
+! !! "jokeri" (lyh) viel‰ samassa niin tulee takkua...
 !
-! Parseri kysyy languagerefersilt√§ kelpaako sy√∂te sanakirjasanaksi
-! languagerefers vastaa sen perusteella mit√§ endinglookup
-! kertoo sijap√§√§tteest√§.
+! Parseri kysyy languagerefersilt‰ kelpaako syˆte sanakirjasanaksi
+! languagerefers vastaa sen perusteella mit‰ endinglookup
+! kertoo sijap‰‰tteest‰.
 !
 ! lyh on "jokeri"
 ! ---------------
-! kelpuuttaa mit√§ vain
-! sanakirjasanan ja sijap√§√§tteen v√§liin. esim.
+! kelpuuttaa mit‰ vain
+! sanakirjasanan ja sijap‰‰tteen v‰liin. esim.
 ! luolasusi luolasutta luolasudelle luolasudesta luolasuteen
-! (muista sanakirjasanat ''-sis√§√§n ei toimi muuten)
+! (muista sanakirjasanat ''-sis‰‰n ei toimi muuten)
 !
 ! Object -> luolis "luolasu/si"
 !  with 	lyh 'luolasu' 'su'
-!  etsit√§√§n sanakirjasanan
-!  j√§lkeen ja rtrue kun p√§√§te l√∂ytyy
-!  v√§liss√§ voi olla mit√§ tahansa k√∂nts√§√§
+!  etsit‰‰n sanakirjasanan
+!  j‰lkeen ja rtrue kun p‰‰te lˆytyy
+!  v‰liss‰ voi olla mit‰ tahansa kˆnts‰‰
 !    >anna pallo sudelle
 !  ja
 !    >anna pallo surtkgjkjkrgjegeglle
@@ -349,9 +349,9 @@ Global sija;
 ! 'patto', 'patot',  jne...
 !
 ! esim. vahva_a 'Maukka' / mon.: 'maukko'
-! (Monikkovartalon per√§√§n kelpaa genetiivi-, partitiivi-, illatiivi-, 
-! ja essiivip√§√§te.
-! Yksik√∂n nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivip√§√§te)
+! (Monikkovartalon per‰‰n kelpaa genetiivi-, partitiivi-, illatiivi-, 
+! ja essiivip‰‰te.
+! Yksikˆn nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivip‰‰te)
 
 property lyh;
 
@@ -366,7 +366,7 @@ property lyh;
 	!paska = DL (adr, end-1); !$$$$
 
 	! * rikki * $$$$$
-	! t√§ss√§ oli *lyh* joka on *rikki*
+	! t‰ss‰ oli *lyh* joka on *rikki*
 	! if (w ~= 0 && WordInProperty (w, obj, lyh))
 	!if (paska ~= 0 && WordInProperty (paska, obj, name)) !! && ?? $$$
 	!{
@@ -398,10 +398,10 @@ property lyh;
    	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
 	      (adr+end, len-end, csID)) rtrue;
 
-		    ! hyv√§ksyt√§√§n vain partitiivi
-		    ! ">t pt√§" ">mene pohjoista"
+		    ! hyv‰ksyt‰‰n vain partitiivi
+		    ! ">t pt‰" ">mene pohjoista"
 		    ! muuten esim. ">lu" (luode) vastaa:
-		    ! "L√§nsi vai luode?"
+		    ! "L‰nsi vai luode?"
 		    ! if (csID ~= 3) rfalse;
 
 	    if (csID ~= 3) rfalse; 
@@ -411,7 +411,7 @@ property lyh;
  	!???
 	! property *taipumaton*
 	! esimerkiksi genetiiviattribuutti
-	! "p√∂yd√§n" -> "p√∂yd√§n antimet"
+	! "pˆyd‰n" -> "pˆyd‰n antimet"
 	
 	if ( end == len && w ~= 0 && WordInProperty (w, obj, taipumaton)) 
 	    
@@ -424,7 +424,7 @@ property lyh;
 #Endif;
 	    rtrue; 
 	}; 
-	!??? t√§h?... jos Endinglookup on tosi, se on yksikk√∂
+	!??? t‰h?... jos Endinglookup on tosi, se on yksikkˆ
  	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
 	    (adr+end, len-end, csID)) 
 	    
@@ -436,7 +436,7 @@ property lyh;
 	    !  switch (luku)
 	    !  {
 	    !   0: print "    [* LanguageRefers: luku ? (0)]^";
-	    !   1: print "    [* LanguageRefers: luku yksikk√∂ (1)]^";
+	    !   1: print "    [* LanguageRefers: luku yksikkˆ (1)]^";
 	    !   2: print "    [* LanguageRefers: luku monikko (0)]^";
 	    ! }
 	    
@@ -461,13 +461,13 @@ property lyh;
 	    
 	    if (obj provides pluralname && csID == 2 or 3 or 6 or 10 )
 	    	rtrue;
-	    !??? yksikk√∂ ja nom, par, ess tai ill
+	    !??? yksikkˆ ja nom, par, ess tai ill
 	    else if (csID == 0 or 1 or 3 or 6 or 10)  
 		rtrue; 
 	};
 	
 	!??? esim. 'Mauka' (mon. 'Maukat', 'Mauko')
-	!??? (kelpaa muut sijap√§√§tteet kuin edellisess√§)
+	!??? (kelpaa muut sijap‰‰tteet kuin edellisess‰)
 	
 	if (w ~=0 && WordInProperty (w, obj, heikko_a) && EndingLookup (adr+end, len-end, csID) )
 	{
@@ -478,14 +478,14 @@ property lyh;
 	    
 	    if (obj provides pluralname && csID ~= 0 or 2 or 3 or 6 or
 	    	10 ) rtrue;
-	    !??? yksikk√∂ ja ei nom, par, ess tai ill
+	    !??? yksikkˆ ja ei nom, par, ess tai ill
 	    
 	    else if (csID ~= 0 or 1 or 3 or 6 or 10)  
 		rtrue; 
 	};
 	!??? esim. vahva_b 'maukka' 'maukkaa'
-	!??? (kaikki paitsi yksik√∂n nominatiivi
-	!??? 'maukka' + partitiivip√§√§te 'ta' kelpaa)
+	!??? (kaikki paitsi yksikˆn nominatiivi
+	!??? 'maukka' + partitiivip‰‰te 'ta' kelpaa)
 	
 	if (w ~=0 && WordInProperty (w, obj, vahva_b) && EndingLookup (adr+end, len-end, csID) )
 	{
@@ -497,7 +497,7 @@ property lyh;
 		rtrue; 
 	};
 	!??? esim. heikko_b 'maukas'
-	!??? (kelpaa muut kuin edellisess√§, ts. vain yksik√∂n
+	!??? (kelpaa muut kuin edellisess‰, ts. vain yksikˆn
 	!??? nominatiivi
 	!??? ja partitiivi kelpaa)
 	
@@ -529,7 +529,7 @@ property lyh;
     print
 	"^-- Debug (parsiminen, LR) --^
 	etype == ", etype, "^
-	wnum: ", wnum, " / len-end (p√§√§te): ", (len-end),")^",
+	wnum: ", wnum, " / len-end (p‰‰te): ", (len-end),")^",
 	"(adr: ", adr, ")^",
 	"(end: ", end, ")^",
 	"(len: ", len, ")^   ",
@@ -550,10 +550,10 @@ property lyh;
     };  print "^";
 ];
 
-! ** c_token ks. finng.h - etsii sijap√§√§tteen
+! ** c_token ks. finng.h - etsii sijap‰‰tteen
 !??? CaseIs = komennon verbin tulostamiseen 
 !??? multiflag jottei luule montaa asiaa haettavan
-!??? nyt kys. onkin onko edes t√§m√§ "ei MULTI_" ehto paikallaan
+!??? nyt kys. onkin onko edes t‰m‰ "ei MULTI_" ehto paikallaan
 
 [ c_token  idtok csID retval;
 
@@ -561,7 +561,7 @@ property lyh;
 
     retval = ParseToken (ELEMENTARY_TT, idtok);
 
-    !??? mit√§ t√§√§ll√§ tapahtuu?
+    !??? mit‰ t‰‰ll‰ tapahtuu?
     if (retval == 10000) sija = 10000; else sija = 0;
 
     CaseIs = csID; 
@@ -609,21 +609,21 @@ property lyh;
     !??? nominatiivi
     if (sija == 0 or 10000 && obj has oletus_par)
 	CCase (obj, csPar, false);
-    !??? LPSN ei tee mit√§√§n jos globaali sija on muuta kuin nolla
+    !??? LPSN ei tee mit‰‰n jos globaali sija on muuta kuin nolla
     if (sija ~= 0) rfalse; 
     
     rtrue;
 ];
 
-! hyhhyh! vaikka itse sanonkin (tai juuri siksi ett√§)
+! hyhhyh! vaikka itse sanonkin (tai juuri siksi ett‰)
 ! -------
 !
-! '>/' tulostaa '/' olion nimess√§ ('>>' tulostaa '>').
+! '>/' tulostaa '/' olion nimess‰ ('>>' tulostaa '>').
 ! tulostettu "/" tarkoittaa sanan vaihtumista kuten " ".
 ! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
 !
 !??? nominatiivi (1), csDflt
-!??? my√∂s verbien tulostusta, imperatiivi
+!??? myˆs verbien tulostusta, imperatiivi
 
 
 Constant SutLen = 200;
@@ -644,7 +644,7 @@ Array Suttu --> SutLen;
  	if (obj provides short_name)
 	    printshortname(obj);
 	else
-!??? jos vain t√§m√§, olion nimi ei tulostu oikein
+!??? jos vain t‰m‰, olion nimi ei tulostu oikein
 	    print (object) obj;
 
 	@output_stream -3;
@@ -667,7 +667,7 @@ Array Suttu --> SutLen;
 	        if (Suttu->i == '>' && Suttu->(i+1) == '>') print ">";}
 
 	!??? nomini ei nominatiivi tai 0 (csDflt)
-	!??? verbi ei my√∂sk√§√§n imperatiivi
+	!??? verbi ei myˆsk‰‰n imperatiivi
 	if (csID > 1 && csID ~= vbImp)
 	    for (i = 2: i ~= limit: ++ i)
 	    {    if (Suttu->i == '/' && Suttu->(i-1) ~= '>')
@@ -708,16 +708,16 @@ Array ParArr --> ParLen;
 Constant JutLen = 100;
 Array Juttu --> JutLen;
 
-! t√§m√§ "juttu" pit√§isi kirjoittaa uudelleen
+! t‰m‰ "juttu" pit‰isi kirjoittaa uudelleen
 ! -----------------------------------------
-! ps = printtauss√§√§nt√∂, onko yksikk√∂, monikko vai monikko ja "ine"-ohje.
-! 0 on yksikk√∂
+! ps = printtauss‰‰ntˆ, onko yksikkˆ, monikko vai monikko ja "ine"-ohje.
+! 0 on yksikkˆ
 ! 1 jos monikko
 ! 2 jos monikko ja ine tulostusohje.
 !
 !??? 's' ei tulostu ine-tulostusohjeen takia
 !??? ps on 1 jos (monikko)objektilla *ei* ole ine-ohjetta (esim. "susilla")
-!??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "p√∂ydill√§")
+!??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "pˆydill‰")
 
 [ CaseEnd obj csID at num limit i ps a paate_isolla;
 
@@ -750,7 +750,7 @@ Array Juttu --> JutLen;
 	};
 
     !??? monikon astevaihtelu esim. "reikien"
-    !??? oliolle on annettu ine "jiss√§"
+    !??? oliolle on annettu ine "jiss‰"
 
     if ((obj provides ine) && (obj has pluralname) &&
 	(csID ~= csNom or csPar or csGen or csEss or csIll))
@@ -787,16 +787,16 @@ Array Juttu --> JutLen;
     {
 	!??? 's' ei tulostu ine-tulostusohjeen takia
 	!??? ps on 1 jos (monikko)objektilla *ei* ole ine (esim. "susilla")
-	!??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "p√∂ydill√§")
+	!??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "pˆydill‰")
 
   	if (ps == 2) !??? monikko ja ine-ohje
 	    for (i = 2: i ~= limit: ++ i) {
 		if ((num == at-1)
 		    &&
-		    (Juttu->i ~= 's' or 'a' or '√§' or '/' or 'S' or 'A' or '√Ñ'))
+		    (Juttu->i ~= 's' or 'a' or '‰' or '/' or 'S' or 'A' or 'ƒ'))
 		    print (char) (Juttu->i);
 
-		if (Juttu->i == 'S' or 'A' or '√Ñ' ) paate_isolla = 1; 
+		if (Juttu->i == 'S' or 'A' or 'ƒ' ) paate_isolla = 1; 
 		if (Juttu->i == '/') num++;
 	    };
 
@@ -805,10 +805,10 @@ Array Juttu --> JutLen;
 
  	  	if ((num == at-1)
 		    &&
-		    (Juttu->i ~= 'n' or 'a' or '√§' or '/' or 'N' or 'A' or '√Ñ'))
+		    (Juttu->i ~= 'n' or 'a' or '‰' or '/' or 'N' or 'A' or 'ƒ'))
 		    print (char) (Juttu->i);
 
-		if (Juttu->i == 'N' or 'A' or '√Ñ') paate_isolla = 1; 
+		if (Juttu->i == 'N' or 'A' or 'ƒ') paate_isolla = 1; 
 		if (Juttu->i == '/') num++;
 
  	    };
@@ -817,12 +817,12 @@ Array Juttu --> JutLen;
     	if (obj hasnt pluralname) 
 	    for (i = 2: i ~= limit: ++ i) {
 		
-		!??? (gen-p√§√§tteest√§) jos kirjain on 'n' tai 'N',
-	     	!??? eik√§ sit√§ seuraa '/' tai jonon loppu, se tulostetaan.
+		!??? (gen-p‰‰tteest‰) jos kirjain on 'n' tai 'N',
+	     	!??? eik‰ sit‰ seuraa '/' tai jonon loppu, se tulostetaan.
 		!??? Esim.: "ont/to kan/to"  gen "on/non"
-		!??? genetiivin "non" ensimm√§inen "n" tulostetaan.
+		!??? genetiivin "non" ensimm‰inen "n" tulostetaan.
 		!??? <limit ~= (i+1) or (i+2)> (?) eli merkkijonon
-		!??? loppu ei tule heti '/' j√§lkeenk√§√§n?
+		!??? loppu ei tule heti '/' j‰lkeenk‰‰n?
 		
 		if ((num == at-1) && (Juttu->i == 'n' or 'N')
 		    && (Juttu->(i+1) ~= '/'))
@@ -893,9 +893,9 @@ Array verbi_array --> verbi_pituus;
     k = verbi_array->2;
 
     switch (k)
- { 155, 158: iso = 158; ! √§ -> √Ñ
-   156, 159: iso = 159; ! √∂ -> √ñ
-   201, 202: iso = 202; ! √• -> √Ö
+ { 155, 158: iso = 158; ! ‰ -> ƒ
+   156, 159: iso = 159; ! ˆ -> ÷
+   201, 202: iso = 202; ! Â -> ≈
    default: iso = k-32;
     }
     print (char) iso;

@@ -4,7 +4,7 @@ Include "fialpha";
 
 ! suomennoksen koukut (T viittaa tulostamiseen, P parsimiseen)
 !
-! >TY  nominin tulostaminen (yksikk√∂)
+! >TY  nominin tulostaminen (yksikkˆ)
 ! >TM  nominin tulostaminen (monikko)
 ! >TO  omistusmuotojen tulostaminen
 ! >PA  parsiminen: astevaihtelu (heikko/vahva?) 
@@ -76,50 +76,50 @@ Include "Parser";
 Constant MAX_CARRIED = 4;
 Constant SACK_OBJECT = satchel;
 
-! >TY  nominin tulostaminen (yksikk√∂)
+! >TY  nominin tulostaminen (yksikkˆ)
 !
-! Nominien taivutuksen tulostaminen on nykyisell√§√§n eritt√§in ep√§k√§yt√§nn√∂llist√§. 
+! Nominien taivutuksen tulostaminen on nykyisell‰‰n eritt‰in ep‰k‰yt‰nnˆllist‰. 
 !
-! Ehk√§ kotimaisten kielten keskuksen sanalistasta voisi kehitell√§
+! Ehk‰ kotimaisten kielten keskuksen sanalistasta voisi kehitell‰
 ! jonkinlaisen hakujutun? 
 ! http://kaino.kotus.fi/sanat/nykysuomi/
 !
-! Jotta olion nime√§ saadaan jotenkin taivutettua ja tulostettua,
-! t√§ytyy k√§sipelill√§ sy√∂tt√§√§ 5 taivutusta jotta ohjelmallisesti
+! Jotta olion nime‰ saadaan jotenkin taivutettua ja tulostettua,
+! t‰ytyy k‰sipelill‰ syˆtt‰‰ 5 taivutusta jotta ohjelmallisesti
 ! saadaan tulostettua +6 taivutusta (fifty-sixty).
 !
-!   "kaps√§k/ki"
-!   gen "in", par "ki√§", ess "kin√§", ill "kiin"
+!   "kaps‰k/ki"
+!   gen "in", par "ki‰", ess "kin‰", ill "kiin"
 !
 ! Merkkijonot jaetaan kauttaviivalla "/" ennen astevaihtelua, tai jos
 ! astevaihtelua ei esiinny, menee "/" taivutettavan sanan loppuun.
 !
-! Merkkijonoihin gen, par, ess ja ill nysv√§t√§√§n se osa sanavartaloa joka tulee
-! astevaihtelun j√§lkeen, plus p√§√§te.
+! Merkkijonoihin gen, par, ess ja ill nysv‰t‰‰n se osa sanavartaloa joka tulee
+! astevaihtelun j‰lkeen, plus p‰‰te.
 !
 ! Antamalla oliolle ominaisuuden 'oletus_par' nimi ei tulostu
 ! oletusarvoisesti perusmuodossa vaan
-! partitiivissa - esim. "T√§√§ll√§ on maukasta ruokaa".
+! partitiivissa - esim. "T‰‰ll‰ on maukasta ruokaa".
 !
-! Taivutusta voi testata verbill√§ 'sijat'.
+! Taivutusta voi testata verbill‰ 'sijat'.
 !
-! !! esimerkkitulostus t√§h√§n !!
+! !! esimerkkitulostus t‰h‰n !!
 
-! >TM Omistusmuotoja tulostettaessa lis√§t√§√§n kauttaviiva ja
-! omistusliite nimen per√§√§n, mutta esimerkiksi "kaps√§kkisi" tarvitsee lis√§apua
+! >TM Omistusmuotoja tulostettaessa lis‰t‰‰n kauttaviiva ja
+! omistusliite nimen per‰‰n, mutta esimerkiksi "kaps‰kkisi" tarvitsee lis‰apua
 
-Object satchel "kaps√§k/ki/si"
+Object satchel "kaps‰k/ki/si"
   with description "Iso ja siihen on maalattu keltainen iso hymynaama.", 
-       name "kaps√§kki" "kaps√§ki" "s√§kki" "s√§ki" "laukku" "lauku" "reppu" "repu",
-		gen "in", par "ki√§", ess "kin√§", ill "kiin",
+       name "kaps‰kki" "kaps‰ki" "s‰kki" "s‰ki" "laukku" "lauku" "reppu" "repu",
+		gen "in", par "ki‰", ess "kin‰", ill "kiin",
  	     short_name
-	     [; if (Sija == csGen) {print "kaps√§kkisi"; rtrue;};
- 		if (Sija == csIll) {print "kaps√§kkiisi"; rtrue;};
-		if (Sija == csTra) {print "kaps√§kiksesi"; rtrue;};
+	     [; if (Sija == csGen) {print "kaps‰kkisi"; rtrue;};
+ 		if (Sija == csIll) {print "kaps‰kkiisi"; rtrue;};
+		if (Sija == csTra) {print "kaps‰kiksesi"; rtrue;};
 		rfalse;],
 			
-       when_closed "Kaps√§kkisi lojuu lattialla.",
-       when_open "Kaps√§kkisi lojuu aukinaisena lattialla.",
+       when_closed "Kaps‰kkisi lojuu lattialla.",
+       when_open "Kaps‰kkisi lojuu aukinaisena lattialla.",
   has  container open openable;
 
 !   We're going to use the most elaborate scoring system the
@@ -146,18 +146,18 @@ Class Toyroom
 Toyroom Toyshop "Lelukaup/pa"
  with gen "an", par "paa", ess "pana", ill "paan",
   description
-  	"Keskell√§ id√§st√§ l√§nteen ulottuvaa hallia.
-  	Hyllyt on t√§ytetty leluilla, seiniin maalatut pellet 
+  	"Keskell‰ id‰st‰ l‰nteen ulottuvaa hallia.
+  	Hyllyt on t‰ytetty leluilla, seiniin maalatut pellet 
   	katselevat sinua ja lattia on
-  	peitetty v√§rikk√§ill√§ matoilla. Oviaukko johtaa
-  	pohjoiseen, sen yl√§puolella on punainen varoituskolmio.",
+  	peitetty v‰rikk‰ill‰ matoilla. Oviaukko johtaa
+  	pohjoiseen, sen yl‰puolella on punainen varoituskolmio.",
 
        name "pellenaam" "pelle" "hylly" "varoitusko" "kolmio",
        e_to East_End, w_to West_End, n_to Danger_Zone;
 
 
-Object -> chair "sy√∂tt√∂tuoli/"
-  with name "korkea" "sy√∂tt√∂tuo" "tuoli",
+Object -> chair "syˆttˆtuoli/"
+  with name "korkea" "syˆttˆtuo" "tuoli",
 	gen "n", par "a", ess "na", ill "in", 
 
   has  supporter enterable;
@@ -177,11 +177,11 @@ Object -> balloon "heliumpallo/"
   with description "Sininen, ja keltainen hymy.",
        name "helium" "heliumpallo" "pallo" "ilmapallo" "naru" "sinis" "sininen",
 		gen "n", par "a", ess "na", ill "oon",
-       initial "Katossa huljuu ilmapallo pitk√§n narun p√§√§ss√§.",
+       initial "Katossa huljuu ilmapallo pitk‰n narun p‰‰ss‰.",
        before
        [; Attack: remove self; StopDaemon(self);
                 "Tuhoat pallon helposti. Poks!^^
-                 Harmi ett√§ se oli korvaamaton, oikeasti.";
+                 Harmi ett‰ se oli korvaamaton, oikeasti.";
        ],
        after
        [; Take: "Tartut ilmapalloon sen narusta. Se leijuu!";
@@ -218,47 +218,47 @@ Object -> balloon "heliumpallo/"
 ! ----------------------------------------------------------------------------
 
 ! >PP
-! jos astevaihtelun "resoluutio" on liian tarkka, seuraa typer√§√§:
-! olioiden nimiss√§ (sanakirjassa ) on viel√§kin t√§llaista:
-! "punainen" "punaise" "punais" (vaikka ei pit√§isi!)
+! jos astevaihtelun "resoluutio" on liian tarkka, seuraa typer‰‰:
+! olioiden nimiss‰ (sanakirjassa ) on viel‰kin t‰llaista:
+! "punainen" "punaise" "punais" (vaikka ei pit‰isi!)
 !
-! n√§it√§ moniongelmaisia on t√§√§ll√§ paljon muuallakin
+! n‰it‰ moniongelmaisia on t‰‰ll‰ paljon muuallakin
 !
-! johtuu siit√§ ettei parsimisen resoluu
+! johtuu siit‰ ettei parsimisen resoluu
 !
 
 Object -> car "pien/i punai/nen auto/"
  with 	name 'pien' 'punais' "punainen" "auto" "kar1" "kar1:",
-		gen "en/sen/n", par "t√§/sta/a", ess "en√§/sena/na", ill "een/seen/on",
-       description "Riitt√§v√§n tilava istuttavaksi. Hallintalaitteiden joukossa on 
+		gen "en/sen/n", par "t‰/sta/a", ess "en‰/sena/na", ill "een/seen/on",
+       description "Riitt‰v‰n tilava istuttavaksi. Hallintalaitteiden joukossa on 
 	    huomattava on/off-kytkin. Rekisterinumero KAR 1.",
 
-       when_on  "Punainen auto on parkissa t√§√§ll√§, sen moottori on yh√§ k√§ynniss√§.",
-       when_off "Pieni punainen auto on parkkeerattu t√§nne.",
+       when_on  "Punainen auto on parkissa t‰‰ll‰, sen moottori on yh‰ k‰ynniss‰.",
+       when_off "Pieni punainen auto on parkkeerattu t‰nne.",
        before
        [; PushDir: AllowPushDir(); rtrue;
           Go: if (car has on) { Achieved(1); "Brmm!  Brmm!"; }
-              print "(sit√§ ei ole kytketty p√§√§lle.)^";
+              print "(sit‰ ei ole kytketty p‰‰lle.)^";
        ],
        after
-       [; PushDir: "Auto liikkuu eritt√§in hitaasti ty√∂nt√§ess√§si sit√§.";
+       [; PushDir: "Auto liikkuu eritt‰in hitaasti tyˆnt‰ess‰si sit‰.";
        ],
   has  switchable enterable static container open;
 
 Object -> -> "pien/i lap/pu"
   with name "pieni" "lappu",
-	gen "en/un", par "t√§/pua", ess "en√§/puna", ill "een/puun",
+	gen "en/un", par "t‰/pua", ess "en‰/puna", ill "een/puun",
 	 before
          [; Consult: <<examine self>>; ], ! ts. "lue lappu" -> tutki (description)
        description
            "  !!!! FROBOZZ MAGIC CAR COMPANY !!!!^
            ^Hei, Kuljettaja!^
-           ^K√§ytt√∂ohjeet:^
-           ^Kytke virta ja anna menn√§!^
+           ^K‰yttˆohjeet:^
+           ^Kytke virta ja anna menn‰!^
            ^Takuu:^
-           ^T√§m√§ auto on vakuutettu kaikkia vikoja vastaan 
-           76 millisekunnin ajaksi ostop√§iv√§st√§ alkaen 
-           tai k√§ytt√∂√∂nottohetkeen asti, riippuen siit√§ 
+           ^T‰m‰ auto on vakuutettu kaikkia vikoja vastaan 
+           76 millisekunnin ajaksi ostop‰iv‰st‰ alkaen 
+           tai k‰yttˆˆnottohetkeen asti, riippuen siit‰ 
            kumpi tulee ensin.^
            ^Onnea Matkaan!";
 
@@ -277,12 +277,12 @@ Object padded_floor "pehmustet/tu lattia/"
 
 ! ----------------------------------------------------------------------------
 
-Toyroom Danger_Zone "Vaaravy√∂hyk/e"
-with name "vaaravy√∂hyke" "vy√∂hyke" "vy√∂hykke",
-gen "keen", par "ett√§", ess "keen√§", ill "keeseen",
+Toyroom Danger_Zone "Vaaravyˆhyk/e"
+with name "vaaravyˆhyke" "vyˆhyke" "vyˆhykke",
+gen "keen", par "ett‰", ess "keen‰", ill "keeseen",
   description
-          "T√§m√§ on Vaaravy√∂hyke, voisi olla viisasta pysy√§ poissa t√§√§lt√§. 
-          Yksi ovi johtaa takaisin etel√§√§n.",
+          "T‰m‰ on Vaaravyˆhyke, voisi olla viisasta pysy‰ poissa t‰‰lt‰. 
+          Yksi ovi johtaa takaisin etel‰‰n.",
        s_to Toyshop;
        
 
@@ -292,23 +292,23 @@ gen "keen", par "ett√§", ess "keen√§", ill "keeseen",
 !      a timer before the alarm (and for fun), there is also a pin:
 ! ----------------------------------------------------------------------------
 
-Object -> grenade "ilke√§nn√§k√∂i/nen k√§sikranaat/ti"
-  with name "kranaatti" "kranaati" "ilke√§nn√§k√∂" "k√§sikranaa" "ilke√§",
-	gen "sen/in", par "st√§/ia", ess "sen√§/tina", ill "seen/tiin",
-       initial "Ilke√§nn√§k√∂inen k√§sikranaatti (onko muunlaisia) 
-                py√∂rii vastuuttomasti lattialla.",
+Object -> grenade "ilke‰nn‰kˆi/nen k‰sikranaat/ti"
+  with name "kranaatti" "kranaati" "ilke‰nn‰kˆ" "k‰sikranaa" "ilke‰",
+	gen "sen/in", par "st‰/ia", ess "sen‰/tina", ill "seen/tiin",
+       initial "Ilke‰nn‰kˆinen k‰sikranaatti (onko muunlaisia) 
+                pyˆrii vastuuttomasti lattialla.",
        description "Ei suositella alle 90-vuotiaille lapsille.",
        before
-       [; Pull: if (self has general) "Liian my√∂h√§ist√§.";
+       [; Pull: if (self has general) "Liian myˆh‰ist‰.";
               StartTimer(self, 5); give self general;
               move the_pin to player;
-              "Ved√§t sokan irti, peruuttamaton teko.";
+              "Ved‰t sokan irti, peruuttamaton teko.";
        ],
        time_left 0,
        time_out
        [;  deadflag=1;
-           "^Yht√§kki√§ valtava r√§j√§hdys tuhoaa lelukaupan!^^
-             Etk√∂ koskaan opi?";
+           "^Yht‰kki‰ valtava r‰j‰hdys tuhoaa lelukaupan!^^
+             Etkˆ koskaan opi?";
        ],
   has  transparent;
 
@@ -322,7 +322,7 @@ Object -> -> the_pin "sok/ka"
               if (self notin grenade && second==grenade)
               {   StopTimer(grenade); move self to grenade;
                   give grenade ~general;
-                  "Ihmeellist√§! Sait sokan takaisin kranaattiin!";
+                  "Ihmeellist‰! Sait sokan takaisin kranaattiin!";
               }
        ];
 
@@ -349,15 +349,15 @@ Object -> matchbook "tikkuaski/"
        before
        [; Burn: if (match has light)
                 {   remove match; remove matchbook;
-                    "Mit√§ tikkujen tuhlausta!";
+                    "Mit‰ tikkujen tuhlausta!";
                 }
        ],
        invent
        [;  if (inventory_stage==2)
            {   switch(self.number)
-               {   0: print " (tyhj√§)";
-                   1: print " (1 tikku j√§ljell√§)";
-                   default: print " (", self.number, " tikkua j√§ljell√§)";
+               {   0: print " (tyhj‰)";
+                   1: print " (1 tikku j‰ljell‰)";
+                   default: print " (", self.number, " tikkua j‰ljell‰)";
                }
            }
        ],
@@ -366,7 +366,7 @@ Object -> matchbook "tikkuaski/"
                   ~Curses - Lounasajan Seikkailu~. Rasiassa ";
            switch(self.number)
            {   0: "ei ole tulitikkuja.";
-               1: "on yksi tulitikku j√§ljell√§.";
+               1: "on yksi tulitikku j‰ljell‰.";
                default:
                    print_ret "on ", self.number, " tulitikkua.";
            }
@@ -384,7 +384,7 @@ Object -> matchbook "tikkuaski/"
 Object -> -> match "tulitik/ku"
   with gen "un", par "kua", ess "kuna", ill "kuun", 
   parse_name
-      [ i j;   if (self has light) j='palava'; else j='sytytt√§m√§t√∂n';
+      [ i j;   if (self has light) j='palava'; else j='sytytt‰m‰tˆn';
                 while (NextWord()=='tulitikku' or 'tikku' or j) i++;
                 return i;
        ],
@@ -392,28 +392,28 @@ Object -> -> match "tulitik/ku"
        before
        [ i; if (self in matchbook)
             {   i=matchbook.number;
-                if (i==0) "Rasiassa ei ole en√§√§ tulitikkuja.";
+                if (i==0) "Rasiassa ei ole en‰‰ tulitikkuja.";
                 i--; matchbook.number=i;
                 move self to player; StartDaemon(matchbook);
                 print "(otat tulitikun rasiasta, ";
-                if (i==0) print "joka on nyt tyhj√§)^";
-                if (i==1) print "johon j√§√§ yksi tulitikku)^";
-                if (i>1)  print "jossa on nyt ", i, " j√§ljell√§)^";
+                if (i==0) print "joka on nyt tyhj‰)^";
+                if (i==1) print "johon j‰‰ yksi tulitikku)^";
+                if (i>1)  print "jossa on nyt ", i, " j‰ljell‰)^";
              !!!   self.article = "an";
             }
-            Take, Remove: if (self in player) "Selv√§.";
+            Take, Remove: if (self in player) "Selv‰.";
             Burn:
                 if (self has light) "Tulitikku palaa jo.";
                 if (matchbook notin player)
-                   "Tarvitset tikkuaskin jos haluat sytytt√§√§ sen.";
+                   "Tarvitset tikkuaskin jos haluat sytytt‰‰ sen.";
                 give self light; StartTimer(self, 2+random(3));
                 !! self.article = "a";
-                "Sytyt√§t tulitikun.";
+                "Sytyt‰t tulitikun.";
        ],
 
        short_name
        [;   if (self has light) print "palava tulitikku";
-                           else print "sytytt√§m√§t√∂n tulitikku";
+                           else print "sytytt‰m‰tˆn tulitikku";
             rtrue;
        ],
 
@@ -438,13 +438,13 @@ Object -> -> match "tulitik/ku"
 ! ----------------------------------------------------------------------------
 
 Class  Candle 
-  with name 'kynttil√§' 'kynttil√§t' 'kynttil√∂i' 'talinkynt' 'vaha' 'vahakynttil√§',
-       short_name "vahakynttil√§/", plural "vahakynttil√§√§", 
-		gen "n", par "√§", ess "n√§", ill "√§n",
+  with name 'kynttil‰' 'kynttil‰t' 'kynttilˆi' 'talinkynt' 'vaha' 'vahakynttil‰',
+       short_name "vahakynttil‰/", plural "vahakynttil‰‰", 
+		gen "n", par "‰", ess "n‰", ill "‰n",
 
-       description "Samanlainen kuin muutkin kynttil√§t.",
+       description "Samanlainen kuin muutkin kynttil‰t.",
        before
-       [; Burn: "Harmillista, syd√§nlanka ei suostu syttym√§√§n."; ];
+       [; Burn: "Harmillista, syd‰nlanka ei suostu syttym‰‰n."; ];
 
 !! Class  Candle
 !!   with name "wax" "candle" "candles",
@@ -459,7 +459,7 @@ Object -> "harmaa/ peltilaatik/ko"
   		gen "n/on", par "ta/koa", ess "na/kona", ill "seen/koon",
        description
        !! "A grey tin box of ~Major's Candles~.",
-           "Harmaa peltilaatikollinen ~Major's~ kynttil√∂it√§.", 
+           "Harmaa peltilaatikollinen ~Major's~ kynttilˆit‰.", 
   has  container openable;
 
 Candle -> ->;
@@ -472,14 +472,14 @@ Candle -> ->;
 Candle -> ->;
 
 
-Toyroom East_End "It√§p√§√§/ty"
-	  with gen "dyn", par "ty√§", ess "tyn√§", ill "tyyn",
+Toyroom East_End "It‰p‰‰/ty"
+	  with gen "dyn", par "ty‰", ess "tyn‰", ill "tyyn",
  
  name 'nukke' 'nuke' 'sairaanhoi' 'hoitaj', 
        description
-          "Lelukaupan it√§p√§√§ty on vaaleanpunainen, ja hyllyt on t√§ynn√§ 
-          nukkeja ja sairaanhoitajia yl√∂s korkeaan ikkunaan asti. 
-          H√§m√§r√§ oviaukko vie pohjoiseen sivukammioon.",
+          "Lelukaupan it‰p‰‰ty on vaaleanpunainen, ja hyllyt on t‰ynn‰ 
+          nukkeja ja sairaanhoitajia ylˆs korkeaan ikkunaan asti. 
+          H‰m‰r‰ oviaukko vie pohjoiseen sivukammioon.",
        w_to Toyshop, n_to DarkRoom;
 
 ! ----------------------------------------------------------------------------
@@ -509,16 +509,16 @@ Toyroom East_End "It√§p√§√§/ty"
 ! monikkojen tulostaminen
 !
 ! Olio jolla on 'pluralname' tulostuu oletusarvoisesti monikkona.
-! Joskus (!) monikko tarvitsee my√∂s tulostusohjeen 'ine',
+! Joskus (!) monikko tarvitsee myˆs tulostusohjeen 'ine',
 ! jotta taivutus tulostuu oikein, esim. "pyykit"
 !
-! "pyyk/it" with gen "kien", par "kej√§", ess "kein√§", ill "keihin", ine "eiss√§"
+! "pyyk/it" with gen "kien", par "kej‰", ess "kein‰", ill "keihin", ine "eiss‰"
 
 
-Object -> gloves "valkois/et k√§sine/et"
+Object -> gloves "valkois/et k‰sine/et"
    with article "pari", 
-       name "pari" "valkois" "hansikkai" "hansko" "hanskat" "hansikkaat" "k√§sineet" "k√§sinei",
-		gen "ten/iden", par "ia/it√§", ess "ina/in√§", ill "iin/isiin",
+       name "pari" "valkois" "hansikkai" "hansko" "hanskat" "hansikkaat" "k‰sineet" "k‰sinei",
+		gen "ten/iden", par "ia/it‰", ess "ina/in‰", ill "iin/isiin",
        daemon
        [;  if (parent(right_glove) ~= parent(left_glove)) return;
            if ((left_glove has worn && right_glove hasnt worn)
@@ -535,7 +535,7 @@ Object -> gloves "valkois/et k√§sine/et"
 
 Class  Glove
   with !! article "the",
-       name "valkoinen" "valkois" "hanska" "hansikas" "hansikkaa" "k√§sine",
+       name "valkoinen" "valkois" "hanska" "hansikas" "hansikkaa" "k‰sine",
        before
        [;  if (self notin gloves) rfalse;
            move left_glove to parent(gloves); move right_glove to parent(gloves);
@@ -547,16 +547,16 @@ Class  Glove
        ],
   has  clothing;
 
-Glove -> -> left_glove "vase/n k√§sine/",
+Glove -> -> left_glove "vase/n k‰sine/",
 	
-  with description "Valkoista silkki√§, siihen on kirjailtu punainen R.",
+  with description "Valkoista silkki‰, siihen on kirjailtu punainen R.",
        name "vasen" "vasemp" "vasemm", 
-       gen "mman/en", par "nta/tt√§", ess "mpana/en√§", ill "mpaan/eseen";
+       gen "mman/en", par "nta/tt‰", ess "mpana/en‰", ill "mpaan/eseen";
        
-Glove -> -> right_glove "oikea/ k√§sine/"
-  with description "Valkoista silkki√§, siihen on kirjailtu punainen T.",
+Glove -> -> right_glove "oikea/ k‰sine/"
+  with description "Valkoista silkki‰, siihen on kirjailtu punainen T.",
        name "oikea",
-       gen "n/en", par "ta/tt√§", ess "na/en√§", ill "aan/eseen";
+       gen "n/en", par "ta/tt‰", ess "na/en‰", ill "aan/eseen";
 
 ! ----------------------------------------------------------------------------
 !   ...and that's all: the "gloves" code is self-contained.
@@ -573,26 +573,26 @@ Glove -> -> right_glove "oikea/ k√§sine/"
 ! >CO  A traditional Inform example object:
 ! ----------------------------------------------------------------------------
 
-Object -> cone "vihre√§/ kartio/"
-  with name "vihre√§" "kartio" "marsipaani" "muodoton" "ep√§muodost" "smaragdin" "t√∂tter√∂" "t√∂tt√∂r√∂",
-		gen "n/n", par "√§/ta", ess "n√§/na", ill "√§n/on",
+Object -> cone "vihre‰/ kartio/"
+  with name "vihre‰" "kartio" "marsipaani" "muodoton" "ep‰muodost" "smaragdin" "tˆtterˆ" "tˆttˆrˆ",
+		gen "n/n", par "‰/ta", ess "n‰/na", ill "‰n/on",
        describe
        [; if (cone has moved)
-              "^T√§√§ll√§ k√∂k√∂tt√§√§ ep√§muodostunut vihre√§ marsipaanikartio.";
-          "^L√§hist√∂ll√§ on smaragdinvihre√§ kartio, yhden jalan korkuinen.";
+              "^T‰‰ll‰ kˆkˆtt‰‰ ep‰muodostunut vihre‰ marsipaanikartio.";
+          "^L‰histˆll‰ on smaragdinvihre‰ kartio, yhden jalan korkuinen.";
        ],
-       description "Kartio n√§ytt√§isi olevan vihre√§√§ marsipaania.",
+       description "Kartio n‰ytt‰isi olevan vihre‰‰ marsipaania.",
        before
        [; Eat: if (random(100) <= 30)
                {   deadflag = 1;
-                   "Ik√§v√§√§, taidat olla allerginen mantelille.";
+                   "Ik‰v‰‰, taidat olla allerginen mantelille.";
                }
                "Napostelet kartion kulmaa.";
        ],
        after
-       [; Take: "Otat sen. (K√§tesi tahriintuvat marsipaanista.)";
-          Drop: cone.description = "Kartio on ep√§m√§√§r√§inen vihre√§ sotku.";
-                "Kartio putoaa lattialle ja rupsahtaa v√§h√§n.";
+       [; Take: "Otat sen. (K‰tesi tahriintuvat marsipaanista.)";
+          Drop: cone.description = "Kartio on ep‰m‰‰r‰inen vihre‰ sotku.";
+                "Kartio putoaa lattialle ja rupsahtaa v‰h‰n.";
        ],
   has  edible;
 
@@ -606,7 +606,7 @@ Object -> "korkea/ ikkuna/"
 	gen "n/n", par "a/a", ess "na/na", ill "an/an",
        description
        [;  print "Kapea, korkea ikkuna ";
-           if (self has open) "jonka l√§pi vet√§√§.";
+           if (self has open) "jonka l‰pi vet‰‰.";
            "joka on suljettu.";
        ],
        after
@@ -623,19 +623,19 @@ Object -> "pultat/tu kaap/pi"
   with name "pultattu" "pultatu" "kaappi" "kaapi" "komero",
 		gen "un/in", par "tua/pia", ess "tuna/pina", ill "tuun/piin",
        describe
-       [; if (self hasnt open) "^Yhteen sein√§√§n on pultattu suljettu kaappi.";
-          "^Yhteen sein√§√§n on pultattu aukinainen kaappi.";
+       [; if (self hasnt open) "^Yhteen sein‰‰n on pultattu suljettu kaappi.";
+          "^Yhteen sein‰‰n on pultattu aukinainen kaappi.";
        ],
        with_key key
   has  locked container openable lockable static;
 
-! Maukas lis√§t√§√§n e
+! Maukas lis‰t‰‰n e
 Object -> -> "keitet/ty namu/"
   with name "keitetty" "keitety" "namu",
-	gen "yn/n", par "ty√§/a", ess "tyn√§/na", ill "tyyn/un",
+	gen "yn/n", par "ty‰/a", ess "tyn‰/na", ill "tyyn/un",
        after
        [; Eat: Achieved(0);
-               "Kest√§√§ √§rsytt√§v√§n kauan sy√∂d√§ sit√§.";
+               "Kest‰‰ ‰rsytt‰v‰n kauan syˆd‰ sit‰.";
        ],
   has  edible;
 
@@ -648,10 +648,10 @@ Object -> -> "keitet/ty namu/"
 !   which it would otherwise inherit from the "Toyroom" class.)
 ! ----------------------------------------------------------------------------
 
-Toyroom DarkRoom "Pime√§/ Huone/"
-	  with gen "n/en", par "√§/tta", ess "n√§/ena", ill "√§√§n/eseen",
+Toyroom DarkRoom "Pime‰/ Huone/"
+	  with gen "n/en", par "‰/tta", ess "n‰/ena", ill "‰‰n/eseen",
  description "Mielenkiinnoton varastotila, tuskin valaisemisen arvoinen.",
-       cant_go "Ainoa tie on takaisin etel√§√§n.",
+       cant_go "Ainoa tie on takaisin etel‰‰n.",
        s_to East_End
   has  ~light;
 
@@ -660,19 +660,19 @@ Object -> "kannelli/nen lasilaatik/ko"
 	gen "sen/on", par "sta/koa", ess "sena/kona", ill "seen/koon",
   has  container transparent openable open;
 
-Object -> "kannelli/nen ter√§slaatik/ko"
- with name 'ter√§s' 'ter√§slaat' 'ter√§ksi'  'laatikko' 'laatiko' 
+Object -> "kannelli/nen ter‰slaatik/ko"
+ with name 'ter‰s' 'ter‰slaat' 'ter‰ksi'  'laatikko' 'laatiko' 
  'laatiko' 'kannellin' 'kannellis',  !!!#! 
 	gen "sen/on", par "sta/koa", ess "sena/kona", ill "seen/koon",
   has  container openable open;
 
-Toyroom West_End "L√§nsip√§√§/ty"
-with gen "dyn", par "ty√§", ess "tyn√§", ill "tyyn",
+Toyroom West_End "L‰nsip‰‰/ty"
+with gen "dyn", par "ty‰", ess "tyn‰", ill "tyyn",
   name "solttu" "sotila" "leikkisot" "pienoismall" "lentokone" "malleja" "mallit", 
        description
-          "Lelukaupan l√§nsip√§√§ty on sininen, ja hyllyt on t√§ynn√§ 
-          sotilaita ja lentokoneita yl√∂s asti. 
-          Etel√§ss√§ on pieni toimisto.",  
+          "Lelukaupan l‰nsip‰‰ty on sininen, ja hyllyt on t‰ynn‰ 
+          sotilaita ja lentokoneita ylˆs asti. 
+          Etel‰ss‰ on pieni toimisto.",  
        e_to Toyshop, s_to Office;
 
 ! ----------------------------------------------------------------------------
@@ -683,30 +683,30 @@ with gen "dyn", par "ty√§", ess "tyn√§", ill "tyyn",
 ! ----------------------------------------------------------------------------
 
 !! En onnistunut tulostamaan kuutioiden dict addressia - kun ne pinotaan, ao. rutiini
-!! tulostaisi kuution v√§rin (sanakirjanimi√§ on enemm√§n kuin yksi). 
-!! Sen sijaan kun kuutiopinoa kuvaillaan, "pinossa" merkkijono tulostaa v√§rin  (partitiivi). 
+!! tulostaisi kuution v‰rin (sanakirjanimi‰ on enemm‰n kuin yksi). 
+!! Sen sijaan kun kuutiopinoa kuvaillaan, "pinossa" merkkijono tulostaa v‰rin  (partitiivi). 
 
 Class  Block
-  with description "Lasten rakennuspalikka, nelj√§ tuumaa per sivu.",
+  with description "Lasten rakennuspalikka, nelj‰ tuumaa per sivu.",
 
-!! T√§m√§ ei ole ratkaisu...
-!! Alkuper√§inen 'Class Block' ei k√§yt√§ nimi√§ (name) vaan parse_namea. 
-!! En saanut parse_name:a toimimaan joten t√§ytyi antaa nimi√§, ja monikoille '//p'.
-!! (Toimii, mutta ks. DM4 ¬ß29) 
-!! Jatkon kannalta olisi hyv√§ selvitt√§√§ miten parse_name-rutiineja voisi k√§ytt√§√§ 
+!! T‰m‰ ei ole ratkaisu...
+!! Alkuper‰inen 'Class Block' ei k‰yt‰ nimi‰ (name) vaan parse_namea. 
+!! En saanut parse_name:a toimimaan joten t‰ytyi antaa nimi‰, ja monikoille '//p'.
+!! (Toimii, mutta ks. DM4 ß29) 
+!! Jatkon kannalta olisi hyv‰ selvitt‰‰ miten parse_name-rutiineja voisi k‰ytt‰‰ 
 !! sijamuotojen kanssa... Tyyliin:
 !!
 !! " if (Alkusana(j) =='palikat' or 'palikoi' or 'kuutiot' or 'kuutioi')
 !!     {   parser_action=##PluralFound; i++; } "
 !!
-!! (ik√§√§nkuin... LanguageRefers.)
+!! (ik‰‰nkuin... LanguageRefers.)
 !!
-!! Ao. poiskommentoitu parse_name olettaa ett√§ (luokan kuutioilla) on vain yksi nimi 
-!! (self.name), sen v√§ri, vaikka 'green', suomennokseen tulee enemm√§n (astevaihtelun takia) 
+!! Ao. poiskommentoitu parse_name olettaa ett‰ (luokan kuutioilla) on vain yksi nimi 
+!! (self.name), sen v‰ri, vaikka 'green', suomennokseen tulee enemm‰n (astevaihtelun takia) 
 !!
 !!    "punainen" "punaise" "punais"
 !!
-!! [Ehk√§ "punaise" on turha? Ent√§ muualla?]
+!! [Ehk‰ "punaise" on turha? Ent‰ muualla?]
 
 	name 'kuutio' 'palikka' 'palika' 'palikat//p' 'palikoi//p' 'kuutioi', 
 
@@ -730,7 +730,7 @@ Class  Block
            while (d~=0 && d ofclass Block)
            {   c++; e=d; d=child(d); }
            if (c==0) rfalse;
-           print "^T√§√§ll√§ on pino rakennuspalikoita: ";
+           print "^T‰‰ll‰ on pino rakennuspalikoita: ";
            while (c>=0)
  	   !!{   print (address) e.name;  ! Sneaky: print the "name" out 
            !!    if (c>0) print " on ";   ! using its dictionary address
@@ -739,7 +739,7 @@ Class  Block
            
            {   if (c<=0) print (genetiivi) e; 
       		else
-           	 print (string) e.pinossa; !! print (address) e.name ei toiminut (nimi√§ >1)
+           	 print (string) e.pinossa; !! print (address) e.name ei toiminut (nimi‰ >1)
 	                  if (c>0) print " ";   
 	  
 	                  c--; e=parent(e);		
@@ -747,19 +747,19 @@ Class  Block
            
            
            
-           " p√§√§ll√§.";
+           " p‰‰ll‰.";
        ],
        before
        [ c;
          PutOn:
            if (second ofclass Block)
            {   if (child(second)~=0 && child(second) ofclass Block)
-                   "Yhden kuution p√§√§lle ei mahdu kahta vierekk√§in.";
+                   "Yhden kuution p‰‰lle ei mahdu kahta vierekk‰in.";
            }
            else
-               print "(Ne on tarkoitettu pinottavaksi p√§√§llekk√§in.)^";
+               print "(Ne on tarkoitettu pinottavaksi p‰‰llekk‰in.)^";
            c=second; while (c ofclass Block) c=parent(c);
-           if (c~=location or mantelpiece) "Liian ep√§vakaa alusta.";
+           if (c~=location or mantelpiece) "Liian ep‰vakaa alusta.";
        ],
        after
        [ c stack;
@@ -770,15 +770,15 @@ Class  Block
            {   if (Chris has general) rtrue;
                rfalse;
            }
-           if (c==2) "Kolmen kuution pino on ep√§vakaa, mutta onnistuu.";
+           if (c==2) "Kolmen kuution pino on ep‰vakaa, mutta onnistuu.";
            if (Chris has general)
            {   Achieved(3);
-               "^Mestarillisesti h√§n saa pystytetty√§ nelj√§n kuution tornin.";
+               "^Mestarillisesti h‰n saa pystytetty‰ nelj‰n kuution tornin.";
            }
            stack=noun;
            while (parent(stack) ofclass Block)
            {   c=stack; stack=parent(stack); move c to location; }
-           "Nelj√§n kuution pino huojuu, huojuu, asettuu... ja yht√§kki√§ romahtaa!";
+           "Nelj‰n kuution pino huojuu, huojuu, asettuu... ja yht‰kki‰ romahtaa!";
          Take:
            stack=child(noun); if (stack==0) rfalse;
            while (stack~=0)
@@ -787,10 +787,10 @@ Class  Block
        ],
   has  supporter;
 
-Block -> "vihre√§/ kuutio/" 
-with name "vihre√§",
-	gen "n/n", par "√§/ta", ess "n√§/na", ill "√§n/on", 
-	pinossa "vihre√§√§";
+Block -> "vihre‰/ kuutio/" 
+with name "vihre‰",
+	gen "n/n", par "‰/ta", ess "n‰/na", ill "‰n/on", 
+	pinossa "vihre‰‰";
 Block -> "punai/nen kuutio/" 
   with name "punainen" "punaise" "punais", 
 	gen "sen/n", par "sta/ta", ess "sena/na", ill "seen/on", 
@@ -801,8 +801,8 @@ Block -> "keltai/nen kuutio/"
 	pinossa "keltaista";
 Block -> "sini/nen kuutio/"
   with name "sininen" "sinise" "sinis",
-	gen "sen/n", par "st√§/ta", ess "sen√§/na", ill "seen/on", 
-	pinossa "sinist√§";
+	gen "sen/n", par "st‰/ta", ess "sen‰/na", ill "seen/on", 
+	pinossa "sinist‰";
 
 ! ----------------------------------------------------------------------------
 ! >CH  A guest appearance by my cousin Christopher, aged six (*), who plays
@@ -814,19 +814,19 @@ Block -> "sini/nen kuutio/"
 
 ! >PA
 ! Vahva vai heikko astevaihtelu?
-! Esimerkiksi jos peliss√§ on Maukka ja maukasta ruokaa, k√§sky
+! Esimerkiksi jos peliss‰ on Maukka ja maukasta ruokaa, k‰sky
 ! "anna maukalle maukasta"
-! Ei v√§ltt√§m√§tt√§ toimi ilman parsimisohjeita tyyliin:
+! Ei v‰ltt‰m‰tt‰ toimi ilman parsimisohjeita tyyliin:
 ! Maukka: vahva_a 'maukka', heikko_a 'mauka'
 ! Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
 
 Object -> Chris "Risto/"
-  with name "Poika" "poja" "nimelt√§" "risto",
+  with name "Poika" "poja" "nimelt‰" "risto",
   	gen "n", par "a", ess "na", ill "on",
        describe
-       [;  print "^Poika nimelt√§ Risto istuu t√§√§ll√§";
+       [;  print "^Poika nimelt‰ Risto istuu t‰‰ll‰";
            if (child(Chris) ~= nothing)
-               print " leikkim√§ss√§ ", (adessiivi) child(Chris); !!!huom: allat
+               print " leikkim‰ss‰ ", (adessiivi) child(Chris); !!!huom: allat
            ".";
        ],
        life
@@ -836,38 +836,38 @@ Object -> Chris "Risto/"
               {   'hohtavasta', 'pallosta': "~Se on minun!~";
                   'heliumpallosta', 'ilmapallosta': "Risto haukottelee.";
                   'kuutioista', 'kuutiosta', 'palikasta', 'palikoista': 
-                  "~Uskotko ett√§ osaan tehd√§ korkeamman tornin.~";
-                  'leluista', 'lelukaupasta': "~Eik√∂ t√§√§ll√§ olekin upeaa?~";
-                  default: "~En tii√§.~";
+                  "~Uskotko ett‰ osaan tehd‰ korkeamman tornin.~";
+                  'leluista', 'lelukaupasta': "~Eikˆ t‰‰ll‰ olekin upeaa?~";
+                  default: "~En tii‰.~";
               }
            Answer:
               switch(noun)
               {   'hei', 'heippa', 'moi', 'moikka', 'terve':
                        "~Hei,~ sanoo Risto iloisesti.";
-                  default: "Ristolla n√§ytt√§√§ olevan muuta tekemist√§.";
+                  default: "Ristolla n‰ytt‰‰ olevan muuta tekemist‰.";
               }
            Attack: remove self;
              "Risto luikahtaa ohitsesi, ja pakenee paikalta!";
            Kiss: "~Tuo on ylitunteellista, tuo.~";
            Give:
-             if (noun==balloon) "H√§n on liian kyll√§stynyt ilmapalloon.";
+             if (noun==balloon) "H‰n on liian kyll‰stynyt ilmapalloon.";
              x=child(Chris);
              if (x~=0)
              {   move x to location;
-                 print "H√§n unohtaa ", (genetiivi) x, " ja ";
+                 print "H‰n unohtaa ", (genetiivi) x, " ja ";
              }
-             else print "H√§n ";
+             else print "H‰n ";
              print "tarttuu innoissaan ", (illatiivi) noun; move noun to Chris; ".";
        ],
        orders
-       [;  Drop: if (noun in Chris) "~Eip√§! Se on minun!~";
-           Take: "Ristoa ei voi nyt h√§irit√§.";
+       [;  Drop: if (noun in Chris) "~Eip‰! Se on minun!~";
+           Take: "Ristoa ei voi nyt h‰irit‰.";
            Give: if (second==player) "~Se on minun!~";
-           Go: "~Mutta kun viihdyn t√§√§ll√§!~";
-           PutOn: if (noun notin Chris) "H√§n on hyvin h√§mmentynyt.";
+           Go: "~Mutta kun viihdyn t‰‰ll‰!~";
+           PutOn: if (noun notin Chris) "H‰n on hyvin h‰mmentynyt.";
                  if (~~(noun ofclass Block && second ofclass Block))
-                     "H√§n ei tunnu l√∂yt√§v√§n jutun juonta.";
-                 print "Risto uppoutuu teht√§v√§√§n hyvin keskittyneesti.^";
+                     "H‰n ei tunnu lˆyt‰v‰n jutun juonta.";
+                 print "Risto uppoutuu teht‰v‰‰n hyvin keskittyneesti.^";
                  move noun to player; give self general;
                  <PutOn noun second>;
                  give self ~general; rtrue;
@@ -877,7 +877,7 @@ Object -> Chris "Risto/"
            print "^Risto ";
            switch(random(4))
            {  1: "haukottelee.";     2: "kurtistaa kulmiaan.";
-              3: "venyttelee."; 4: "hyr√§ilee yksitoikkoisesti.";
+              3: "venyttelee."; 4: "hyr‰ilee yksitoikkoisesti.";
            }
        ],
   has  animate proper transparent;
@@ -886,7 +886,7 @@ Object "hohtava/ pallo/" Chris
   with initial "Lattialla on hohtava jongleerauspallo!",
 	gen "n/n", par "a/a", ess "na/na", ill "an/on",
        name "hohtava" "pallo" "jongleera",
-       description "Siin√§ on pehme√§sti hohtava valo."
+       description "Siin‰ on pehme‰sti hohtava valo."
   has  light;
 
 ! ----------------------------------------------------------------------------
@@ -895,8 +895,8 @@ Object "hohtava/ pallo/" Chris
 
 Toyroom Office "Toimisto"
   with description
-          "Pieni, harmaa toimisto, jossa on leve√§ kivinen takanreunus. 
-           It√§sein√§n oviaukossa lukee ~Exit~, ja Lelukauppa, 
+          "Pieni, harmaa toimisto, jossa on leve‰ kivinen takanreunus. 
+           It‰sein‰n oviaukossa lukee ~Exit~, ja Lelukauppa, 
            tietenkin sijaitsee pohjoisessa.",
        cant_go "Lelukaupan lattia on pohjoisessa.",
        n_to West_End,
@@ -913,23 +913,23 @@ Toyroom Office "Toimisto"
 ! >TB  A somewhat acquisitive container... but it can be taught to behave.
 ! ----------------------------------------------------------------------------
 
-!g+ Yhdess√§ nurkassa on utelias, hammastettu laukku. ! erikoinen hampaikas
+!g+ Yhdess‰ nurkassa on utelias, hammastettu laukku. ! erikoinen hampaikas
 Object -> "kassi/ jolla on hampaat"
   with name "kassi" "jolla" "on" "hampaat" "hampai" "hammaskass" "merkillin" "merkillis",
 	gen "n", par "a", ess  "na", ill "in",
-       initial "Yhdess√§ nurkassa on merkillinen kassi jolla on rivi hampaita.",
-       description "Tilava kassi jonka suu-osa on t√§ynn√§ hampaita.",
+       initial "Yhdess‰ nurkassa on merkillinen kassi jolla on rivi hampaita.",
+       description "Tilava kassi jonka suu-osa on t‰ynn‰ hampaita.",
        before
-       [; LetGo: "Kassi on pureutuu kiinni k√§teesi eik√§ hellit√§ ennenkuin p√§√§st√§t irti.";
+       [; LetGo: "Kassi on pureutuu kiinni k‰teesi eik‰ hellit‰ ennenkuin p‰‰st‰t irti.";
        ],
        after
        [; Receive:
               if (noun==cone)
               {   self.before=0; self.after=0;
-                  "Kassi kiemurtelee loputtomiin sen yritt√§ess√§ 
-                  sy√∂d√§ valtavaa marsipaanimassaa. Siit√§s sai.";
+                  "Kassi kiemurtelee loputtomiin sen yritt‰ess‰ 
+                  syˆd‰ valtavaa marsipaanimassaa. Siit‰s sai.";
               }
-              "Kassi kiemurtelee kammottavasti sen nielless√§ ", (genetiivi) noun, ".";
+              "Kassi kiemurtelee kammottavasti sen nielless‰ ", (genetiivi) noun, ".";
        ],
   has  container open;
 
@@ -940,16 +940,16 @@ Object -> "kassi/ jolla on hampaat"
 
 Object -> -> spirit_level "vesivaa/ka"
   with name "vaaka" "vaa^a" "vesivaaka" "vesivaa^a" "vatupassi" 
-  "puu-esine" "neste" "vihre√§" "lasis√§ili√∂" "s√§ili√∂" "lasi" "pieni" "pient" "kupla",
+  "puu-esine" "neste" "vihre‰" "lasis‰iliˆ" "s‰iliˆ" "lasi" "pieni" "pient" "kupla",
 	gen "@@39an", par "kaa", ess "kana", ill "kaan",
        number 0,
-       description "Pitk√§nomaisen puu-esineen lasis√§ili√∂ss√§ on vihre√§√§ nestett√§, johon on
+       description "Pitk‰nomaisen puu-esineen lasis‰iliˆss‰ on vihre‰‰ nestett‰, johon on
        		vangittu pieni kupla.",
        before
        [; Examine:
           if (spirit_level in mantelpiece)
           {   print "Kupla on ";
-              if (self.number==1) "koillisp√§√§ss√§.";
+              if (self.number==1) "koillisp‰‰ss‰.";
               "kaakossa.";
           } 
        ],
@@ -964,13 +964,13 @@ Object -> -> spirit_level "vesivaa/ka"
 
 
 Object -> mantelpiece "takanreunu/s"
-  with name "taka" "takan" "takka" "reuna" "reunus" "reunuk" "takanreunu" "uuninreun" "mantteli" "kivinen" "kivise" "leve√§",
+  with name "taka" "takan" "takka" "reuna" "reunus" "reunuk" "takanreunu" "uuninreun" "mantteli" "kivinen" "kivise" "leve‰",
 	gen "ksen", par "sta", ess "ksena", ill "kseen",
   has  scenery supporter;
 
 Object -> -> key "rauta-avai/n"
   with gen "men", par "nta", ess "mena", ill "meen",
-  name "rauta" "rauta-avain" "avain" "avaime"; !! "avaim" ei riitt√§nyt...
+  name "rauta" "rauta-avain" "avain" "avaime"; !! "avaim" ei riitt‰nyt...
 
 ! ----------------------------------------------------------------------------
 ! >BB  A blackboard which can be written on or wiped clear.
@@ -978,7 +978,7 @@ Object -> -> key "rauta-avai/n"
 
 Object -> -> chalk "pien/i lii/tu"
   with name "pieni" "pien" "piene" "liitu" "liidu",
-	gen "en/dun", par "t√§/tua", ess "en√§/tuna", ill "een/tuun" ;
+	gen "en/dun", par "t‰/tua", ess "en‰/tuna", ill "een/tuun" ;
 
 Array boardtext string 64;
 
@@ -1026,7 +1026,7 @@ Global from_char; Global to_char;
 ];
 
 [ WriteSub i j;
-   if (chalk notin player) "Et pitele mit√§√§n kirjoittamiseen kelpaavaa.";
+   if (chalk notin player) "Et pitele mit‰‰n kirjoittamiseen kelpaavaa.";
    if (blackboard notin location) "Liitutaulu on jossain muualla.";
    for (i=from_char,j=1:i<=to_char && j<boardtext->0:i++,j++)
        boardtext->j = buffer->i;
@@ -1054,8 +1054,8 @@ Global from_char; Global to_char;
 [ Initialise;
   location=chair;  move satchel to player;
 
-  print "^^^^^~Mik√§ t√§ss√§ Informissa muka on niin ihmeellist√§,~ on viimeinen 
-  asia, mit√§ muistat sanoneesi hullulle alkemistille. Paha virhe...^^";
+  print "^^^^^~Mik‰ t‰ss‰ Informissa muka on niin ihmeellist‰,~ on viimeinen 
+  asia, mit‰ muistat sanoneesi hullulle alkemistille. Paha virhe...^^";
   
   StartDaemon(balloon);
 ];
@@ -1067,10 +1067,10 @@ Global from_char; Global to_char;
 
 [ PrintTaskName achievement;
   switch(achievement)
-  {   0: "namun sy√∂misest√§";
+  {   0: "namun syˆmisest‰";
       1: "autolla ajamisesta";
-      2: "l√§pivedon sulkemisesta";
-      3: "nelj√§n pinoamisesta torniksi";
+      2: "l‰pivedon sulkemisesta";
+      3: "nelj‰n pinoamisesta torniksi";
       4: "takanreunuksen kallistuman havainnoinnista";
       5: "liitutaululle kirjoittamisesta";
   }
@@ -1095,15 +1095,15 @@ Global from_char; Global to_char;
 
 
 [ BurnSub;
-    if (match hasnt light) "Sinulla ei ole liekki√§.";
+    if (match hasnt light) "Sinulla ei ole liekki‰.";
     if (noun has animate) <<Attack noun>>;
     if (noun==padded_floor)
     {   deadflag=1;
-        "Gongi kumahtaa, mutta ennenkuin kolkko √§√§ni ehtii 
-        selvitt√§√§ kurkkunsa, koko pehmustettu lattia roihahtaa 
+        "Gongi kumahtaa, mutta ennenkuin kolkko ‰‰ni ehtii 
+        selvitt‰‰ kurkkunsa, koko pehmustettu lattia roihahtaa 
         ilmiliekkeihin.";
     }
-    "Gongi kumahtaa, ja kolkko, melko pettynyt √§√§ni sanoo: ~ On kielletty√§ leikki√§ tulella lelukaupassa.~";
+    "Gongi kumahtaa, ja kolkko, melko pettynyt ‰‰ni sanoo: ~ On kielletty‰ leikki‰ tulella lelukaupassa.~";
 ];
 
 ! ----------------------------------------------------------------------------
@@ -1116,11 +1116,11 @@ Global from_char; Global to_char;
 
 Include "finng"; !finnish grammar
 
-!! auton voi my√∂s 'k√§ynnist√§√§' (ei vain kytke√§...)
-Verb "k√§ynnist√§"  
+!! auton voi myˆs 'k‰ynnist‰‰' (ei vain kytke‰...)
+Verb "k‰ynnist‰"  
                 * noun                    -> SwitchOn;
 
-Verb "puhkaise" "r√§j√§yt√§" "puhko" "poksauta" "pamauta" "paukauta"
+Verb "puhkaise" "r‰j‰yt‰" "puhko" "poksauta" "pamauta" "paukauta"
                 * noun                           -> Burst;
 
 Verb "kirjoita"    * QuotedText -> Write;

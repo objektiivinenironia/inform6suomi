@@ -31,7 +31,7 @@ Replace ParseToken;
 Replace ParseToken__;
 Replace ResetDescriptors;
 Replace Descriptors;
-Replace PSN__; ! "sin√§ itse" jne.
+Replace PSN__; ! "sin‰ itse" jne.
 
 
 
@@ -117,17 +117,17 @@ Object Compass "compass" has concealed;
 CompassDirection -> n_obj "pohjoi/nen" 
     with door_dir n_to, name 'p//' 'pohjoinen' 'pohjoi' 'pohjoiseen' 'pohjois',
     gen "sen", par "sta", ess "sena", ill "seen";
-CompassDirection -> s_obj "etel√§/"
-		    with door_dir s_to, name 'e//' 'etel√§' 'etel√§√§n'
-    	    'etel√§i',
-	gen "n", par "√§", ess "n√§", ill "st√§";
-CompassDirection -> e_obj "i/t√§" 
-		    with door_dir e_to, name 'i//' 'it√§' 'it√§√§n' 'it√§i',
-	gen "d√§n", par "t√§√§", ess "t√§n√§", ill "t√§√§n";
-CompassDirection -> w_obj "l√§n/si"
-		    with door_dir w_to, name 'l//' 'l√§nsi' 'l√§nt'
-	    'l√§nteen' 'l√§nti',
-	gen "nen", par "tt√§", ess "ten√§", ill "teen";
+CompassDirection -> s_obj "etel‰/"
+		    with door_dir s_to, name 'e//' 'etel‰' 'etel‰‰n'
+    	    'etel‰i',
+	gen "n", par "‰", ess "n‰", ill "st‰";
+CompassDirection -> e_obj "i/t‰" 
+		    with door_dir e_to, name 'i//' 'it‰' 'it‰‰n' 'it‰i',
+	gen "d‰n", par "t‰‰", ess "t‰n‰", ill "t‰‰n";
+CompassDirection -> w_obj "l‰n/si"
+		    with door_dir w_to, name 'l//' 'l‰nsi' 'l‰nt'
+	    'l‰nteen' 'l‰nti',
+	gen "nen", par "tt‰", ess "ten‰", ill "teen";
 CompassDirection -> ne_obj "koilli/nen"
 		    with door_dir ne_to, name 'ko' 'koillis' 'koillise',
 	gen "sen", par "sta", ess "sena", ill "seen"; 
@@ -141,18 +141,18 @@ CompassDirection -> se_obj "kaak/ko"
 		    with door_dir se_to, name 'ka' 'kaakko' 'kaakkoon' 'kaakkois',
 	gen "on", par "koa", ess "kona", ill "koon";
 
-CompassDirection -> u_obj "yl√∂s"
-		    with door_dir u_to, name 'y//' 'yl√∂s' 'ylh√§√§' 'katto' 'kato' 'taivas';
+CompassDirection -> u_obj "ylˆs"
+		    with door_dir u_to, name 'y//' 'ylˆs' 'ylh‰‰' 'katto' 'kato' 'taivas';
 CompassDirection -> d_obj "alas"
  with 	door_dir d_to, name 'a//' 'alas' 'alhaa' 'lattia' 'maa'
     	    'maa-taso';
 
 #endif; ! WITHOUT_DIRECTIONS
 
-CompassDirection -> in_obj "sis√§/"
-		    with door_dir in_to, name 'sis√§√§n' 'sis√§'
-	    'sis√§puole' 'sis',
-	gen "n", par "√§", ess "n√§", ill "√§n";
+CompassDirection -> in_obj "sis‰/"
+		    with door_dir in_to, name 'sis‰‰n' 'sis‰'
+	    'sis‰puole' 'sis',
+	gen "n", par "‰", ess "n‰", ill "‰n";
 CompassDirection -> out_obj "ul/ko"
  with 	door_dir out_to, name 'ulos' 'ulkopuole',
 	gen "on", par "koa", ess "kona", ill "os";
@@ -174,17 +174,17 @@ Constant UNDO2__WD      = 'peru';
 Constant UNDO3__WD      = 'peru';
 
 Constant ALL1__WD       = 'kaikki';
-Constant ALL2__WD       = 'kaikkia';!¬§
-Constant ALL3__WD       = 'kumpaakin';!¬§
-Constant ALL4__WD       = 'molempia';!¬§
+Constant ALL2__WD       = 'kaikkia';!§
+Constant ALL3__WD       = 'kumpaakin';!§
+Constant ALL4__WD       = 'molempia';!§
 Constant ALL5__WD       = 'molemmat';
 Constant AND1__WD       = 'ja';
-Constant AND2__WD       = 'ynn√§';
-Constant AND3__WD       = 'sek√§';
+Constant AND2__WD       = 'ynn‰';
+Constant AND3__WD       = 'sek‰';
 Constant BUT1__WD       = 'paitsi';
 Constant BUT2__WD       = 'paitsi';
 Constant BUT3__WD       = 'mutta';
-Constant ME1__WD        = 'min√§';
+Constant ME1__WD        = 'min‰';
 Constant ME2__WD        = 'minu';
 Constant ME3__WD        = 'itse';	
 !Constant ME4__WD	= 'minut';	
@@ -203,11 +203,11 @@ Constant NO1__WD        = 'e//';
 Constant NO2__WD        = 'ei';
 Constant NO3__WD        = 'en';
 Constant YES1__WD       = 'k//';
-Constant YES2__WD       = 'kyll√§';
+Constant YES2__WD       = 'kyll‰';
 Constant YES3__WD       = 'ok';
 
 Constant AMUSING__WD    = 'hupaisia';
-Constant FULLSCORE1__WD = 't√§ydet';
+Constant FULLSCORE1__WD = 't‰ydet';
 Constant FULLSCORE2__WD = 'maksimi';
 Constant QUIT1__WD      = 'q//';
 Constant QUIT2__WD      = 'lopeta';
@@ -230,7 +230,7 @@ Array LanguagePronouns table
 	'se'      $$001000111000                NULL
         'si'      $$001000111000                NULL
         'sii'     $$001000111000                NULL
-	'h√§n'     $$110000000000                NULL
+	'h‰n'     $$110000000000                NULL
 	'ne'      $$000001000001                NULL
 	'nii'     $$000001000001                NULL
 	'he'      $$000110000000                NULL;
@@ -247,12 +247,12 @@ Array LanguageDescriptors table
    'minun'       $$111111111111    POSSESS_PK           0
    'oma'         $$111000111000    POSSESS_PK           0
    'omat'        $$000111000111    POSSESS_PK           0
-   't√§m√§'        $$111000111000    POSSESS_PK           0
-   'n√§m√§'        $$000111000111    POSSESS_PK           0
+   't‰m‰'        $$111000111000    POSSESS_PK           0
+   'n‰m‰'        $$000111000111    POSSESS_PK           0
    'tuo'         $$111111111111    POSSESS_PK           1
    'nuo'         $$000111000111    POSSESS_PK           1
-   'h√§nen'       $$111111111111    POSSESS_PK           'h√§n'
-   'heid√§n'      $$111111111111    POSSESS_PK           'he'
+   'h‰nen'       $$111111111111    POSSESS_PK           'h‰n'
+   'heid‰n'      $$111111111111    POSSESS_PK           'he'
    'sen'         $$111111111111    POSSESS_PK           'se'
    'niiden'      $$111111111111    POSSESS_PK           'ne'
   !'a'           $$111111111111    INDEFART_PK          NULL
@@ -263,7 +263,7 @@ Array LanguageDescriptors table
    'sytytetty'   $$111111111111    light                NULL
    'sammunut'    $$111111111111    (-light)             NULL
    'palamaton'   $$111111111111    (-light)             NULL
-   'sytytt√§m√§t√∂n'$$111111111111    (-light)             NULL;
+   'sytytt‰m‰tˆn'$$111111111111    (-light)             NULL;
 
 !    'my'      $$111111111111    POSSESS_PK      0
 !    'this'    $$111111111111    POSSESS_PK      0
@@ -283,11 +283,11 @@ Array LanguageDescriptors table
 !    'unlit'   $$111111111111    (-light)        NULL;
 
 Array LanguageNumbers table
-    'yksi' 1 'kaksi' 2 'kolme' 3 'nelj√§' 4 'viisi' 5
-    'kuusi' 6 'seitsem√§n' 7 'kahdeksan' 8 'yhdeks√§n' 9 'kymmenen' 10
-    'yksitoista' 11 'kaksitoista' 12 'kolmetoista' 13 'nelj√§toista' 14
-	'viisitoista' 15 'kuusitoista' 16 'seitsem√§ntoista' 17                                  
-	'kahdeksantoista' 18 'yhdeks√§ntoista' 19 'kaksikymment√§' 20;
+    'yksi' 1 'kaksi' 2 'kolme' 3 'nelj‰' 4 'viisi' 5
+    'kuusi' 6 'seitsem‰n' 7 'kahdeksan' 8 'yhdeks‰n' 9 'kymmenen' 10
+    'yksitoista' 11 'kaksitoista' 12 'kolmetoista' 13 'nelj‰toista' 14
+	'viisitoista' 15 'kuusitoista' 16 'seitsem‰ntoista' 17                                  
+	'kahdeksantoista' 18 'yhdeks‰ntoista' 19 'kaksikymment‰' 20;
 
 ! --------------------------------------------------------------------
 !   Part III.   translation... 
@@ -337,16 +337,16 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 [ LanguageDirection d;    
     switch (d) {
       n_to:    print "pohjoiseen";  
-      s_to:    print "etel√§√§n";
-      e_to:    print "it√§√§n";
-      w_to:    print "l√§nteen";
+      s_to:    print "etel‰‰n";
+      e_to:    print "it‰‰n";
+      w_to:    print "l‰nteen";
       ne_to:   print "koilliseen";
       nw_to:   print "luoteeseen";
       se_to:   print "kaakkoon";
       sw_to:   print "lounaaseen";
-      u_to:    print "yl√∂s";
+      u_to:    print "ylˆs";
       d_to:    print "alas";
-      in_to:   print "sis√§√§n";
+      in_to:   print "sis‰‰n";
       out_to:  print "ulos";
       default: return RunTimeError(9,d);
     }
@@ -370,31 +370,31 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
       1:    print "yksi";
       2:    print "kaksi";
       3:    print "kolme";
-      4:    print "nelj√§";
+      4:    print "nelj‰";
       5:    print "viisi";
       6:    print "kuusi";
-      7:    print "seitsem√§n";
+      7:    print "seitsem‰n";
       8:    print "kahdeksan";
-      9:    print "yhdeks√§n";
+      9:    print "yhdeks‰n";
       10:   print "kymmenen";
       11:   print "yksitoista";
       12:   print "kaksitoista";
       13:   print "kolmetoista";
-      14:   print "nelj√§toista";
+      14:   print "nelj‰toista";
       15:   print "viisitoista";
       16:   print "kuusitoista";
-      17:   print "seitsem√§ntoista";
+      17:   print "seitsem‰ntoista";
       18:   print "kahdeksantoista";
-      19:   print "yhdeks√§ntoista";
+      19:   print "yhdeks‰ntoista";
       20 to 99: switch (n/10) {
-	2:  print "kaksikymment√§";
-	3:  print "kolmekymment√§";
-	4:  print "nelj√§kymment√§";
-	5:  print "viisikymment√§";
-	6:  print "kuusikymment√§";
-	7:  print "seitsem√§nkymment√§";
-	8:  print "kahdeksankymment√§";
-	9:  print "yhdeks√§nkymment√§";
+	2:  print "kaksikymment‰";
+	3:  print "kolmekymment‰";
+	4:  print "nelj‰kymment‰";
+	5:  print "viisikymment‰";
+	6:  print "kuusikymment‰";
+	7:  print "seitsem‰nkymment‰";
+	8:  print "kahdeksankymment‰";
+	9:  print "yhdeks‰nkymment‰";
 	}
 	!if (n%10 ~= 0) print "-", (LanguageNumber) n%10;
     }
@@ -436,7 +436,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	    PrintCapitalised(obj); rtrue;	    	    
 	}
     	! jos ei VerbDepotissa, tulostetaan verbin osoite
-	! pienell√§ alkukirjaimella... 
+	! pienell‰ alkukirjaimella... 
  	else if (actor ~= player) { print (address) verbi; rtrue;
 	}
         ! isolla...
@@ -449,7 +449,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 
 
-! t√§nne tullaan PrintCommandista (parsermfi.h)...
+! t‰nne tullaan PrintCommandista (parsermfi.h)...
 [ PrintKysNomini i from k taivuta; ! asia;
 
        
@@ -465,13 +465,13 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     }    
 #endif;
 
-    ! 1. nomini taipuu jos: "kysy -Ristolta- mit√§?"
+    ! 1. nomini taipuu jos: "kysy -Ristolta- mit‰?"
     if (k == 1 && action_to_be == ##Ask or ##AskFor)
 	! && action_reversed == false?
     taivuta = true;
     
-    ! 1. nomini ei l√§ht√∂kohtaisesti taivu
-    ! paitsi partitiivissa: "n√§yt√§ -palloa- kenelle?"
+    ! 1. nomini ei l‰htˆkohtaisesti taivu
+    ! paitsi partitiivissa: "n‰yt‰ -palloa- kenelle?"
     else if (k == 1 && action_reversed == false && CaseIs ~= csPar) 
 	taivuta = false;
     ! k>2 TAI action_reversed TAI csPar 
@@ -498,7 +498,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 
 ! [esim. lm misc 48 49]
-! Alla ajatuksena se ett√§ jos pelaaja antaa vajaan komennon
+! Alla ajatuksena se ett‰ jos pelaaja antaa vajaan komennon
 ! tarkentava kysymys johon pelaaja vastaa sijam.
 !
 !   >istu
@@ -506,22 +506,22 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 !   Istu mihin?
 !   >tuoliin/tuolille
 !
-! ("mihin" tulee action_to_be  ##Enter:ist√§)
+! ("mihin" tulee action_to_be  ##Enter:ist‰)
 	
-! my√∂s t√§nne tullaan PrintCommandista... k on sen laskuri
+! myˆs t‰nne tullaan PrintCommandista... k on sen laskuri
 [ PrintKysymys verbi from k obj kys _kys asia;
     !   print "! from ", from, ", k ", k, ", etype ", etype, "^";
 
     ! asiayhteys on token
-    ! adjudicate (context), sill√§ arvataan
-    ! kysyt√§√§nk√∂ esim. "mille"/"kenelle"
+    ! adjudicate (context), sill‰ arvataan
+    ! kysyt‰‰nkˆ esim. "mille"/"kenelle"
 
     asia = asiayhteys;
     asiayhteys = 0; ! ...nollataan se.
     
      
         
-    kys = "mit√§";
+    kys = "mit‰";
     _kys = 0;
     
     if (asia == CREATURE_TOKEN) !(== 6)
@@ -532,21 +532,21 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	    !Genetiivi   2: Riston
      	 2: _kys = "kenen";!kenet?
    	    !Partitiivi  3: Ristoa
-     	 3: _kys = "ket√§";
+     	 3: _kys = "ket‰";
 	    !Inessiivi   4: Ristossa
-     	 4: _kys = "keness√§";
+     	 4: _kys = "keness‰";
       	    !Elatiivi    5: Ristosta
-     	 5: _kys = "kenest√§";
+     	 5: _kys = "kenest‰";
    	    !Illatiivi   6: Ristoon
      	 6: _kys = "keneen";
       	    !Adessiivi   7: Ristolla
-     	 7: _kys = "kenell√§";
+     	 7: _kys = "kenell‰";
    	    !Ablatiivi   8: Ristolta
-     	 8: _kys = "kenelt√§";
+     	 8: _kys = "kenelt‰";
    	    !Allatiivi   9: Ristolle
      	 9: _kys = "kenelle";
    	    !Essiivi    10: Ristona
-     	 10: _kys = "kenen√§";
+     	 10: _kys = "kenen‰";
       	    !Translat.  11: Ristoksi
      	 11: _kys = "keneksi";
    	    
@@ -556,25 +556,25 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     	switch (csLR) 
     	{
 	    !Nominatiivi 1: pallo
-     	 1: _kys = "mik√§";	
+     	 1: _kys = "mik‰";	
 	    !Genetiivi   2: pallon
-     	 2: _kys = "mink√§";
+     	 2: _kys = "mink‰";
    	    !Partitiivi  3: palloa
-     	 3: _kys = "mit√§";
+     	 3: _kys = "mit‰";
 	    !Inessiivi   4: pallossa
-     	 4: _kys = "miss√§";
+     	 4: _kys = "miss‰";
       	    !Elatiivi    5: pallosta
-     	 5: _kys = "mist√§";
+     	 5: _kys = "mist‰";
    	    !Illatiivi   6: palloon
      	 6: _kys = "mihin";
       	    !Adessiivi   7: pallolla
-     	 7: _kys = "mill√§";
+     	 7: _kys = "mill‰";
    	    !Ablatiivi   8: pallolta
-     	 8: _kys = "milt√§";
+     	 8: _kys = "milt‰";
    	    !Allatiivi   9: pallolle
      	 9: _kys = "mille";
    	    !Essiivi    10: pallona
-     	 10: _kys = "min√§";
+     	 10: _kys = "min‰";
       	    !Translat.  11: palloksi
      	 11: _kys = "miksi";
    	    
@@ -584,25 +584,25 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     
     
     if (action_to_be == ##Fill or ##Unlock or ##Open or ##Take)
-	kys = "mik√§";
-    ! kysy kenelt√§ mit√§ -- taivuta (poikkeus on s√§√§nt√∂?)
-    ! kysy ristolta mit√§
+	kys = "mik‰";
+    ! kysy kenelt‰ mit‰ -- taivuta (poikkeus on s‰‰ntˆ?)
+    ! kysy ristolta mit‰
     if (action_to_be == ##Ask or ##AskFor)
-    { kys = "kenelt√§"; _kys = "mit√§"; }
+    { kys = "kenelt‰"; _kys = "mit‰"; }
     
-    ! "n√§yt√§ mit√§ (oletus) kenelle (_kys)"  
+    ! "n‰yt‰ mit‰ (oletus) kenelle (_kys)"  
     if (action_to_be == ##Show or ##Give) _kys = "kenelle";
-    if (action_to_be == ##Lock or ##Unlock) _kys = "mill√§";
-    ! esim. laita mit√§ - mihin?
+    if (action_to_be == ##Lock or ##Unlock) _kys = "mill‰";
+    ! esim. laita mit‰ - mihin?
     !    if (action_to_be == ##Insert) _kys = "mihin";
     
     ! VerbDepotissa voi antaa omat kys_a ja kys_b
     ! esim.
     !   Object "kysy" VerbDepot with name 'kysy',
-    !   kys_a "kenelt√§k√∂", kys_b "mittee";
+    !   kys_a "kenelt‰kˆ", kys_b "mittee";
     !	
     !    >kysy
-    !     Kysy kenelt√§k√∂?
+    !     Kysy kenelt‰kˆ?
     !
     !     >kysy ristolta
     !     Kysy Ristolta mittee?
@@ -629,15 +629,15 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
     print " ";
     ! ok, ao. on aikamoista suttua
     !
-    ! jos kysymys #2, eik√§ k√§√§nteinen j√§rjestys
+    ! jos kysymys #2, eik‰ k‰‰nteinen j‰rjestys
     ! (action_reversed), tulosta _kys,
     ! muuten tulosta kys (taivuta, ks. PrintKysNomini)
     !
-    ! -- _kys t√§ytyy olla merkkijono 
+    ! -- _kys t‰ytyy olla merkkijono 
     !
     ! ehto: asia == NOUN_TOKEN on nolla,
     ! jotta esim.
-    ! ">istu" ei vastaisi "istu mit√§?" vaan "istu mille?"
+    ! ">istu" ei vastaisi "istu mit‰?" vaan "istu mille?"
     if (k > 1 && _kys > 0 && action_reversed == false)
        	! print "*A* ", (string)_kys;
        	print (string)_kys;
@@ -664,7 +664,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	rtrue;
 	
     }
-    "Sit√§ ei l√∂ydy pelist√§.";
+    "Sit‰ ei lˆydy pelist‰.";
     
 ];	
 
@@ -711,7 +711,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! ----------------------------------------------------------------------------
 
 [ LanguageVerbLikesAdverb w;
-    if (w == 'katso' or 'mene' or 'ty√∂nn√§' or 'k√§vele') !!!???
+    if (w == 'katso' or 'mene' or 'tyˆnn‰' or 'k‰vele') !!!???
 	rtrue;
     rfalse;
 ];
@@ -726,7 +726,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 ! ----------------------------------------------------------------------------
 
 [ LanguageVerbMayBeName w;
-    if (w == 'pitk√§' or 'lyhyt' or 'vakio'
+    if (w == 'pitk‰' or 'lyhyt' or 'vakio'
 		    or 'laaja' or 'normaali' or 'perus')
 	rtrue;
     rfalse;
@@ -748,19 +748,19 @@ Constant QKEY2__KY      = 'p';
 Constant SCORE__TX      = "Pisteet: ";
 Constant MOVES__TX      = "Vuorot: ";
 Constant TIME__TX       = "Aika: ";
-Constant CANTGO__TX     = "Et p√§√§se siihen suuntaan.";
+Constant CANTGO__TX     = "Et p‰‰se siihen suuntaan.";
 Constant FORMER__TX     = "aiempi itsesi";
-Constant YOURSELF__TX   = "sin√§ itse"; !! pit√§isi taivuttaa
+Constant YOURSELF__TX   = "sin‰ itse"; !! pit‰isi taivuttaa
 !Constant ITSELLESI__TX  = "itsellesi";
-!Constant ITSEASI_TX     = "itse√§si";
-Constant YOU__TX        = "Sin√§"; !! kuin my√∂s?
+!Constant ITSEASI_TX     = "itse‰si";
+Constant YOU__TX        = "Sin‰"; !! kuin myˆs?
 Constant DARKNESS__TX   = "Pimeys";
 
-Constant THOSET__TX     = "niit√§"; 
+Constant THOSET__TX     = "niit‰"; 
 Constant THAT__TX       = "tuo";       
 Constant OR__TX         = " vai ";   
 Constant TAI__TX        = " tai ";      
-Constant NOTHING__TX    = "ei mit√§√§n"; 
+Constant NOTHING__TX    = "ei mit‰‰n"; 
 Constant IS__TX         = " on";   
 Constant ARE__TX        = " ovat";  
 Constant IS2__TX        = "on ";   
@@ -770,28 +770,28 @@ Constant WHOM__TX       = "joka ";
 Constant WHICH__TX      = " "; ! ks. ListMiscellany 19 ja 21 ("jossa" vai "jolla")   
 Constant COMMA__TX      = ", ";
 
-!! huono: ao. pit√§isi olla "tai" eik√§ "ja" - esim. "SitataiNiita"
+!! huono: ao. pit‰isi olla "tai" eik‰ "ja" - esim. "SitataiNiita"
 
 ! ThatorThose (partitiivi)
 [ SitajaNiita obj;      ! Used in the accusative
-    if (obj == player)      { print "itse√§si"; return; }
-    if (obj has pluralname)       { print "niit√§"; return; }
+    if (obj == player)      { print "itse‰si"; return; }
+    if (obj has pluralname)       { print "niit‰"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "h√§nt√§"; return; }
+	if (obj has female)       { print "h‰nt‰"; return; }
 	else
-	    if (obj hasnt neuter) { print "h√§nt√§"; return; }
+	    if (obj hasnt neuter) { print "h‰nt‰"; return; }
     }
-    print "sit√§";
+    print "sit‰";
 ];
 
 ! ItorThem
 [ SejaNe obj;
-    if (obj == player)      { print "sin√§"; return; }
+    if (obj == player)      { print "sin‰"; return; }
     if (obj has pluralname)       { print "ne"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "h√§n"; return; }
+	if (obj has female)       { print "h‰n"; return; }
 	else
-	    if (obj hasnt neuter) { print "h√§n"; return; }
+	    if (obj hasnt neuter) { print "h‰n"; return; }
     }
     print "se";
 ];
@@ -808,7 +808,7 @@ Constant COMMA__TX      = ", ";
 	if (object == player) print "olet"; ];
 
 [ EijaEivat obj;
-	if (obj has pluralname) print "eiv√§t"; else print "ei";
+	if (obj has pluralname) print "eiv‰t"; else print "ei";
 	if (object == player) print "et"; ];
 
 [ JokajaJotka obj;
@@ -818,22 +818,22 @@ Constant COMMA__TX      = ", ";
 if (obj == player)      { print "sinun"; return; }
     if (obj has pluralname)       { print "niiden"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "h√§nen"; return; }
+	if (obj has female)       { print "h‰nen"; return; }
 	else
-	    if (obj hasnt neuter) { print "h√§nen"; return; }
+	    if (obj hasnt neuter) { print "h‰nen"; return; }
     }
     print "sen";
 ];
 
-! Heid√§n / heihin jne..
+! Heid‰n / heihin jne..
 
 [ SiihenjaNiihin obj;
 if (obj == player)      { print "itseesi"; return; }
     if (obj has pluralname)       { print "niihin"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "h√§neen"; return; }
+	if (obj has female)       { print "h‰neen"; return; }
 	else
-	    if (obj hasnt neuter) { print "h√§neen"; return; }
+	    if (obj hasnt neuter) { print "h‰neen"; return; }
     }
     print "siihen";
 ];
@@ -842,9 +842,9 @@ if (obj == player)      { print "itseesi"; return; }
 if (obj == player)      { print "itsesi"; return; }
     if (obj has pluralname)       { print "ne"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "h√§net"; return; }
+	if (obj has female)       { print "h‰net"; return; }
 	else
-	    if (obj hasnt neuter) { print "h√§net"; return; }
+	    if (obj hasnt neuter) { print "h‰net"; return; }
     }
     print "sen";
 ];
@@ -852,24 +852,24 @@ if (obj == player)      { print "itsesi"; return; }
 ! Samat isolla alkukirjaimella...
 
 [ KSitajaNiita obj;      ! Used in the accusative
-    if (obj == player)      { print "Itse√§si"; return; }
-    if (obj has pluralname)       { print "Niit√§"; return; }
+    if (obj == player)      { print "Itse‰si"; return; }
+    if (obj has pluralname)       { print "Niit‰"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "H√§nt√§"; return; }
+	if (obj has female)       { print "H‰nt‰"; return; }
 	else
-	    if (obj hasnt neuter) { print "H√§nt√§"; return; }
+	    if (obj hasnt neuter) { print "H‰nt‰"; return; }
     }
-    print "Sit√§";
+    print "Sit‰";
 ];
 
 ! ItorThem
 [ KSejaNe obj;
-    if (obj == player)      { print "Sin√§"; return; }
+    if (obj == player)      { print "Sin‰"; return; }
     if (obj has pluralname)       { print "Ne"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "H√§n"; return; }
+	if (obj has female)       { print "H‰n"; return; }
 	else
-	    if (obj hasnt neuter) { print "H√§n"; return; }
+	    if (obj hasnt neuter) { print "H‰n"; return; }
     }
     print "Se";
 ];
@@ -878,9 +878,9 @@ if (obj == player)      { print "itsesi"; return; }
 if (obj == player)      { print "Sinun"; return; }
     if (obj has pluralname)       { print "Niiden"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "H√§nen"; return; }
+	if (obj has female)       { print "H‰nen"; return; }
 	else
-	    if (obj hasnt neuter) { print "H√§nen"; return; }
+	    if (obj hasnt neuter) { print "H‰nen"; return; }
     }
     print "Sen";
 ];
@@ -889,18 +889,18 @@ if (obj == player)      { print "Sinun"; return; }
 if (obj == player)      { print "Itseesi"; return; }
     if (obj has pluralname)       { print "Niihin"; return; }
     if (obj has animate) {
-	if (obj has female)       { print "H√§neen"; return; }
+	if (obj has female)       { print "H‰neen"; return; }
 	else
-	    if (obj hasnt neuter) { print "H√§neen"; return; }
+	    if (obj hasnt neuter) { print "H‰neen"; return; }
     }
     print "Siihen";
 ];
 
 ! monikko_vai_yks
 !
-! "laitat munan laatikkoon" (yksikk√∂ taipuu genetiivin√§)
+! "laitat munan laatikkoon" (yksikkˆ taipuu genetiivin‰)
 ! "laitat munat laatikkoon" (monikko ei...)
-! - pit√§isik√∂ olla viel√§ partitiivi? "laitat munaa laatikkoon?"
+! - pit‰isikˆ olla viel‰ partitiivi? "laitat munaa laatikkoon?"
 
 [ monikko_vai_yks obj;  
 	
@@ -959,7 +959,7 @@ if (obj == player)      { print "Itseesi"; return; }
 
 [ k_allatiivi obj;	CCase (obj, csAll, true); ];
 
-!! verbil√∂it√§
+!! verbilˆit‰
 
 !Constant vbImp = 21; !pue
 !Constant vbInf = 22; !pukea
@@ -998,20 +998,20 @@ if (obj == player)      { print "Itseesi"; return; }
 
 
   Answer, Ask:  "Ei vastausta.";
-  Attack:   "V√§kivalta ei ole ratkaisu t√§h√§n.";
+  Attack:   "V‰kivalta ei ole ratkaisu t‰h‰n.";
   Blow:     print (KSitajaNiita) x1, " ei voi kunnolla puhaltaa.";
-  Burn:     "Siit√§ ei seuraisi mit√§√§n hyv√§√§.";       
-  Buy:      "Mit√§√§n ei ole myyt√§v√§n√§.";
-  Climb:    "Luulen ettet saavuttaisi mit√§√§n.";
+  Burn:     "Siit‰ ei seuraisi mit‰‰n hyv‰‰.";       
+  Buy:      "Mit‰‰n ei ole myyt‰v‰n‰.";
+  Climb:    "Luulen ettet saavuttaisi mit‰‰n.";
   Close: switch (n) {
 	1:  print_ret (ksitajaniita) x1, " ei voi sulkea.";
 	2:  print_ret (ksejane) x1, " ", (onjaovat) x1, " jo kiinni.";
 	3:  "Suljet ", (genetiivi) x1, ".";
     }
   CommandsOff: switch (n) {
-	1: "[Komentotallennus pois p√§√§lt√§.]";
+	1: "[Komentotallennus pois p‰‰lt‰.]";
 	#Ifdef TARGET_GLULX;
-	2: "[Komentotallennus on jo pois p√§√§lt√§.]";
+	2: "[Komentotallennus on jo pois p‰‰lt‰.]";
 	#Endif; ! TARGET_
     }
   CommandsOn: switch (n) {
@@ -1032,65 +1032,65 @@ if (obj == player)      { print "Itseesi"; return; }
 	#Endif; ! TARGET_
     }
 
-  Consult:  "Et l√∂yd√§ mit√§√§n kiinnostavaa ", (elatiivi) x1, ".";
-  Cut:      print_ret (ksenjaniiden) x1, " katkaisemisesta olisi hyvin v√§h√§n hy√∂ty√§.";
-  Dig:      "Kaivaminen on t√§ss√§ ihan turhaa.";
+  Consult:  "Et lˆyd‰ mit‰‰n kiinnostavaa ", (elatiivi) x1, ".";
+  Cut:      print_ret (ksenjaniiden) x1, " katkaisemisesta olisi hyvin v‰h‰n hyˆty‰.";
+  Dig:      "Kaivaminen on t‰ss‰ ihan turhaa.";
   Disrobe: switch (n) {
-	1:  print (ksejane) x1, " ", (eijaeivat) x1, " ole p√§√§ll√§si.";
+	1:  print (ksejane) x1, " ", (eijaeivat) x1, " ole p‰‰ll‰si.";
 	2:  "Riisut ", (genetiivi) x1, ".";
     }
-  Drink:    "T√§√§ll√§ ei ole mit√§√§n juotavaksi kelpaavaa.";
+  Drink:    "T‰‰ll‰ ei ole mit‰‰n juotavaksi kelpaavaa.";
   Drop: switch (n) {
 	1:  if (x1 has pluralname) print (nominatiivi) x1, " ovat "; else print (nominatiivi) x1, " on ";
-		"jo t√§√§ll√§.";
+		"jo t‰‰ll‰.";
 	2:  "Sinulla ei ole ", (SitajaNiita) x1, ".";
 	3:  "(Ensin riisuen ", (genetiivi) x1, ")";  
 	4:  "Pudotettu.";
     }
   Eat: switch (n) {
-	1:  print_ret (ksejane) x1, " ", (eijaeivat) x1, " selv√§sti kelpaa sy√∂t√§v√§ksi.";
-	2:  "Sy√∂t ", (genetiivi) x1, ". Ei hullumpaa.";
+	1:  print_ret (ksejane) x1, " ", (eijaeivat) x1, " selv‰sti kelpaa syˆt‰v‰ksi.";
+	2:  "Syˆt ", (genetiivi) x1, ". Ei hullumpaa.";
     }
   EmptyT: switch (n) {
-	1:  print_ret (k_nominatiivi) x1, " ", (eijaeivat) x1, " toimi s√§ili√∂n√§.";
+	1:  print_ret (k_nominatiivi) x1, " ", (eijaeivat) x1, " toimi s‰iliˆn‰.";
 	2:  print_ret (k_nominatiivi) x1, " ", (OnjaOvat) x1, " kiinni.";
-	3:  if (x1 has pluralname) print_ret (k_nominatiivi) x1, " on jo tyhji√§."; 
-		else print_ret (k_nominatiivi) x1, " on jo tyhj√§.";
-	4:  "Se tuskin tyhjent√§isi mit√§√§n.";
+	3:  if (x1 has pluralname) print_ret (k_nominatiivi) x1, " on jo tyhji‰."; 
+		else print_ret (k_nominatiivi) x1, " on jo tyhj‰.";
+	4:  "Se tuskin tyhjent‰isi mit‰‰n.";
     }
 
   Enter: switch (n) {
-	1:  print "Mutta sin√§ olet jo "; if (x1 has supporter) print (adessiivi) x1, "."; else print (inessiivi) x1; ".";
+	1:  print "Mutta sin‰ olet jo "; if (x1 has supporter) print (adessiivi) x1, "."; else print (inessiivi) x1; ".";
 	2:  if ((verb_word) ~= 'seiso' or 'istu' or 'makaa') 
 		{if (x1 has pluralname) print "Niihin ei "; else print "Sinne ei ";}
-	    else if (x1 has pluralname) print "Niiss√§ ei "; else print "Siin√§ ei ";
+	    else if (x1 has pluralname) print "Niiss‰ ei "; else print "Siin‰ ei ";
 	    switch (verb_word) {
-	      'seiso':  "voi seist√§.";
+	      'seiso':  "voi seist‰.";
 	      'istu':   "voi istua.";
 	      'makaa':  "voi maata.";
-	      default:  "voi menn√§.";
+	      default:  "voi menn‰.";
 	    }
-	3:  "Et p√§√§se suljettuun ", (illatiivi) x1, "."; ! ent√§ monikko?
-	4:  "Voit menn√§ vain johonkin mik√§ on vapaana.";
+	3:  "Et p‰‰se suljettuun ", (illatiivi) x1, "."; ! ent‰ monikko?
+	4:  "Voit menn‰ vain johonkin mik‰ on vapaana.";
 	5:  print "Menet "; if (x1 has supporter) print (allatiivi) x1;
 		else print (illatiivi) x1; print_ret ".";
 	6:  print "(poistut ", (genetiivi) x1;
-	    if (x1 has supporter) print " p√§√§lt√§)"; else print " sis√§lt√§)";
-	7:  if (x1 has supporter) print "(menet ", (genetiivi) x1, " p√§√§lle)^";
-	    if (x1 has container) print "(menet ", (genetiivi) x1, " sis√§√§n)^";
-	    print "(menet ", (genetiivi) x1, "sis√§√§n)^";
+	    if (x1 has supporter) print " p‰‰lt‰)"; else print " sis‰lt‰)";
+	7:  if (x1 has supporter) print "(menet ", (genetiivi) x1, " p‰‰lle)^";
+	    if (x1 has container) print "(menet ", (genetiivi) x1, " sis‰‰n)^";
+	    print "(menet ", (genetiivi) x1, "sis‰‰n)^";
     }
   Examine: switch (n) {
-	1:  "Pimeys, subst. Valonpuutteesta johtuva pime√§ tilanne."; !! etsi sanakirjaselitys?
+	1:  "Pimeys, subst. Valonpuutteesta johtuva pime‰ tilanne."; !! etsi sanakirjaselitys?
 	!!! "Darkness, noun.  An absence of light to see by.";
-	2:  "Et n√§e mit√§√§n erikoista ", (inessiivi) x1, "."; 
+	2:  "Et n‰e mit‰‰n erikoista ", (inessiivi) x1, "."; 
 
-	3:  print (nominatiivi) x1, " on t√§ll√§ hetkell√§ kytketty ";
-	    if (x1 has on) "p√§√§lle."; else "pois p√§√§lt√§.";
+	3:  print (nominatiivi) x1, " on t‰ll‰ hetkell‰ kytketty ";
+	    if (x1 has on) "p‰‰lle."; else "pois p‰‰lt‰.";
     }
   Exit: switch (n) {
-	1:  "Et ole mink√§√§n sis√§ll√§ juuri nyt.";
-	2:  "Et p√§√§se pois suljetusta ", (elatiivi) x1, ".";
+	1:  "Et ole mink‰‰n sis‰ll‰ juuri nyt.";
+	2:  "Et p‰‰se pois suljetusta ", (elatiivi) x1, ".";
 	3:  print "Poistut ";
 	    if (x1 has supporter) print (ablatiivi) x1; else print (elatiivi) x1;
 	    print_ret ".";
@@ -1098,80 +1098,80 @@ if (obj == player)      { print "Itseesi"; return; }
 	    if (x1 has supporter) print (adessiivi) x1, " juuri nyt.";
 	    else print (inessiivi) x1, " juuri nyt.";
     }
-  Fill:     "Mutta t√§√§ll√§ ei ole vett√§ kannettavaksi.";
+  Fill:     "Mutta t‰‰ll‰ ei ole vett‰ kannettavaksi.";
   FullScore: switch (n) {
-	1:  if (deadflag) print "Sait pisteit√§ "; else print "Olet saanut pisteit√§ ";
+	1:  if (deadflag) print "Sait pisteit‰ "; else print "Olet saanut pisteit‰ ";
 	    "seuraavasti:^";
-	2:  "erilaisten esineiden l√∂yt√§misest√§";
-	3:  "erilaisissa paikoissa k√§ymisest√§";
-	4:  print "yhteens√§ (maksimista ", MAX_SCORE; ")";
+	2:  "erilaisten esineiden lˆyt‰misest‰";
+	3:  "erilaisissa paikoissa k‰ymisest‰";
+	4:  print "yhteens‰ (maksimista ", MAX_SCORE; ")";
     }
   GetOff:   "Mutta et ole ", (adessiivi) x1, " juuri nyt.";
   Give: switch (n) {
 	1:  "Et pitele ", (partitiivi) x1, ".";
 	2:  "Temppuilet hetken ", (genetiivi) x1, " kanssa, muttet saa paljon aikaan.";
 	3:  print (k_nominatiivi) x1;
-	    if (x1 has pluralname) print " eiv√§t"; else print " ei";
+	    if (x1 has pluralname) print " eiv‰t"; else print " ei";
 	    " tunnu kiinnostuvan.";
     }
   Go: switch (n) {
-	1:  print "Sinun t√§ytyy ensin poistua ";
+	1:  print "Sinun t‰ytyy ensin poistua ";
 	    if (x1 has supporter) print_ret (ablatiivi) x1, "."; else print_ret (elatiivi) x1, ".";
 	2:  print_ret (string) CANTGO__TX;   ! "You can't go that way."
-	3:  "Et voi kiivet√§ ", (partitiivi) x1, ".";
-	4:  "Et voi menn√§ alas ", (elatiivi) x1, "."; !?
-	5:  "Et p√§√§se, sill√§ ", (nominatiivi) x1, " ", (OnjaOvat) x1, " tiell√§si.";
-	6:  print "Et voi, sill√§ ", (nominatiivi) x1, " ", (eijaeivat) x1;
-	    print " johda mihink√§√§n.";
+	3:  "Et voi kiivet‰ ", (partitiivi) x1, ".";
+	4:  "Et voi menn‰ alas ", (elatiivi) x1, "."; !?
+	5:  "Et p‰‰se, sill‰ ", (nominatiivi) x1, " ", (OnjaOvat) x1, " tiell‰si.";
+	6:  print "Et voi, sill‰ ", (nominatiivi) x1, " ", (eijaeivat) x1;
+	    print " johda mihink‰‰n.";
     }
   Insert: switch (n) {
-	1:  "Sinun t√§ytyy pidell√§ ", (partitiivi) x1, " ennenkuin voit laittaa ", (sitajaniita) x1,
-	    " mihink√§√§n.";
-	2:  print_ret (ksejane) x1, " ", (eijaeivat) x1, " toimi s√§ili√∂n√§.";
+	1:  "Sinun t‰ytyy pidell‰ ", (partitiivi) x1, " ennenkuin voit laittaa ", (sitajaniita) x1,
+	    " mihink‰‰n.";
+	2:  print_ret (ksejane) x1, " ", (eijaeivat) x1, " toimi s‰iliˆn‰.";
 	3:  print (k_nominatiivi) x1; if (x1 has pluralname) print
 	    " ovat suljetut.^";	else print " on kiinni.^";
-	4:  "Sinun t√§ytyy ensin ottaa ", (sejane) x1, " pois.";
-	5:  "Et voi laittaa sit√§ itsens√§ sis√§√§n.";
+	4:  "Sinun t‰ytyy ensin ottaa ", (sejane) x1, " pois.";
+	5:  "Et voi laittaa sit‰ itsens‰ sis‰‰n.";
 	6:  "(ottamalla ", (sentaine) x1, " ensin)^";
-	7:  print_ret (k_inessiivi) x1, " ei ole en√§√§ tilaa.";   
+	7:  print_ret (k_inessiivi) x1, " ei ole en‰‰ tilaa.";   
 	8:  "Tehty.";
 	9:  "Laitat ", (monikko_vai_yks) x1, " ", (illatiivi) second, ".";
     }
   Inv: switch (n) {
-	1:  "Sinulla ei ole mukanasi mit√§√§n.";
+	1:  "Sinulla ei ole mukanasi mit‰‰n.";
 	2:  print "Mukanasi on";
 	3:  print ":^";
 	4:  print ".^";
     }
-  Jump:     "Hypp√§√§t paikallasi, mutta se on hy√∂dyt√∂nt√§.";     ! K√ñK√ñHK√ñ
+  Jump:     "Hypp‰‰t paikallasi, mutta se on hyˆdytˆnt‰.";     ! K÷K÷HK÷
   JumpOver,Tie:
-	    "Et saavuttaisi sill√§ mit√§√§n.";
-  Kiss:     "Yrit√§ keskitty√§ seikkailuun."; !vapaa k√§√§nn√∂s
-  Listen:   "Et kuule mit√§√§n outoa.";
+	    "Et saavuttaisi sill‰ mit‰‰n.";
+  Kiss:     "Yrit‰ keskitty‰ seikkailuun."; !vapaa k‰‰nnˆs
+  Listen:   "Et kuule mit‰‰n outoa.";
   !Listen: PrintCommand();
  ListMiscellany: switch (n) {
 	1:  print " (valaisee)";
 	2:  print " (", (jokajajotka) x1, " on suljettu)";
 	3:  print " (suljettu ja valaisee)";
-	4:  print " (", (jokajajotka) x1, " ", (OnjaOvat) x1; if (x1 has pluralname) print " tyhji√§)"; else print " tyhj√§)";
-	5:  print " (tyhj√§ ja valaisee)";
-	6:  print " (", (jokajajotka) x1, " on suljettu ja "; if (x1 has pluralname) print "tyhji√§)"; else print " tyhj√§)";
-	7:  print " (suljettu, tyhj√§ ja valaisee)";
+	4:  print " (", (jokajajotka) x1, " ", (OnjaOvat) x1; if (x1 has pluralname) print " tyhji‰)"; else print " tyhj‰)";
+	5:  print " (tyhj‰ ja valaisee)";
+	6:  print " (", (jokajajotka) x1, " on suljettu ja "; if (x1 has pluralname) print "tyhji‰)"; else print " tyhj‰)";
+	7:  print " (suljettu, tyhj‰ ja valaisee)";
 	8:  print " (valaisee ja on puettu";
 	9:  print " (valaisee";
 	10: print " (puettu";
 	11: print " (", (jokajajotka) x1, " on ";               !?! ON/OVAT
 	12: print "auki";
-	13: print "auki mutta "; if (x1 has pluralname) print "tyhji√§"; else print "tyhj√§";
+	13: print "auki mutta "; if (x1 has pluralname) print "tyhji‰"; else print "tyhj‰";
 	14: print "kiinni";
 	15: print "kiinni ja lukossa";
-	16: print " ja "; if (x1 has pluralname) print "tyhji√§"; else print "tyhj√§";
-	17: print " (", (jokajajotka) x1, " ", (onjaovat) x1; if (x1 has pluralname) print " tyhji√§)"; else print " tyhj√§)";
-	18: print " sis√§lt√§√§ ";         ! sis√§lt√§√§/sis√§lt√§v√§t?
-	19: print " (jonka p√§√§ll√§ ";                 ! taso
-	20: print ", jonka p√§√§ll√§ ";
-	21: print " (jossa";                 ! s√§ili√∂
-	22: print ", sis√§ll√§ ";
+	16: print " ja "; if (x1 has pluralname) print "tyhji‰"; else print "tyhj‰";
+	17: print " (", (jokajajotka) x1, " ", (onjaovat) x1; if (x1 has pluralname) print " tyhji‰)"; else print " tyhj‰)";
+	18: print " sis‰lt‰‰ ";         ! sis‰lt‰‰/sis‰lt‰v‰t?
+	19: print " (jonka p‰‰ll‰ ";                 ! taso
+	20: print ", jonka p‰‰ll‰ ";
+	21: print " (jossa";                 ! s‰iliˆ
+	22: print ", sis‰ll‰ ";
     }
   LMode1:   " is now in its normal ~brief~ printing mode, which gives long descriptions
 	     of places never before visited and short descriptions otherwise.";
@@ -1180,12 +1180,12 @@ if (obj == player)      { print "Itseesi"; return; }
   LMode3:   " is now in its ~superbrief~ mode, which always gives short descriptions
 	     of locations (even if you haven't been there before).";
   Lock: switch (n) {
-	1:  if (x1 has pluralname) print "Ne eiv√§t "; else print "Se ei ";
+	1:  if (x1 has pluralname) print "Ne eiv‰t "; else print "Se ei ";
 	    "tunnu olevan lukittavissa.";
 	2:  print_ret (ksejane) x1, " ", (onjaovat) x1, " lukossa
-	    t√§ll√§ hetkell√§.";
-	3:  "Sinun t√§ytyy ensin sulkea ", (nominatiivi) x1, ".";
-	4:  if (x1 has pluralname) print "Ne eiv√§t "; else print "Se ei ";
+	    t‰ll‰ hetkell‰.";
+	3:  "Sinun t‰ytyy ensin sulkea ", (nominatiivi) x1, ".";
+	4:  if (x1 has pluralname) print "Ne eiv‰t "; else print "Se ei ";
 	    "tunnu sopivan lukkoon.";
 	5:  "Lukitset ", (genetiivi) x1, ".";
     }
@@ -1203,108 +1203,108 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 !               if (x1 has supporter) print "^On "; else print "^In ";
 !               print (the) x1, " you";
 !           }
-!           else print "^Sin√§";
+!           else print "^Sin‰";
 !           print " voit ";
-!           if (n == 5) print "my√∂s ";         !T√§m√§ t√§ytyy j√§rp√§t√§
-!           print "n√§hd√§ ";
+!           if (n == 5) print "myˆs ";         !T‰m‰ t‰ytyy j‰rp‰t‰
+!           print "n‰hd‰ ";
 !           WriteListFrom(child(x1), !ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT+WORKFLAG_BIT);
-!           if (x1 ~= location) "."; else " t√§√§ll√§.";
+!           if (x1 ~= location) "."; else " t‰‰ll‰.";
 
 
 	5,6:
 	    if (x1 ~= location) {
 		print "^"; if (x1 has supporter) print (k_adessiivi) x1; else print (k_inessiivi) x1;
 	    }
-	    else print "^T√§√§ll√§";
+	    else print "^T‰‰ll‰";
 	    print " on ";
-	    if (n == 5) print "my√∂s ";
+	    if (n == 5) print "myˆs ";
 	    WriteListFrom(child(x1), ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT+WORKFLAG_BIT);
 	    ".";
 
 
-	7:  "Et n√§e siell√§ mit√§√§n yll√§tt√§v√§√§.";
+	7:  "Et n‰e siell‰ mit‰‰n yll‰tt‰v‰‰.";
     }
   LookUnder: switch (n) {
-	1:  "On liian pime√§√§.";
-	2:  "Et l√∂yd√§ mit√§√§n mielenkiintoista.";
+	1:  "On liian pime‰‰.";
+	2:  "Et lˆyd‰ mit‰‰n mielenkiintoista.";
     }
-  Mild:     "√Ñl√§ muuta sano.";
+  Mild:     "ƒl‰ muuta sano.";
   Miscellany: switch (n) {
-	1:  "(huomioiden vain ensimm√§iset kuusitoista)^";
-	2:  "Ei mit√§√§n tekemist√§!";
+	1:  "(huomioiden vain ensimm‰iset kuusitoista)^";
+	2:  "Ei mit‰‰n tekemist‰!";
 	3:  print " Olet kuollut ";
 	4:  print " Olet voittanut ";
 	5:  print "^ALOITAtko alusta, LATAAtko tallennuksen";
 	    #Ifdef DEATH_MENTION_UNDO;
 	    print ", PERUtko viimeisen siirtosi";
 	    #Endif;
-	    if (TASKS_PROVIDED == 0) print ", katsotko t√§m√§n pelin MAKSIMIpisteet";
+	    if (TASKS_PROVIDED == 0) print ", katsotko t‰m‰n pelin MAKSIMIpisteet";
 	    if (deadflag == 2 && AMUSING_PROVIDED == 0)
 		print ", haluatko HUPAISIA ehdotuksia";
 	    " vai LOPETAtko?";
 	6:  "[Tulkissasi ei ole ~peruutustoimintoa~, pahoittelut!]";
 	    #Ifdef TARGET_ZCODE;
-	7:  "~Peruminen~ ep√§onnistui.  [Kaikki tulkit eiv√§t tue toimintoa.]";
+	7:  "~Peruminen~ ep‰onnistui.  [Kaikki tulkit eiv‰t tue toimintoa.]";
 	    #Ifnot; ! TARGET_GLULX
-	7:  "[Et voi ~perua~ pidemm√§lle.]";
+	7:  "[Et voi ~perua~ pidemm‰lle.]";
 	    #Endif; ! TARGET_
-	8:  "Anna jokin yll√§olevista vastauksista, kiitos.";
-	9:  "^T√§√§ll√§ on nyt pilkkopime√§√§!";
+	8:  "Anna jokin yll‰olevista vastauksista, kiitos.";
+	9:  "^T‰‰ll‰ on nyt pilkkopime‰‰!";
 	10: "Anteeksi?"; ! "I beg your pardon?"
-	11: "[Et voi ~perua~ sit√§ mit√§ ei ole tehty!]";
-	12: "[Kahdesti per√§kk√§in ei voi ~perua~, sori!]";
+	11: "[Et voi ~perua~ sit‰ mit‰ ei ole tehty!]";
+	12: "[Kahdesti per‰kk‰in ei voi ~perua~, sori!]";
 	13: "[Aiempi vuoro peruttu.]";
-	14: "Sori, sit√§ ei voi oikaista.";
-	15: "Eip√§ kest√§.";
+	14: "Sori, sit‰ ei voi oikaista.";
+	15: "Eip‰ kest‰.";
 	16: "~Hups~ korjaa vain yhden sanan.";
-	17: "On pilkkopime√§√§, et n√§e mit√§√§n.";
-	18: print "sin√§ itse";                          ! Miss√§ yhtydess√§???
-	19: "Aina yht√§ hauskann√§k√∂inen.";
+	17: "On pilkkopime‰‰, et n‰e mit‰‰n.";
+	18: print "sin‰ itse";                          ! Miss‰ yhtydess‰???
+	19: "Aina yht‰ hauskann‰kˆinen.";
 	20: "Toistaaksesi komennon ~sammakko, loikkaa~, sano vain ~toista~ (tai ~u~), ei: ~sammakko, uudestaan~.";
-	21: "Sit√§ ei voi toistaa.";
+	21: "Sit‰ ei voi toistaa.";
 	22: "Et voi aloittaa pilkulla.";
-	23: "Haluat ilmeisesti puhua jonkun kanssa, mutta ket√§√§n ei n√§y.";
+	23: "Haluat ilmeisesti puhua jonkun kanssa, mutta ket‰‰n ei n‰y.";
 ! genetiivi
 	24: "Et voi puhua ", (genetiivi) x1, " kanssa.";
 	25: "Puhuaksesi jollekulle, kokeile ~joku, terve~ tms.";
 	26: "(ottamalla ensin ", (monikko_vai_yks) not_holding, ")";
-	27: "En k√§sitt√§nyt tuota lausetta.";
-	28: print "Ymm√§rsin vain: ";
-	29: "En k√§sitt√§nyt tuota numeroa.";
-	30: "Et n√§e mit√§√§n sellaista.";
+	27: "En k‰sitt‰nyt tuota lausetta.";
+	28: print "Ymm‰rsin vain: ";
+	29: "En k‰sitt‰nyt tuota numeroa.";
+	30: "Et n‰e mit‰‰n sellaista.";
 	31: "Kenties et sanonut tarpeeksi!";
-	32: "Et pitele sit√§!";
-	33: "Tuota verbi√§ ei voi k√§ytt√§√§ samanaikaisesti eri kohteisiin.";     
-	34: "Voit k√§ytt√§√§ montaa esinett√§ vain kerran rivill√§.";       ! K√∂kk√∂√§
+	32: "Et pitele sit‰!";
+	33: "Tuota verbi‰ ei voi k‰ytt‰‰ samanaikaisesti eri kohteisiin.";     
+	34: "Voit k‰ytt‰‰ montaa esinett‰ vain kerran rivill‰.";       ! Kˆkkˆ‰
 	35: "En ole varma mihin ~", (address) pronoun_word, "~ viittaa.";
 ! Mihin/keneen/keihin?
-	36: "Paitsisi koski jotain mit√§ ei ole!";                      ! ???
-	37: "Voit tehd√§ niin vain jollekin elolliselle.";
+	36: "Paitsisi koski jotain mit‰ ei ole!";                      ! ???
+	37: "Voit tehd‰ niin vain jollekin elolliselle.";
 	    #Ifdef DIALECT_US;
-	38: "En tunne tuota verbi√§.";
+	38: "En tunne tuota verbi‰.";
 	    #Ifnot;
-	38: "En tunne tuota verbi√§.";
+	38: "En tunne tuota verbi‰.";
 	    #Endif;
-	39: "Siihen ei tarvitse viitata t√§ss√§ peliss√§.";
-! (Siihen/niihin) ??? sit√§ sanaa ei tarvita t√§ss√§ peliss√§?
-	40: "Et n√§e ~", (address) pronoun_word, "~ (", (the) pronoun_obj,
-	    ") t√§ll√§ hetkell√§.";
-!? Sit√§/niit√§/h√§nt√§/heit√§ ? (partitiivi)
-	41: "En k√§sitt√§nyt miten tuo loppui.";
+	39: "Siihen ei tarvitse viitata t‰ss‰ peliss‰.";
+! (Siihen/niihin) ??? sit‰ sanaa ei tarvita t‰ss‰ peliss‰?
+	40: "Et n‰e ~", (address) pronoun_word, "~ (", (the) pronoun_obj,
+	    ") t‰ll‰ hetkell‰.";
+!? Sit‰/niit‰/h‰nt‰/heit‰ ? (partitiivi)
+	41: "En k‰sitt‰nyt miten tuo loppui.";
 	42: if (x1 == 0) print "Ainuttakaan "; else print "Vain ", (number) x1;
-	   ! print " niist√§ ";
+	   ! print " niist‰ ";
 	    if (x1 == 0) print "ei ole "; else print "on";
 	    " saatavilla.";
-	43: "Ei mit√§√§n tekemist√§!";
+	43: "Ei mit‰‰n tekemist‰!";
 	44: "Ainuttakaan ei ole saatavilla!";
 	
 	45: ;!print "Tarkoitatko "; ks. parsermfi, r. 1560+
 	46: ;!print "Tarkoitatko "; ks. parsermfi, r. 1560+
-	47: "T√§ll√§ kertaa voit ottaa vain yhden, mink√§?";
+	47: "T‰ll‰ kertaa voit ottaa vain yhden, mink‰?";
 
 !       48: print "Whom do you want";
 !           if (actor ~= player) print " ", (the) actor;
-        48: ! print "Ket√§ haluat ";
+        48: ! print "Ket‰ haluat ";
            if (actor ~= player) {print (The) actor;
            print " ";} PrintCommand(); print "?^";
 !       49: print "What do you want";
@@ -1316,10 +1316,10 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
       
 	50: !print "Pisteesi ovat juuri ";
 	    print ""; if (x1 > 0) print "Sait juuri "; else { x1 = -x1; print "Menetit juuri "; }
-	     if (x1 == 1) print "pisteen"; else print (number) x1, " pistett√§";           
-	51: "(Koska jotain yll√§tt√§v√§√§ tapahtui, .)";
-	52: "^Anna luku v√§lilt√§ 1 - ", x1, ", 0 -to redisplay- tai paina ENTER.";
-	53: "^[Paina v√§lily√∂nti√§.]";
+	     if (x1 == 1) print "pisteen"; else print (number) x1, " pistett‰";           
+	51: "(Koska jotain yll‰tt‰v‰‰ tapahtui, .)";
+	52: "^Anna luku v‰lilt‰ 1 - ", x1, ", 0 -to redisplay- tai paina ENTER.";
+	53: "^[Paina v‰lilyˆnti‰.]";
 	54: "[Kommentti talletettu.]";
 	55: "[Kommentti EI tallentunut.]";  
 	56: print ".^";
@@ -1328,16 +1328,16 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
     }
   No,Yes:   "Se oli retorinen kysymys.";
   NotifyOff:
-	    "Pisten√§ytt√∂ pois p√§√§lt√§.";
-  NotifyOn: "Pisten√§ytt√∂ p√§√§ll√§.";
+	    "Pisten‰yttˆ pois p‰‰lt‰.";
+  NotifyOn: "Pisten‰yttˆ p‰‰ll‰.";
   Objects: switch (n) {
-	1:  "Esineet joita olet k√§sitellyt:^";
-	2:  "-Et mit√§√§n-.";
+	1:  "Esineet joita olet k‰sitellyt:^";
+	2:  "-Et mit‰‰n-.";
 	3:  print "   (puettu)";
 	4:  print "   (pidelty)";
 	5:  print "   (annettu pois)";
-	6:  print "   (", (name) x1, " sis√§ll√§)";                   
-	7:  print "   (", (genetiivi) x1, " sis√§ll√§)";                 
+	6:  print "   (", (name) x1, " sis‰ll‰)";                   
+	7:  print "   (", (genetiivi) x1, " sis‰ll‰)";                 
 	8:  print "   (", (inessiivi) x1, ")";
 	9:  print "   (", (adessiivi) x1, ")"; 
 	10: print "   (poissa)";
@@ -1346,207 +1346,207 @@ ENGLISH_BIT+RECURSE_BIT+PARTINV_BIT+TERSE_BIT+CONCEAL_BIT);  !+ISARE_BIT);
 	1:  print_ret (ksitajaniita) x1, " ei voi avata.";
 	2:  if (x1 has pluralname) print "Ne tuntuvat"; else print "Se tuntuu"; " olevan lukossa.";
 	3:  print_ret (ksejane) x1, " ", (onjaovat) x1, " jo auki.";
-	4:  print "Avaat ", (genetiivi) x1; if (x1 has pluralname) print ". Niiss√§"; else print ". Siell√§";
+	4:  print "Avaat ", (genetiivi) x1; if (x1 has pluralname) print ". Niiss‰"; else print ". Siell‰";
 	 
 	 ! ISARE_BIT added, Writelistfrom in verblib modified (-> are__tx)
-	 if (WriteListFrom(child(x1), ISARE_BIT+ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT) == 0) " ei ole mit√§√§n.";  
+	 if (WriteListFrom(child(x1), ISARE_BIT+ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT) == 0) " ei ole mit‰‰n.";  
 	 !   if (WriteListFrom(child(x1), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT) ~= 0) " on ";
 	    ".";
 	5:  "Avaat ", (genetiivi) x1, ".";
     }
 
-  Order:  print (k_adessiivi) x1; " on parempaa tekemist√§.";  
+  Order:  print (k_adessiivi) x1; " on parempaa tekemist‰.";  
   Places: switch (n) {
-	1:  print "Olet k√§ynyt n√§iss√§ paikoissa: ";
+	1:  print "Olet k‰ynyt n‰iss‰ paikoissa: ";
 	2:  print ".^";
     }
   Pray:     "Et saa vastausta rukouksiisi.";
   Prompt:   print "^>";
   Pronouns: switch (n) {
-	1:  print "T√§ll√§ hetkell√§, ";
+	1:  print "T‰ll‰ hetkell‰, ";
 	2:  print "on ";
 	3:  print "ei ole asetettu";
 	4:  "peli ei tunne pronomineja.";
 	5:  ".";
     }
   Pull,Push,Turn: switch (n) {
-	1:  if (x1 has pluralname) print "Ne pysyv√§t "; else print "Se pysyy ";
+	1:  if (x1 has pluralname) print "Ne pysyv‰t "; else print "Se pysyy ";
 	    "paikallaan.";
 	2:  "Et pysty.";
-	3:  "Mit√§√§n ilmeist√§ ei tapahdu.";
+	3:  "Mit‰‰n ilmeist‰ ei tapahdu.";
 	4:  "Se ei olisi kohteliasta.";
     }
 ! Push: see Pull
   PushDir: switch (n) {
-	1:  "Etk√∂ keksi muuta?";
+	1:  "Etkˆ keksi muuta?";
 	2:  "Se ei ole suunta.";
 	3:  "Et voi siihen suuntaan.";
     }
   PutOn: switch (n) {
-	1:  "Sinun t√§ytyy pidell√§ ", (partitiivi) x1, " ennenkuin voit laittaa ",
-		(sitajaniita) x1, " mink√§√§n p√§√§lle.";
-	2:  "Se ei mene itsens√§ p√§√§lle.";
-	3:  "Asioiden laittaminen ", (genetiivi) x1, " p√§√§lle ei hy√∂dytt√§isi mit√§√§n.";
-	4:  "Et ole riitt√§v√§n notkea.";
-	5:  "(ottaen ensin ", (sentaine) x1, " p√§√§lt√§)^";      
-	6:  print (k_adessiivi) x1, " ei ole en√§√§ tilaa.";                
+	1:  "Sinun t‰ytyy pidell‰ ", (partitiivi) x1, " ennenkuin voit laittaa ",
+		(sitajaniita) x1, " mink‰‰n p‰‰lle.";
+	2:  "Se ei mene itsens‰ p‰‰lle.";
+	3:  "Asioiden laittaminen ", (genetiivi) x1, " p‰‰lle ei hyˆdytt‰isi mit‰‰n.";
+	4:  "Et ole riitt‰v‰n notkea.";
+	5:  "(ottaen ensin ", (sentaine) x1, " p‰‰lt‰)^";      
+	6:  print (k_adessiivi) x1, " ei ole en‰‰ tilaa.";                
 	7:  "Tehty.";
 	8:  "Laitat ", (genetiivi) x1, " ", (allatiivi) second, ".";
     }
   Quit: switch (n) {
-	1:  print "Vastaa kyll√§ tai ei.";
+	1:  print "Vastaa kyll‰ tai ei.";
 	2:  print "Oletko varma? ";
     }
   Remove: switch (n) {
 	1:  if (x1 has pluralname) print "Ne ovat"; else print "Se on";
-	    " harmillista kyll√§ kiinni.";
-	2:  if (x1 has pluralname) print "Mutta ne eiv√§t"; else print "Mutta se ei"; print "ole siell√§ nyt.";
-	3:  "Selv√§."; ! "Removed."
+	    " harmillista kyll‰ kiinni.";
+	2:  if (x1 has pluralname) print "Mutta ne eiv‰t"; else print "Mutta se ei"; print "ole siell‰ nyt.";
+	3:  "Selv‰."; ! "Removed."
     }
   Restart: switch (n) {
 	1:  print "Haluatko varmasti aloittaa alusta? ";
 	2:  "Ei onnistunut.";
     }
   Restore: switch (n) {
-	1:  "Lataus ep√§onnistui.";
+	1:  "Lataus ep‰onnistui.";
 	2:  "Ok.";
     }
-  Rub:      "Et saavuta sill√§ mit√§√§n.";
+  Rub:      "Et saavuta sill‰ mit‰‰n.";
   Save: switch (n) {
-	1:  "Talletus ep√§onnistui.";
+	1:  "Talletus ep‰onnistui.";
 	2:  "Ok.";
     }
   Score: switch (n) {
-	1:  if (deadflag) print "T√§ss√§ peliss√§ sait pisteit√§ "; else print "T√§h√§n menness√§ olet saanut pisteit√§ ";
-	    print score, " (maksimi ", MAX_SCORE, "), peli "; if (deadflag) print "kesti "; else print "on kest√§nyt "; 
+	1:  if (deadflag) print "T‰ss‰ peliss‰ sait pisteit‰ "; else print "T‰h‰n menness‰ olet saanut pisteit‰ ";
+	    print score, " (maksimi ", MAX_SCORE, "), peli "; if (deadflag) print "kesti "; else print "on kest‰nyt "; 
 	    print turns, " vuoroa";
 	    !! if (turns ~= 1) print "/vuoron";     
 	    !! return;
-	2:  "T√§ss√§ tarinassa ei ole pisteytyst√§.";
+	2:  "T‰ss‰ tarinassa ei ole pisteytyst‰.";
     }
   ScriptOff: switch (n) {
-	1:  "transkriptio on jo pois p√§√§lt√§.";
+	1:  "transkriptio on jo pois p‰‰lt‰.";
 	2:  "^transkription loppu.";
-	3:  "transkription lopettaminen ep√§onnistui.";
+	3:  "transkription lopettaminen ep‰onnistui.";
     }
   ScriptOn: switch (n) {
-	1:  "transkriptio on jo p√§√§ll√§.";
+	1:  "transkriptio on jo p‰‰ll‰.";
 	2:  "transkription alku";
 	3:  "transkription aloittaminen ei onnistunut.";
     }
   Search: switch (n) {
-	1:  "On liian pime√§√§.";
-	2:  print (k_adessiivi) x1, " ei ole mit√§√§n.";                       
+	1:  "On liian pime‰‰.";
+	2:  print (k_adessiivi) x1, " ei ole mit‰‰n.";                       
 	3:  print (k_adessiivi) x1, " on ";    !? tulostuuko oikein?                               
 	    WriteListFrom(child(x1), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT); ! +ISARE_BIT); pois
 	    ".";
-	4:  "Et l√∂yd√§ mit√§√§n.";
-! Yksikk√∂ JA monikko?
-	5:  "Et n√§e sis√§lle, koska ", (nominatiivi) x1, " on suljettu.";
-	6:  print (k_nominatiivi) x1; if (x1 has pluralname) print_ret " ovat tyhji√§."; else print_ret " on tyhj√§.";
+	4:  "Et lˆyd‰ mit‰‰n.";
+! Yksikkˆ JA monikko?
+	5:  "Et n‰e sis‰lle, koska ", (nominatiivi) x1, " on suljettu.";
+	6:  print (k_nominatiivi) x1; if (x1 has pluralname) print_ret " ovat tyhji‰."; else print_ret " on tyhj‰.";
 	7:  print (k_inessiivi) x1, " on ";     !? tulostuuko oikein?			
 	    WriteListFrom(child(x1), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT);   !+ISARE_BIT); pois
 	    ".";
     }
-  Set:      "Et voi s√§√§t√§√§ ", (SitajaNiita) x1, ".";
-  SetTo:    "Et voi s√§√§t√§√§ ", (SitajaNiita) x1, " mihink√§√§n.";
+  Set:      "Et voi s‰‰t‰‰ ", (SitajaNiita) x1, ".";
+  SetTo:    "Et voi s‰‰t‰‰ ", (SitajaNiita) x1, " mihink‰‰n.";
   Show: switch (n) {
 	1:  "Et pitele ", (partitiivi) x1, ".";
-	2:  print (k_nominatiivi) x1; if (noun has pluralname) print_ret " eiv√§t ole vaikuttuneita."; else print_ret " ei ole vaikuttunut.";
+	2:  print (k_nominatiivi) x1; if (noun has pluralname) print_ret " eiv‰t ole vaikuttuneita."; else print_ret " ei ole vaikuttunut.";
     }
   Sing:     "Laulantasi on kammottavaa.";
-  Sleep:    "Et tunne itse√§si kovin uniseksi.";
-  Smell:    "Et haista mit√§√§n yll√§tt√§v√§√§.";
+  Sleep:    "Et tunne itse‰si kovin uniseksi.";
+  Smell:    "Et haista mit‰‰n yll‰tt‰v‰‰.";
 	    #Ifdef DIALECT_US;
-  Sorry:    "Mit√§p√§ tuosta.";
+  Sorry:    "Mit‰p‰ tuosta.";
 	    #Ifnot;
-  Sorry:    "Mit√§p√§ turhia.";
+  Sorry:    "Mit‰p‰ turhia.";
 	    #Endif;
   Squeeze: switch (n) {
-	1:  "Pid√§ k√§det itsell√§si.";
-	2:  "Et saavuta sill√§ mit√§√§n.";
+	1:  "Pid‰ k‰det itsell‰si.";
+	2:  "Et saavuta sill‰ mit‰‰n.";
     }
-  Strong:   "Todellinen seikkailija ei k√§yt√§ tuollaista kielt√§.";
-  Swim:     "Vett√§ ei ole riitt√§v√§sti uimiseen.";
-  Swing:    "T√§√§ll√§ ei ole mit√§√§n miss√§ voisit keinua.";
+  Strong:   "Todellinen seikkailija ei k‰yt‰ tuollaista kielt‰.";
+  Swim:     "Vett‰ ei ole riitt‰v‰sti uimiseen.";
+  Swing:    "T‰‰ll‰ ei ole mit‰‰n miss‰ voisit keinua.";
   SwitchOff: switch (n) {
-	1:  print_ret (ksitajaniita) x1, " ei voi kytke√§.";
-	2:  print_ret (ksejane) x1, " ", (onjaovat) x1, " jo p√§√§ll√§.";
-	3:  "Kytket ", (genetiivi) x1, " pois p√§√§lt√§.";
+	1:  print_ret (ksitajaniita) x1, " ei voi kytke‰.";
+	2:  print_ret (ksejane) x1, " ", (onjaovat) x1, " jo p‰‰ll‰.";
+	3:  "Kytket ", (genetiivi) x1, " pois p‰‰lt‰.";
     }
   SwitchOn: switch (n) {
-	1:  print_ret (ksitajaniita) x1, " ei voi kytke√§ p√§√§lle.";
-	2:  print_ret (ksejane) x1, " on jo kytketty p√§√§lle.";
-	3:  "Kytket ", (genetiivi) x1, " p√§√§lle.";
+	1:  print_ret (ksitajaniita) x1, " ei voi kytke‰ p‰‰lle.";
+	2:  print_ret (ksejane) x1, " on jo kytketty p‰‰lle.";
+	3:  "Kytket ", (genetiivi) x1, " p‰‰lle.";
     }
   Take: switch (n) {
 	1:  "Otettu."; ! "Taken."
-	2:  "Olet aina t√§ynn√§ itse√§si.";
-	3:  "En usko ett√§ ", (nominatiivi) x1, " on kiinnostunut siit√§.";
-	4:  print "Sinun t√§ytyy ensin poistua ";
+	2:  "Olet aina t‰ynn‰ itse‰si.";
+	3:  "En usko ett‰ ", (nominatiivi) x1, " on kiinnostunut siit‰.";
+	4:  print "Sinun t‰ytyy ensin poistua ";
 	    if (x1 has supporter) print_ret (ablatiivi) x1, ".^";
 	    else print_ret (elatiivi) x1, ".";
 	5:  "Sinulla on jo ", (sejane) x1, ".";
-	6:  if (noun has pluralname) print "Ne n√§ytt√§v√§t "; else print "Se n√§ytt√§√§ ";
+	6:  if (noun has pluralname) print "Ne n‰ytt‰v‰t "; else print "Se n‰ytt‰‰ ";
 	    "kuuluvan ", (allatiivi) x1, ".";
-	7:  if (noun has pluralname) print "Ne n√§ytt√§v√§t "; else print "Se n√§ytt√§√§ ";
+	7:  if (noun has pluralname) print "Ne n‰ytt‰v‰t "; else print "Se n‰ytt‰‰ ";
 	    "olevan osa ", (partitiivi) x1, ".";
 	8:  print_ret (Ksitajaniita) x1, " ei ole saatavilla.";
 	9:  print_ret (k_nominatiivi) x1, " ", (eijaeivat) x1, " ole auki.";
-	10: if (x1 has pluralname) print_ret "Ne eiv√§t taida olla siirrett√§viss√§."; 
-		else print_ret "Se ei taida olla siirrett√§viss√§.";                     !?! Kannettava?
-	11: if (x1 has pluralname) print "Ne eiv√§t "; else print "Se ei ";
+	10: if (x1 has pluralname) print_ret "Ne eiv‰t taida olla siirrett‰viss‰."; 
+		else print_ret "Se ei taida olla siirrett‰viss‰.";                     !?! Kannettava?
+	11: if (x1 has pluralname) print "Ne eiv‰t "; else print "Se ei ";
 	    "irtoa."; ! "theyre / that's fixed in place."
  	12: "Sinulla on jo liikaa kantamuksia.";
 	13: print "(laitat "; if (x1 has pluralname) print (nominatiivi) x1; 
 		else print (genetiivi) x1; " ", (illatiivi) SACK_OBJECT, " tilan saamiseksi)";
     }
-  Taste:    "Et maista mit√§√§n yll√§tt√§v√§√§.";
+  Taste:    "Et maista mit‰‰n yll‰tt‰v‰‰.";
   Tell: switch (n) {
 	1:  "Puhut hetken itseksesi.";
 	2:  "Ei reaktiota.";
     }
   Think:    "Hieno ajatus.";
   ThrowAt: switch (n) {
-	1:  "Hy√∂dyt√∂nt√§.";
-	2:  "Viimehetkell√§ et uskallakaan.";
+	1:  "Hyˆdytˆnt‰.";
+	2:  "Viimehetkell‰ et uskallakaan.";
     }
 ! Tie:  see JumpOver.
   Touch: switch (n) {
-	1:  "Pid√§ k√§tesi kurissa!";
-	2:  "Et tunne mit√§√§n odottamatonta.";
-	3:  "Jos uskot siit√§ olevan apua...";
+	1:  "Pid‰ k‰tesi kurissa!";
+	2:  "Et tunne mit‰‰n odottamatonta.";
+	3:  "Jos uskot siit‰ olevan apua...";
     }
 ! Turn: see Pull.
   Unlock:  switch (n) {
-	1:  if (x1 has pluralname) print "Ne eiv√§t "; else print "Se ei ";
+	1:  if (x1 has pluralname) print "Ne eiv‰t "; else print "Se ei ";
 	    "tunnu olevan lukittavissa.";
-! Se ei / ne eiv√§t
+! Se ei / ne eiv‰t
 	2:  print_ret (ksejane) x1, " ", (eijaeivat) x1, " ole lukossa.";
-	3:  if (x1 has pluralname) print "Ne eiv√§t "; else print "Se ei ";
+	3:  if (x1 has pluralname) print "Ne eiv‰t "; else print "Se ei ";
 	    "tunnu sopivan lukkoon.";
 	4:  "Avaat ", (genetiivi) x1, " lukituksen.";
     }
-  VagueGo:  "Mihin ilmansuuntaan haluat menn√§?"; !mihin suuntaan haluat menn√§?
+  VagueGo:  "Mihin ilmansuuntaan haluat menn‰?"; !mihin suuntaan haluat menn‰?
   
   Verify: switch (n) {
 	1:  "Pelitiedosto on ok.";
 	2:  "Pelitiedosto voi olla huono.";
     }
   Wait:     "Aika kuluu.";
-  Wake:     "Karmea tosiasia on, ettet n√§e unta.";
+  Wake:     "Karmea tosiasia on, ettet n‰e unta.";
   WakeOther:"Se ei tunnu olevan tarpeen.";
   Wave: switch (n) {
-	! 1:  "Mutta ", (SejaNe) x1, " ", (eijaeivat) x1, " ole k√§siss√§si.";
+	! 1:  "Mutta ", (SejaNe) x1, " ", (eijaeivat) x1, " ole k‰siss‰si.";
 	1:  "Mutta et pitele ", (SitajaNiita) x1, ".";
 	2:  "Heiluttelet ", (partitiivi) x1, ".";
     }
-  WaveHands:"Heilutat, typer√§n√§.";
+  WaveHands:"Heilutat, typer‰n‰.";
   Wear: switch (n) {
 	1:  "Et voi pukea ", (SitajaNiita) x1, "!";
 	2:  "Et pitele ", (SitajaNiita) x1, "!";
-	3:  "Sinulla on jo ", (sejane) x1, " p√§√§ll√§si!";
-	4:  "Puet p√§√§llesi ", (monikko_vai_yks) x1, ".";
+	3:  "Sinulla on jo ", (sejane) x1, " p‰‰ll‰si!";
+	4:  "Puet p‰‰llesi ", (monikko_vai_yks) x1, ".";
     }
 ! Yes:  see No.
 

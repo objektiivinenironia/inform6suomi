@@ -1,6 +1,6 @@
 ! parsermfi.h
 ! ===========
-! Muokattuja rutiineja parserm:st√§
+! Muokattuja rutiineja parserm:st‰
 ! ks. ->finnish (replace) 
 ! ----------------------------------------------------------------------------
 !  Descriptors()
@@ -175,7 +175,7 @@
 
 
 
-! adjudicate kutsuu rutiinia ChooseObjects jos sellainen l√∂ytyy
+! adjudicate kutsuu rutiinia ChooseObjects jos sellainen lˆytyy
 ! ks DM4 A5 EntryPointRoutines
 !
 
@@ -185,7 +185,7 @@
     if (parser_trace >= 5) print "[ChooseObjects ", code,"]^";
 #Endif;
     
-    return 0; ! 0 hyv√§xyy parserin ratkaisun
+    return 0; ! 0 hyv‰xyy parserin ratkaisun
     
  ];
 
@@ -227,7 +227,7 @@
 
             .MMbyPN;
 
-	    ! *? kuutio ja kuutiota tulee t√§nne
+	    ! *? kuutio ja kuutiota tulee t‰nne
 	    !!! print "indef_guess_p: ", indef_guess_p, "^";
 	    
 
@@ -236,7 +236,7 @@
 	    if (parser_action == ##PluralFound)
 	       dict_flags_of_noun = dict_flags_of_noun | 4;
 
-	    ! *? vain kuutiota tulee t√§nne
+	    ! *? vain kuutiota tulee t‰nne
             if (dict_flags_of_noun & 4) {
 		! print "***???";
 		
@@ -257,10 +257,10 @@
 			
                     }
 		 
-		    ! ANIMA_PE -> MULTI_PE bugi (t√§√§ll√§p√§in)
-		    ! T√§st√§ saadaan v√§√§ri√§ virheilmoituksia
-		    ! koska indef_wanted saa t√§ss√§ arvon 100
-		    ! * paikattu multiflagill√§ c_tokenissa *
+		    ! ANIMA_PE -> MULTI_PE bugi (t‰‰ll‰p‰in)
+		    ! T‰st‰ saadaan v‰‰ri‰ virheilmoituksia
+		    ! koska indef_wanted saa t‰ss‰ arvon 100
+		    ! * paikattu multiflagill‰ c_tokenissa *
                     indef_type = indef_type | PLURAL_BIT;		    
                     if (indef_wanted == 0) indef_wanted = 100;
                 }
@@ -272,7 +272,7 @@
             MakeMatch(obj,k);
             return k;
         }
-	! *? kuutio tai kuutiota eiv√§t hypp√§√§ t√§st√§
+	! *? kuutio tai kuutiota eiv‰t hypp‰‰ t‰st‰
         if (k == 0) jump NoWordsMatch;
 	
     }
@@ -297,11 +297,11 @@
     if (threshold > 0) { k = threshold; jump MMbyPN; }
 
     if (threshold == 0 || Refers(obj,wn-1) == 0) {
-      	.NoWordsMatch; ! *? kuutio/kuutiota ei tule t√§st√§ t√§nne
+      	.NoWordsMatch; ! *? kuutio/kuutiota ei tule t‰st‰ t‰nne
         if (indef_mode ~= 0) {
             k = 0; parser_action = NULL;
-	    ! *? "kuutio" EI tee t√§t√§ hyppy√§
-	    ! *? t√§m√§ hyppy on viimeinen jonka "kuutiota" tekee	    
+	    ! *? "kuutio" EI tee t‰t‰ hyppy‰
+	    ! *? t‰m‰ hyppy on viimeinen jonka "kuutiota" tekee	    
      		jump MMbyPN;
         }
         rfalse;
@@ -310,7 +310,7 @@
     if (threshold < 0) {	
         threshold = 1;
 
-	! *? kuutio ja kuutiota tulee t√§nne
+	! *? kuutio ja kuutiota tulee t‰nne
 	! *? dict_flags_of_noun: kuutiota = 60+, kuutio = 0
 	! *?
 	! *? DECLINATIONS? -->> Descriptors	
@@ -320,23 +320,23 @@
 	! *?     Wikipedia:
 	! *?
 	! *?     "Deklinaatio on nominien taivutusluokka.
-	! *?      Useissa kieliss√§ nominit tai vain substantiivit
+	! *?      Useissa kieliss‰ nominit tai vain substantiivit
 	! *?      voidaan jakaa useampaan eri deklinaatioon       
-	! *?      sen mukaan, mitk√§ taivutusp√§√§tteet niiss√§ ovat
-	! *?      miss√§kin luku- tai sijamuodossa.
-	! *?      Eri kieliss√§ deklinaatioiden m√§√§r√§ vaihtelee.
-	! *?      Esimerkiksi nykyven√§j√§ss√§ on kolme
+	! *?      sen mukaan, mitk‰ taivutusp‰‰tteet niiss‰ ovat
+	! *?      miss‰kin luku- tai sijamuodossa.
+	! *?      Eri kieliss‰ deklinaatioiden m‰‰r‰ vaihtelee.
+	! *?      Esimerkiksi nykyven‰j‰ss‰ on kolme
 	! *?      substantiivien deklinaatiota." (16.2.18)
 	! *?                                    
 	! *?
-	! *? * Tee ekaks ik√§√§nkuin "periaatteessa"
-	! *?   niin ett√§ sijat olisivat muka "descriptors"
+	! *? * Tee ekaks ik‰‰nkuin "periaatteessa"
+	! *?   niin ett‰ sijat olisivat muka "descriptors"
  	! *?
 	! *?   ~ Esim. globaalit Nom_M / Nom_Y -> "ALL"/"THE" tms.
 	! *?                     PAR_S / PAR_M -> "some"
 	! *?
  	! *? * Tokaksi voit kirjoittaaa ison osan parserista
-	! *?   uudestaan "....nollasta" ("keksi√§ p. uudelleen?")
+	! *?   uudestaan "....nollasta" ("keksi‰ p. uudelleen?")
 	! *?
 	! *?   - Esim. "Descriptors" ("the", "some") sijaan 
         ! *?     sijoja, "deklinaatioita"... "declensions"
@@ -345,7 +345,7 @@
         w = NextWord();
 	
         while (Refers(obj, wn-1)) {
-	    ! *? kuutio / kuutiota _ei_ tule t√§nne	    
+	    ! *? kuutio / kuutiota _ei_ tule t‰nne	    
             threshold++;
             if (w)
                dict_flags_of_noun = dict_flags_of_noun |
@@ -353,13 +353,13 @@
         
             w = NextWord();	
         }
-	! *? kuutio ja kuutiota tulee t√§nne
+	! *? kuutio ja kuutiota tulee t‰nne
         ! *? dict_flags_of_noun: kuutiota = 60+, kuutio = 0
 	!!! print " *? dict_flags_of_noun = ", dict_flags_of_noun, "^";
     }
 
     k = threshold;
-    ! *? kuutiota ja kuutio tekev√§t t√§m√§n hypyn 
+    ! *? kuutiota ja kuutio tekev‰t t‰m‰n hypyn 
     jump MMbyPN;
 ];
 
@@ -367,7 +367,7 @@
 [ Adjudicate context i j k good_flag good_ones last n flag offset
     sovert;
 
-! T√§m√§ ei t√§ll√§isen√§√§n toimi
+! T‰m‰ ei t‰ll‰isen‰‰n toimi
 ! --------------------------    
 !    if (indef_mode == 1 && indef_type && PLURAL_BIT ~= 0 && luku == 1) ! action_to_be ~= ##XPurloin)
 !    {  indef_mode = 0;
@@ -381,9 +381,9 @@
     if (parser_trace >= 1)	
 	switch (luku) 
 	{	    
-	 0: print "[* Adjudicate: p√§√§tteen luku tuntematon!]^";
-	 1: print "[* Adjudicate: p√§√§te yksikk√∂!]^";
-	 2: print "[* Adjudicate: p√§√§te monikko!]^";
+	 0: print "[* Adjudicate: p‰‰tteen luku tuntematon!]^";
+	 1: print "[* Adjudicate: p‰‰te yksikkˆ!]^";
+	 2: print "[* Adjudicate: p‰‰te monikko!]^";
 		 
 	    } 
 	
@@ -400,7 +400,7 @@
     asiayhteys = context;
         
     #Ifdef DEBUG;
-    ! konteksti v√§liaik. n√§kyviin tasolla 1
+    ! konteksti v‰liaik. n‰kyviin tasolla 1
     if (parser_trace > 0)
 	{ print "   ** Adjudicate: asiayhteys = context (", context, ") ";
  	if (context == 6) print " == CREATURE_TOKEN "; print "**^";
@@ -682,7 +682,7 @@
 
     wn--; w = NextWord();
     e = CANTSEE_PE;
-! ¬§#¬§ One line changed
+! §#§ One line changed
 !    if (w==pronoun_word)
     if (w==pronoun_word && ~~ TestScope(pronoun_obj))  ! TestScope condition added
     {
@@ -1191,9 +1191,9 @@
         jump TryAgain;
     }
 
-    ! ks. my√∂s TryGivenObject (...) indef_type = indef_type | PLURAL_BIT
-    ! virheilmoissa t√§nne tultaessa v√§√§r√§ fail (MULTI_PE)
-    ! jos joku muu kuin nominatiivi, siis sijap√§√§te aiheuttaa t√§ss√§ ett√§:
+    ! ks. myˆs TryGivenObject (...) indef_type = indef_type | PLURAL_BIT
+    ! virheilmoissa t‰nne tultaessa v‰‰r‰ fail (MULTI_PE)
+    ! jos joku muu kuin nominatiivi, siis sijap‰‰te aiheuttaa t‰ss‰ ett‰:
     ! indef_wanted == 100, multiflag == false joten MULTI_PE
     if ((indef_wanted > 0 || prev_indef_wanted > 0) && (~~multiflag)) etype = MULTI_PE;    
     
@@ -1352,14 +1352,14 @@
         k = match_list-->marker;
 
 
-!! Vastaukset 45 ja 46 - "ota ruokaa"... "Tarkoitatko pahaa ruokaa vai hyv√§√§ ruokaa?",
-!! tai "ota ruoka"... "Paha ruoka vai hyv√§ ruoka?"
-!! jos sy√∂te on nominatiivi, ei tulosta "Tarkoitatko ", vaan ensimm√§inen sana isolla alkuk.
+!! Vastaukset 45 ja 46 - "ota ruokaa"... "Tarkoitatko pahaa ruokaa vai hyv‰‰ ruokaa?",
+!! tai "ota ruoka"... "Paha ruoka vai hyv‰ ruoka?"
+!! jos syˆte on nominatiivi, ei tulosta "Tarkoitatko ", vaan ensimm‰inen sana isolla alkuk.
 
         if ((match_classes-->marker > 0) && (csLR == 0 or 1)) 
          	{ if (i == 1) print (k_nominatiivi) k; else print (nominatiivi) k; }; 		
 
-!! jos sy√∂te on muu kuin nominatiivi...
+!! jos syˆte on muu kuin nominatiivi...
 
         if ((i == 1) && (csLR ~= 0 or 1)) print "Tarkoitatko ";
   
@@ -1638,29 +1638,29 @@
 	
 	!            else
 
-	! esim. Laita _p√∂yd√§lle_ mit√§?
+	! esim. Laita _pˆyd‰lle_ mit‰?
 	PrintKysNomini(i, from, k);
 	    
     	.TokenPrinted;
 	spacing_flag = true;
 	
     }
-    ! esim, laita p√∂yd√§lle _mit√§_?
+    ! esim, laita pˆyd‰lle _mit‰_?
     if (kys == 0) PrintKysymys(verb_word, from, k); 	
     
 ];
 
-! N√§ytt√§√§ silt√§ ett√§ omat puskurit
+! N‰ytt‰‰ silt‰ ett‰ omat puskurit
 ! sotkee PrintCommandin tekstipuskurit (PSN__)
 ! siis ao. "itse"-objekti ei toimi.
 !
-! T√§m√§ olisi tulostanut "itsen omistusliitteell√§,
-! mutta lista alla on ihan yht√§ j√§rkev√§
+! T‰m‰ olisi tulostanut "itsen omistusliitteell‰,
+! mutta lista alla on ihan yht‰ j‰rkev‰
 ! (PSN_ tulostaa puskuriin, j)
 !
 !Object 	itse "itse//si" 
-! with 	gen "n", par "√§", ess "n√§", ill "een",
-!	name 'm√§',
+! with 	gen "n", par "‰", ess "n‰", ill "een",
+!	name 'm‰',
 ! 	     short_name
 !	     [; if (Sija == csGen) {print "itsesi"; rtrue;};
 ! 		if (Sija == csIll) {print "itseesi"; rtrue;};
@@ -1668,7 +1668,7 @@
 !		 rfalse;];
 
 
-! YOURSELF__TX = "sin√§ itse"
+! YOURSELF__TX = "sin‰ itse"
 ! muokataan (parserm.h):
 [ PSN__ o;
     if (o == 0) { print (string) NOTHING__TX; rtrue; }
@@ -1701,32 +1701,32 @@
      2: print "itsesi";
 	
      	!Partitiivi:
-     3: print "itse√§si";
+     3: print "itse‰si";
 	
      	!Inessiivi:
-     4: print "itsess√§si";
+     4: print "itsess‰si";
 	
      	!Elatiivi:
-     5: print "itsest√§si";
+     5: print "itsest‰si";
 	
      	!Illatiivi:
      6: print "itseesi";
      	
      	!Adessiivi:	
-     7: print "itsell√§si";
+     7: print "itsell‰si";
 	
      	!Ablatiivi:
-     8: print "itselt√§si";     
+     8: print "itselt‰si";     
 	
      	!Allatiivi:
      9: print "itsellesi";
 	
      	!Essiivi:
-     10: print "itsen√§si";
+     10: print "itsen‰si";
 	
      	!Translatiivi:
      11: print "itseksesi";
-     default: print "sin√§ itse";
+     default: print "sin‰ itse";
 	
     }
 ];
