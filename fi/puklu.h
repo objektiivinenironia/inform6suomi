@@ -629,16 +629,15 @@ property lyh;
 Constant SutLen = 200;
 Array Suttu --> SutLen;
 
-[ CCase obj csID ucase i dlm limit at vart;
+! Nakit ja muusi?  
 
-    sija = csID;
+! t‰m‰ on uusi CCase 
+[ CCase obj csID ucase;
 
-    if (csID ~= 0) { 
+    Suttu-->0 = SutLen-1;
 
-	at = 0;
-
-	Suttu-->0 = SutLen-1;
-
+    ! lukee nimen Suttuun
+    ! mutta miksi printshortname?
 	@output_stream 3 Suttu;
 
  	if (obj provides short_name)
@@ -649,6 +648,46 @@ Array Suttu --> SutLen;
 
 	@output_stream -3;
 
+!  Debug_Tulostusta_CCase();
+        
+  CCase_(obj, csID, ucase);
+  
+  
+];
+
+[ Debug_Tulostusta_CCase osat limit i;
+    
+limit = (Suttu-->0) + 2;
+  
+    	    for (i = 2: i ~= limit: ++ i) { 
+		if (Suttu->i == '/')
+		  { osat++;
+		    print "/";
+		    print (i-2);
+		  }
+		if (Suttu->i == ' ')
+		  { 
+		    print "_";
+		    print (i-2);
+		  }
+  }
+
+  print " :", osat, " "; 
+];
+
+  
+[ CCase_ obj csID ucase at i dlm limit vart;
+
+    sija = csID;
+
+    if (csID ~= 0) { 
+
+        !?
+	at = 0;
+
+	! ...
+	
+	! short_name (TODO: sen osa)
 	if (ucase) Suttu->2 = LtoU (Suttu->2);
 
 	dlm = 0;
@@ -661,7 +700,7 @@ Array Suttu --> SutLen;
 	if (csID == csIne) vart = 1;
 
 	if (csID < 2 || csID == vbImp)
-	    for (i = 2: i ~= limit: ++ i) {
+	    for (i = 2: i ~= limit: ++ i) { 
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";
 	        if (Suttu->i == '>' && Suttu->(i+1) == '>') print ">";}
@@ -670,7 +709,7 @@ Array Suttu --> SutLen;
 	!??? verbi ei myˆsk‰‰n imperatiivi
 	if (csID > 1 && csID ~= vbImp)
 	    for (i = 2: i ~= limit: ++ i)
-	    {    if (Suttu->i == '/' && Suttu->(i-1) ~= '>')
+	    { 	if (Suttu->i == '/' && Suttu->(i-1) ~= '>')
 	    { if (dlm == 0) { dlm = Suttu+i; }
 	    else { at++; CaseEnd (obj, csID, at);
 		dlm = 0;
@@ -719,13 +758,18 @@ Array Juttu --> JutLen;
 !??? ps on 1 jos (monikko)objektilla *ei* ole ine-ohjetta (esim. "susilla")
 !??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "pˆydill‰")
 
-[ CaseEnd obj csID at num limit i ps a paate_isolla;
+[ CaseEnd obj csID at num limit i ps a paate_isolla mon;
 
+
+    ! mon eli monikko jos, jos ja jos
+    mon = false;
+    if (obj has pluralname) mon = true;
+    
     paate_isolla = 0; 
 
     ps = 0; 
-    if (obj has pluralname) (ps = 1); 
-    if ((obj has pluralname) &&
+    if (mon) (ps = 1); 
+    if ((mon) &&
 	(obj provides ine)) (ps = 2); 
 
     Juttu-->0 = JutLen-1;
@@ -736,7 +780,7 @@ Array Juttu --> JutLen;
     { if (obj provides ill) print (string) obj.ill;
     else print (string) obj.ess; };
 
-    if (obj hasnt pluralname)
+    if (mon == false)
 	switch (csID) {
 	 csGen: print (string) obj.gen;
 	 csPar: print (string) obj.par;
@@ -752,10 +796,10 @@ Array Juttu --> JutLen;
     !??? monikon astevaihtelu esim. "reikien"
     !??? oliolle on annettu ine "jiss‰"
 
-    if ((obj provides ine) && (obj has pluralname) &&
+    if ((obj provides ine) && (mon) &&
 	(csID ~= csNom or csPar or csGen or csEss or csIll))
 	print (string) obj.ine;
-    else if ((obj has pluralname) && (csID ~= csIll))
+    else if ((mon) && (csID ~= csIll))
     {
 	if (csID == csGen) print (string) obj.gen;
 	if (csID == csPar) print (string) obj.par;
@@ -814,7 +858,7 @@ Array Juttu --> JutLen;
  	    };
 
 	!??? olio ei ole monikollinen
-    	if (obj hasnt pluralname) 
+    	if (mon == false) 
 	    for (i = 2: i ~= limit: ++ i) {
 		
 		!??? (gen-p‰‰tteest‰) jos kirjain on 'n' tai 'N',
