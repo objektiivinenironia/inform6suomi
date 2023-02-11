@@ -293,7 +293,8 @@ Array LanguageNumbers table
 !   Part III.   translation... 
 ! --------------------------------------------------------------------
 
-Include "puklu";	! parsimista ja tulostamista
+Include "puklu"; ! parsimista ja tulostamista
+
 Include "parsermfi";    ! "Parserm"-tiedoston muokatut rutiinit
 
 ! "arse parse"
@@ -439,8 +440,11 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	! pienellä alkukirjaimella... 
  	else if (actor ~= player) { print (address) verbi; rtrue;
 	}
-        ! isolla...
-      	else {verbikap(verbi); rtrue;
+        ! isolla alkuk. jos alkaa verbistä	
+	else {VerbiKap(); rtrue;
+	
+	
+	    
 	}	    	
     	rfalse;
   	
