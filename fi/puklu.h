@@ -11,17 +11,29 @@ Array  Tparse  -> 6;
 
 
 ! ** Dictinary Lookup
+#Ifdef TARGET_ZCODE;
 
- [DL buf len
-     i;
-     if (len == 0 || len > Tlimit) return 0;
-     Tbuffer->1 = len;
-     for (i = 0: i ~= len: i ++) Tbuffer->(2+i) = buf->i;    
-     Tbuffer->(2+len) = 0;
-     Tparse->0 = 1;
-     @tokenise Tbuffer Tparse;
-     return Tparse-->1;
+ [ DL b l i;
+     if (l == 0 || l > Tlimit) return 0; !+lisäys
+     for (i=0 : i<l : i++) buffer2->(2+i) = b->i;
+     buffer2->1 = l;
+     Tokenise__(buffer2,parse2);
+     return parse2-->1;
  ];
+
+#Ifnot; ! TARGET_GLULX
+
+ [ DL b l i;
+     if (l == 0 || l > Tlimit) return 0; !+lisäys
+     for (i=0 : i<l : i++) buffer2->(WORDSIZE+i) = b->i;
+     buffer2-->0 = l;
+     Tokenise__(buffer2,parse2);
+     return parse2-->1;
+ ];
+
+#Endif; ! TARGET_
+
+
 
 
 Attribute oletus_par;
@@ -626,72 +638,40 @@ property lyh;
 !??? myös verbien tulostusta, imperatiivi
 
 
-Constant SutLen = 200;
+Constant SutLen = 102;
 Array Suttu --> SutLen;
 
-! Nakit ja muusi?  
-
-! tämä on uusi CCase 
-[ CCase obj csID ucase;
-
-    Suttu-->0 = SutLen-1;
-
-    ! lukee nimen Suttuun
-    ! mutta miksi printshortname?
-	@output_stream 3 Suttu;
-
- 	if (obj provides short_name)
-	    printshortname(obj);
-	else
-!??? jos vain tämä, olion nimi ei tulostu oikein
-	    print (object) obj;
-
-	@output_stream -3;
-
-!  Debug_Tulostusta_CCase();
-        
-  CCase_(obj, csID, ucase);
-  
-  
-];
-
-[ Debug_Tulostusta_CCase osat limit i;
-    
-limit = (Suttu-->0) + 2;
-  
-    	    for (i = 2: i ~= limit: ++ i) { 
-		if (Suttu->i == '/')
-		  { osat++;
-		    print "/";
-		    print (i-2);
-		  }
-		if (Suttu->i == ' ')
-		  { 
-		    print "_";
-		    print (i-2);
-		  }
-  }
-
-  print " :", osat, " "; 
-];
-
-  
-[ CCase_ obj csID ucase at i dlm limit vart;
+[ CCase obj csID ucase i dlm limit at vart;
 
     sija = csID;
 
     if (csID ~= 0) { 
 
-        !?
 	at = 0;
 
-	! ...
+	Suttu-->0 = SutLen-1;
+
+	!@output_stream 3 Suttu;
+
+ 	if (obj provides short_name)
+	    !  printshortname(obj);
+	    !PrintToBuffer(Suttu, 102, printshortname(obj));
+	    PrintToBuffer(Suttu, 102, obj);
 	
-	! short_name (TODO: sen osa)
+	
+	
+	
+	else
+!??? jos vain tämä, olion nimi ei tulostu oikein
+	   ! print (object) obj;
+
+	  PrintToBuffer(Suttu, 102, obj);   
+	!@output_stream -3;
+
 	if (ucase) Suttu->2 = LtoU (Suttu->2);
 
 	dlm = 0;
-	limit = (Suttu-->0) + 2;
+	limit = (Suttu-->0) + WORDSIZE;
 
 	sija = 0;
 
@@ -700,7 +680,7 @@ limit = (Suttu-->0) + 2;
 	if (csID == csIne) vart = 1;
 
 	if (csID < 2 || csID == vbImp)
-	    for (i = 2: i ~= limit: ++ i) { 
+	    for (i = WORDSIZE: i ~= limit: ++ i) {
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";
 	        if (Suttu->i == '>' && Suttu->(i+1) == '>') print ">";}
@@ -708,8 +688,8 @@ limit = (Suttu-->0) + 2;
 	!??? nomini ei nominatiivi tai 0 (csDflt)
 	!??? verbi ei myöskään imperatiivi
 	if (csID > 1 && csID ~= vbImp)
-	    for (i = 2: i ~= limit: ++ i)
-	    { 	if (Suttu->i == '/' && Suttu->(i-1) ~= '>')
+	    for (i = WORDSIZE: i ~= limit: ++ i)
+	    {    if (Suttu->i == '/' && Suttu->(i-1) ~= '>')
 	    { if (dlm == 0) { dlm = Suttu+i; }
 	    else { at++; CaseEnd (obj, csID, at);
 		dlm = 0;
@@ -758,62 +738,68 @@ Array Juttu --> JutLen;
 !??? ps on 1 jos (monikko)objektilla *ei* ole ine-ohjetta (esim. "susilla")
 !??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "pöydillä")
 
-[ CaseEnd obj csID at num limit i ps a paate_isolla mon;
-
-
-    ! mon eli monikko jos, jos ja jos
-    mon = false;
-    if (obj has pluralname) mon = true;
+[ CaseEnd obj csID at num limit i ps a paate_isolla sufstr;
     
     paate_isolla = 0; 
 
     ps = 0; 
-    if (mon) (ps = 1); 
-    if ((mon) &&
+    if (obj has pluralname) (ps = 1); 
+    if ((obj has pluralname) &&
 	(obj provides ine)) (ps = 2); 
 
     Juttu-->0 = JutLen-1;
 
-    @output_stream 3 Juttu;
+    !@output_stream 3 Juttu;
+    
+    
 
     if (csID == csIll)
-    { if (obj provides ill) print (string) obj.ill;
-    else print (string) obj.ess; };
+     
+    !@{ if (obj provides ill) print (string) obj.ill;
+    !@else print (string) obj.ess; };
+    { if (obj provides ill) sufstr = obj.ill;
+    else sufstr = obj.ess; };
 
-    if (mon == false)
+    if (obj hasnt pluralname)
 	switch (csID) {
-	 csGen: print (string) obj.gen;
-	 csPar: print (string) obj.par;
-	 csEss: print (string) obj.ess;
-	 csIne: print (string) obj.gen;
-	 csEla: print (string) obj.gen;
-	 csAde: print (string) obj.gen;
-	 csAbl: print (string) obj.gen;
-	 csTra: print (string) obj.gen;
-	 csAll: print (string) obj.gen;
+	 csGen: sufstr =  obj.gen;
+	 csPar: sufstr =  obj.par;
+	 csEss: sufstr =  obj.ess;
+	 csIne: sufstr =  obj.gen;
+	 csEla: sufstr =  obj.gen;
+	 csAde: sufstr =  obj.gen;
+	 csAbl: sufstr =  obj.gen;
+	 csTra: sufstr =  obj.gen;
+	 csAll: sufstr =  obj.gen;
 	};
 
     !??? monikon astevaihtelu esim. "reikien"
     !??? oliolle on annettu ine "jissä"
 
-    if ((obj provides ine) && (mon) &&
+    if ((obj provides ine) && (obj has pluralname) &&
 	(csID ~= csNom or csPar or csGen or csEss or csIll))
-	print (string) obj.ine;
-    else if ((mon) && (csID ~= csIll))
+	 sufstr = obj.ine;
+    else if ((obj has pluralname) && (csID ~= csIll))
     {
-	if (csID == csGen) print (string) obj.gen;
-	if (csID == csPar) print (string) obj.par;
-	if (csID ~= csGen or csPar) print (string) obj.ess;
+	if (csID == csGen) sufstr =  obj.gen;
+	if (csID == csPar) sufstr =  obj.par;
+	if (csID ~= csGen or csPar) sufstr =  obj.ess;
     };
 
-    @output_stream -3;
+    !@output_stream 3 Juttu;
+    !if (sufstr ofclass string)
+    !	print(string)sufstr;
+    !juttuun?
+    PrintToBuffer(Juttu, 66, sufstr);
+    
+    !@output_stream -3;
 
     num = 0;
-    limit = (Juttu-->0) + 2;
+    limit = (Juttu-->0) + WORDSIZE;
 
     if ((csID == csIll) && (obj provides Ill))
     {
-	for (i = 2: i ~= limit: ++ i) 	{
+	for (i = WORDSIZE: i ~= limit: ++ i) 	{
 	    if ((num == at-1) && (Juttu->i ~= '/')) print (char) (Juttu->i);
 	    if (juttu->i == '/') num++;
 	}
@@ -821,7 +807,7 @@ Array Juttu --> JutLen;
 
     if (csID == csGen or csPar or csEss)
     {
-	for (i = 2: i ~= limit: ++ i) 	{
+	for (i = WORDSIZE: i ~= limit: ++ i) 	{
 	    if ((num == at-1) && (Juttu->i ~= '/')) print (char) (Juttu->i);
 	    if (juttu->i == '/') num++;
 	}
@@ -834,7 +820,7 @@ Array Juttu --> JutLen;
 	!??? ps on 2 jos (monikko)objektilla on ine-ohje (esim. "pöydillä")
 
   	if (ps == 2) !??? monikko ja ine-ohje
-	    for (i = 2: i ~= limit: ++ i) {
+	    for (i = WORDSIZE: i ~= limit: ++ i) {
 		if ((num == at-1)
 		    &&
 		    (Juttu->i ~= 's' or 'a' or 'ä' or '/' or 'S' or 'A' or 'Ä'))
@@ -845,7 +831,7 @@ Array Juttu --> JutLen;
 	    };
 
    	if (ps == 1) !??? monikko
- 	    for (i = 2: i ~= limit: ++ i) {
+ 	    for (i = WORDSIZE: i ~= limit: ++ i) {
 
  	  	if ((num == at-1)
 		    &&
@@ -858,8 +844,8 @@ Array Juttu --> JutLen;
  	    };
 
 	!??? olio ei ole monikollinen
-    	if (mon == false) 
-	    for (i = 2: i ~= limit: ++ i) {
+    	if (obj hasnt pluralname) 
+	    for (i = WORDSIZE: i ~= limit: ++ i) {
 		
 		!??? (gen-päätteestä) jos kirjain on 'n' tai 'N',
 	     	!??? eikä sitä seuraa '/' tai jonon loppu, se tulostetaan.
@@ -870,6 +856,7 @@ Array Juttu --> JutLen;
 		
 		if ((num == at-1) && (Juttu->i == 'n' or 'N')
 		    && (Juttu->(i+1) ~= '/'))
+		    ! 2 = WORDSIZE?
 		{ if (limit ~= (i+1) or (i+2)) print (char) (Juttu->i);};
 
 		!??? tulosta kaikki kirjaimet paitsi '/', 'n' tai 'N'.
@@ -905,15 +892,17 @@ Array Juttu --> JutLen;
 	}
 	if (csID ~= csTra or csAll) {
 	    ParArr-->0 = ParLen-1;
-	    @output_stream 3 ParArr;
-	    print (string) obj.par;
-	    @output_stream -3;
+	    !@output_stream 3 ParArr;
+	    !print (string) obj.par;
+	    !@output_stream -3;
+	    PrintToBuffer(ParArr, 66, obj.par);
+	    
 	    
 	    num = 0;
-	    limit = (ParArr-->0) +2;
+	    limit = (ParArr-->0) + WORDSIZE;
 	    a = 0;
 	    
-	    for (i = 2: i ~= limit: i++)
+	    for (i = WORDSIZE: i ~= limit: i++)
 		
 	    {
 		if ((ParArr->(i+1) == '/') || (i == limit-1))
@@ -924,17 +913,29 @@ Array Juttu --> JutLen;
     
 ];
 
+
 ! ** Tulosta verbi isolla alkukirjaimella
 
 Constant verbi_pituus = 39;
 Array verbi_array --> verbi_pituus;
 
-[ VerbiKap w i k iso;
-    @output_stream 3 verbi_array;
-    print (address) w;
-    @output_stream -3;
+#Ifdef TARGET_ZCODE;
 
+! tämä eikö tämä toimi zcode?
+! kaatuu: "more than 15 locals are not allowed"
+![ VerbiKap;
+!    print(Cap)verb_word;     
+!];
+
+[ VerbiKap i k iso;
+
+    @output_stream 3 verbi_array;
+    print (address) verb_word;
+    @output_stream -3;
+    
     k = verbi_array->2;
+	
+    ! mielummin PrintCapitalised tms. ???
 
     switch (k)
  { 155, 158: iso = 158; ! ä -> Ä
@@ -942,14 +943,22 @@ Array verbi_array --> verbi_pituus;
    201, 202: iso = 202; ! å -> Å
    default: iso = k-32;
     }
+    
     print (char) iso;
 
     for (i=2:i<=verbi_array-->0:i++)
-  { print (char) verbi_array->(i+1);
-    }
-    ! ao. ei tarvita?
-    return verbi_array-->0;
- ];
+     	print (char) verbi_array->(i+1);
+    
+    
+];
+                
+#Ifnot; ! TARGET_GLULX
+[ VerbiKap;
+    print(Cap)verb_word;
+];
+#Endif; ! TARGET_
+
+
 
 ! ** verbin loppuosan tulostus
 
