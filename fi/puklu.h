@@ -2,12 +2,24 @@
 ! =====================================
 ! * Parsimista
 ! ------------
-
 System_file;
 
 Constant Tlimit = 31;
 Array  Tbuffer -> 3+Tlimit;
 Array  Tparse  -> 6;
+
+! näitä ei aina tarvita
+Constant taipumaton;
+Constant vahva_a;
+Constant heikko_a;
+Constant vahva_b;
+Constant heikko_b;
+Constant csInf;
+Constant ine;
+Constant vbInf;
+Constant inf_; 
+Constant kys_a;
+Constant kys_b;
 
 
 ! ** Dictinary Lookup
