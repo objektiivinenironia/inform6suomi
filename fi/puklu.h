@@ -356,146 +356,162 @@ Global sija;
 ! esim. vahva_a 'Maukka' / mon.: 'maukko'
 ! (Monikkovartalon perään kelpaa genetiivi-, partitiivi-, illatiivi-, 
 ! ja essiivipääte.
-! Yksikön nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivipääte)
+! Yksikön nominatiivi kelpaa, ja partitiivi-, essiivi- tai
+!illatiivipääte)
 
 
-[ LanguageRefers obj wnum adr len end w csID;
+
+! LanguageRefers
+!
+! Parseri kysyy languagerefersiltä kelpaako syöte sanakirjasanaksi
+! languagerefers vastaa sen perusteella mitä endinglookup
+! kertoo sijapäätteestä. 
+
+! lyh on "jokeri"
+property lyh;
+
+[ LanguageRefers obj wnum adr len end w csID; 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
-    
+
     csID = csLR; 
-    
+        
     for (end = len: end ~= 0 : --end) 
     {
-	w = DL (adr, end);
+	w = DL (adr, end); 
 
-	! lyhennys tänne vai alemmas?
 	
 	if (parent (obj) == Compass)
    	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
 	      (adr+end, len-end, csID)) rtrue;
+	    
+	    
 
-		    ! hyväksytään vain partitiivi
-		    ! ">t ptä" ">mene pohjoista"
-		    ! muuten esim. ">lu" (luode) vastaa:
-		    ! "Länsi vai luode?"
-		    ! if (csID ~= 3) rfalse;
-
+	    ! ao. hyväksyy vain partitiivin ">t ptä" ">mene pohjoista"
+	    ! muuten esim. ">lu" (luode) vastaa: "Länsi vai luode?"
 	    if (csID ~= 3) rfalse; 
 	}	
+	
+        ! villikortti lyh
+        ! kelpuuttaa mitä vain
+ 	! sanakirjasanan ja sijapäätteen väliin. esim.
+	! luolasusi luolasutta luolasudelle luolasudesta luolasuteen
+        ! (muista sanakirjasanat ''-sisään ei toimi muuten)
+	!
+	! Object -> luolis "luolasu/si"
+        !  with 	lyh 'luolasu' 'su'
+	
+	
+	if (w ~= 0 && WordInProperty (w, obj, lyh))
+	{
+	    !  etsitään sanakirjasanan
+	    !  jälkeen ja rtrue kun pääte löytyy
+	    !  välissä voi olla mitä tahansa köntsää
+	    !    >anna pallo sudelle
+	    !  ja
+	    !    >anna pallo surtkgjkjkrgjegeglle
+	    !  sama lopputulos
+	    while (end < len)
+	    {
+		end++;		
+		if (EndingLookup (adr+end, len-end, csID))
+		{
+		    
 
-	! lyhennys tänne?
- 	
- 	!???
-	! property *taipumaton*
-	! esimerkiksi genetiiviattribuutti
-	! "pöydän" -> "pöydän antimet"
+	    	    ! "^[* lyh (villikortti, jokeri, wtf...) end: ", end,
+		    !	    " len: ", len" *]^";
+		    ! debugsijat(adr, wnum, len, end, w, csID);
+		    
+		    rtrue;
+		}
+		
+	    	
+	    }
+	}
+	
+	    
+	
+
+	!! (property) taipumaton
+	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	   
 	
 	if ( end == len && w ~= 0 && WordInProperty (w, obj, taipumaton)) 
+	    !! && EndingLookup (adr+end, len-end, -1))
 	    
 	{
-#Ifdef DEBUG;				
+           #Ifdef DEBUG;				
 	    if (parser_trace >= 5)
 	    {print "^        [* Taipumaton * ]^";
-		debugsijat(adr, wnum, len, end, w, csID);
+		 debugsijat(adr, wnum, len, end, w, csID);
 	    }
-#Endif;
+            #Endif;
 	    rtrue; 
 	}; 
-	!??? täh?... jos Endinglookup on tosi, se on yksikkö
+	
  	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
-	    (adr+end, len-end, csID)) 
+	    (adr+end, len-end, csID)) ! Endinglookup true eli yksikkö
 	    
-	{
-#Ifdef DEBUG;
+	{ 	#Ifdef DEBUG;
 	    if (parser_trace >= 4)
 		print "    [* LanguageRefers *]^";
-	    !???
-	    !  switch (luku)
-	    !  {
-	    !   0: print "    [* LanguageRefers: luku ? (0)]^";
-	    !   1: print "    [* LanguageRefers: luku yksikkö (1)]^";
-	    !   2: print "    [* LanguageRefers: luku monikko (0)]^";
-	    ! }
-	    
-	    
+	   !  switch (luku) 
+	   !  {
+	   !   0: print "    [* LanguageRefers: luku ? (0)]^";
+	   !   1: print "    [* LanguageRefers: luku yksikkö (1)]^";
+	   !   2: print "    [* LanguageRefers: luku monikko (0)]^";		 
+	   ! }
 	    
 	    if (parser_trace >= 5)
 		debugsijat(adr, wnum, len, end, w, csID);
-	    
-#Endif;
-	    rtrue;
+              #Endif;
+              rtrue;
 	    
 	};
-	!??? astevaihtelun vahva muoto?
 	
-	if (w ~=0 && WordInProperty (w, obj, vahva_a) && EndingLookup (adr+end, len-end, csID) )
-	{
-#Ifdef DEBUG;
-	    if (parser_trace >= 5) debugsijat(wnum, len, end, w,
-					      csID);
-#Endif;
-	    !???  monikko ja gen, par, ill tai ess
-	    
-	    if (obj provides pluralname && csID == 2 or 3 or 6 or 10 )
-	    	rtrue;
-	    !??? yksikkö ja nom, par, ess tai ill
-	    else if (csID == 0 or 1 or 3 or 6 or 10)  
+	!! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa   	
+	!! esim. 'mato', 'madot' / 'matto', 'matot'; 'pato', 'padot' / 'patto', 'patot',  jne... 
+	
+	!! esim. vahva_a 'Maukka' / mon.: 'maukko' 
+	!! (Monikkovartalon perään kelpaa genetiivi-, partitiivi-, illatiivi-, ja essiivipääte.
+	!! Yksikön nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivipääte) 
+	if (w ~=0 && WordInProperty (w, obj, vahva_a) && EndingLookup (adr+end, len-end, csID) )!!
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);#Endif;
+	    if (obj provides pluralname && csID == 2 or 3 or 6 or 10 ) rtrue; !  monikko ja gen, par, ill tai ess 
+	    else if (csID == 0 or 1 or 3 or 6 or 10)  !yksikkö ja nom, par, ess tai ill
 		rtrue; 
 	};
 	
-	!??? esim. 'Mauka' (mon. 'Maukat', 'Mauko')
-	!??? (kelpaa muut sijapäätteet kuin edellisessä)
-	
-	if (w ~=0 && WordInProperty (w, obj, heikko_a) && EndingLookup (adr+end, len-end, csID) )
-	{
-#Ifdef DEBUG;
-	    if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
+	!! esim. 'Mauka' (mon. 'Maukat', 'Mauko')
+	!! (kelpaa muut sijapäätteet kuin edellisessä)
+	if (w ~=0 && WordInProperty (w, obj, heikko_a) && EndingLookup (adr+end, len-end, csID) )!!
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
-	    !???  monikko ja ei 0, gen, par, ill tai ess
-	    
-	    if (obj provides pluralname && csID ~= 0 or 2 or 3 or 6 or
-	    	10 ) rtrue;
-	    !??? yksikkö ja ei nom, par, ess tai ill
-	    
-	    else if (csID ~= 0 or 1 or 3 or 6 or 10)  
+	    if (obj provides pluralname && csID ~= 0 or 2 or 3 or 6 or 10 ) rtrue; !  monikko ja ei 0, gen, par, ill tai ess 
+	    else if (csID ~= 0 or 1 or 3 or 6 or 10)  !yksikkö ja ei nom, par, ess tai ill
 		rtrue; 
 	};
-	!??? esim. vahva_b 'maukka' 'maukkaa'
-	!??? (kaikki paitsi yksikön nominatiivi
-	!??? 'maukka' + partitiivipääte 'ta' kelpaa)
-	
-	if (w ~=0 && WordInProperty (w, obj, vahva_b) && EndingLookup (adr+end, len-end, csID) )
-	{
-#Ifdef DEBUG;
-	    if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
+	!! esim. vahva_b 'maukka' 'maukkaa' 
+	!! (kaikki paitsi yksikön nominatiivi 'maukka' + partitiivipääte 'ta' kelpaa)
+	if (w ~=0 && WordInProperty (w, obj, vahva_b) && EndingLookup (adr+end, len-end, csID) )!!
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
-	    !??? ei 0 tai nom tai par
-	    if (obj hasnt pluralname && csID ~= 0 or 1 or 3 ) 
+	    if (obj hasnt pluralname && csID ~= 0 or 1 or 3 ) ! ei 0 tai nom tai par 
 		rtrue; 
 	};
-	!??? esim. heikko_b 'maukas'
-	!??? (kelpaa muut kuin edellisessä, ts. vain yksikön
-	!??? nominatiivi
-	!??? ja partitiivi kelpaa)
-	
-	
-	
-	if (w ~=0 && WordInProperty (w, obj, heikko_b) && EndingLookup (adr+end, len-end, csID) )
-	{
-#Ifdef DEBUG;
-	    if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
+	!! esim. heikko_b 'maukas'  
+	!! (kelpaa muut kuin edellisessä, ts. vain yksikön nominatiivi ja partitiivi kelpaa)
+	if (w ~=0 && WordInProperty (w, obj, heikko_b) && EndingLookup (adr+end, len-end, csID) )!!
+	{ #Ifdef DEBUG;	if (parser_trace >= 5) debugsijat(wnum, len, end, w, csID);
 #Endif;
-	    !??? nom tai par
-	    
-	    if (obj hasnt pluralname && csID == 0 or 1 or 3 ) 
-	       	rtrue; 
+	    if (obj hasnt pluralname && csID == 0 or 1 or 3 ) ! nom tai par 
+	       rtrue; 
 	};
 	
     }
     
     rfalse; 
 ];
+
 
 
 ! * Tulostamista
