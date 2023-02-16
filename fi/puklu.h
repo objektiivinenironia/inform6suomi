@@ -9,17 +9,17 @@ Array  Tbuffer -> 3+Tlimit;
 Array  Tparse  -> 6;
 
 ! näitä ei aina tarvita
-Constant taipumaton;
-Constant vahva_a;
-Constant heikko_a;
-Constant vahva_b;
-Constant heikko_b;
-Constant csInf;
-Constant ine;
-Constant vbInf;
-Constant inf_; 
-Constant kys_a;
-Constant kys_b;
+Property taipumaton;
+Property vahva_a;
+Property heikko_a;
+Property vahva_b;
+Property heikko_b;
+Property csInf;
+Property ine;
+Property vbInf;
+Property inf_; 
+Property kys_a;
+Property kys_b;
 
 
 ! ** Dictinary Lookup
