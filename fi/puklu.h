@@ -342,30 +342,11 @@ Global sija;
 ! !! Tämäkin pitäisi kirjoittaa uudelleen!
 ! !! nimien astevaihtelun erottelu (vahva_a, heikko_b)
 ! !! on hankalaa.
-! !! "jokeri" (lyh) vielä samassa niin tulee takkua...
 !
 ! Parseri kysyy languagerefersiltä kelpaako syöte sanakirjasanaksi
 ! languagerefers vastaa sen perusteella mitä endinglookup
 ! kertoo sijapäätteestä.
 !
-! lyh on "jokeri"
-! ---------------
-! kelpuuttaa mitä vain
-! sanakirjasanan ja sijapäätteen väliin. esim.
-! luolasusi luolasutta luolasudelle luolasudesta luolasuteen
-! (muista sanakirjasanat ''-sisään ei toimi muuten)
-!
-! Object -> luolis "luolasu/si"
-!  with 	lyh 'luolasu' 'su'
-!  etsitään sanakirjasanan
-!  jälkeen ja rtrue kun pääte löytyy
-!  välissä voi olla mitä tahansa köntsää
-!    >anna pallo sudelle
-!  ja
-!    >anna pallo surtkgjkjkrgjegeglle
-!  sama lopputulos
-!
-!???
 ! vahva /heikko astevaihtelu?
 ! ---------------------------
 ! jos nimet (name) sekoittuvat toisiinsa astevaihtelun takia, voi antaa
@@ -377,9 +358,8 @@ Global sija;
 ! ja essiivipääte.
 ! Yksikön nominatiivi kelpaa, ja partitiivi-, essiivi- tai illatiivipääte)
 
-property lyh;
 
-[ LanguageRefers obj wnum adr len end w csID; !paska; !$$$$ 
+[ LanguageRefers obj wnum adr len end w csID;
     
     adr = WordAddress(wnum); len = WordLength(wnum);
     
@@ -387,36 +367,9 @@ property lyh;
     
     for (end = len: end ~= 0 : --end) 
     {
-	!paska = DL (adr, end-1); !$$$$
+	w = DL (adr, end);
 
-	! * rikki * $$$$$
-	! tässä oli *lyh* joka on *rikki*
-	! if (w ~= 0 && WordInProperty (w, obj, lyh))
-	!if (paska ~= 0 && WordInProperty (paska, obj, name)) !! && ?? $$$
-	!{
-
-	    !$$$ if boardtext->i~=' ' or 0) f=1
-  	    !$$$ i = WordAddress(wn++); i=i-buffer;
-            !$$$ if (buffer->i=='"')
-
-	    ! print " ", (address)paska, " ", end;
-	    ! if (paska->end=='*')!$$$ houno!!!
-	    !	print "*";
-	    
-	    
-	    !while (end < len)
-	    !{
-	!	end++;		
-	!	if (EndingLookup (adr+end, len-end, csID))
-	!	{
-	!	    rtrue;
-	!	    				    
-	!	}		
-	!    	
-	!    }
-	!}
-	
-	w = DL (adr, end); 
+	! lyhennys tänne vai alemmas?
 	
 	if (parent (obj) == Compass)
    	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
@@ -431,7 +384,8 @@ property lyh;
 	    if (csID ~= 3) rfalse; 
 	}	
 
-	
+	! lyhennys tänne?
+ 	
  	!???
 	! property *taipumaton*
 	! esimerkiksi genetiiviattribuutti
