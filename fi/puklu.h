@@ -370,7 +370,6 @@ Global sija;
 ! lyh on jokeri
 property lyh;
 
-
 ! lyh lyhennetty LR_lyhennetty
 ! kelpuuttaa mitä vain
 ! sanakirjasanan ja sijapäätteen väliin. esim.
@@ -516,28 +515,22 @@ property lyh;
 ];
 
 
-[ LanguageRefers obj wnum adr len end w csID; 
+[ LanguageRefers obj wnum adr len end w; 
     
     adr = WordAddress(wnum); len = WordLength(wnum);
-
-    csID = csLR; 
         
     for (end = len: end ~= 0 : --end) 
     {
 	w = DL (adr, end); 
 
-	
 	if (parent (obj) == Compass)
-   	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
-	      (adr+end, len-end, csID)) rtrue;
-	    
-	    
-
+	{ if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
+	      (adr+end, len-end, csLR)) rtrue;
 	    ! ao. hyväksyy vain partitiivin ">t ptä" ">mene pohjoista"
 	    ! muuten esim. ">lu" (luode) vastaa: "Länsi vai luode?"
-	    if (csID ~= 3) rfalse; 
+	    if (csLR ~= 3) rfalse; 
 	}	
-	
+	    
         ! villikortti lyh
 	if (LR_lyhennetty(w, obj, adr, len, end)) rtrue;
 	
@@ -547,7 +540,7 @@ property lyh;
 	if (LR_taipumaton(w, obj, len, end)) rtrue;
 
  	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
-	    (adr+end, len-end, csID)) ! Endinglookup true eli yksikkö
+	    (adr+end, len-end, csLR)) ! Endinglookup true eli yksikkö
 	    
 	{ 	#Ifdef DEBUG;
 	    if (parser_trace >= 4)
@@ -560,7 +553,7 @@ property lyh;
 	   ! }
 	    
 	    if (parser_trace >= 5)
-		debugsijat(adr, wnum, len, end, w, csID);
+		debugsijat(adr, wnum, len, end, w, csLR);
               #Endif;
               rtrue;
 	    
@@ -585,7 +578,7 @@ property lyh;
 ! --------------
 
 ! ** sijat-verbi testitulostaa 
-[ debugsijat adr wnum len end w csID;
+[ debugsijat adr wnum len end w;
 
     print
 	"^-- Debug (parsiminen, LR) --^
@@ -595,7 +588,7 @@ property lyh;
 	"(end: ", end, ")^",
 	"(len: ", len, ")^   ",
 	"(address w: ", (address) w, ", ", (the)w, ")^   ";
-    switch (csID) {
+    switch (csLR) {
      0: "- csID 0 -";
      1: "Nominatiivi";
      2: "Genetiivi";
