@@ -23,6 +23,8 @@ Kääntämisen pitäisi onnistua komentorivillä kun lisäät lähteet polut riv
 
 Lähdetiedostoissa käytetään oletuksena merkistöä ISO-8859. Kääntäjässä on versiosta 6.33 lähtien valitsin -Cu joka hyväksyy UTF-8:n. Jos haluaa käyttää lähdetiedostossa merkistöä UTF-8, täytyy myös kielimäärittelyjen merkistö muuntaa. 
 
+
+
 Valitsin -G kääntää Glulx-virtuaalikoneelle.
 
 ### Tulkkeja:
@@ -49,7 +51,7 @@ Nopsa lista englanninkielistä aineistoa:
 <https://intfiction.org/t/i6-the-list-of-inform-6-documentation/48409>
 
 
-### Taivutusohjeet
+### Nominien taivutuksen tulostaminen
 
 Jotta nimi saadaan taivutettua ja tulostettua, annetaan ohjelmalle taivutusohje. Taivutusohjeen voi yrittää tuottaa apuohjelmalla:
 
@@ -101,30 +103,41 @@ Taivutuksen tulostusta voi testata komennolla *sijat [olion nimi]*.
 
 ---
 
-## Parsiminen / jäsentäminen
-
-### Vahva vai heikko astevaihtelu?
+### Parsiminen: vahva vai heikko astevaihtelu
 
 Esimerkiksi jos pelissä on "Maukka" ja "maukasta ruokaa", käsky
 "anna maukalle maukasta"
 Ei välttämättä toimi ilman parsimisohjeita tyyliin:
-Maukka: vahva_a 'maukka', heikko_a 'mauka'
-Ja maukas ruoka: vahva_b 'maukkaa', heikko_b 'maukas'
+
+Maukka
+```
+vahva_a 'maukka', heikko_a 'mauka'
+```
+maukas ruoka
+```
+vahva_b 'maukkaa', heikko_b 'maukas'
+```
 
 ### Pläp
 
-Muita Inform kotoistuksia osoitteessa
+Esimerkkipelien lähdetiedostoissa lisätietoja.
+
+Muita Inform kotoistuksia eri kielille
 
 <https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/library/translations/>
 
 Osia ruotsinkielisestä (c) Fredrik Ramsberg ja venäjänkielisestä (c) Denis Gayev kotoistuksesta on käytetty tekijöiden luvalla.
 
-Inform-kirjasto 6/11 on (c) Graham Nelson 1993-2004
-Julkaisutiedot ja ohjeet osoitteessa
-<http://www.inform-fiction.org>
-ja
-<http://www.ifarchive.org/indexes/if-archiveXinfocomXcompilersXinform6.html>
+Inform-kirjasto 6/11 (c) Graham Nelson 1993-2004.
 
-Tämä kotoistus on (c) objektiivinenironia 2010-2023, ja sen on tarkoitus käyttää samoja ehtoja kuin Inform 6/11-kirjaston. 
+Tämä kotoistus (c) nakit ja muusit 2010-2023.
+
+
+
+
+
+
+
+
 
 
