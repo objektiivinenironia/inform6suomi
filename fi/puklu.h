@@ -669,7 +669,7 @@ property lyh;
     rtrue;
 ];
 
-! nomnomnominien taivutuksen tulostusta
+! nominien taivutuksen tulostusta
 !  - apumerkit poistetaan
 !
 ! '>/' tulostaa '/'
