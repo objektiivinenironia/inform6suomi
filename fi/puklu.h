@@ -400,7 +400,7 @@ property lyh;
 
 	    	    ! "^[* lyh (villikortti, jokeri, wtf...) end: ", end,
 		    !	    " len: ", len" *]^";
-		    ! debugsijat(adr, wnum, len, end, w, csID);
+		    ! debugsijat(adr, wnum, len, end, w, csLR);
 		    
 		    rtrue;
 		}
@@ -424,7 +424,7 @@ property lyh;
            #Ifdef DEBUG;				
 	    if (parser_trace >= 5)
 	    {print "^        [* Taipumaton * ]^";
-		! debugsijat(adr, wnum, len, end, w, csID);
+		! debugsijat(adr, wnum, len, end, w, csLR);
 	    }
             #Endif;
 	    rtrue; 
@@ -669,22 +669,19 @@ property lyh;
     rtrue;
 ];
 
-! hyhhyh! vaikka itse sanonkin (tai juuri siksi että)
-! -------
+! nomnomnominien taivutuksen tulostusta
+!  - apumerkit poistetaan
 !
-! '>/' tulostaa '/' olion nimessä ('>>' tulostaa '>').
+! '>/' tulostaa '/'
+! '>>' tulostaa '>'
 ! tulostettu "/" tarkoittaa sanan vaihtumista kuten " ".
-! Esim. "komero/>/putka/" tulostuu "komerossa/putkassa" (ine).
-!
-!??? nominatiivi (1), csDflt
-!??? myös verbien tulostusta, imperatiivi
-
+! Esim. "komero/>/putka/" tulostuu esim. "komerossa/putkassa"
 
 Constant SutLen = 102;
 Array Suttu --> SutLen;
 
 [ CCase obj csID ucase i dlm limit at vart;
-
+    
     sija = csID;
 
     if (csID ~= 0) { 
@@ -693,21 +690,16 @@ Array Suttu --> SutLen;
 
 	Suttu-->0 = SutLen-1;
 
-	!@output_stream 3 Suttu;
-
  	if (obj provides short_name)
 	    !  printshortname(obj);
 	    !PrintToBuffer(Suttu, 102, printshortname(obj));
 	    PrintToBuffer(Suttu, 102, obj);
 	
-	
-	
-	
 	else
-!??? jos vain tämä, olion nimi ei tulostu oikein
-	   ! print (object) obj;
+	    !??? jos vain tämä, olion nimi ei tulostu oikein
+	    ! print (object) obj;
 
-	  PrintToBuffer(Suttu, 102, obj);   
+	    PrintToBuffer(Suttu, 102, obj);   
 	!@output_stream -3;
 
 	if (ucase) Suttu->2 = LtoU (Suttu->2);
@@ -721,38 +713,39 @@ Array Suttu --> SutLen;
 
 	if (csID == csIne) vart = 1;
 
-	if (csID < 2 || csID == vbImp)
+	if (csID < 2 || csID == 0)
 	    for (i = WORDSIZE: i ~= limit: ++ i) {
 		if (Suttu->i ~= '/' or '>') print (char) (Suttu->i);
  	        if (Suttu->i == '>' && Suttu->(i+1) == '/') print "/";
 	        if (Suttu->i == '>' && Suttu->(i+1) == '>') print ">";}
 
 	!??? nomini ei nominatiivi tai 0 (csDflt)
-	!??? verbi ei myöskään imperatiivi
-	if (csID > 1 && csID ~= vbImp)
+	if (csID > 1 && csID ~= 0)
 	    for (i = WORDSIZE: i ~= limit: ++ i)
-	    {    if (Suttu->i == '/' && Suttu->(i-1) ~= '>')
-	    { if (dlm == 0) { dlm = Suttu+i; }
-	    else { at++; CaseEnd (obj, csID, at);
+	    {
+ 		if (Suttu->i == '/' && Suttu->(i-1) ~= '>')
+	    {
+		    if (dlm == 0) dlm = Suttu+i;
+	    else
+	    { at++; CaseEnd (obj, csID, at);
 		dlm = 0;
 	    }
 	    }
 
-	    else { if (dlm ~= 0 && Suttu->i == ' ' or '/')
-	    { at++;
-		!??? verbien tulostus (?) VerbEnd
-		if (csID > 20) VerbEnd(obj, csID,at);
-		else CaseEnd(obj, csID, at);
-		dlm = 0;
-	    }
+	    else
+	    {
+		if (dlm ~= 0 && Suttu->i == ' ' or '/')
+	    	{ at++;
+		    CaseEnd(obj, csID, at);
+		    dlm = 0;
+	    	}
 		if (dlm == 0 && Suttu->i ~= '>') print (char) (Suttu->i);
 	    }
 	    } ! for
 
-	if (dlm ~= 0) { at++;
-	    !??? verbi ei ole infinitiivi (?)
-	    if (csID > 20 && csID ~= csInf) VerbEnd(obj, csID,at);
-	    else CaseEnd(obj, csID, at);
+	if (dlm ~= 0)
+	{ at++;
+	    CaseEnd(obj, csID, at);
 	}
     }
 
@@ -760,6 +753,7 @@ Array Suttu --> SutLen;
 	print (object) obj;
 
 ];
+
 
 !??? 
 
@@ -1005,7 +999,7 @@ Array verbi_array --> verbi_pituus;
 ! ** verbin loppuosan tulostus
 
 [ VerbEnd obj csID;
-    
+     
     switch (csID) {
      vbInf: print (string) obj.inf_;	
      	! vbInd: print (string) obj.ind_y;

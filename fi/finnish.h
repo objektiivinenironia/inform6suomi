@@ -66,9 +66,9 @@ Constant ocP =		2;
 ! Verbin tai nominin alkuosa ennen "/"
 Constant Alku =		20; !pu
 
-! Verbit...
+! Verbit... * ao ei käytetä missään tällä hetkellä *
 
-Constant vbImp = 0; ! oletus
+!Constant vbImp = 0; ! oletus
 
 !Constant vbImp = 21; !pue
 !Constant vbInf = 22; !pukea
@@ -115,7 +115,7 @@ Object Compass "compass" has concealed;
 #Ifndef WITHOUT_DIRECTIONS;
 
 CompassDirection -> n_obj "pohjoi/nen" 
-    with door_dir n_to, name 'p//' 'pohjoinen' 'pohjoi' 'pohjoiseen' 'pohjois',
+    with door_dir n_to, name 'p//' 'pohjoinen' 'pohjois',
     gen "sen", par "sta", ess "sena", ill "seen";
 CompassDirection -> s_obj "etelä/"
 		    with door_dir s_to, name 'e//' 'etelä' 'etelään'
@@ -963,7 +963,7 @@ if (obj == player)      { print "Itseesi"; return; }
 
 [ k_allatiivi obj;	CCase (obj, csAll, true); ];
 
-!! verbilöitä
+!! verbilöitä -- näitä ei käytetä missään tällä hetkellä!
 
 !Constant vbImp = 21; !pue
 !Constant vbInf = 22; !pukea
@@ -974,7 +974,7 @@ if (obj == player)      { print "Itseesi"; return; }
 !Constant vbM2 =	27; !puette
 !Constant vbM3 =	28; !pukevat 
 
-[ imp obj;	CCase (obj, name, false); ];
+![ imp obj;	CCase_verbi (obj, name, false); ];
 ![ ind obj;	CCase (obj, vbInd, false); ];
 ![ inf obj;	CCase (obj, vbInf, false); ];
 ![ Y1 obj;	CCase (obj, vbY1, false); ];
@@ -984,7 +984,7 @@ if (obj == player)      { print "Itseesi"; return; }
 ![ M2 obj;	CCase (obj, vbM2, false); ];
 ![ M3 obj;	CCase (obj, vbM3, false); ];
 
-[ k_imp obj;	CCase (obj, name, true); ];
+![ k_imp obj;	CCase_verbi (obj, name, true); ];
 ![ k_ind obj;	CCase (obj, vbInd, true); ];
 ![ k_inf obj;	CCase (obj, vbInf, true); ];
 ![ k_Y1 obj;	CCase (obj, vbY1, true); ];
