@@ -110,7 +110,9 @@ Constant SACK_OBJECT = satchel;
 
 Object satchel "kapsäk/ki/si"
   with description "Iso ja siihen on maalattu keltainen iso hymynaama.", 
-       name "kapsäkki" "kapsäki" "säkki" "säki" "laukku" "lauku" "reppu" "repu",
+       !name "kapsäkki" "kapsäki" "säkki" "säki" "laukku" "lauku" "reppu" "repu",
+	lyh 'kapsäk' 'säk' 'lauk' 'rep',
+
 		gen "in", par "kiä", ess "kinä", ill "kiin",
  	     short_name
 	     [; if (Sija == csGen) {print "kapsäkkisi"; rtrue;};
