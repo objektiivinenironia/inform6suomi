@@ -33,14 +33,12 @@ Valitsin -G kääntää Glulx-virtuaalikoneelle.
 
 ## Puutteita
 
- - Ei toteutettu: nominien monikon ja yksikön taivutuksen tulostus samassa nimessä.
-   Esimerkiksi "nakit ja muusi" olisi kiva.
+ - Ei toteutettu: nominien monikon ja yksikön taivutuksen tulostus samassa nimessä. Esimerkiksi "nakit ja muusi" olisi kiva tulostaa.
     - *TODO: Taivutukset tulostavain pätkäin korjaaminen.*
-   
+ - Verbien tulostuksessa ei taivutusta.
  - Ei toteutettu: komitatiivi, abessiivi ja instruktiivi.
    Järkeilynä ollut että asian voi sanoa myös toisin 
    esim. abessiivi "aivoitta" -> "ilman aivoja".
-
  - Parsittaessa ilmeisesti tarvitaan vieläkin tällaista: 
    with name 'punainen' 'punaise' 'punais'. 
 
@@ -66,7 +64,7 @@ Esimerkiksi jos halutaan tulostaa "nakki ja muusi":
 
 Taivutusohjetta voi muokata tai sen voi tehdä käsin, jolloin nomini jaetaan kauttaviivalla "/" ennen astevaihtelua, tai jos
 astevaihtelua ei esiinny, menee "/" nominin loppuun. Jos kauttaviivaa ei ole, sanaa ei taivuteta.
-"//" tulostaa kauttaviivan "/".
+">/" tulostaa kauttaviivan "/".
 
 ```
 "nak/ki ja muusi/"
@@ -130,7 +128,7 @@ Osia ruotsinkielisestä (c) Fredrik Ramsberg ja venäjänkielisestä (c) Denis G
 
 Inform-kirjasto 6/11 (c) Graham Nelson 1993-2004.
 
-Tämä kotoistus (c) nakit ja muusit 2010-2023.
+Tämä kotoistus (c) satunnainenmerkkijono 2010-2023. Samat käyttöehdot kuin Inform.
 
 
 
