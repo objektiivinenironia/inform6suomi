@@ -23,13 +23,12 @@ Kääntämisen pitäisi onnistua komentorivillä kun lisäät lähteet polut riv
 
 Lähdetiedostoissa käytetään oletuksena merkistöä ISO-8859. Kääntäjässä on versiosta 6.33 lähtien valitsin -Cu joka hyväksyy UTF-8:n. Jos haluaa käyttää lähdetiedostossa merkistöä UTF-8, täytyy myös kielimäärittelyjen merkistö muuntaa. 
 
-
-
 Valitsin -G kääntää Glulx-virtuaalikoneelle.
 
 ### Tulkkeja:
 
-* LINKKI *
+<http://ifarchive.org/indexes/if-archive/infocom/interpreters/>
+
 
 ## Puutteita
 
@@ -53,9 +52,9 @@ Nopsa lista englanninkielistä aineistoa:
 
 Jotta nimi saadaan taivutettua ja tulostettua, annetaan ohjelmalle taivutusohje. Taivutusohjeen voi yrittää tuottaa apuohjelmalla:
 
-*linkki: apuohjelma github*
+<https://github.com/objektiivinenironia/i6-taivutusapu>
 
-Esimerkiksi jos halutaan tulostaa "nakki ja muusi":
+Esimerkiksi jos halutaan tulostaa *"nakki ja muusi"*:
 
 ```
 "nak/ki muusi/", 
@@ -118,17 +117,21 @@ vahva_b 'maukkaa', heikko_b 'maukas'
 
 ### Pläp
 
-Esimerkkipelien lähdetiedostoissa lisätietoja.
-
-Muita Inform kotoistuksia eri kielille
-
-<https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/library/translations/>
+Inform-kirjasto 6/11 (c) Graham Nelson 1993-2004.
 
 Osia ruotsinkielisestä (c) Fredrik Ramsberg ja venäjänkielisestä (c) Denis Gayev kotoistuksesta on käytetty tekijöiden luvalla.
 
-Inform-kirjasto 6/11 (c) Graham Nelson 1993-2004.
-
 Tämä kotoistus (c) satunnainenmerkkijono 2010-2023. Samat käyttöehdot kuin Inform.
+
+Muita Inform-kotoistuksia eri kielille
+
+<https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/library/translations/>
+
+Esimerkkipelien lähdetiedostoissa lisätietoja.
+
+
+
+
 
 
 
