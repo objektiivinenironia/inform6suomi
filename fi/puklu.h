@@ -367,6 +367,17 @@ Global sija;
 ! languagerefers vastaa sen perusteella mit‰ endinglookup
 ! kertoo sijap‰‰tteest‰. 
 
+[ LR_ w obj adr len end;
+
+if (w ~= 0 && WordInProperty (w, obj, name))
+print "n!";
+!rtrue;
+!rfalse;
+
+
+];
+
+
 ! lyh on jokeri
 property lyh;
 
@@ -530,7 +541,9 @@ property lyh;
 	    ! muuten esim. ">lu" (luode) vastaa: "L‰nsi vai luode?"
 	    if (csLR ~= 3) rfalse; 
 	}	
-	    
+
+	LR_(w, obj, adr, len, end);	
+
         ! villikortti lyh
 	if (LR_lyhennetty(w, obj, adr, len, end)) rtrue;
 	
@@ -601,6 +614,7 @@ property lyh;
      9: "Allatiivi";
      10: "Essiivi";
      11: "Translatiivi";
+	 !default: "0";
     };  print "^";
 ];
 
@@ -609,9 +623,12 @@ property lyh;
 !??? multiflag jottei luule montaa asiaa haettavan
 !??? nyt kys. onkin onko edes t‰m‰ "ei MULTI_" ehto paikallaan
 
-[ c_token  idtok csID retval;
+! UUSI
+[ c_token  idtok csID retval temp;
 
+    temp = csLR;
     csLR = csID;
+ 	!csID = csLR;	
 
     retval = ParseToken (ELEMENTARY_TT, idtok);
 
@@ -625,7 +642,7 @@ property lyh;
   multiflag = 1;
     
 #Ifdef DEBUG;
-    if (parser_trace >= 2)
+    if (parser_trace >= 1)
     {
 	print "^[!* c_token! idtok (", idtok, "): ";
     	switch (idtok) {
@@ -647,27 +664,28 @@ property lyh;
     
 #Endif;
 
-    csLR = 0;
+    csLR = temp;
 
     return retval;
 
 ];
 
-! ** LanguagePrintShortName(jossa jotain oletus_par)
-[ LanguagePrintShortName obj sn;
+
+[ LanguagePrintShortName obj
+    sn;
     
     sn = short_name;
     
-    if (sija == 0 or 10000 && obj hasnt oletus_par)
-	CCase (obj, csNom, false);
-    !??? nominatiivi
-    if (sija == 0 or 10000 && obj has oletus_par)
-	CCase (obj, csPar, false);
-    !??? LPSN ei tee mit‰‰n jos globaali sija on muuta kuin nolla
-    if (sija ~= 0) rfalse; 
+    ! if (obj provides sn && PrintOrRun(obj, sn, 1) ~= 0) rtrue;
+    !print "^*** ", sija, " ***^";
+    
+    if (sija == 0 or 10000 && obj hasnt oletus_par) CCase (obj, csNom, false);	!!!# nominatiivi 
+    if (sija == 0 or 10000 && obj has oletus_par) CCase (obj, csPar, false);
+    if (sija ~= 0) rfalse; !!!# LPSN ei tee mit??n jos globaali sija on muuta kuin nolla
     
     rtrue;
 ];
+
 
 ! nominien taivutuksen tulostusta
 !  - apumerkit poistetaan
