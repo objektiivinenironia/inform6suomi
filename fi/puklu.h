@@ -370,9 +370,9 @@ Global sija;
 [ LR_ w obj adr len end;
 
 if (w ~= 0 && WordInProperty (w, obj, name))
-print "n!";
-!rtrue;
-!rfalse;
+!print "n!";
+rtrue;
+rfalse;
 
 
 ];
@@ -623,53 +623,48 @@ property lyh;
 !??? multiflag jottei luule montaa asiaa haettavan
 !??? nyt kys. onkin onko edes tämä "ei MULTI_" ehto paikallaan
 
-! UUSI
-[ c_token  idtok csID retval temp;
+! VANHA
+[ c_token  idtok csID retval;
 
-    temp = csLR;
+    	
     csLR = csID;
- 	!csID = csLR;	
-
-    retval = ParseToken (ELEMENTARY_TT, idtok);
-
-    !??? mitä täällä tapahtuu?
-    if (retval == 10000) sija = 10000; else sija = 0;
-
-    CaseIs = csID; 
-
-    !??? ANIMA_PE -> MULTI_PE bugi
-  if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)
-  multiflag = 1;
     
-#Ifdef DEBUG;
+    retval = ParseToken (ELEMENTARY_TT, idtok);
+    
+    if (retval == 10000) sija = 10000; else sija = 0; !! mik? t?m? on?
+    
+    CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
+    
+#Ifdef DEBUG;			     
     if (parser_trace >= 1)
     {
-	print "^[!* c_token! idtok (", idtok, "): ";
-    	switch (idtok) {
-     	 NOUN_TOKEN: print "NOUN_TOKEN^";
-     	 HELD_TOKEN: print "HELD_TOKEN^";
-     	 CREATURE_TOKEN: print "CREATURE_TOKEN^";
-     	 MULTI_TOKEN: print "MULTI_TOKEN^";
-     	 MULTIHELD_TOKEN: print "MULTIHELD_TOKEN^";
-	    
-    	}
-	if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)
-    	    print "- Asetetaan *multiflag* koska muuten luulee moneksi -^";
-	" CaseIs: ", CaseIs,
-	    "^ csLR: ", csLR,
-	    "^ csID: ", csID,
-	    "^ sija: ", sija,
-	    "^ retval: ", retval, "]^";
+	
+	print 	"^[!* c_token! idtok (", idtok, "): ";  
+    switch (idtok) {
+     NOUN_TOKEN: print "NOUN_TOKEN";
+     HELD_TOKEN: print "HELD_TOKEN";
+     CREATURE_TOKEN: print "CREATURE_TOKEN";
+     MULTI_TOKEN: print "MULTI_TOKEN";
+     MULTIHELD_TOKEN: print "MULTIHELD_TOKEN";
     }
     
-#Endif;
-
-    csLR = temp;
-
+    print " | ",
+!	" lookahead: ", lookahead,
+!	" found_ttype: ", found_ttype,
+	" CaseIs: ", CaseIs,
+	" csLR: ", csLR,
+	" csID: ", csID,
+	" sija: ", sija,
+	" retval: ", retval, "^";
+    }
+    
+#Endif;	
+    
+    csLR = 0;
+    
     return retval;
-
+    
 ];
-
 
 [ LanguagePrintShortName obj
     sn;
