@@ -381,13 +381,12 @@ global luku = 0;
 ! languagerefers vastaa sen perusteella mitä endinglookup
 ! kertoo sijapäätteestä. 
 
-[ LR_ w obj adr len end;
+[ LR_name w obj adr len end;
 
 if (w ~= 0 && WordInProperty (w, obj, name))
 !print "n!";
 rtrue;
 rfalse;
-
 
 ];    
 
@@ -556,8 +555,8 @@ property lyh;
 	    if (csLR ~= 3) rfalse; 
 	}	
 
-	! eikö tämän pitäisi sanoa jotain? rtrue/false?
-	if (LR_(w, obj, adr, len, end)) rtrue;
+	! sana listassa name
+	if (LR_name(w, obj, adr, len, end)) rtrue;
 
         ! villikortti lyh
 	if (LR_lyhennetty(w, obj, adr, len, end)) rtrue;
