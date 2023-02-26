@@ -1,6 +1,0 @@
-* Inform 6 kotoistus
-
-suomenkielisten tekstiseikkailupelien kehittelyä varten.
-
-Dokumentaatio
-[[[[https://github.com/objektiivinenironia/inform6suomi/blob/master/dok/juttu.org]]]]
