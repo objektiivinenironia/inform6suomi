@@ -389,7 +389,7 @@ rtrue;
 rfalse;
 
 
-];
+];    
 
 
 ! lyh on jokeri
@@ -556,7 +556,8 @@ property lyh;
 	    if (csLR ~= 3) rfalse; 
 	}	
 
-	LR_(w, obj, adr, len, end);	
+	! eikö tämän pitäisi sanoa jotain? rtrue/false?
+	if (LR_(w, obj, adr, len, end)) rtrue;
 
         ! villikortti lyh
 	if (LR_lyhennetty(w, obj, adr, len, end)) rtrue;
