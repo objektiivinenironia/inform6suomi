@@ -653,31 +653,30 @@ property lyh;
     if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)  
   	multiflag = 1;
 
-    
 #Ifdef DEBUG;			     
-    if (parser_trace >= 1)
+    if (parser_trace >= 2)
     {
-	
+
 	print 	"^[!* c_token! idtok (", idtok, "): ";  
     switch (idtok) {
-     NOUN_TOKEN: print "NOUN_TOKEN";
-     HELD_TOKEN: print "HELD_TOKEN";
-     CREATURE_TOKEN: print "CREATURE_TOKEN";
-     MULTI_TOKEN: print "MULTI_TOKEN";
-     MULTIHELD_TOKEN: print "MULTIHELD_TOKEN";
+     NOUN_TOKEN: print "NOUN_TOKEN^";
+     HELD_TOKEN: print "HELD_TOKEN^";
+     CREATURE_TOKEN: print "CREATURE_TOKEN^";
+     MULTI_TOKEN: print "MULTI_TOKEN^";
+     MULTIHELD_TOKEN: print "MULTIHELD_TOKEN^";
+	
     }
-    
-    print " | ",
-!	" lookahead: ", lookahead,
-!	" found_ttype: ", found_ttype,
+    	   if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)
+    	   print "- Asetetaan *multiflag* koska muuten luulee moneksi -^",     
 	" CaseIs: ", CaseIs,
-	" csLR: ", csLR,
-	" csID: ", csID,
-	" sija: ", sija,
-	" retval: ", retval, "^";
+	"^ csLR: ", csLR,
+	"^ csID: ", csID,
+	"^ sija: ", sija,
+	"^ retval: ", retval, "]^";
     }
     
 #Endif;	
+
     
     csLR = 0;
     
