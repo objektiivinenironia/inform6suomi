@@ -21,6 +21,30 @@ Property inf_;
 Property kys_a;
 Property kys_b;
 
+! Globaalit
+! ---------
+! Globaaleja  muuttujia on aika monta, ja niiden toiminta meinaa jäädä
+! hämärän peittoon!
+! 
+! LanguageRefers
+Global csLR = 0;
+
+! CaseIs -- tarvitaan kun reparse
+! tämä haetaan verbin kontekstista (finng)
+! printkysnomini printkysymys (finnish) haluaa tietää
+! mikä oli/on oletetusti 
+! nominin taivutus jotta osaa kysyä jatkokysymyksen
+! joka johdattelee vastaamaan sopivalla taivutuksella
+! (reparse rakentaa pelaajan komentorivin uusiksi
+! joten vastaus liimataan siihen)
+Global CaseIs; 
+
+! mutta tarvitaanko tämäkin... tulostusta varten?
+Global sija; 
+
+! ... tai tämä? (ks. PrintCommand)
+Global muu_sija = 0;
+
 
 ! ** Dictinary Lookup
 #Ifdef TARGET_ZCODE;
@@ -327,30 +351,6 @@ global luku = 0;
     return j;
 ];
 
-! Globaalit
-! ---------
-! Globaaleja  muuttujia on aika monta, ja niiden toiminta meinaa jäädä
-! hämärän peittoon!
-! 
-! LanguageRefers
-Global csLR = 0;
-
-! CaseIs -- tarvitaan kun reparse
-! tämä haetaan verbin kontekstista (finng)
-! printkysnomini printkysymys (finnish) haluaa tietää
-! mikä oli/on oletetusti 
-! nominin taivutus jotta osaa kysyä jatkokysymyksen
-! joka johdattelee vastaamaan sopivalla taivutuksella
-! (reparse rakentaa pelaajan komentorivin uusiksi
-! joten vastaus liimataan siihen)
-Global CaseIs; 
-
-! mutta tarvitaanko tämäkin... tulostusta varten?
-Global sija; 
-
-! ... tai tämä? (ks. PrintCommand)
-Global muu_sija = 0;
-
 ! LanguageRefers 
 !
 ! !! Tämäkin pitäisi kirjoittaa uudelleen!
@@ -637,7 +637,6 @@ property lyh;
 !??? multiflag jottei luule montaa asiaa haettavan
 !??? nyt kys. onkin onko edes tämä "ei MULTI_" ehto paikallaan
 
-! VANHA
 [ c_token  idtok csID retval;
 
     	
@@ -648,7 +647,8 @@ property lyh;
     ! mikä tämä on? reparse code
     if (retval == 10000) sija = 10000; else sija = 0; 
 
-    CaseIs = csID; 
+    CaseIs = csID;   
+    
     
 #Ifdef DEBUG;			     
     if (parser_trace >= 1)
