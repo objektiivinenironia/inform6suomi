@@ -648,7 +648,11 @@ property lyh;
     if (retval == 10000) sija = 10000; else sija = 0; 
 
     CaseIs = csID;   
-    
+
+    ! multiflag jottei luule montaa asiaa haettavan      
+    if (idtok ~= MULTI_TOKEN || MULTIHELD_TOKEN)  
+  	multiflag = 1;
+
     
 #Ifdef DEBUG;			     
     if (parser_trace >= 1)
