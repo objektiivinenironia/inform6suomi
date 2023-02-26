@@ -172,8 +172,6 @@ Attribute oletus_par;
     return -1;
 ];
 
-! ** global muu_sija (ks. PrintCommand)
-global muu_sija = 0;
 
 ! ** Parser Error (error code)
 !
@@ -329,13 +327,29 @@ global luku = 0;
     return j;
 ];
 
-! ** LanguageRefers (ja globaaleja muuttujia)
-
+! Globaalit
+! ---------
+! Globaaleja  muuttujia on aika monta, ja niiden toiminta meinaa jäädä
+! hämärän peittoon!
+! 
+! LanguageRefers
 Global csLR = 0;
-! syötteen tulostusta varten sijamuoto PrintCommand
+
+! CaseIs -- tarvitaan kun reparse
+! tämä haetaan verbin kontekstista (finng)
+! printkysnomini printkysymys (finnish) haluaa tietää
+! mikä oli/on oletetusti 
+! nominin taivutus jotta osaa kysyä jatkokysymyksen
+! joka johdattelee vastaamaan sopivalla taivutuksella
+! (reparse rakentaa pelaajan komentorivin uusiksi
+! joten vastaus liimataan siihen)
 Global CaseIs; 
-! tulostusta varten 
+
+! mutta tarvitaanko tämäkin... tulostusta varten?
 Global sija; 
+
+! ... tai tämä? (ks. PrintCommand)
+Global muu_sija = 0;
 
 ! LanguageRefers 
 !
@@ -630,10 +644,11 @@ property lyh;
     csLR = csID;
     
     retval = ParseToken (ELEMENTARY_TT, idtok);
-    
-    if (retval == 10000) sija = 10000; else sija = 0; !! mik? t?m? on?
-    
-    CaseIs = csID; !? komennon verbin tulostamiseen (hmm!)  
+
+    ! mikä tämä on? reparse code
+    if (retval == 10000) sija = 10000; else sija = 0; 
+
+    CaseIs = csID; 
     
 #Ifdef DEBUG;			     
     if (parser_trace >= 1)

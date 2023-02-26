@@ -485,7 +485,7 @@ Array LanguageGNAsToArticles --> 0 0 0 0 0 0 0 0 0 0 0 0;
 	
 		if (taivuta) 
              		switch (CaseIs) {
-                 	 csNom: print (nominatiivi) i; ! +jos oletus_par?
+                 	csNom: print (nominatiivi) i; ! +jos oletus_par?
              		csGen: print (genetiivi) i;
              		csPar: print (partitiivi) i; 
 			csIne: print (inessiivi) i;
