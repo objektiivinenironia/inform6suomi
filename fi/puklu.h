@@ -43,7 +43,7 @@ Global CaseIs;
 Global sija; 
 
 ! ... tai tämä? (ks. PrintCommand)
-Global muu_sija = 0;
+Global muu_sija = false;
 
 
 ! ** Dictinary Lookup
@@ -252,7 +252,7 @@ global luku = 0;
 [ EndingLookup addr len csID
     v u Nomini i;
 
-    muu_sija = 0;
+    muu_sija = false;
 
     if (csID == 0) rtrue;
 
