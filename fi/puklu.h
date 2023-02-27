@@ -384,20 +384,34 @@ global luku = 0;
 [ LR_name w obj adr len end;
 
     if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
-	(adr+end, len-end, csLR)) 
+	(adr+end, len-end, csLR))
+ 	!+ DEBUG?
     rtrue;
-    !+ DEBUG?
     rfalse;
     
 ];    
 
 
-! tämä ei ole vielä käytössä. luonnos.
+! tämä ei ole vielä käytössä. luonnos. (pohjana LR_lyhennetty)
+! pseudo
+!
 ! a   b
 ! mat matto
 ! ma  mato
 !
-! onko a 
+! av+pääte
+!
+! löytyykö samasta obj kaksi vastaavaa sanakirjasanaa? 
+!
+! kuin endinglookup mutta astevaihtelulookup?
+!
+! if "mat" char at end = "t" && "matto" char at end+1 == "t"
+!  av = tt_t
+! if "ma" char at end ~= "a" (ei "t") && "mato" char at end+1 == "t"
+!  av = t_d 
+! syötteessä d?
+!  jos on, heikko_aste true -- tjsp
+! tjsp tjsp!
 ! 
 [ LR_astevaihtelu w obj adr len end;
     
