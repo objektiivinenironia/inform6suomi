@@ -20,6 +20,8 @@ Property vbInf;
 Property inf_; 
 Property kys_a;
 Property kys_b;
+Property av; ! astevaihtelu
+
 
 ! Globaalit
 ! ---------
@@ -45,6 +47,8 @@ Global sija;
 ! ... tai tämä? (ks. PrintCommand)
 Global muu_sija = false;
 
+! yksikkö 1, monikko 2
+Global luku = 0;
 
 ! ** Dictinary Lookup
 #Ifdef TARGET_ZCODE;
@@ -247,8 +251,6 @@ Attribute oletus_par;
 
 ! ** Ending Lookup etsii sijapäätettä syötteestä
 
-global luku = 0;
-
 [ EndingLookup addr len csID
     v u Nomini i;
 
@@ -415,7 +417,7 @@ global luku = 0;
 ! 
 [ LR_astevaihtelu w obj adr len end;
     
-	if (w ~= 0 && WordInProperty (w, obj, name))
+    if (w ~= 0 && WordInProperty (w, obj, name) && obj provides av)
 	{
 	    !print (the) obj;
 	    
@@ -424,10 +426,14 @@ global luku = 0;
 		end++;		
 		if (EndingLookup (adr+end, len-end, csLR))
 		{
-		    rtrue;
+		    
+		    print (the) obj, " ";
+		    print "csLR ", csLR, " rtrue";		    
+		    !rtrue;
 		}
 	    }
 	}
+    !print "false";
     rfalse;
 
 ];
@@ -597,8 +603,8 @@ property lyh;
 	    if (csLR ~= 3) rfalse; 
 	}	
 
-	! kesken! luonnos! ei tehdä tällä mitään vielä
-	LR_astevaihtelu(w, obj, adr, len, end);
+	! kesken! luonnos! 
+	if (LR_astevaihtelu(w, obj, adr, len, end)) rtrue;
 	
         ! villikortti lyh
 	if (LR_lyhennetty(w, obj, adr, len, end)) rtrue;	 
