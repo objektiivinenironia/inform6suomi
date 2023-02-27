@@ -391,6 +391,31 @@ rfalse;
 ];    
 
 
+! tämä ei ole vielä käytössä. luonnos.
+! a   b
+! mat matto
+! ma  mato
+!
+! onko a 
+! 
+[ LR_astevaihtelu w obj adr len end;
+    
+	if (w ~= 0 && WordInProperty (w, obj, name))
+	{
+	    while (end < len)
+	    {
+		end++;		
+		if (EndingLookup (adr+end, len-end, csLR))
+		{
+		    rtrue;
+		}
+	    }
+	}
+    rfalse;
+
+];
+
+
 ! lyh on jokeri
 property lyh;
 
@@ -555,16 +580,19 @@ property lyh;
 	    if (csLR ~= 3) rfalse; 
 	}	
 
-	! sana listassa name
-	if (LR_name(w, obj, adr, len, end)) rtrue;
-
-        ! villikortti lyh
-	if (LR_lyhennetty(w, obj, adr, len, end)) rtrue;
+	! kesken! luonnos! ei tehdä tällä mitään vielä
+	LR_astevaihtelu(w, obj, adr, len, end);
 	
+        ! villikortti lyh
+	if (LR_lyhennetty(w, obj, adr, len, end)) rtrue;	 
 
 	!! (property) taipumaton
 	!! esimerkiksi genetiiviattribuutti "pöydän" -> "pöydän antimet"	   
 	if (LR_taipumaton(w, obj, len, end)) rtrue;
+
+	! sana listassa name
+	if (LR_name(w, obj, adr, len, end)) rtrue;
+
 
  	if ( w ~=0 && WordInProperty (w, obj, name) && EndingLookup
 	    (adr+end, len-end, csLR)) ! Endinglookup true eli yksikkö
