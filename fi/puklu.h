@@ -383,11 +383,12 @@ global luku = 0;
 
 [ LR_name w obj adr len end;
 
-if (w ~= 0 && WordInProperty (w, obj, name))
-!print "n!";
-rtrue;
-rfalse;
-
+    if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
+	(adr+end, len-end, csLR)) 
+    rtrue;
+    !+ DEBUG?
+    rfalse;
+    
 ];    
 
 
@@ -402,6 +403,8 @@ rfalse;
     
 	if (w ~= 0 && WordInProperty (w, obj, name))
 	{
+	    !print (the) obj;
+	    
 	    while (end < len)
 	    {
 		end++;		
