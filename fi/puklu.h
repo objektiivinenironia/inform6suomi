@@ -449,7 +449,12 @@ Attribute oletus_par;
 	!print id;
 	
 	!if (obj.&av-->id == 'tt.t') print "* tt.t *";
+	!print "len ", len, " ";	
+     	!print "adr ", adr, "^";
 	
+	!if (adr->0 == 'h') print "* h *";
+
+	    
 	    while (end < len)
 	    {
 		!print "?";
@@ -458,8 +463,10 @@ Attribute oletus_par;
 		
 		if (EndingLookup (adr+end, len-end, csLR))
 		{
-		 !print end;   
-		    
+		 !if (adr->end-1=='t') print "ti";   
+		 print end;   
+		    if ((adr->(end-1)) == 'i');
+    		    print "* i *";
 		    
 		    
 		    !print ".", adr+end,".";		    
