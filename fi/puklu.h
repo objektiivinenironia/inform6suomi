@@ -21,6 +21,8 @@ Property inf_;
 Property kys_a;
 Property kys_b;
 Property av; ! astevaihtelu
+!Property tt_t;
+!Property t_d;
 
 
 ! Globaalit
@@ -376,7 +378,6 @@ Attribute oletus_par;
 !illatiivipääte)
 
 
-
 ! LanguageRefers
 !
 ! Parseri kysyy languagerefersiltä kelpaako syöte sanakirjasanaksi
@@ -388,7 +389,7 @@ Attribute oletus_par;
     if (w ~= 0 && WordInProperty (w, obj, name) && EndingLookup
 	(adr+end, len-end, csLR))
  	!+ DEBUG?
-    rtrue;
+    	rtrue;
     rfalse;
     
 ];    
@@ -415,23 +416,59 @@ Attribute oletus_par;
 !  jos on, heikko_aste true -- tjsp
 ! tjsp tjsp!
 ! 
-[ LR_astevaihtelu w obj adr len end;
+
+! muuten sama kuin wordinproperty mutta palauttaa
+! paikan obj.#prop listassa jos löytyy.
+! koska 0 on ensimmäinen, tämä antaa väärän falsen
+! (käytä WordInPropertyä siihen, se sanoo onko true / false) 
+
+[ WordInPropNum wd obj prop k l m;
+    k = obj.&prop; l = (obj.#prop)/WORDSIZE-1;
+    for (m=0 : m<=l : m++)
+        if (wd == k-->m) return m;
+    rfalse;
+];
+
+
+[ LR_astevaihtelu w obj adr len end p id;
     
-    if (w ~= 0 && WordInProperty (w, obj, name) && obj provides av)
-	{
-	    !print (the) obj;
-	    
+    if (w ~= 0 && WordInProperty (w, obj, av))
+    {
+	p = WordInPropNum (w, obj, av);
+	
+ 	! p+1 koska sanan jälkeen seuraavaa käytetään
+	! parsimisohjeena.
+	! se voi olla astevaihtelun tyyppi esim
+	!  'hobit' 'tt.t'
+	! se on "untypeable" pelissä
+	! tai muuta sanavartalon vaihtelua 
+	!  'sini' 'nen'
+	! ts. joka toinen prop indeksi on parsimisohje
+
+	id = p+1; ! entä glulx p+mitä?
+	!print id;
+	
+	!if (obj.&av-->id == 'tt.t') print "* tt.t *";
+	
 	    while (end < len)
 	    {
-		end++;		
+		!print "?";
+		
+		end++;
+		
 		if (EndingLookup (adr+end, len-end, csLR))
 		{
+		 !print end;   
 		    
-		    print (the) obj, " ";
-		    print "csLR ", csLR, " rtrue";		    
-		    !rtrue;
+		    
+		    
+		    !print ".", adr+end,".";		    
+		    !print (the) obj, " ";
+		    !print "csLR ", csLR, " rtrue^";		    
+		    rtrue;
 		}
-	    }
+		
+	    }  
 	}
     !print "false";
     rfalse;
