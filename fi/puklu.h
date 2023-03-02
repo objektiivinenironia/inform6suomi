@@ -463,10 +463,19 @@ Attribute oletus_par;
 		
 		if (EndingLookup (adr+end, len-end, csLR))
 		{
-		 !if (adr->end-1=='t') print "ti";   
+		    ! TESTI TESTI!!!!
+		    !if (adr->end-1=='t') print "ti";
+   		    ! kokeillaan av 'hobit' 'ti'
+		    ! haetaan sanak nominin vika kirjain 't'
 		 print end;   
-		    if ((adr->(end-1)) == 'i');
-    		    print "* i *";
+		    if ((adr->(end-2) == 't'))
+		    {
+			! 
+			print "#t";
+			! id 'ti' tulee sanak mutta se ei ole nomini vaan id
+		    	print "#", (address) obj.&av-->id, "^";
+		    }   
+		    
 		    
 		    
 		    !print ".", adr+end,".";		    
