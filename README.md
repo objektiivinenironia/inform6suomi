@@ -16,7 +16,7 @@ Tarvitset myös kirjaston Inform 6/11, kääntäjän ja tulkkiohjelman.
 
 <http://www.ifarchive.org/indexes/if-archiveXinfocomXcompilersXinform6Xexecutables.html>
 
-Kääntämisen pitäisi onnistua komentorivillä kun lisäät lähteet polut riville, esimerkiksi: 
+Kääntämisen pitäisi onnistua komentorivillä kun lisäät lähdetiedoston ja hakemistojen polut riville, esimerkiksi: 
 
 ```  
   inform6 [lelukauppa.inf] [valitsimet] +include_path=[tämä hakemisto], [inform_library611]
