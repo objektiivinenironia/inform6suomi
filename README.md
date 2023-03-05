@@ -19,7 +19,7 @@ Tarvitset myös kirjaston Inform 6/11, kääntäjän ja tulkkiohjelman.
 Kääntämisen pitäisi onnistua komentorivillä kun lisäät lähteet polut riville, esimerkiksi: 
 
 ```  
-  inform6 [lähdetiedosto] [valitsimet] +include_path=[fi], [inform_library611]
+  inform6 [lelukauppa.inf] [valitsimet] +include_path=[tämä hakemisto], [inform_library611]
 ```
 
 Lähdetiedostoissa käytetään oletuksena merkistöä ISO-8859. Kääntäjässä on versiosta 6.33 lähtien valitsin -Cu joka hyväksyy UTF-8:n. Jos haluaa käyttää lähdetiedostossa merkistöä UTF-8, täytyy myös kielimäärittelyjen merkistö muuntaa. 
