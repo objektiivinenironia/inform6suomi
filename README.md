@@ -1,7 +1,9 @@
-# Inform 6 kielimäärittelyjä ja esimerkkipelit
-Finnish definitions for Inform 6 and example games
+# Inform 6 kielimäärittelyt
+Finnish definitions for Inform 6
+---
 
-Kielimäärittelyt ja esimerkkipelit alikansioissa [/fi] ja [/esim].
+Esimerkkipelit löytyvät täältä:
+<https://github.com/objektiivinenironia/i6-esimerkit>
 
 Tarvitset myös kirjaston Inform 6/11, kääntäjän ja tulkkiohjelman.
 
