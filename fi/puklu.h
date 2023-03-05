@@ -9,6 +9,8 @@ Array  Tbuffer -> 3+Tlimit;
 Array  Tparse  -> 6;
 
 ! n‰it‰ ei aina tarvita
+! mit‰ n‰ist‰ ei tarvita ollenkaan?
+! poista
 Property taipumaton;
 Property vahva_a;
 Property heikko_a;
@@ -27,9 +29,8 @@ Property av; ! astevaihtelu
 
 ! Globaalit
 ! ---------
-! Globaaleja  muuttujia on aika monta, ja niiden toiminta meinaa j‰‰d‰
-! h‰m‰r‰n peittoon!
-! 
+! Ao. globaalit saattavat olla tekem‰ss‰ samaa asiaa
+
 ! LanguageRefers
 Global csLR = 0;
 
